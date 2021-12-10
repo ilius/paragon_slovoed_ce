@@ -1,6 +1,6 @@
 ﻿#include "SldHistory.h"
 
-/// Конструктор
+// Constructor
 CSldHistoryElement::CSldHistoryElement()
 {
 	sldMemZero(this, sizeof(CSldHistoryElement));
@@ -13,7 +13,7 @@ CSldHistoryElement::CSldHistoryElement()
 	m_HistorySignature = HISTORY_ELEMENT_SIGNATURE;
 }
 
-/// move конструктор
+// move конструктор
 CSldHistoryElement::CSldHistoryElement(CSldHistoryElement&& aRef)
 {
 	// this is pretty ugly but oh well
@@ -45,7 +45,7 @@ void CSldHistoryElement::ReleaseElement()
 		sldMemFree(m_UserData);
 }
 
-/// Оператор присваивания
+// Оператор присваивания
 CSldHistoryElement& CSldHistoryElement::operator=(const CSldHistoryElement & aRef)
 {
 	ReleaseElement();
@@ -70,7 +70,7 @@ CSldHistoryElement& CSldHistoryElement::operator=(const CSldHistoryElement & aRe
 	return *this;
 }
 
-/// Оператор присваивания из rvalue
+// Оператор присваивания из rvalue
 CSldHistoryElement& CSldHistoryElement::operator=(CSldHistoryElement&& aRef)
 {
 	// this is pretty ugly but oh well
@@ -84,12 +84,12 @@ CSldHistoryElement& CSldHistoryElement::operator=(CSldHistoryElement&& aRef)
 * Возвращает бинарное представление текущего элемента.
 *
 * ВНИМАНИЕ! Память для aData выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[out]	aData		- указатель, по которому будет записан бинарный массив данных
 * @param[out]	aDataSize	- указатель, по которому будет записан размер массива aData
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldHistoryElement::GetBinaryData(Int8** aData, UInt32* aDataSize) const
 {
@@ -118,7 +118,7 @@ ESldError CSldHistoryElement::GetBinaryData(Int8** aData, UInt32* aDataSize) con
 
 	sldMemMove(*aData, this, historyElementSize);
 
-	/// что бы в бинарные данные не попадал всякий мусор - зануляем указатели
+	// что бы в бинарные данные не попадал всякий мусор - зануляем указатели
 	CSldHistoryElement* currentElement = (CSldHistoryElement*)*aData;
 	currentElement->m_Words = 0;
 	currentElement->m_VariantType = 0;
@@ -153,7 +153,7 @@ ESldError CSldHistoryElement::GetBinaryData(Int8** aData, UInt32* aDataSize) con
 * @param[in]	aData		- указатель на массив бинарных данных
 * @param[in]	aDataSize	- размер массива aData
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldHistoryElement::LoadElement(const Int8* aData, const UInt32 aDataSize)
 {
@@ -229,7 +229,7 @@ ESldError CSldHistoryElement::LoadElement(const Int8* aData, const UInt32 aDataS
 * @param[in]	aVariantIndex	- индекс устанавливаемого варианта написания
 * @param[in]	aVariantType	- тип устанавливаемого варианта написания
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldHistoryElement::SetVariantType(UInt32 aVariantIndex, EListVariantTypeEnum aVariantType)
 {
@@ -255,7 +255,7 @@ ESldError CSldHistoryElement::SetVariantType(UInt32 aVariantIndex, EListVariantT
 * @param[in]	aVariantIndex	- индекс запрашиваемого варианта написания
 * @param[out]	aVariantType	- указатель, по которому будет записан запрашиваемый вариант написания
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldHistoryElement::GetVariantType(UInt32 aVariantIndex, EListVariantTypeEnum* aVariantType) const
 {
@@ -278,7 +278,7 @@ ESldError CSldHistoryElement::GetVariantType(UInt32 aVariantIndex, EListVariantT
 * @param[in]	aVariantIndex	- индекс варианта написания устанавливаемого слова
 * @param[in]	aWord			- устанавливаемое слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldHistoryElement::SetCurrentWord(UInt32 aVariantIndex, UInt16* aWord)
 {
@@ -316,7 +316,7 @@ ESldError CSldHistoryElement::SetCurrentWord(UInt32 aVariantIndex, UInt16* aWord
 * @param[in]	aVariantIndex	- индекс варианта написания запрашиваемого слова
 * @param[out]	aWord			- указатель, по которому будет записано запрашиваемое слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldHistoryElement::GetCurrentWord(UInt32 aVariantIndex, UInt16** aWord) const
 {
@@ -337,7 +337,7 @@ ESldError CSldHistoryElement::GetCurrentWord(UInt32 aVariantIndex, UInt16** aWor
 *
 * @param[out]	aWord	- указатель, по которому будет записан show-вариант
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldHistoryElement::GetShowVariant(UInt16** aWord) const
 {
@@ -404,7 +404,7 @@ void CSldHistoryElement::SetTime(UInt32 aHour, UInt32 aMinute, UInt32 aSecond)
 * @param[out]	aMonth	- указатель, по которому будет записан месяц
 * @param[out]	aYear	- указатель, по которому будет записан год
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError	CSldHistoryElement::GetDate(UInt32* aDay, UInt32* aMonth, UInt32* aYear) const
 {
@@ -425,7 +425,7 @@ ESldError	CSldHistoryElement::GetDate(UInt32* aDay, UInt32* aMonth, UInt32* aYea
 * @param[out]	aMinute	- указатель, по которому будет записан минута
 * @param[out]	aSecond	- указатель, по которому будет записан секунда
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError	CSldHistoryElement::GetTime(UInt32* aHour, UInt32* aMinute, UInt32* aSecond) const
 {
@@ -445,7 +445,7 @@ ESldError	CSldHistoryElement::GetTime(UInt32* aHour, UInt32* aMinute, UInt32* aS
 * @param[in]	aDate	- 4-байтовое представление даты вида год/месяц/день
 *						  Например: 20140312 - 2014/03/12
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError	CSldHistoryElement::GetDate(UInt32* aDate) const
 {
@@ -462,7 +462,7 @@ ESldError	CSldHistoryElement::GetDate(UInt32* aDate) const
 * @param[in]	aTime	- 4-байтовое представление времени вида час/минута/секунда
 *						  Например: 145540 - 14:55:40
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError	CSldHistoryElement::GetTime(UInt32* aTime) const
 {
@@ -479,7 +479,7 @@ ESldError	CSldHistoryElement::GetTime(UInt32* aTime) const
 * @param[in]	aUserData	- указатель, на бинарный массив пользовательских данных
 * @param[in]	aDataSize	- размер массива пользовательских данных
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError	CSldHistoryElement::SetUserData(const Int8* aUserData, UInt32 aDataSize)
 {
@@ -528,7 +528,7 @@ UInt32	CSldHistoryElement::GetUserData(Int8** aUserData) const
 * @param[in]	aData		- указатель на массив бинарных данных
 * @param[in]	aDataSize	- размер массива aData
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldHistoryElement::ResolveElement(const Int8* aData, const UInt32 aDataSize, UInt32& aOldHistoryElementSize)
 {

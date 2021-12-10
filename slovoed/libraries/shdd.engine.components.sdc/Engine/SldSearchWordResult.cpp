@@ -117,12 +117,12 @@ CSldSearchWordResult::CSldSearchWordResult()
 {}
 
 /***********************************************************************
-* Инициализация
+* Initialization
 *
 * @param aList			- указатель на массив списков слов словаря
 * @param aListCount		- количество списков слов в массиве
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSearchWordResult::Init(ISldList** aList, Int32 aListCount)
 {
@@ -171,7 +171,7 @@ bool CSldSearchWordResult::IsInit() const
 	return m_DataBuf.size() && m_Lists.size();
 }
 
-/// Очищает все результаты поиска
+// Очищает все результаты поиска
 void CSldSearchWordResult::Clear()
 {
 	m_WordCount = 0;
@@ -187,7 +187,7 @@ void CSldSearchWordResult::Clear()
 * @param aTranslationIndex	- номер перевода
 * @param aShiftIndex		- смещение
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSearchWordResult::AddWord(Int32 aListIndex, Int32 aWordIndex, Int32 aTranslationIndex, Int32 aShiftIndex)
 {
@@ -234,7 +234,7 @@ bool CSldSearchWordResult::IsWordPresent(Int32 aListIndex, Int32 aWordIndex) con
 	return isWordPresent(m_Lists[aListIndex].data, aWordIndex);
 }
 
-/// Возвращает количество слов в наборе
+// Возвращает количество слов в наборе
 Int32 CSldSearchWordResult::GetWordCount()
 {
 	if (m_staleWordCount)
@@ -268,7 +268,7 @@ Int32 CSldSearchWordResult::FillWordVector(sld2::Span<TSldSearchWordStruct> aWor
 *
 * @param aSearchResults	- указатель на другой экземпляр класса с резульататами поиска.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSearchWordResult::ResultsAND(const CSldSearchWordResult *aSearchResults)
 {
@@ -294,7 +294,7 @@ ESldError CSldSearchWordResult::ResultsAND(const CSldSearchWordResult *aSearchRe
 *
 * @param aSearchResults	- указатель на другой экземпляр класса с резульататами поиска.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSearchWordResult::ResultsOR(const CSldSearchWordResult *aSearchResults)
 {
@@ -315,7 +315,7 @@ ESldError CSldSearchWordResult::ResultsOR(const CSldSearchWordResult *aSearchRes
 	return eOK;
 }
 
-/// Применяет к результатам поиска операцию отрицания
+// Применяет к результатам поиска операцию отрицания
 void CSldSearchWordResult::ResultsNOT()
 {
 	for (UInt32 i = 0; i < m_Lists.size(); i++)
@@ -327,7 +327,7 @@ void CSldSearchWordResult::ResultsNOT()
 	m_staleWordCount = true;
 }
 
-/// Пересчитывает количество уникальных слов
+// Пересчитывает количество уникальных слов
 void CSldSearchWordResult::ReCountWords(void)
 {
 	m_WordCount = 0;
@@ -343,12 +343,12 @@ CSldSimpleSearchWordResult::CSldSimpleSearchWordResult()
 {}
 
 /***********************************************************************
-* Инициализация
+* Initialization
 *
 * @param aList			- указатель на обычный список слов
 * @param aRealListIndex	- настоящий номер списка слов в словаре
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSearchWordResult::Init(Int32 aMaximumNumberOfWords, Int32 aRealListIndex)
 {
@@ -371,7 +371,7 @@ bool CSldSimpleSearchWordResult::IsInit() const
 	return !m_Data.empty();
 }
 
-/// Очищает все результаты поиска
+// Очищает все результаты поиска
 void CSldSimpleSearchWordResult::Clear()
 {
 	m_WordCount = 0;
@@ -385,7 +385,7 @@ void CSldSimpleSearchWordResult::Clear()
 *
 * @param aWordIndex	- номер слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSearchWordResult::AddWord(Int32 aWordIndex)
 {
@@ -408,7 +408,7 @@ bool CSldSimpleSearchWordResult::IsWordPresent(Int32 aWordIndex) const
 	return isWordPresent(m_Data.data(), aWordIndex);
 }
 
-/// Возвращает количество слов в наборе
+// Возвращает количество слов в наборе
 Int32 CSldSimpleSearchWordResult::GetWordCount()
 {
 	if (m_staleWordCount)
@@ -439,7 +439,7 @@ Int32 CSldSimpleSearchWordResult::FillWordVector(sld2::Span<TSldSearchWordStruct
 *
 * @param aSearchResult	- указатель на другой экземпляр класса с резульататами поиска.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSearchWordResult::ResultsAND(const CSldSimpleSearchWordResult* aSearchResult)
 {
@@ -457,7 +457,7 @@ ESldError CSldSimpleSearchWordResult::ResultsAND(const CSldSimpleSearchWordResul
 *
 * @param aSearchResult	- указатель на другой экземпляр класса с резульататами поиска.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSearchWordResult::ResultsOR(const CSldSimpleSearchWordResult* aSearchResult)
 {
@@ -470,7 +470,7 @@ ESldError CSldSimpleSearchWordResult::ResultsOR(const CSldSimpleSearchWordResult
 	return error;
 }
 
-/// Применяет к результатам поиска операцию отрицания
+// Применяет к результатам поиска операцию отрицания
 void CSldSimpleSearchWordResult::ResultsNOT()
 {
 	resultsNOT(m_Data);

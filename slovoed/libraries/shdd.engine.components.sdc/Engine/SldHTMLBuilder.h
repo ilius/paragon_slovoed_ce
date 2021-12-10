@@ -546,10 +546,10 @@ public:
 	// returns the default js functions used to activate disabled ancestor switches
 	static SldU16StringRef GetSwitchUncoverScript();
 
-	/// Возвращает строку с двухсимвольным ISO-кодом языка по Sld-коду
+	// Возвращает строку с двухсимвольным ISO-кодом языка по Sld-коду
 	static SldU16StringRef GetISOLanguageCode(const ESldLanguage aSldLangCode);
 
-	/// Возвращает Sld-код языка по строке с ISO-кодом языка
+	// Возвращает Sld-код языка по строке с ISO-кодом языка
 	static ESldLanguage GetLanguageCodeByISO(SldU16StringRef aISOCode);
 
 protected:

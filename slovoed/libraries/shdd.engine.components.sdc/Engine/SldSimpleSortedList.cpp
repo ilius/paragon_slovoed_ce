@@ -6,7 +6,7 @@
 * @param[in]	aSortedListPtr	- указатель на сортированный список слов
 * @param[in]	aWordCount		- количество слов в несортированном списке
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::Init(ISldList* aSortedListPtr, Int32 aWordCount)
 {
@@ -73,7 +73,7 @@ void CSldSimpleSortedList::Clear(void)
 * @param[out]	aSortedIndex	- указатель, по которому будет записан
 *								  индекс слова для несортированного списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::GetSortedIndexByText(const UInt16* aText, Int32* aSortedIndex)
 {
@@ -101,7 +101,7 @@ ESldError CSldSimpleSortedList::GetSortedIndexByText(const UInt16* aText, Int32*
 * @param[out]	aSortedIndex	- указатель, по которому будет записан
 *								  индекс слова для несортированного списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::GetSortedIndexByIndex(const Int32 aIndex, Int32* aSortedIndex)
 {
@@ -125,7 +125,7 @@ ESldError CSldSimpleSortedList::GetSortedIndexByIndex(const Int32 aIndex, Int32*
 * @param[out]	aSortedIndex	- указатель, по которому будет записан
 *								  индекс слова для несортированного списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::GetNextWordSortedIndex(Int32* aSortedIndex)
 {
@@ -149,7 +149,7 @@ ESldError CSldSimpleSortedList::GetNextWordSortedIndex(Int32* aSortedIndex)
 * @param[out]	aSortedIndex	- указатель, по которому будет записан
 *								  индекс слова для несортированного списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::GetCurrentSortedIndex(Int32* aSortedIndex) const
 {
@@ -177,7 +177,7 @@ Int8 CSldSimpleSortedList::HasSortedList() const
 /** *********************************************************************
 * Синхронизирует список в соответсвии с текущим словом
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::UpdateSortedIndex()
 {
@@ -233,7 +233,7 @@ ESldError CSldSimpleSortedList::UpdateSortedIndex()
 *
 * @param[out]	aIndex	- указатель, по которому будет записан текущий индекс
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::GetCurrentIndex(Int32* aIndex) const
 {
@@ -248,7 +248,7 @@ ESldError CSldSimpleSortedList::GetCurrentIndex(Int32* aIndex) const
 *
 * @param[out]	aWord	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::GetCurrentWord(UInt16** aWord) const
 {
@@ -267,7 +267,7 @@ ESldError CSldSimpleSortedList::GetCurrentWord(UInt16** aWord) const
 * @param[out]	aNumberOfQAItems - указатель на переменную, в которую нужно будет
 *								   поместить количество записей в таблице быстрого доступа.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::QAGetNumberOfQAItems(Int32 *aNumberOfQAItems)
 {
@@ -280,7 +280,7 @@ ESldError CSldSimpleSortedList::QAGetNumberOfQAItems(Int32 *aNumberOfQAItems)
 * @param[in]	aIndex	- номер элемента в таблице быстрого доступа
 * @param[out]	aQAText	- указатель на буфер для текста элемента таблицы быстрого доступа
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::QAGetItemText(Int32 aIndex, const UInt16 **aQAText)
 {
@@ -293,7 +293,7 @@ ESldError CSldSimpleSortedList::QAGetItemText(Int32 aIndex, const UInt16 **aQATe
 * @param[in]	aIndex		- номер элемента в таблице быстрого доступа
 * @param[out]	aQAIndex	- указатель на буфер, куда сохраняется результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::QAGetItemIndex(Int32 aIndex, Int32 *aQAIndex)
 {
@@ -305,7 +305,7 @@ ESldError CSldSimpleSortedList::QAGetItemIndex(Int32 aIndex, Int32 *aQAIndex)
 *
 * @param[in]	aIndex	- номер элемента в таблице быстрого доступа по которому нужно произвести переход.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::JumpByQAIndex(Int32 aIndex)
 {
@@ -319,7 +319,7 @@ ESldError CSldSimpleSortedList::JumpByQAIndex(Int32 aIndex)
 /** *********************************************************************
 * Возвращает флаг, определяющий реальное это слово или виртуальное
 *
-* @return результат выполнения функции: 1 - текущее слово реальное
+* @return the result of executing the function: 1 - текущее слово реальное
 *										-1 - текущее слово виртуальное
 ************************************************************************/
 Int8 CSldSimpleSortedList::IsNormalWord()
@@ -330,7 +330,7 @@ Int8 CSldSimpleSortedList::IsNormalWord()
 /** *********************************************************************
 * Ищет точное вхождение слова в Show-вариантах и альтернативных заголовках
 *
-* @param[in]	aText		- искомое слово
+* @param[in]	aText		- search word
 * @param[out]	aResult		- сюда сохраняется флаг результата:
 *							  0 - точное совпадение не найдено
 *							  1 - точное совпадение найдено
@@ -338,7 +338,7 @@ Int8 CSldSimpleSortedList::IsNormalWord()
 *							  Если в списке нет совпадающих по массе show-вариантов, а альтернативный заголовок
 *							  по массе совпал, так же вернется это значение
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSimpleSortedList::FindBinaryMatch(const UInt16* aText, UInt32* aResult)
 {

@@ -13,7 +13,7 @@ struct TSldCSSPropertyBlock;
 class CSldDictionary;
 class CSldStringStore;
 
-/// Структура - резолвер ссылок на внутренние ресурсы
+// Структура - резолвер ссылок на внутренние ресурсы
 class CSldCSSUrlResolver
 {
 public:
@@ -53,7 +53,7 @@ public:
 	 *  @param [in] aString    - указатель куда будет записана строка параметров
 	 *  @param [in] aResolver  - указатель на объект "резолвящий" ссылки на внутренние ресурсы в url'ы
 	 *
-	 *  @return код ошибки
+	 *  @return error code
 	 *  ВАЖНО:
 	 *   необходимо проверять длину полученой строки
 	 *   функция может вернуть eOK и при этом выдать пустую строку, это "нормально"

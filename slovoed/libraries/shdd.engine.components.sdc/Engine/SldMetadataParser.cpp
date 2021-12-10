@@ -215,7 +215,7 @@ static UInt16* allocate(CSldMetadataParser::TStrings &strings, UInt32 aLen, TMet
 
 } // namespace
 
-/// Инициализация
+// Initialization
 CSldMetadataParser::CSldMetadataParser(CSldDictionary *aDict, CSldCSSUrlResolver *aResolver, UInt16 *aMem, UInt16 aMemSize)
 	: m_dictionary(aDict), m_metadataManager(aDict ? aDict->GetMetadataManager() : nullptr), m_resolver(aResolver),
 	  m_mergeInfo(aDict ? aDict->GetMergeInfo() : nullptr),
@@ -224,7 +224,7 @@ CSldMetadataParser::CSldMetadataParser(CSldDictionary *aDict, CSldCSSUrlResolver
 	init(m_strings, aMem, aMemSize);
 }
 
-/// Деструктор
+// Destructor
 CSldMetadataParser::~CSldMetadataParser()
 {
 	if (m_strings.owned && m_strings.data)
@@ -474,7 +474,7 @@ static ESldError parse(CSldMetadataParser *parser, SldU16StringRef aStr, T *aMet
 
 }
 
-/// Парсит ссылку на внешнюю SDC базу
+// Парсит ссылку на внешнюю SDC базу
 static ESldError ParseExtKey(ParseContext *ctx,
                              const UInt16 *aName, const UInt16 *aVal, TMetadataExtKey *aExtKey,
                              const UInt16 *const aDictIdName = U16("dictid"),
@@ -1695,7 +1695,7 @@ ESldError CSldMetadataParser::GetVariantStylePreferences(const UInt16* aStr, Int
 * @param[out]	aImageItem			- сюда будет сохранена информация о картинке предпросмотра
 * @param[out]	aFullImageItem		- сюда будет сохранена информация о полноразмерной картинке
 
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetImageMetadata(const CSldMetadataProxy<eMetaImage> &aMetadata, CSldImageItem* aImageItem, CSldImageItem* aFullImageItem)
 {
@@ -1733,7 +1733,7 @@ ESldError CSldMetadataParser::GetImageMetadata(const CSldMetadataProxy<eMetaImag
 * @param[in]	aStr				- входная строка параметров
 * @param[out]	aMetadata			- сюда сохраняются параметры картинки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataImage *aMetadata)
 {
@@ -1746,7 +1746,7 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataImage *
 * @param[in]	aStr				- входная строка параметров
 * @param[out]	aImageAreaItem		- сюда будет сохранена информация о зоне выделения
 
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataImageArea *aMetadata)
 {
@@ -1759,7 +1759,7 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataImageAr
 * @param[in]	aMetadata			- ссылка на параметры метаданных
 * @param[out]	aImageAreaItem		- сюда будет сохранена информация о зоне выделения
 
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetImageAreaMetadata(const CSldMetadataProxy<eMetaImageArea> &aMetadata, CSldImageAreaItem* aImageAreaItem)
 {
@@ -1787,10 +1787,10 @@ ESldError CSldMetadataParser::GetImageAreaMetadata(const CSldMetadataProxy<eMeta
 /** *********************************************************************
 * Получает параметры всплывающей картинки
 *
-* @param[in]	aStr				- строка параметров
+* @param[in]	aStr				- parameter string
 * @param[out]	aMetadata			- сюда сохраняются параметры всплывающей картинки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataPopupImage *aMetadata)
 {
@@ -1803,7 +1803,7 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataPopupIm
 * @param[in]	aStr				- входная строка параметров
 * @param[out]	aMetadata			- сюда записываются параметры ресурса видео
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr,TMetadataVideoSource *aMetadata)
 {
@@ -1816,7 +1816,7 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr,TMetadataVideoSou
 * @param[in]	aMetadata			- ссылка на параметры метаданных
 * @param[out]	aVideoType			- сюда сохраняется информация о типе видео
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetVideoSourceItemMetadata(const CSldMetadataProxy<eMetaVideoSource> &aMetadata, CSldVideoItem* aVideoItem)
 {
@@ -1842,10 +1842,10 @@ ESldError CSldMetadataParser::GetVideoSourceItemMetadata(const CSldMetadataProxy
 /** *********************************************************************
 * Получает параметры озвучки
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры озвучки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataSound *aMetadata)
 {
@@ -1855,10 +1855,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataSound *
 /************************************************************************
 * Получает параметры 3d сцены
 *
-* @param[in]	aStr					- строка параметров
+* @param[in]	aStr					- parameter string
 * @param[out]	aMetadata				- сюда сохраняется параметры 3d сцены
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataScene3D *aMetadata)
 {
@@ -1868,10 +1868,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataScene3D
 /************************************************************************
 * Получает параметры слайдшоу
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются все необходимые данные по слайдшоу
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataSlideShow *aMetadata)
 {
@@ -1885,7 +1885,7 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataSlideSh
 * @param[out]	aSlideShowItem	- сюда сохраняются все необходимые данные по слайдшоу
 * @param[out]	aTimeStep		- сюда время отображения слайдов(ShowTime для автопоказа)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetSlideShowMetadata(const CSldMetadataProxy<eMetaSlideShow> &aMetadata, TSldSlideShowStruct* aSlideShowItem, UInt16* aTimeStep)
 {
@@ -1915,10 +1915,10 @@ ESldError CSldMetadataParser::GetSlideShowMetadata(const CSldMetadataProxy<eMeta
 /************************************************************************
 * Получает параметры медиаконтейнера
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- объект медиа контейнера
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataMediaContainer *aMetadata)
 {
@@ -1928,10 +1928,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataMediaCo
 /************************************************************************
 * Получает параметры о элементе блока с результатами тестов "Шарик"
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются параметры о элементе блока с результатами тестов "Шарик"
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestResultElement *aMetadata)
 {
@@ -1941,10 +1941,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestRes
 /************************************************************************
 * Получает параметры об области текста для тестов с выделением
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются параметры об области текста для тестов с выделением
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTextControl *aMetadata)
 {
@@ -1954,10 +1954,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTextCon
 /************************************************************************
 * Получает параметры об элементе блока "Дано/Найти/Решение"
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются параметры об элементе блока "Дано/Найти/Решение"
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTaskBlockEntry *aMetadata)
 {
@@ -1967,10 +1967,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTaskBlo
 /************************************************************************
 * Получает параметры элементарного объекта
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются параметры элементарного объекта
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataAtomicObject *aMetadata)
 {
@@ -1980,23 +1980,23 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataAtomicO
 /************************************************************************
 * Получает параметры подписи картинки
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются параметры подписи картинки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataCaption *aMetadata)
 {
 	return parse(this, aStr, aMetadata, handlers::Caption);
 }
 
-/// Получает параметры элемента географической карты
+// Получает параметры элемента географической карты
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataMapElement *aMetadata)
 {
 	return parse(this, aStr, aMetadata, handlers::MapElement);
 }
 
-/// Получает параметры географической карты
+// Получает параметры географической карты
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataMap *aMetadata)
 {
 	return parse(this, aStr, aMetadata, handlers::Map);
@@ -2005,10 +2005,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataMap *aM
 /** *********************************************************************
 * Получает параметры таблицы
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры таблицы
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr,TMetadataTable *aMetadata)
 {
@@ -2018,10 +2018,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr,TMetadataTable *a
 /** *********************************************************************
 * Получает параметры столбца таблицы
 *
-* @param[in]	aStr				- строка параметров
+* @param[in]	aStr				- parameter string
 * @param[out]	aMetadata			- сюда сохраняются параметры столбца таблицы
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr,TMetadataTableCell *aMetadata)
 {
@@ -2031,10 +2031,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr,TMetadataTableCel
 /** *********************************************************************
 * Получает параметры параграфа
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются параметры параграфа
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataParagraph *aMetadata)
 {
@@ -2058,10 +2058,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataParagra
 /** *********************************************************************
 * Получает параметры ссылки
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры ссылки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataLink *aMetadata)
 {
@@ -2071,10 +2071,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataLink *a
 /** *********************************************************************
 * Получает параметры формулы
 *
-* @param[in]	aStr		      - строка параметров
+* @param[in]	aStr		      - parameter string
 * @param[out]	aMetadata         - параметры формулы
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataFormula *aMetadata)
 {
@@ -2084,10 +2084,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataFormula
 /** *********************************************************************
 * Получает параметры контейнера абстрактных ресурсов
 *
-* @param[in]	aStr		      - строка параметров
+* @param[in]	aStr		      - parameter string
 * @param[out]	aMetadata	      - сюда сохранются параметры контейнера абстрактных ресурсов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataAbstractResource *aMetadata)
 {
@@ -2098,10 +2098,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataAbstrac
 /** *********************************************************************
 * Получает параметры ссылки для флеш карточки
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры ссылки для флеш карточки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataFlashCardsLink *aMetadata)
 {
@@ -2111,10 +2111,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataFlashCa
 /** *********************************************************************
 * Получает параметры внешней ссылки
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда копируются параметры внешней ссылки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataUrl *aMetadata)
 {
@@ -2124,10 +2124,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataUrl *aM
 /** *********************************************************************
 * Получает параметры метки
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	TMetadataLabel	- сюда сохраняются параметры метки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataLabel *aMetadata)
 {
@@ -2137,10 +2137,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataLabel *
 /** *********************************************************************
 * Получает параметры блока Hide
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры блока Hide
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataHide *aMetadata)
 {
@@ -2150,10 +2150,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataHide *a
 /** *********************************************************************
 * Получает параметры блока switch
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются параметры блока switch
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataSwitch *aMetadata)
 {
@@ -2163,10 +2163,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataSwitch 
 /** *********************************************************************
 * Получает параметры блока switch-control
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются параметры блока switch-control
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata( SldU16StringRef aStr, TMetadataSwitchControl *aMetadata)
 {
@@ -2176,10 +2176,10 @@ ESldError CSldMetadataParser::GetMetadata( SldU16StringRef aStr, TMetadataSwitch
 /** *********************************************************************
 * Получает параметры блока managed-switch
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata		- сюда сохраняем параметры блока managed-switch
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataManagedSwitch *aMetadata)
 {
@@ -2189,10 +2189,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataManaged
 /** *********************************************************************
 * Получает параметры блока TestContainer
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры блока TestContainer
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestContainer *aMetadata)
 {
@@ -2202,10 +2202,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestCon
 /** *********************************************************************
 * Получает параметры блока test
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры блока test
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTest *aMetadata)
 {
@@ -2217,10 +2217,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTest *a
 *
 * XXX: Распарсивание строки на вопросов на отдельные вопросы - на стороне оболочки (???)
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются параметры блока test_input
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestInput *aMetadata)
 {
@@ -2230,10 +2230,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestInp
 /** *********************************************************************
 * Получает параметры блока test_token
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры блока test_token
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestToken *aMetadata)
 {
@@ -2243,10 +2243,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestTok
 /** *********************************************************************
 * Получает параметры ответного блока теста на сопоставление
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняется параметры ответного блока теста на сопоставление
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestSpear *aMetadata)
 {
@@ -2256,10 +2256,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestSpe
 /** *********************************************************************
 * Получает параметры блока ожидающего ответ элемента теста на сопоставление
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры блока ожидающего ответ элемента теста на сопоставление
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestTarget *aMetadata)
 {
@@ -2269,10 +2269,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestTar
 /** *********************************************************************
 * Получает параметры блока ожидающего ответ элемента теста на сопоставление
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры блока ожидающего ответ элемента теста на сопоставление
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestControl *aMetadata)
 {
@@ -2282,10 +2282,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTestCon
 /** *********************************************************************
 * Получает параметры блока UI Element
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда записываются параметры блока UI Element
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataUiElement *aMetadata)
 {
@@ -2295,10 +2295,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataUiEleme
 /***********************************************************************
 * Получает параметры блока info_block
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры блока info_block
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataInfoBlock *aMetadata)
 {
@@ -2308,10 +2308,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataInfoBlo
 /***********************************************************************
 * Получает параметры всплывающей статьи
 *
-* @param[in]	aStr		- строка параметров
+* @param[in]	aStr		- parameter string
 * @param[out]	aMetadata	- сюда сохраняются параметры всплывающей статьи
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataPopupArticle *aMetadata)
 {
@@ -2324,7 +2324,7 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataPopupAr
 * @param[in]	aStr				- входная строка параметров
 * @param[out]	aMetadata			- сюда сохраняются параметры фоновой картинки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataBackgroundImage *aMetadata)
 {
@@ -2344,7 +2344,7 @@ static inline bool isSvgSpace(UInt16 chr)
 * @param[out]	aWidth		- сюда сохраняется ширина картинки
 * @param[out]	aHeight		- сюда сохраняется высота картинки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetSvgInfo(TImageElement* aImageElement, UInt32* aFormatType, TSizeValue *const aWidth, TSizeValue *const aHeight)
 {
@@ -2406,7 +2406,7 @@ ESldError CSldMetadataParser::GetSvgInfo(TImageElement* aImageElement, UInt32* a
 * @param[in]	aStr				- входная строка параметров
 * @param[out]	aMetadata			- сюда сохраняются параметры элемена легенды
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataLegendItem *aMetadata)
 {
@@ -2419,7 +2419,7 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataLegendI
 * @param[in]	aStr				- входная строка параметров
 * @param[out]	aMetadata			- сюда сохраняются параметры элемента кроссворда
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataCrosswordItem *aMetadata)
 {
@@ -2429,10 +2429,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataCrosswo
 /** *********************************************************************
 * Получает параметры внешней вставки
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняются параметры внешней вставки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataExternArticle *aMetadata)
 {
@@ -2442,10 +2442,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataExternA
 /** *********************************************************************
 * Получает параметры списка
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aType			- сюда сохраняем параметры списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataList *aMetadata)
 {
@@ -2455,10 +2455,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataList *a
 /** *********************************************************************
 * Получает параметры списка
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняем парметры "интерактивного объекта"
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataInteractiveObject *aMetadata)
 {
@@ -2468,10 +2468,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataInterac
 /** *********************************************************************
 * Получает параметры ленты времени
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata       - сюда сохраняем параметры ленты времени
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTimeLine *aMetadata)
 {
@@ -2481,10 +2481,10 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTimeLin
 /** *********************************************************************
 * Получает параметры элемента ленты времени
 *
-* @param[in]	aStr			- строка параметров
+* @param[in]	aStr			- parameter string
 * @param[out]	aMetadata		- сюда сохраняем параметры элемента ленты времени
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTimeLineItem *aMetadata)
 {
@@ -2499,7 +2499,7 @@ ESldError CSldMetadataParser::GetMetadata(SldU16StringRef aStr, TMetadataTimeLin
  * @param [in]  aResolver  - указатель на объект "резолвящий" ссылки на внутренние ресурсы в url'ы
  *                           может быть NULL если парсер был создан с резолвером
  *
- * @return код ошибки
+ * @return error code
  * ВАЖНО! необходимо проверять длину полученой строки
  *        функция может вернуть eOK и при этом выдать пустую строку, это "нормально"
  */

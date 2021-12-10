@@ -9,7 +9,7 @@
 * @param[in]	aIndexQAType		- тип ресурса с таблицей быстрого доступа к индексам
 * @param[in]	aIndexHeaderType	- тип ресурса с заголовком индексов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldIndexes::Init(CSDCReadMy &aData, UInt32 aIndexCountType, UInt32 aIndexDataType, UInt32 aIndexQAType, UInt32 aIndexHeaderType)
 {
@@ -69,7 +69,7 @@ ESldError CSldIndexes::Init(CSDCReadMy &aData, UInt32 aIndexCountType, UInt32 aI
 * @param[out]	aTranslationCount	- указатель на буфер, в который будет сохранено 
 *									  количество статей, на которые ссылается слово из списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldIndexes::GetNumberOfArticlesByIndex(Int32 aIndex, Int32 *aTranslationCount)
 {
@@ -189,7 +189,7 @@ ESldError CSldIndexes::GetNumberOfArticlesByIndex(Int32 aIndex, Int32 *aTranslat
 * @param[out]	aTranslationIndex		- указатель на переменную, куда будет сохранен номер перевода (в случае списка слов полнотекстового поиска)
 * @param[out]	aShiftIndex				- указатель на переменную, куда будет сохранено смещение (в случае списка слов полнотекстового поиска)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldIndexes::GetIndexData(Int32 aWordIndex, Int32 aWordTranslationIndex, Int32* aListIndex, Int32* aArticleIndex, Int32* aTranslationIndex, Int32* aShiftIndex)
 {

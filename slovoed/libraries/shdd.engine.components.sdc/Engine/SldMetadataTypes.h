@@ -325,25 +325,25 @@ DEFINE_TRAITS(TMetadataImage)
 
 struct TMetadataImageArea
 {
-	/// Тип события, ассоциированного с областью (см. ESldImageAreaType)
+	// Тип события, ассоциированного с областью (см. ESldImageAreaType)
 	UInt16 Type;
-	/// В процентах ли размеры
+	// В процентах ли размеры
 	UInt16 Percent;
-	/// Идентификатор области
+	// Идентификатор области
 	TMetadataString Id;
-	/// X-координата области (ее левой границы)
+	// X-координата области (ее левой границы)
 	UInt32 Left;
-	/// Y-координата области (ее левой границы)
+	// Y-координата области (ее левой границы)
 	UInt32 Top;
-	/// Ширина области (в пикселях)
+	// Ширина области (в пикселях)
 	UInt32 Width;
-	/// Высота области (в пикселях)
+	// Высота области (в пикселях)
 	UInt32 Height;
-	/// Индекс маски
+	// Индекс маски
 	UInt32 Mask;
-	/// Строка-сценарий, необходимая для обработки события, ассоциированного с областью
+	// Строка-сценарий, необходимая для обработки события, ассоциированного с областью
 	TMetadataString ActionScript;
-	/// Строка координат, необходимаая для задания области произвольной формы
+	// Строка координат, необходимаая для задания области произвольной формы
 	TMetadataString Coords;
 
 	TMetadataImageArea() :
@@ -523,78 +523,78 @@ DEFINE_TRAITS(TMetadataMapElement)
 
 struct TMetadataMediaContainer
 {
-	/// тип содержимого (см. #ESldMediaType)
+	// тип содержимого (см. #ESldMediaType)
 	UInt16	Type;
-	/// способ тайлинга для фонового изображения (см. #ESldTiling)
+	// способ тайлинга для фонового изображения (см. #ESldTiling)
 	UInt16	Tiling;
-	/// способ обтекания контейнера (см. #ESldFlow)
+	// способ обтекания контейнера (см. #ESldFlow)
 	UInt16	Flow;
-	/// тип вертикального выравнивания (см. #ESldAlignVertical)
+	// тип вертикального выравнивания (см. #ESldAlignVertical)
 	UInt16	AlignVertical;
-	/// тип горизонтального выравнивания (см. #ESldAlignHorizont)
+	// тип горизонтального выравнивания (см. #ESldAlignHorizont)
 	UInt16	AlignHorizont;
-	/// Тип применяемого градиента, значение енума #ESldGradient
+	// Тип применяемого градиента, значение енума #ESldGradient
 	UInt16	Gradient;
-	/// Тип теней, значение енума #ESldShadowType
+	// Тип теней, значение енума #ESldShadowType
 	UInt16	Shadow;
-	/// расположение overlay, значение перечисления #ESldPlace
+	// расположение overlay, значение перечисления #ESldPlace
 	UInt16	OverlayPos;
-	/// Стиль границы (см. #EBorderStyle)
+	// Стиль границы (см. #EBorderStyle)
 	UInt16 BorderStyle;
-	/// Способ выравнивания объекта (см. #ESldDisplay)
+	// Способ выравнивания объекта (см. #ESldDisplay)
 	UInt16 Display;
-	/// Способ отображения объекта (см. #ESldFloat)
+	// Способ отображения объекта (см. #ESldFloat)
 	UInt16 Float;
-	/// Способ отмены обтекания объекта (см. #ESldClearType)
+	// Способ отмены обтекания объекта (см. #ESldClearType)
 	UInt16 ClearType;
-	/// Выравнивание картинок в тексте
+	// Выравнивание картинок в тексте
 	UInt16 Baseline;
 
-	/// флаг возможно ли развернуть содержимое на всю ширину
+	// флаг возможно ли развернуть содержимое на всю ширину
 	UInt8 Expansion;
-	/// флаг зуммируемости
+	// флаг зуммируемости
 	UInt8 ZoomToFull;
-	/// флаг интерактивности
+	// флаг интерактивности
 	UInt8 Interactivity;
 	// explicitly pad to the next uint32
 	UInt8  _pad0;
 	UInt16 _pad1;
 
-	/// цвет фона RGBA по 8 бит на канал
+	// цвет фона RGBA по 8 бит на канал
 	UInt32	Colour;
-	/// индекс картинки для фона
+	// индекс картинки для фона
 	UInt32	Background;
-	/// ширина контейнера
+	// ширина контейнера
 	TSizeValue Width;
-	/// высота контейнера
+	// высота контейнера
 	TSizeValue Height;
-	/// внешний отступ сверху
+	// внешний отступ сверху
 	TSizeValue	MarginTop;
-	/// внешний отступ справа
+	// внешний отступ справа
 	TSizeValue	MarginRight;
-	/// внешний отступ снизу
+	// внешний отступ снизу
 	TSizeValue	MarginBottom;
-	/// внешний отступ слева
+	// внешний отступ слева
 	TSizeValue	MarginLeft;
-	/// внутренний отступ сверху
+	// внутренний отступ сверху
 	TSizeValue	PaddingTop;
-	/// внутренний отступ справа
+	// внутренний отступ справа
 	TSizeValue	PaddingRight;
-	/// внутренний отступ снизу
+	// внутренний отступ снизу
 	TSizeValue	PaddingBottom;
-	/// внутренний отступ слева
+	// внутренний отступ слева
 	TSizeValue	PaddingLeft;
-	/// Начальный цвет при использовании градиента
+	// Начальный цвет при использовании градиента
 	UInt32	ColourBegin;
-	/// Конечный цвет при использовании градиента
+	// Конечный цвет при использовании градиента
 	UInt32	ColourEnd;
-	/// Индекс картинки overlay
+	// Индекс картинки overlay
 	UInt32	OverlaySrc;
-	/// Размер границы
+	// Размер границы
 	TSizeValue BorderSize;
-	/// Цвет границы
+	// Цвет границы
 	UInt32 BorderColor;
-	/// Отступ первого параграфа (CSS text-indent)
+	// Отступ первого параграфа (CSS text-indent)
 	TSizeValue TextIndent;
 
 	TMetadataMediaContainer()
@@ -749,25 +749,25 @@ DEFINE_TRAITS(TMetadataManagedSwitch)
 
 struct TMetadataSlideShow
 {
-	/// Индекс глобальной озвучки
+	// Индекс глобальной озвучки
 	UInt32 Sound;
-	/// Время показа одного кадра
+	// Время показа одного кадра
 	UInt32 Time;
-	/// Cпособ обтекания слайдшоу текстом (см. #ESldFlow)
+	// Cпособ обтекания слайдшоу текстом (см. #ESldFlow)
 	UInt16 Flow;
-	/// Cпособ расположения слайдшоу на странице (см. #ESldPlace)
+	// Cпособ расположения слайдшоу на странице (см. #ESldPlace)
 	UInt16 Place;
-	/// Эффект переключения между кадрами (см. #ESldMoveEffect)
+	// Эффект переключения между кадрами (см. #ESldMoveEffect)
 	UInt16 MoveEffect;
-	/// Эффект отображения слайдшоу на странице (см. #ESldShowEffect)
+	// Эффект отображения слайдшоу на странице (см. #ESldShowEffect)
 	UInt16 ShowEffect;
-	/// Индекс списка слов
+	// Индекс списка слов
 	UInt32 ListIndex;
-	/// Индекс слова в списке слов, которое отвечает за слайдшоу
+	// Индекс слова в списке слов, которое отвечает за слайдшоу
 	UInt32 WordIndex;
-	/// ширина контейнера
+	// ширина контейнера
 	TSizeValue Width;
-	/// высота контейнера
+	// высота контейнера
 	TSizeValue Height;
 	// время отображения слайдов(ShowTime для автопоказа)
 	TMetadataString TimeStep;
@@ -1184,13 +1184,13 @@ DEFINE_TRAITS(TMetadataUrl)
 
 struct TMetadataVideoSource
 {
-	/// Идентификатор видео
+	// Идентификатор видео
 	Int32 Id;
 	// ссылка на внешнюю sdc базу
 	TMetadataExtKey ExtKey;
-	/// Размер видеоконтента
+	// Размер видеоконтента
 	Int32 Resolution;
-	/// Тип кодека видеоконтента (см. #ESldVideoType)
+	// Тип кодека видеоконтента (см. #ESldVideoType)
 	UInt16 Codec;
 	// explicitly pad to the next uint32
 	UInt16 _pad0;

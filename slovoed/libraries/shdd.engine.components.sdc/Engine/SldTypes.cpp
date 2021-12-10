@@ -51,7 +51,7 @@ ESldError TCatalogPath::BaseListStruct::reallocate(UInt32 newSize)
  *
  * @param[in]  aPath - ссылка на путь в который будет произведено копирование
  *
- * @return код ошибки
+ * @return error code
  ************************************************************************/
 ESldError TCatalogPath::CopyTo(TCatalogPath &aPath) const
 {
@@ -94,7 +94,7 @@ static const UInt16* suffix(EMetadataUnitType aUnits)
  *
  * @param[in]  aStr - указатель на строку куда будет записано строковое представление размера
  *
- * @return код ошибки
+ * @return error code
  ************************************************************************/
 ESldError TSizeValue::ToString(UInt16 *aStr) const
 {

@@ -14,7 +14,7 @@ enum : Int32
 * @param aListIndex		- номер списка слов в словаре, в котором предполагаем осуществлять поиск
 * @param aExpressionBox	- указатель, по которому будет записан разобранный запрос
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError PrepareQueryForWildCardSearch(const UInt16* aText, CSldDictionary* aDict, Int32 aListIndex, TExpressionBox* aExpressionBox)
 {
@@ -331,7 +331,7 @@ ESldError PrepareQueryForWildCardSearch(const UInt16* aText, CSldDictionary* aDi
 *						  может быть NULL, тогда морфология использоваться не будет
 * @param aExpressionBox	- указатель, по которому будет записан разобранный запрос
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError PrepareQueryForWildCardSearch(const UInt16* aText, CSldDictionary* aDict, Int32 aListIndex, MorphoDataType* aMorpho, TExpressionBox* aExpressionBox)
 {
@@ -812,7 +812,7 @@ ESldError  PrepareQueryForFullTextSearch(const UInt16 *aText, CSldDictionary *aD
 *						  может быть NULL, тогда морфология использоваться не будет
 * @param aResultQuery	- строка с созданным запросом.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError PrepareQueryForFullTextSearch(const UInt16* aText, CSldDictionary* aDict, Int32 aListIndex, MorphoDataType* aMorpho, SldU16String& aResultQuery, SldU16WordsArray * aMorphoForms)
 {
@@ -997,7 +997,7 @@ ESldError PrepareQueryForFullTextSearch(const UInt16* aText, CSldDictionary* aDi
 *						  может быть NULL, тогда морфология использоваться не будет
 * @param aResultQuery	- строка с созданным запросом.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError PrepareQueryForFullTextSearch(const UInt16* aText, CSldDictionary* aDict, Int32 aListIndex, MorphoDataType* aMorpho, SldU16String&  aResultQuery, SldU16WordsArray * aMorphoForms)
 {
@@ -1439,7 +1439,7 @@ ESldError PrepareQueryForFullTextSearch(const UInt16* aText, CSldDictionary* aDi
 *								  может быть NULL, тогда морфология использоваться не будет
 * @param aMorphologyForms		- указатель, по которому будут записаны строки словоформ
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError PrepareQueryForSortingSearchResults(const UInt16* aText, CSldDictionary* aDict, MorphoDataType* aMorpho, CSldVector<TSldMorphologyWordStruct>& aMorphologyForms)
 {
@@ -1791,7 +1791,7 @@ ESldError GetMorphoForms(const UInt16 *aText, CSldDictionary *aDict, UInt32 aLan
 * @param aLangCode				- код языка запроса
 * @param aMorphologyForms		- указатель, по которому будут записаны строки словоформ
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError PrepareQueryForSortingSearchResults(const UInt16* aText, CSldDictionary* aDict, UInt32 aLangCode, CSldVector<TSldMorphologyWordStruct>& aMorphologyForms)
 {

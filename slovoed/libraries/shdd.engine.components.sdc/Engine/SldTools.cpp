@@ -67,7 +67,7 @@ UInt32 SldGetRandom(TRandomSeed *aRandomSeed)
 * @param aRandomSeed	- данные генератора случайных чисел
 * @param aLayerAccess	- Указатель на класс прослойки который будет заниматься сохранением данных.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError SldSaveRegistrationData(UInt32 aDictID, const TRegistrationData *aRegData, TRandomSeed *aRandomSeed, ISldLayerAccess *aLayerAccess)
 {
@@ -125,7 +125,7 @@ ESldError SldSaveRegistrationData(UInt32 aDictID, const TRegistrationData *aRegD
 * @param aRegData		- Регистрационные данные для сохранения.
 * @param aLayerAccess	- Указатель на класс прослойки который будет заниматься сохранением данных.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError SldLoadRegistrationData(UInt32 aDictID, TRegistrationData *aRegData, ISldLayerAccess *aLayerAccess)
 {

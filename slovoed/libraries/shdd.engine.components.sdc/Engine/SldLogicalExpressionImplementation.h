@@ -7,18 +7,18 @@
 
 namespace sld2 {
 
-/// Базовый класс операнда для поиска в словаре
+// Базовый класс операнда для поиска в словаре
 template <typename SearchResult>
 class SearchOperandBase : public CSldLogicalExpression::Operand
 {
 public:
-	/// Конструктор
+	// Constructor
 	SearchOperandBase() : m_IsComputed(false) {}
 
 	SearchOperandBase(const SearchOperandBase&) = delete;
 	SearchOperandBase& operator=(const SearchOperandBase&) = delete;
 
-	/// Устанавливает исходное содержимое операнда
+	// Устанавливает исходное содержимое операнда
 	bool SetSourceData(const UInt16* aText)
 	{
 		if (!aText)
@@ -31,19 +31,19 @@ public:
 		return m_SearchPattern.assign(aText, textLen + 1);
 	}
 
-	/// Возвращает исходное содержимое операнда
+	// Возвращает исходное содержимое операнда
 	const UInt16* GetSourceData() const { return m_SearchPattern.data(); }
 
-	/// Возвращает указатель на результат полнотекстового поиска
+	// Возвращает указатель на результат полнотекстового поиска
 	SearchResult* GetSearchWordResult() const { return (SearchResult*)&m_SearchResult; }
 
-	/// Возвращает был ли произведен поиск
+	// Возвращает был ли произведен поиск
 	bool IsComputed() const { return m_IsComputed; }
 
-	/// Устанавливает влаг того что поиск был произведен
+	// Устанавливает влаг того что поиск был произведен
 	void SetComputed() { m_IsComputed = true; }
 
-	/// Очищает все результаты поиска
+	// Очищает все результаты поиска
 	void Clear()
 	{
 		m_SearchResult.Clear();
@@ -51,13 +51,13 @@ public:
 	}
 
 private:
-	/// Исходная строку для поиска
+	// Исходная строку для поиска
 	sld2::DynArray<UInt16> m_SearchPattern;
 
-	/// Результаты поиска
+	// Результаты поиска
 	SearchResult m_SearchResult;
 
-	/// Флаг был ли произведен поиск
+	// Флаг был ли произведен поиск
 	bool m_IsComputed;
 };
 
@@ -162,65 +162,65 @@ protected:
 
 } // namespace sld2
 
-/// Класс реализации для поиска по шаблону в словаре
+// Класс реализации для поиска по шаблону в словаре
 class CWildCardSearchImplementation : public sld2::SearchImplementationBase<CWildCardSearchImplementation, CSldSimpleSearchWordResult>
 {
 	template <typename, typename> friend class sld2::SearchImplementationBase;
 public:
-	/// Конструктор
+	// Constructor
 	CWildCardSearchImplementation(void);
 
-	/// Инициализация
+	// Initialization
 	bool Init(ISldList* aSearchList, ISldList* aRealList, Int32 aMaximumNumberOfWordsInRealList, Int32 aRealListIndex);
 
 private:
 
-	/// Производит поиск (если он еще не выполнялся) по переданному операнду
+	// Производит поиск (если он еще не выполнялся) по переданному операнду
 	SearchResult* CalculateResult(CSldLogicalExpression::Operand *aOperand);
 
-	/// Указатель на поисковый список слов, который будет осуществлять поиск
+	// Указатель на поисковый список слов, который будет осуществлять поиск
 	ISldList* m_SearchList;
 
-	/// Указатель на реальный список слов, в котором будем осуществлять поиск
+	// Указатель на реальный список слов, в котором будем осуществлять поиск
 	ISldList* m_RealList;
 
-	/// Максимальное количество слов в реальном списке слов
+	// Максимальное количество слов в реальном списке слов
 	Int32 m_MaximumNumberOfWordsInRealList;
 
-	/// Реальный номер реального списка слов
+	// Реальный номер реального списка слов
 	Int32 m_RealListIndex;
 };
 
 
-/// Класс реализации для полнотекстового поиска в словаре
+// Класс реализации для полнотекстового поиска в словаре
 class CFullTextSearchImplementation : public sld2::SearchImplementationBase<CFullTextSearchImplementation, CSldSearchWordResult>
 {
 	template <typename, typename> friend class sld2::SearchImplementationBase;
 public:
-	/// Конструктор
+	// Constructor
 	CFullTextSearchImplementation(void);
 
-	/// Инициализация
+	// Initialization
 	bool Init(ISldList* aSearchList, ISldList** aRealLists, Int32 aRealListCount, Int32 aRealListIndex, Int32 aMaximumWords);
 
 private:
 
-	/// Производит поиск (если он еще не выполнялся) по переданному операнду
+	// Производит поиск (если он еще не выполнялся) по переданному операнду
 	SearchResult* CalculateResult(CSldLogicalExpression::Operand *aOperand);
 
-	/// Указатель на поисковый список слов, который будет осуществлять поиск
+	// Указатель на поисковый список слов, который будет осуществлять поиск
 	ISldList* m_SearchList;
 
-	/// Указатель на массив списков словаря
+	// Указатель на массив списков словаря
 	ISldList** m_RealLists;
 
-	/// Количество списков слов в массиве
+	// Количество списков слов в массиве
 	Int32 m_RealListCount;
 
-	/// Реальный номер списка слов полнотекстового поиска
+	// Реальный номер списка слов полнотекстового поиска
 	Int32 m_RealListIndex;
 
-	/// Максимальное количество слов, которое может быть найдено
+	// Максимальное количество слов, которое может быть найдено
 	Int32 m_MaximumWords;
 };
 

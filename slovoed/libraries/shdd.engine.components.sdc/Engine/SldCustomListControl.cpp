@@ -12,13 +12,13 @@ void CSldCustomListControl::Close()
 }
 
 /** *********************************************************************
-* Инициализация
+* Initialization
 *
 * @param[in]	aWordLists		- Массив указателей на все списки слов в словаре
 * @param[in]	aListIndex		- индекс пользовательского списка
 * @param[in]	aNumberOfLists	- количество списков в словаре
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::Init(ISldList** aWordLists, const Int32 aListIndex, const UInt32 aNumberOfLists)
 {
@@ -39,7 +39,7 @@ ESldError CSldCustomListControl::Init(ISldList** aWordLists, const Int32 aListIn
 * @param[in]	aWordIndex			- индекс добавляемого слова
 * @param[in]	aUncoverHierarchy	- глубина раскрытия иерархии для слов, имеющих потомков
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::AddWord(const Int32 aRealListIndex, const Int32 aWordIndex, const UInt32 aUncoverHierarchy)
 {
@@ -54,7 +54,7 @@ ESldError CSldCustomListControl::AddWord(const Int32 aRealListIndex, const Int32
 *
 * @param[in]	aRealListIndex		- индекс списка, из которого мы хотим добавить слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::AddWord(const Int32 aRealListIndex)
 {
@@ -72,7 +72,7 @@ ESldError CSldCustomListControl::AddWord(const Int32 aRealListIndex)
 * @param[in]	aSubWordListIndex	- индекс списка слов, при значении SLD_DEFAULT_LIST_INDEX считаем,
 *									  что список слов соответствует списку, в котором находится слово-родитель
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::AddSubWord(const Int32 aWordIndex, const Int32 aSubWordIndex, const Int32 aSubWordListIndex)
 {
@@ -86,7 +86,7 @@ ESldError CSldCustomListControl::AddSubWord(const Int32 aWordIndex, const Int32 
 * @param[in]	aEndWordIndex	- индекс последнего удаляемого слова
 *								  при значении SLD_DEFAULT_WORD_INDEX будет удалено только одно слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::RemoveWords(const Int32 aBeginWordIndex, const Int32 aEndWordIndex)
 {
@@ -102,7 +102,7 @@ ESldError CSldCustomListControl::RemoveWords(const Int32 aBeginWordIndex, const 
 *									  в listInfo новый вариант не будет добавлен
 *									  дефолтное значение - false
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::AddVariantProperty(const TListVariantProperty & aVariantProperty, bool aUnique)
 {
@@ -121,7 +121,7 @@ ESldError CSldCustomListControl::AddVariantProperty(const TListVariantProperty &
 * @param[in]	aText			- индекс последнего удаляемого слова
 * @param[in]	aVariantIndex	- индекс варианта 
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::SetCurrentWord(const Int32 aWordIndex, const UInt16* aText, const Int32 aVariantIndex)
 {
@@ -134,7 +134,7 @@ ESldError CSldCustomListControl::SetCurrentWord(const Int32 aWordIndex, const UI
 * @param[in]	aWordIndex		- индекс слова, для которого мы хотим раскрыть/скрыть иерархию
 * @param[out]	aResult			- указатель, по которому будет записан результат выполнения функции
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::UncoverHierarchy(const Int32 aWordIndex, EUncoverFolderResult* aResult)
 {
@@ -344,7 +344,7 @@ ESldError CSldCustomListControl::UncoverHierarchy(const Int32 aWordIndex, EUncov
 * @param[in]	aListIndex	- индекс списка, в котором будет производиться поиск
 *							  для этого все слова или их родители должны присутствовать в пользовательском списке
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::SetSearchSourceListIndex(const Int32 aListIndex)
 {
@@ -358,7 +358,7 @@ ESldError CSldCustomListControl::SetSearchSourceListIndex(const Int32 aListIndex
 * @param[in]	aWordIndex		- индекс слова
 * @param[out]	aSubWordsCount	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::GetSubWordsCount(const Int32 aWordIndex, UInt32* aSubWordsCount)
 {
@@ -371,7 +371,7 @@ ESldError CSldCustomListControl::GetSubWordsCount(const Int32 aWordIndex, UInt32
 * @param[in]	aWordIndex	- индекс слова
 * @param[out]	aWordState	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::CheckSubwordsState(const Int32 aWordIndex, ESubwordsState* aWordState)
 {
@@ -385,7 +385,7 @@ ESldError CSldCustomListControl::CheckSubwordsState(const Int32 aWordIndex, ESub
 * @param[in]	aCreateWordsBuffer	- в процессе индексации все слова будут буфферизированы,
 *									  данный флаг определяет, нужно ли оставить этот буфер для ускорения поиска
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::SortListByVariant(const Int32 aVariantIndex)
 {
@@ -395,7 +395,7 @@ ESldError CSldCustomListControl::SortListByVariant(const Int32 aVariantIndex)
 /** *********************************************************************
 * Объединяет все записи для вспомогательных листов, относящиеся к одному заголовку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomListControl::GroupWordsByHeadwords()
 {

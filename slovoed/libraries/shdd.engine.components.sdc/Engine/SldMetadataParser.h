@@ -28,7 +28,7 @@ class CSldMetadataParser;
 	либо равна "close"
 */
 
-/// Максимальная длина строки с именем параметра
+// Максимальная длина строки с именем параметра
 static const UInt32 MetaParamMaxNameSize = 255;
 
 namespace sld2 {
@@ -47,7 +47,7 @@ template <typename T>
 class ProxyStructBase
 {
 public:
-	/// Предоставляет доступ к структуре метаданных
+	// Предоставляет доступ к структуре метаданных
 	const T* operator->() const { return &m_metaData; }
 
 protected:
@@ -141,13 +141,13 @@ inline void fixup(TMetadataSwitch &aMetadata) {
 class CSldMetadataProxyBase
 {
 public:
-	/// Возвращает строку по ссылке на нее
+	// Возвращает строку по ссылке на нее
 	SldU16StringRef string_ref(const TMetadataString &aStr) const;
 
-	/// Возвращает строку со стилем css
+	// Возвращает строку со стилем css
 	ESldError cssStyle(SldU16String &aString) const;
 
-	/// Возвращает id стиля css
+	// Возвращает id стиля css
 	UInt32 cssStyleId() const { return m_cssBlockIndex; }
 
 protected:
@@ -213,27 +213,27 @@ class CSldMetadataProxy : public sld2::metadata::detail::ProxyBase<Enum>, public
 public:
 	using struct_type = sld2::metadata::detail::struct_type<Enum>;
 
-	/// Возвращает строку по ссылке на нее
-	/// ВАЖНО: строка актуальна *только* до следующего вызова данной функции (или ::string())
-	/// ВАЖНО: может вернуть NULL (но в общем случае только при ошибке при сборке базы)
+	// Возвращает строку по ссылке на нее
+	// ВАЖНО: строка актуальна *только* до следующего вызова данной функции (или ::string())
+	// ВАЖНО: может вернуть NULL (но в общем случае только при ошибке при сборке базы)
 	const UInt16* c_str(const TMetadataString &aStr) const { return string_ref(aStr).data(); }
 
-	/// Возвращает строку по ссылке на нее
+	// Возвращает строку по ссылке на нее
 	SldU16String string(const TMetadataString &aStr) const { return to_string(string_ref(aStr)); }
 
-	/// Оператор приведения к bool - дает возможность проверять результат парсинга
+	// Оператор приведения к bool - дает возможность проверять результат парсинга
 	operator bool() const { return m_error == eOK; }
 
-	/// Возвращает ошибку-результат парсинга строки параметров метаданных
+	// Возвращает ошибку-результат парсинга строки параметров метаданных
 	ESldError error() const { return m_error; }
 
-	/// Возвращает флаг является ли данный тэг метаданных закрывающим
+	// Возвращает флаг является ли данный тэг метаданных закрывающим
 	bool isClosing() const { return m_closing != 0; }
 
 	using CSldMetadataProxyBase::cssStyle;
-	/// Возвращает строку со стилем css
+	// Возвращает строку со стилем css
 	ESldError cssStyle(SldU16String *aString) const { return aString ? cssStyle(*aString) : eMemoryNullPointer; }
-	/// Возвращает строку со стилем css
+	// Возвращает строку со стилем css
 	SldU16String cssStyle() const;
 
 private:
@@ -243,13 +243,13 @@ private:
 	UInt32 m_closing;
 };
 
-/// Класс, занимающийся разбором параметров блоков метаданных и метаинформации
+// Класс, занимающийся разбором параметров блоков метаданных и метаинформации
 class CSldMetadataParser
 {
 public:
 	enum : UInt32 { InvalidDataIndex = ~0U };
 
-	/// Конструктор
+	// Constructor
 	CSldMetadataParser(CSldDictionary *aDict, CSldCSSUrlResolver *aResolver)
 		: CSldMetadataParser(aDict, aResolver, nullptr, 0) {}
 
@@ -262,180 +262,180 @@ public:
 	template <UInt16 Size>
 	CSldMetadataParser(UInt16(&aBuffer)[Size]) : CSldMetadataParser(nullptr, nullptr, aBuffer, Size) {}
 
-	/// Деструктор
+	// Destructor
 	~CSldMetadataParser();
 
-	/// Возвращает указатель на строку по ссылке на нее
+	// Возвращает указатель на строку по ссылке на нее
 	const UInt16* GetString(const TMetadataString *aString) const { return aString ? GetStringRef(*aString).data() : nullptr; }
 	const UInt16* GetString(const TMetadataString &aString) const { return GetStringRef(aString).data(); }
 	SldU16StringRef GetStringRef(const TMetadataString &aString) const;
 
 public:
 
-	/// Получает настройки стилей для всех вариантов написания текущего слова
+	// Получает настройки стилей для всех вариантов написания текущего слова
 	static ESldError GetVariantStylePreferences(const UInt16* aStr, Int32** aVariantStyles, Int32 aNumberOfVariants);
 
 private:
 	// @private - данные функциии используются *только* для "старых" строчных метаданных
 
-	/// Получает параметры контейнера абстрактных ресурса
+	// Получает параметры контейнера абстрактных ресурса
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataAbstractResource *aMetadata);
 
-	/// Получает параметры элементарного объекте
+	// Получает параметры элементарного объекте
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataAtomicObject *aMetadata);
 
-	/// Получает параметры фоновой картинки
+	// Получает параметры фоновой картинки
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataBackgroundImage *aMetadata);
 
-	/// Получает параметры подписи картинки
+	// Получает параметры подписи картинки
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataCaption *aMetadata);
 
-	/// Получает параметры элемента кроссворда
+	// Получает параметры элемента кроссворда
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataCrosswordItem *aMetadata);
 
-	/// Получает параметры внешней вставки
+	// Получает параметры внешней вставки
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataExternArticle *aMetadata);
 
-	/// Получает параметры блока flash_cards_link
+	// Получает параметры блока flash_cards_link
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataFlashCardsLink *aMetadata);
 
-	/// Получает параметры формулы
+	// Получает параметры формулы
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataFormula *aMetadata);
 
-	/// Получает параметры блока Hide
+	// Получает параметры блока Hide
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataHide *aMetadata);
 
-	/// Получает параметры картинки
+	// Получает параметры картинки
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataImage *aMetadata);
 
-	/// Получает параметры выделенной области на изображении
+	// Получает параметры выделенной области на изображении
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataImageArea *aMetadata);
 
-	/// Получает параметры блока info_block
+	// Получает параметры блока info_block
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataInfoBlock *aMetadata);
 
-	/// Получает параметры интерактивного объекта
+	// Получает параметры интерактивного объекта
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataInteractiveObject *aMetadata);
 
-	/// Получает параметры метки
+	// Получает параметры метки
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataLabel *aMetadata);
 
-	/// Получает параметры элемента легенды
+	// Получает параметры элемента легенды
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataLegendItem *aMetadata);
 
-	/// Получает параметры ссылки
+	// Получает параметры ссылки
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataLink *aMetadata);
 
-	/// Получаем параметры списка
+	// Получаем параметры списка
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataList *aMetadata);
 
-	/// Получает параметры блока managed-switch
+	// Получает параметры блока managed-switch
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataManagedSwitch *aMetadata);
 
-	/// Получает параметры географической карты
+	// Получает параметры географической карты
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataMap *aMetadata);
 
-	/// Получает параметры элемента географической карты
+	// Получает параметры элемента географической карты
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataMapElement *aMetadata);
 
-	/// Получает параметры медиаконтейнера
+	// Получает параметры медиаконтейнера
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataMediaContainer *aMetadata);
 
-	/// Получает параметры параграфа
+	// Получает параметры параграфа
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataParagraph *aMetadata);
 
-	/// Получает параметры всплывающей статьи
+	// Получает параметры всплывающей статьи
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataPopupArticle *aMetadata);
 
-	/// Получает параметры всплывающей картинки
+	// Получает параметры всплывающей картинки
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataPopupImage *aMetadata);
 
-	/// Получает параметры 3d сцены
+	// Получает параметры 3d сцены
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataScene3D *aMetadata);
 
-	/// Получает параметры слайдшоу
+	// Получает параметры слайдшоу
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataSlideShow *aMetaData);
 
-	/// Получает параметры озвучки
+	// Получает параметры озвучки
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataSound *aMetadata);
 
-	/// Получает параметры блока switch
+	// Получает параметры блока switch
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataSwitch *aMetadata);
 
-	/// Получает параметры блока switch-control
+	// Получает параметры блока switch-control
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataSwitchControl *aMetadata);
 
-	/// Получает параметры таблицы
+	// Получает параметры таблицы
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTable *aMetadata);
 
-	/// Получает параметры столбца таблицы
+	// Получает параметры столбца таблицы
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTableCell *aMetadata);
 
-	/// Получает параметры об элементе блока "Дано/Найти/Решение"
+	// Получает параметры об элементе блока "Дано/Найти/Решение"
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTaskBlockEntry *aMetadata);
 
-	/// Получает параметры блока test
+	// Получает параметры блока test
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTest *aMetadata);
 
-	/// Получает параметры блока test
+	// Получает параметры блока test
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTestContainer *aMetadata);
 
-	/// Получает параметры блока с ответами для проверки теста на сопоставление
+	// Получает параметры блока с ответами для проверки теста на сопоставление
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTestControl *aMetadata);
 
-	/// Получает параметры блока test_input
+	// Получает параметры блока test_input
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTestInput *aMetadata);
 
-	/// Получает параметры о элементе блока с результатами тестов "Шарик"
+	// Получает параметры о элементе блока с результатами тестов "Шарик"
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTestResultElement *aMetadata);
 
-	/// Получает параметры блока прицельного элемента теста на сопоставление
+	// Получает параметры блока прицельного элемента теста на сопоставление
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTestSpear *aMetadata);
 
-	/// Получает параметры блока целевого элемента теста на сопоставление
+	// Получает параметры блока целевого элемента теста на сопоставление
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTestTarget *aMetadata);
 
-	/// Получает параметры блока test_token
+	// Получает параметры блока test_token
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTestToken *aMetadata);
 
-	/// Получает параметры об области текста для тестов с выделением
+	// Получает параметры об области текста для тестов с выделением
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTextControl *aMetadata);
 
-	/// Получает параметры ленты времени
+	// Получает параметры ленты времени
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTimeLine *aMetadata);
 
-	/// Получает параметры элемента ленты времени
+	// Получает параметры элемента ленты времени
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataTimeLineItem *aMetadata);
 
-	/// Получает параметры блока ui element
+	// Получает параметры блока ui element
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataUiElement *aMetadata);
 
-	/// Получает параметры внешней ссылки
+	// Получает параметры внешней ссылки
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataUrl *aMetadata);
 
-	/// Получает параметры ресурса видео
+	// Получает параметры ресурса видео
 	ESldError GetMetadata(SldU16StringRef aStr, TMetadataVideoSource *aMetadata);
 
 	// generic getter for structured-only metadata
 	template <typename T> ESldError GetMetadata(SldU16StringRef, T*) { return eMetadataErrorParsingTextMetadata; }
 
 public:
-	/// Получает параметры картинки (свойства выставляются по членам соответствующего класса)
+	// Получает параметры картинки (свойства выставляются по членам соответствующего класса)
 	static ESldError GetImageMetadata(const CSldMetadataProxy<eMetaImage> &aMetadata, CSldImageItem* aImageItem, CSldImageItem* aFullImageItem);
 
-	/// Получает параметры выделенной области на изображении
+	// Получает параметры выделенной области на изображении
 	static ESldError GetImageAreaMetadata(const CSldMetadataProxy<eMetaImageArea> &aMetadata, CSldImageAreaItem* aImageAreaItem);
 
-	/// Получает параметры ресурса видео
+	// Получает параметры ресурса видео
 	static ESldError GetVideoSourceItemMetadata(const CSldMetadataProxy<eMetaVideoSource> &aMetadata, CSldVideoItem* aVideoType);
 
-	/// Получает параметры слайдшоу
+	// Получает параметры слайдшоу
 	static ESldError GetSlideShowMetadata(const CSldMetadataProxy<eMetaSlideShow> &aMetadata, TSldSlideShowStruct* aSlideShowItem, UInt16* aTimeStep);
 
-	/// Получает параметры svg картинки
+	// Получает параметры svg картинки
 	static ESldError GetSvgInfo(TImageElement* aImageElement, UInt32* aFormatType, TSizeValue* const aWidth, TSizeValue* const aHeight);
 
-	/// Получает строку с параметрами css
+	// Получает строку с параметрами css
 	ESldError GetCSSStyleString(UInt32 aIndex, SldU16String &aString, CSldCSSUrlResolver *aResolver = NULL) const;
 
 	/**
@@ -509,7 +509,7 @@ public:
 	 * @param[in] aType     - тип метаданных
 	 * @param[in] aCallback - объект который будет вызываться при успешном распарсивании
 	 *
-	 * @return код ошибки
+	 * @return error code
 	 */
 	template <typename Callback>
 	ESldError ParseBlockString(SldU16StringRef aStr, ESldStyleMetaTypeEnum aType, Callback&& aCallback)
@@ -540,7 +540,7 @@ private:
 	CSldMetadataParser(const CSldMetadataParser&) = delete;
 	CSldMetadataParser& operator=(const CSldMetadataParser&) = delete;
 
-	/// Инициализация
+	// Initialization
 	CSldMetadataParser(CSldDictionary *aDictionary, CSldCSSUrlResolver *aResolver, UInt16 *aMem, UInt16 aMemSize);
 
 	// metadata loading helper

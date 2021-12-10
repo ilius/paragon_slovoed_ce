@@ -7,19 +7,19 @@
 #include "SldUtil.h"
 
 
-/// Инициализирует генератор случайных чисел.
+// Инициализирует генератор случайных чисел.
 void SldInitRandom(TRandomSeed *aRandomSeed, UInt32 aSeed);
 
-/// Генерирует случайное число основываясь на начальном числе. Начальное число будет изменено.
+// Генерирует случайное число основываясь на начальном числе. Начальное число будет изменено.
 UInt32 SldGetRandom(TRandomSeed *aRandomSeed);
 
-/// Загружает регистрационные данные для текущего словаря.
+// Загружает регистрационные данные для текущего словаря.
 ESldError SldLoadRegistrationData(UInt32 aDictID, TRegistrationData *aRegData, ISldLayerAccess *aLayerAccess);
 
-/// Сохраняет регистрационные данные для указанного словаря.
+// Сохраняет регистрационные данные для указанного словаря.
 ESldError SldSaveRegistrationData(UInt32 aDictID, const TRegistrationData *aRegData, TRandomSeed *aRandomSeed, ISldLayerAccess *aLayerAccess);
 
-/// Макрос выбора указателя на нужную функцию сборки перевода либо озвучки в зависимости от регистрационных данных
+// Макрос выбора указателя на нужную функцию сборки перевода либо озвучки в зависимости от регистрационных данных
 #define SLD_VALIDATE_SECURITY(aRegData, aRandSeed, aFunc) { \
 	UInt8 Index = 1; \
 	if ((aRegData) && (((aRegData)->Number)>>SLD_SN_REGISTRATION_FLAG_SHIFT)) { \
@@ -32,13 +32,13 @@ ESldError SldSaveRegistrationData(UInt32 aDictID, const TRegistrationData *aRegD
 	aFunc[0] = aFunc[Index]; \
 }
 
-/// Макрос для изменения порядка байт
+// Макрос для изменения порядка байт
 #define ByteSwap32(n) ( ((((UInt32)n) << 24) & 0xFF000000) | \
 	((((UInt32)n) << 8) & 0x00FF0000) | \
 	((((UInt32)n) >> 8) & 0x0000FF00) | \
 	((((UInt32)n) >> 24) & 0x000000FF) )
 
-/// Макрос для изменения порядка байт
+// Макрос для изменения порядка байт
 #define ByteSwap16(n) ((((UInt16)n) << 8) | (((UInt16)n) >> 8))
 
 namespace sld2 {
@@ -86,7 +86,7 @@ static inline ESldError arrayCopy(const void *aData, UInt32 aCount, UInt32 aSize
 	return eOK;
 }
 
-/// Создает объект чтения данных согласно методу сжатия(представления)
+// Создает объект чтения данных согласно методу сжатия(представления)
 UniquePtr<ISldInput> CreateInput(UInt32 aCompressionMethod);
 
 } // namespace sld2

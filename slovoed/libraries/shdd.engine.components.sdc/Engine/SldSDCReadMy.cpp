@@ -4,12 +4,12 @@
 #include "SldCompare.h"
 #include "SldDynArray.h"
 
-/// Размер одного блока данных в байтах для вычисления CRC непосредственно данных ресурсов
+// The size of one data block in bytes for calculating the CRC of the direct resource data
 #define CRC_DATA_BLOCK_SIZE			(0xFFFF)
 
 enum : UInt32 { InvalidResourceIndex = ~0u };
 
-// XXX: Add an explicit flag to the header?
+// TODO: Add an explicit flag to the header?
 static inline bool hasCompression(const SlovoEdContainerHeader &aHeader)
 {
 	return aHeader.HasCompressedResources != 0;
@@ -179,11 +179,11 @@ CSDCReadMy::~CSDCReadMy(void)
 }
 
 /**
- * Открывает файл контейнера
+ * Opens a container file
  * 
- * @param[in] aFileName - открытый файл контейнера sdc
+ * @param[in] aFileName - open sdc container file
  * 
- * @return код ошибки
+ * @return error code
  */
 ESldError CSDCReadMy::Open(ISDCFile *aFile)
 {
@@ -237,7 +237,7 @@ ESldError CSDCReadMy::Open(ISDCFile *aFile)
 }
 
 /***********************************************************************
-* Закрывает файл и освобождает память.
+* Closes the file and frees memory.
 ************************************************************************/
 void CSDCReadMy::Close()
 {
@@ -262,9 +262,9 @@ void CSDCReadMy::Close()
 }
 
 /***********************************************************************
-* Возвращает тип содержимого в контейнере
+* Returns the type of content in the container
 *
-* @return тип содержимого в контейнере
+* @return the type of content in the container
 ************************************************************************/
 UInt32 CSDCReadMy::GetDatabaseType(void) const
 {
@@ -275,9 +275,9 @@ UInt32 CSDCReadMy::GetDatabaseType(void) const
 }
 
 /***********************************************************************
-* Возвращает количество ресурсов в контейнере.
+* Returns the number of resources in the container.
 *
-* @return количество ресурсов или 0(если контейнер не открыт).
+* @return the number of resources or 0 (if the container is not open).
 ************************************************************************/
 UInt32 CSDCReadMy::GetNumberOfResources() const
 {
@@ -288,9 +288,9 @@ UInt32 CSDCReadMy::GetNumberOfResources() const
 }
 
 /***********************************************************************
-* Проверяет корректные ли данные находятся в контейнере, нет ли повреждения.
+* Checks if the data is valid in the container, if there is any corruption.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 SDCError CSDCReadMy::CheckData(void)
 {
@@ -302,15 +302,16 @@ SDCError CSDCReadMy::CheckData(void)
 	if (m_FileData->GetSize() != m_Header.FileSize)
 		return SDC_READ_WRONG_FILESIZE;
 
-	// Сохраняем CRC и обнуляем его в структуре, т.к. расчет CRC32 при создании контейнера
-	// происходил с m_Header.CRC = 0
+	// We save the CRC and set it to zero in the structure,
+	// since calculation of CRC32 when creating a container
+	// happened with m_Header.CRC = 0
 	const UInt32 CRC = m_Header.CRC;
 	m_Header.CRC = 0;
 
 	UInt32 new_CRC;
 	SDCError error = GetFileCRC(&m_Header, m_FileData, &new_CRC);
 
-	// Восстанавливаем исходный CRC
+	// Recovering the original CRC
 	m_Header.CRC = CRC;
 
 	if (error != SDC_OK)
@@ -320,9 +321,9 @@ SDCError CSDCReadMy::CheckData(void)
 }
 
 /***********************************************************************
-* Возвращает количество дополнительных свойств базы
+* Returns the number of additional properties of the base
 *
-* @return количество дополнительных свойств базы
+* @return number of additional base properties
 ************************************************************************/
 UInt32 CSDCReadMy::GetNumberOfProperty() const
 {
@@ -330,14 +331,14 @@ UInt32 CSDCReadMy::GetNumberOfProperty() const
 }
 
 /***********************************************************************
-* Возвращает свойство базы по заданному ключу
-* Память для aValue выделяется внутри класса чтения и очищается сама, при его закрытии
+* Returns the base property for the given key
+* Memory for aValue is allocated inside the reader class and cleared by itself when it is closed
 *
-* @param[in]	aKey	- искомый ключ
-* @param[out]	aValue	- указатель по которому будет записано свойство базы
+* @param[in]	aKey	- required key
+* @param[out]	aValue	- the pointer to which the base property will be written
 *
-* @return результат поиска по ключу:	false	- ключ не найден
-										true	- ключ найден
+* @return search result by key:		false	- key not found
+									true	- key found
 ************************************************************************/
 bool CSDCReadMy::GetPropertyByKey(const UInt16* aKey, UInt16** aValue)
 {
@@ -385,14 +386,14 @@ bool CSDCReadMy::GetPropertyByKey(const UInt16* aKey, UInt16** aValue)
 }
 
 /***********************************************************************
-* Возвращает ключ и значение свойства базы по индексу свойства
-* Память для aValue и aKey выделяется внутри класса чтения и очищается сама, при его закрытии
+* Returns the key and value of the base property by the property index
+* Memory for aValue and aKey is allocated inside the reader class and cleared by itself when it is closed
 *
-* @param[in]	aPropertyIndex	- запрашиваемый индекс свойства
-* @param[out]	aKey			- указатель по которому будет записан ключ свойства базы
-* @param[out]	aValue			- указатель по которому будет записано свойство базы
+* @param[in]	aPropertyIndex	- requested property index
+* @param[out]	aKey			- pointer to which the key of the base property will be written
+* @param[out]	aValue			- the pointer to which the base property will be written
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 SDCError CSDCReadMy::GetPropertyByIndex(UInt32 aPropertyIndex, UInt16** aKey, UInt16** aValue)
 {
@@ -417,19 +418,19 @@ SDCError CSDCReadMy::GetPropertyByIndex(UInt32 aPropertyIndex, UInt16** aKey, UI
 }
 
 /***********************************************************************
-* Метод получения данных из контейнера
+* Method for getting data from container
 *
-* @param[in] aResType	- тип ресурса
-* @param[in] aResIndex	- номер ресурса для указанного типа.
+* @param[in] aResType	- resource type
+* @param[in] aResIndex	- resource number for the specified type.
 *
-* @return хэндл загруженого ресурса
+* @return handle of the loaded resource
 ************************************************************************/
 CSDCReadMy::ResourceHandle CSDCReadMy::GetResource(UInt32 aResType, UInt32 aResIndex)
 {
 	if (!m_FileData)
 		return eResourceCantGetResource;
 
-	// проверяем не загружен ли уже ресурс
+	// check if the resource is already loaded
 	for (sld2::list_node *node = m_loadedResources.next; node != &m_loadedResources; node = node->next)
 	{
 		ResourceStruct *resource = to_resource(node);
@@ -441,14 +442,14 @@ CSDCReadMy::ResourceHandle CSDCReadMy::GetResource(UInt32 aResType, UInt32 aResI
 		}
 	}
 
-	// ищем глобальный индекс ресурса
+	// looking for a global resource index
 	UInt32 index = GetResourceIndexInTable(aResType, aResIndex);
 	if (index == InvalidResourceIndex)
 		return eResourceCantGetResource;
 
 	const SlovoEdContainerResourcePosition &position = m_resTable[index];
 
-	// Считываем ресурс
+	// Reading the resource
 	void *ptr;
 	UInt32 size;
 	ESldError err;
@@ -485,7 +486,7 @@ CSDCReadMy::ResourceHandle CSDCReadMy::GetResource(UInt32 aResType, UInt32 aResI
 }
 
 /**
- * Освобожает данные ресурса
+ * Frees resource data
  */
 void CSDCReadMy::CloseResource(ResourceStruct *aResource)
 {
@@ -496,16 +497,16 @@ void CSDCReadMy::CloseResource(ResourceStruct *aResource)
 }
 
 /**
- * Получаем данные ресурса по его типу и номеру без выделения памяти
+ * We get resource data by its type and number without memory allocation
  *
- * @param[out]   aData     - указатель на выделенный участок памяти, по которому
- *                           будут записаны данные из ресурса
- * @param[in]    aResType  - тип ресурса
- * @param[in]    aResIndex - номер ресурса для указанного типа
- * @param[inout] aDataSize - указатель на размер выделенного участка памяти, сюда же
- *                           будет записан *реальный* размер прочитанных данных
+ * @param[out]   aData     - pointer to the allocated area of memory, by which
+ *                           data from the resource will be written
+ * @param[in]    aResType  - resource type
+ * @param[in]    aResIndex - resource number for the specified type
+ * @param[inout] aDataSize - pointer to the size of the allocated memory area,
+ *                           the *real* size of the read data will also be written here
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSDCReadMy::GetResourceData(void* aData, UInt32 aResType, UInt32 aResIndex, UInt32 *aDataSize)
 {
@@ -516,7 +517,7 @@ ESldError CSDCReadMy::GetResourceData(void* aData, UInt32 aResType, UInt32 aResI
 	if (*aDataSize == 0)
 		return eOK;
 
-	// ищем глобальный индекс ресурса
+	// looking for a global resource index
 	UInt32 index = GetResourceIndexInTable(aResType, aResIndex);
 	if (index == InvalidResourceIndex)
 		return eResourceCantGetResource;
@@ -534,27 +535,27 @@ ESldError CSDCReadMy::GetResourceData(void* aData, UInt32 aResType, UInt32 aResI
 }
 
 /***********************************************************************
-* Возвращает CRC файла для заданного хидера и выходного потока
+* Returns the CRC of the file for the given header and output stream
 *
-* @param[in]	aHeader		- указатель на заголовок файла, для которого
-*							  необходимо посчитать контрольную сумму
-* @param[in]	aFileData	- указатель на поток, для которого
-*							  необходимо посчитать контрольную сумму
-* @param[out]	aFileCRC	- указатель куда будет записан CRC файла
+* @param[in]	aHeader		- pointer to the file header for which you want to
+                              calculate the checksum
+* @param[in]	aFileData	- pointer to the stream for which the checksum
+                              needs to be calculated
+* @param[out]	aFileCRC	- a pointer to where the CRC of the file will be written
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 SDCError CSDCReadMy::GetFileCRC(const SlovoEdContainerHeader *aHeader, ISDCFile* aFileData, UInt32* aFileCRC)
 {
 	if (!aHeader || !aFileData)
 		return SDC_MEM_NULL_POINTER;
 
-	// CRC заголовка контейнера
+	// CRC container header
 	UInt32 new_CRC = CRC32((const UInt8*)aHeader, sizeof(*aHeader), SDC_CRC32_START_VALUE, true);
 
 	sld2::DynArray<UInt8> buf;
 
-	// CRC таблицы ресурсов
+	// Resource table CRC
 	const UInt32 resTableSize = aHeader->ResourceRecordSize * aHeader->NumberOfResources;
 	if (!buf.resize(sld2::default_init, resTableSize))
 		return SDC_MEM_NOT_ENOUGH_MEMORY;
@@ -567,12 +568,12 @@ SDCError CSDCReadMy::GetFileCRC(const SlovoEdContainerHeader *aHeader, ISDCFile*
 	if (!buf.resize(sld2::default_init, CRC_DATA_BLOCK_SIZE))
 		return SDC_MEM_NOT_ENOUGH_MEMORY;
 
-	// Вычисляем CRC последовательно для каждого блока данных
+	// Calculate the CRC sequentially for each data block
 	UInt32 offset = aHeader->HeaderSize + resTableSize;
 	UInt32 data_size = aHeader->FileSize - offset;
 	while (data_size)
 	{
-		// Размер очередного блока данных для чтения
+		// The size of the next data block for reading
 		UInt32 readSize = (data_size > CRC_DATA_BLOCK_SIZE) ? CRC_DATA_BLOCK_SIZE : data_size;
 
 		if (aFileData->Read(buf.data(), readSize, offset) != readSize)
@@ -589,13 +590,13 @@ SDCError CSDCReadMy::GetFileCRC(const SlovoEdContainerHeader *aHeader, ISDCFile*
 }
 
 /***********************************************************************
-* Получает сдвиг от начала файла до ресурса с заданным типом и номером
+* Gets the offset from the beginning of the file to the resource with the given type and number
 *
-* @param[out] aShift	- указатель на переменную, в которую будет сохранен сдвиг
-* @param[in] aResType	- тип ресурса
-* @param[in] aResIndex	- номер ресурса для указанного типа.
+* @param[out] aShift	- pointer to the variable to which the shift will be stored
+* @param[in] aResType	- resource type
+* @param[in] aResIndex	- resource number for the specified type.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSDCReadMy::GetResourceShiftAndSize(UInt32 *aShift, UInt32 *aSize, UInt32 aResType, UInt32 aResIndex) const
 {
@@ -615,19 +616,19 @@ ESldError CSDCReadMy::GetResourceShiftAndSize(UInt32 *aShift, UInt32 *aSize, UIn
 }
 
 /***********************************************************************
-* Получает индекс ресурса в таблице расположения ресурсов по его типу и номеру
+* Get resource index in the resource location table by its type and number
 *
-* @param[in] aResType		- тип ресурса
-* @param[in] aResIndex		- номер ресурса для указанного типа.
+* @param[in] aResType		- resource type
+* @param[in] aResIndex		- resource number for the specified type.
 *
-* @return индекс ресурса в таблице расположения ресурсов или InvalidResourceIndex если такого ресурса нет
+* @return resource index in the resource location table or InvalidResourceIndex if there is no such resource
 ************************************************************************/
 UInt32 CSDCReadMy::GetResourceIndexInTable(UInt32 aResType, UInt32 aResIndex) const
 {
-	// Ищем среди всех имеющихся ресурсов
+	// We are looking for among all available resources
 	UInt32 ResourceCount = GetNumberOfResources();
 
-	// Бинарный поиск
+	// Binary search
 	if (m_Header.IsResourceTableSorted)
 	{
 		if (m_resTable[0].Type > aResType || m_resTable[ResourceCount-1].Type < aResType)
@@ -647,7 +648,7 @@ UInt32 CSDCReadMy::GetResourceIndexInTable(UInt32 aResType, UInt32 aResIndex) co
 		if (m_resTable[index].Type == aResType && m_resTable[index].Index == aResIndex)
 			return index;
 	}
-	// Линейный поиск
+	// Linear search
 	else
 	{
 		for (UInt32 i=0;i<ResourceCount;i++)
@@ -661,9 +662,9 @@ UInt32 CSDCReadMy::GetResourceIndexInTable(UInt32 aResType, UInt32 aResIndex) co
 }
 
 /***********************************************************************
-* Получает открытый файл контейнера
+* Gets an open container file
 *
-* @return указатель на объект чтения данных из контейнера
+* @return pointer to the object to read data from the container
 ************************************************************************/
 ISDCFile* CSDCReadMy::GetFileData()
 {

@@ -12,7 +12,7 @@
  * @param[in] aQAType      - тип ресурса данными для быстрого поиска
  * @param[in] aListVersion - номер версии списка слов
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldInputBase::Init(CSDCReadMy &aData, UInt32 aDataType, UInt32 aAssistType, UInt32 aAssistCount, UInt32 aQAType, UInt32 aListVersion)
 {
@@ -67,13 +67,13 @@ ESldError CSldInputBase::Init(CSDCReadMy &aData, UInt32 aDataType, UInt32 aAssis
 	return eOK;
 }
 
-/// Устанавливаем HASH для декодирования данного списка слов.
+// Устанавливаем HASH для декодирования данного списка слов.
 void CSldInputBase::SetHASH(UInt32 aHASH)
 {
 	m_HASH = aHASH;
 }
 
-/// Получаем количество точек по которым может производится поиск
+// Получаем количество точек по которым может производится поиск
 UInt32 CSldInputBase::GetSearchPointCount()
 {
 	return m_QAHeader.Count;
@@ -85,7 +85,7 @@ UInt32 CSldInputBase::GetSearchPointCount()
  * @param[in]  aPointIndex - номер точки поиска для которой мы хотим получить текст
  * @param[out] aText       - сюда поместим указатель на строчку с текстом
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldInputBase::GetSearchPointText(UInt32 aPointIndex, const UInt16 **aText)
 {
@@ -105,7 +105,7 @@ ESldError CSldInputBase::GetSearchPointText(UInt32 aPointIndex, const UInt16 **a
  * @param[in]  aPointIndex - номер точки поиска для которой мы хотим получить номер слова
  * @param[out] aIndex      - сюда поместим номер слова
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldInputBase::GetSearchPointIndex(UInt32 aPointIndex, Int32 *aIndex)
 {
@@ -129,7 +129,7 @@ ESldError CSldInputBase::GetSearchPointIndex(UInt32 aPointIndex, Int32 *aIndex)
  * @param[in] aPointIndex - номер точки поиска для которой мы хотим получить номер слова
  * @param[in] aWord       - укзатель по которму будет записано слово
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldInputBase::GetSearchPointText(UInt32 aPointIndex, UInt16 *aWord)
 {
@@ -146,7 +146,7 @@ ESldError CSldInputBase::GetSearchPointText(UInt32 aPointIndex, UInt16 *aWord)
 	return eOK;
 }
 
-/// Производим переход внутреннего состояния в позицию точки из таблицы быстрого поиска.
+// Производим переход внутреннего состояния в позицию точки из таблицы быстрого поиска.
 ESldError CSldInputBase::GoTo(UInt32 aPointIndex)
 {
 	if (aPointIndex >= m_QAHeader.Count)
@@ -166,19 +166,19 @@ ESldError CSldInputBase::GoTo(UInt32 aPointIndex)
 	return m_input.GoTo(shiftBit);
 }
 
-/// Производит получение данных, до 32 бит.
+// Производит получение данных, до 32 бит.
 ESldError CSldInputBase::GetData(UInt32 *aDataBuffer, UInt32 aDataSize)
 {
 	return m_input.GetData(aDataBuffer, aDataSize);
 }
 
-/// Возвращает текущее положение в битах.
+// Возвращает текущее положение в битах.
 UInt32 CSldInputBase::GetCurrentPosition()
 {
 	return m_input.GetCurrentPosition();
 }
 
-/// Перемещаем указатель текущей позиции чтения в указанную позицию
+// Перемещаем указатель текущей позиции чтения в указанную позицию
 ESldError CSldInputBase::SetCurrentPosition(UInt32 aShift)
 {
 	return m_input.GoTo(aShift);

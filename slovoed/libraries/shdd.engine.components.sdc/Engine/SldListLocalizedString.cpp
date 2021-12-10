@@ -63,7 +63,7 @@ UInt32 CSldListLocalizedString::GetNumberOfLanguages() const
 * @param[in]	aIndex				- индекс запрашиваемого кода языка
 * @param[out]	aNumberOfLanguages	- указатель на переменную, в которую сохраняется код языка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetLanguagesCode(UInt32 aIndex, UInt32* aLanguageCode) const
 {
@@ -105,7 +105,7 @@ Int32 CSldListLocalizedString::FindLanguage(UInt32 aLanguageCode) const
 * @param[in]	aLanguageCode	- код языка, для которого требуется найти строчку
 * @param[out]	aText			- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetListName(UInt32 aLanguageCode, const UInt16** aText) const
 {
@@ -123,7 +123,7 @@ ESldError CSldListLocalizedString::GetListName(UInt32 aLanguageCode, const UInt1
 * @param[in]	aLanguageCode	- код языка, для которого требуется найти строчку
 * @param[out]	aText			- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetListNameShort(UInt32 aLanguageCode, const UInt16** aText) const
 {
@@ -141,7 +141,7 @@ ESldError CSldListLocalizedString::GetListNameShort(UInt32 aLanguageCode, const 
 * @param[in]	aLanguageCode	- код языка, для которого требуется найти строчку
 * @param[out]	aText			- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetListClass(UInt32 aLanguageCode, const UInt16** aText) const
 {
@@ -159,7 +159,7 @@ ESldError CSldListLocalizedString::GetListClass(UInt32 aLanguageCode, const UInt
 * @param[in]	aLanguageCode	- код языка, для которого требуется найти строчку
 * @param[out]	aText			- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetListLanguagePair(UInt32 aLanguageCode, const UInt16** aText) const
 {
@@ -177,7 +177,7 @@ ESldError CSldListLocalizedString::GetListLanguagePair(UInt32 aLanguageCode, con
 * @param[in]	aLanguageCode	- код языка, для которого требуется найти строчку
 * @param[out]	aText			- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetListLanguagePairShort(UInt32 aLanguageCode, const UInt16** aText) const
 {
@@ -195,7 +195,7 @@ ESldError CSldListLocalizedString::GetListLanguagePairShort(UInt32 aLanguageCode
 * @param[in]	aLanguageCode	- код языка, для которого требуется найти строчку
 * @param[out]	aText			- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetLanguageNameFrom(UInt32 aLanguageCode, const UInt16** aText) const
 {
@@ -213,7 +213,7 @@ ESldError CSldListLocalizedString::GetLanguageNameFrom(UInt32 aLanguageCode, con
 * @param[in]	aLanguageCode	- код языка, для которого требуется найти строчку
 * @param[out]	aText			- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetLanguageNameTo(UInt32 aLanguageCode, const UInt16** aText) const
 {
@@ -228,10 +228,10 @@ ESldError CSldListLocalizedString::GetLanguageNameTo(UInt32 aLanguageCode, const
 /** *********************************************************************
 * Возвращает полное название списка слов
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
+* @param[in]	aIndex	- language data number (not language code)
 * @param[out]	aText	- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetListNameByIndex(UInt32 aIndex, const UInt16** aText) const
 {
@@ -248,10 +248,10 @@ ESldError CSldListLocalizedString::GetListNameByIndex(UInt32 aIndex, const UInt1
 /** *********************************************************************
 * Возвращает cокращенное название списка слов
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
+* @param[in]	aIndex	- language data number (not language code)
 * @param[out]	aText	- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetListNameShortByIndex(UInt32 aIndex, const UInt16** aText) const
 {
@@ -268,10 +268,10 @@ ESldError CSldListLocalizedString::GetListNameShortByIndex(UInt32 aIndex, const 
 /** *********************************************************************
 * Возвращает название класса списка слов
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
+* @param[in]	aIndex	- language data number (not language code)
 * @param[out]	aText	- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetListClassByIndex(UInt32 aIndex, const UInt16** aText) const
 {
@@ -288,10 +288,10 @@ ESldError CSldListLocalizedString::GetListClassByIndex(UInt32 aIndex, const UInt
 /** *********************************************************************
 * Возвращает название прямой языковой пары
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
+* @param[in]	aIndex	- language data number (not language code)
 * @param[out]	aText	- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetListLanguagePairByIndex(UInt32 aIndex, const UInt16** aText) const
 {
@@ -308,10 +308,10 @@ ESldError CSldListLocalizedString::GetListLanguagePairByIndex(UInt32 aIndex, con
 /***********************************************************************
 * Возвращает сокращенное название прямой языковой пары
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
+* @param[in]	aIndex	- language data number (not language code)
 * @param[out]	aText	- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetListLanguagePairShortByIndex(UInt32 aIndex, const UInt16** aText) const
 {
@@ -328,10 +328,10 @@ ESldError CSldListLocalizedString::GetListLanguagePairShortByIndex(UInt32 aIndex
 /***********************************************************************
 * Возвращает название языка, с которого производится перевод
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
+* @param[in]	aIndex	- language data number (not language code)
 * @param[out]	aText	- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetLanguageNameFromByIndex(UInt32 aIndex, const UInt16** aText) const
 {
@@ -348,10 +348,10 @@ ESldError CSldListLocalizedString::GetLanguageNameFromByIndex(UInt32 aIndex, con
 /** *********************************************************************
 * Возвращает название языка, на который производится перевод
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
+* @param[in]	aIndex	- language data number (not language code)
 * @param[out]	aText	- указатель, по которому будет записан указатель на строчку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListLocalizedString::GetLanguageNameToByIndex(UInt32 aIndex, const UInt16** aText) const
 {

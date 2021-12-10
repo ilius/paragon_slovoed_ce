@@ -4,81 +4,81 @@
 #include "SldError.h"
 #include "SldTypes.h"
 
-/// Класс, представляющий ресурс видео
+// Класс, представляющий ресурс видео
 class CSldVideoItem
 {
 public:
-	/// Конструктор объекта
+	// Конструктор объекта
 	CSldVideoItem();
-	/// Деструктор объекта
+	// Деструктор объекта
 	~CSldVideoItem();
 
-	/// Очистка объекта
+	// Очистка объекта
 	void Clear(const bool isPureClear = true);
-	/// Метод, определяющий корректность хранимых данных
+	// Метод, определяющий корректность хранимых данных
 	UInt8 IsValid() const;
 
-	/// Конструктор копирования
+	// Конструктор копирования
 	CSldVideoItem(const CSldVideoItem&);
-	/// Оператор присваивания
+	// Оператор присваивания
 	CSldVideoItem& operator=(const CSldVideoItem&);
 
-	/// Возвращает идентификатор видео
+	// Возвращает идентификатор видео
 	Int32 GetVideoId() const { return m_videoId; }
-	/// Установка идентификатора видео
+	// Установка идентификатора видео
 	void SetVideoId(const Int32 aVideoId) { m_videoId = aVideoId; }
-	/// Установка идентификатора видео из строки
+	// Установка идентификатора видео из строки
 	ESldError SetVideoId(const UInt16 *const asVideoId);
 
-	/// Возвращает идентификатор внешнего словаря
+	// Возвращает идентификатор внешнего словаря
 	const UInt16* GetExtDict() const;
-	/// Устанавливает идентификатор внешнего словаря
+	// Устанавливает идентификатор внешнего словаря
 	ESldError SetExtDict(const UInt16* aiExtDict);
 
-	/// Возвращает идентификатор списка во внешнем словаре
+	// Возвращает идентификатор списка во внешнем словаре
 	Int32 GetExtListIdx() const;
-	/// Устанавливает идентификатор списка во внешнем словаре
+	// Устанавливает идентификатор списка во внешнем словаре
 	void SetExtListIdx(const Int32 aiExtListIdx);
-	/// Устанавливает идентификатор списка во внешнем словаре из строки
+	// Устанавливает идентификатор списка во внешнем словаре из строки
 	ESldError SetExtListIdx(const UInt16 *const asExtListIdx);
 
-	/// Возвращает ключ (слово) в списке внешнего словаря
+	// Возвращает ключ (слово) в списке внешнего словаря
 	const UInt16 *GetExtKey() const;
-	/// Устанавливает ключ (слово) в списке внешнего словаря
+	// Устанавливает ключ (слово) в списке внешнего словаря
 	ESldError SetExtKey(const UInt16 *const asExtKey);
 
-	/// Возвращает тип видеокодека
+	// Возвращает тип видеокодека
 	ESldVideoType GetVideoCodec() const { return m_videoCodec; }
-	/// Установка кодека видеоконтента
+	// Установка кодека видеоконтента
 	void SetVideoCodec(const ESldVideoType aVideoCodec) { m_videoCodec = aVideoCodec; }
-	/// Установка кодека видеоконтента из строки
+	// Установка кодека видеоконтента из строки
 	ESldError SetVideoCodec(const UInt16 *const aVideoCodecStr);
 
-	/// Возвращает разрешение видеоконтента
+	// Возвращает разрешение видеоконтента
 	Int32 GetVideoResolution() const { return m_videoResolution; }
-	/// Устанавливает разрешение видеоконтента
+	// Устанавливает разрешение видеоконтента
 	void SetVideoResolution(const Int32 aVideoResolution) { m_videoResolution = aVideoResolution; }
-	/// Определение размера видеоконтена из стоки
+	// Определение размера видеоконтена из стоки
 	ESldError SetVideoResolution(const UInt16 *const asVideoResolution);
 
 private:
-	/// Заменяет старое значение строки на новое (через удаление, при необходимости, старой)
+	// Заменяет старое значение строки на новое (через удаление, при необходимости, старой)
 	ESldError ReplaceString(UInt16 **const asDst, const UInt16 *const asSrc);
-	/// Производит проверку формата и установку идентификатора внешнего словаря
+	// Производит проверку формата и установку идентификатора внешнего словаря
 	ESldError StrToDictId(UInt32 *const apiDictIdPtr, const UInt16 *const asDictId);
 
 private:
-	/// Идентификатор видео
+	// Идентификатор видео
 	Int32  m_videoId;
-	/// идентификатор внешнего словаря
+	// идентификатор внешнего словаря
 	UInt16* m_sExtDict;
-	/// идентификатор списка во внешнем словаре
+	// идентификатор списка во внешнем словаре
 	Int32   m_iExtListIdx;
-	/// ключ (слово) в списке внешнего словаря
+	// ключ (слово) в списке внешнего словаря
 	UInt16 *m_sExtKey;
-	/// Размер видеоконтента
+	// Размер видеоконтента
 	Int32  m_videoResolution;
-	/// Тип кодека видеоконтента
+	// Тип кодека видеоконтента
 	ESldVideoType m_videoCodec;
 };
 

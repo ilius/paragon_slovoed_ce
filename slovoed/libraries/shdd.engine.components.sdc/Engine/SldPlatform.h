@@ -30,7 +30,7 @@
 
 #include <stdint.h>
 
-// Базовые типы данных
+// Basic data types
 typedef uint64_t  UInt64;
 typedef int64_t   Int64;
 typedef uint32_t  UInt32;
@@ -70,16 +70,16 @@ typedef float     Float32;
 
 #ifdef SLD__HAVE_MEM_MGR_ALLOCATOR
 
- /// Выделяет память в количестве aSize байт
+// Allocates memory aSize bytes
 void *sldMemNew(UInt32 aSize);
 
-/// Освобождает память
+// Frees up memory
 void sldMemFree(void *aPointer);
 
-/// Перевыделяет память в количестве aSize байт
+// Reassigns memory aSize bytes
 void *sldMemRealloc(void *aPointer, UInt32 aSize);
 
-/// Выделяет память в количестве aSize байт заполненную нулями
+// Allocates memory aSize bytes filled with zeros
 void *sldMemNewZero(UInt32 aSize);
 
 #else
@@ -87,11 +87,11 @@ void *sldMemNewZero(UInt32 aSize);
 #include <stdlib.h> /* malloc, calloc, free */
 
 /**
- * Выделяет блок памяти
+ * Allocates a block of memory
  *
- * @param[in] aSize - размер блока памяти в байтах
+ * @param [in] aSize - the size of the memory block in bytes
  *
- * @return указатель на блок памяти или NULL в случае ошибки
+ * @return a pointer to a block of memory, or NULL on error
  */
 static inline void *sldMemNew(UInt32 aSize)
 {
@@ -99,11 +99,11 @@ static inline void *sldMemNew(UInt32 aSize)
 }
 
 /**
- * Выделяет память заполненную 0
+ * Allocates memory full of 0
  *
- * @param[in] aSize - размер блока памяти в байтах
+ * @param[in] aSize - memory block size in bytes
  *
- * @return указатель на блок памяти или NULL в случае ошибки
+ * @return a pointer to a block of memory, or NULL on error
  ************************************************************************/
 static inline void *sldMemNewZero(UInt32 aSize)
 {
@@ -111,12 +111,12 @@ static inline void *sldMemNewZero(UInt32 aSize)
 }
 
 /**
- * Изменяет размер выделенного блока памяти
+ * Resizes the allocated block of memory
  *
- * @param aPtr  - указатель на блок
- * @param aSize - размер блока памяти в байтах
+ * @param aPtr  - pointer to block
+ * @param aSize - memory block size in bytes
  *
- * @return указатель на блок памяти или NULL в случае ошибки
+ * @return a pointer to a block of memory, or NULL on error
  */
 static inline void *sldMemRealloc(void *aPtr, UInt32 aSize)
 {
@@ -124,9 +124,9 @@ static inline void *sldMemRealloc(void *aPtr, UInt32 aSize)
 }
 
 /**
- * Освобождает память выделенную с помощью функций #sldMemNew, #sldMemNewZero, #sldMemRealloc
+ * Free memory allocated using the #SLDMEMEMEW, #Sldmemerewzero, #SldMemrelloc
  *
- * @param[in] aPtr - указатель на память которую необходимо освободить
+ * @param[in] aPtr - pointer to memory to be freed
  */
 static inline void sldMemFree(void *aPtr)
 {
@@ -137,13 +137,13 @@ static inline void sldMemFree(void *aPtr)
 
 #ifdef SLD__HAVE_MEM_MGR_MISC
 
-/// Копирует память
+// Copies memory
 void sldMemMove(void *aToPtr, const void *aFromPtr, UInt32 aSize);
 
-/// Копирует память
+// Copies memory
 void sldMemCopy(void *aToPtr, const void *aFromPtr, UInt32 aSize);
 
-/// Заполняет память значениями aValue
+// Fills memory with aValue values
 void sldMemSet(void *aPtr, Int32 aValue, UInt32 aSize);
 
 #else
@@ -151,11 +151,11 @@ void sldMemSet(void *aPtr, Int32 aValue, UInt32 aSize);
 #include <string.h> /* memset, memmove, memcpy */
 
 /**
- * Копирует память из одного места в другое
+ * Copies memory from one location to another
  *
- * @param[out] aToPtr   - указатель на блок памяти куда следует поместить данные из aFromPtr
- * @param[in]  aFromPtr - указатель на блок памяти откуда нужно брать данные для копирования в aToPtr
- * @param[in]  aSize    - количество данных для копирования
+ * @param[out] aToPtr   - pointer to memory block where data from aFromPtr should be placed
+ * @param[in]  aFromPtr - pointer to the memory block from where to get the data for copying into aToPtr
+ * @param[in]  aSize    - amount of data to copy
  */
 static inline void sldMemMove(void *aToPtr, const void *const aFromPtr, UInt32 aSize)
 {
@@ -163,13 +163,13 @@ static inline void sldMemMove(void *aToPtr, const void *const aFromPtr, UInt32 a
 }
 
 /**
- * Копирует память из одного места в другое
+ * Copies memory from one location to another
  *
- * @param[out] aToPtr   - указатель на блок памяти куда следует поместить данные из aFromPtr
- * @param[in]  aFromPtr - указатель на блок памяти откуда нужно брать данные для копирования в aToPtr
- * @param[in]  aSize    - количество данных для копирования
+ * @param[out] aToPtr   - pointer to memory block where data from aFromPtr should be placed
+ * @param[in]  aFromPtr - pointer to the memory block from where to get the data for copying into aToPtr
+ * @param[in]  aSize    - amount of data to copy
  *
- * ВАЖНО: блоки памяти не должны пересекаться
+ * IMPORTANT: memory blocks must not overlap
  */
 static inline void sldMemCopy(void *aToPtr, const void *const aFromPtr, UInt32 aSize)
 {
@@ -177,11 +177,11 @@ static inline void sldMemCopy(void *aToPtr, const void *const aFromPtr, UInt32 a
 }
 
 /**
- * Заполняет память значениями
+ * Fills memory with values
  *
- * @param[in] aPtr   - указатель на блок памяти который необходимо заполнить
- * @param[in] aValue - значение которым необходимо заполнить блок памяти
- * @param[in] aSize  - размер блока подлежащего заполнению
+ * @param[in] aPtr   - pointer to the block of memory to be filled
+ * @param[in] aValue - the value to fill the memory block
+ * @param[in] aSize  - block size to be filled
  */
 static inline void sldMemSet(void *aPtr, Int32 aValue, UInt32 aSize)
 {
@@ -191,10 +191,10 @@ static inline void sldMemSet(void *aPtr, Int32 aValue, UInt32 aSize)
 #endif // SLD__HAVE_MEM_MGR_MISC
 
 /**
- * Очищает память (заполняет 0)
+ * Cleans up memory (fills 0)
  *
- * @param[in] aPtr  - указатель на блок памяти который необходимо очистить
- * @param[in] aSize - размер блока подлежащего очистке
+ * @param[in] aPtr  - pointer to the block of memory to be cleared
+ * @param[in] aSize - block size to be cleaned
  */
 static inline void sldMemZero(void *aPtr, UInt32 aSize)
 {
@@ -202,11 +202,11 @@ static inline void sldMemZero(void *aPtr, UInt32 aSize)
 }
 
 /**
- * Выделяет память под объект(ы) типа @T
+ * Allocates memory for object (s) of type @T
  *
- * @param[in] aCount - количество объектов (>0, по дефолту - 1)
+ * @param[in] aCount - number of objects (> 0, by default - 1)
  *
- * @return указатель на объект(ы) или NULL в случае ошибки
+ * @return pointer to object (s) or NULL on error
  */
 template <typename T>
 static inline T* sldMemNew(UInt32 aCount = 1)
@@ -215,11 +215,11 @@ static inline T* sldMemNew(UInt32 aCount = 1)
 }
 
 /**
- * Выделяет память под объект(ы) типа @T заполненную 0
+ * Allocates memory for object (s) of type @T filled with 0
  *
- * @param[in] aCount - количество объектов (>0, по дефолту - 1)
+ * @param[in] aCount - number of objects (> 0, by default - 1)
  *
- * @return указатель на объект(ы) или NULL в случае ошибки
+ * @return pointer to object (s) or NULL on error
  */
 template <typename T>
 static inline T* sldMemNewZero(UInt32 aCount = 1)
@@ -228,12 +228,12 @@ static inline T* sldMemNewZero(UInt32 aCount = 1)
 }
 
 /**
- * Изменяет размер выделенного блока памяти под массив объектов типа @T
+ * Resizes the allocated memory block for an array of objects of type @T
  *
- * @param[in] aPtr   - указатель на массив объектов
- * @param[in] aCount - количество объектов
+ * @param[in] aPtr   - pointer to an array of objects
+ * @param[in] aCount - number of objects
  *
- * @return указатель на массив объектов или NULL в случае ошибки
+ * @return pointer to an array of objects, or NULL on error
  */
 template <typename T>
 static inline T* sldMemReallocT(T *aPtr, UInt32 aCount)
@@ -244,14 +244,14 @@ static inline T* sldMemReallocT(T *aPtr, UInt32 aCount)
 // custom implementation of std::move, std::forward and the supporting meta machinery
 namespace sld2 {
 
-/// реализация std::move
+// std :: move implementation
 template<class T>
 inline remove_reference<T>&& move(T&& aArg)
 {
 	return static_cast<remove_reference<T>&&>(aArg);
 }
 
-/// реализация std::forward
+// implementation of std :: forward
 template<class T>
 inline T&& forward(remove_reference<T>& aArg)
 {
@@ -280,12 +280,11 @@ inline void destroy_at(T*) { /* noop */ }
 } // namespace sld2
 
 /**
- * Создает объект типа @T передавая аргументы @aArgs в конструктор
+ * Creates an object of type @T passing @aArgs arguments to the constructor
  *
- * Использовать вместо чистого new(), удалять через sldDelete()
+ * Use instead of pure new (), delete via sldDelete ()
  *
- * @return указатель на вновь созданный объект или NULL при
- *         невозможности выделить память
+ * @return pointer to newly created object, or NULL if memory cannot be allocated
  */
 template<typename T, typename... Args>
 inline T *sldNew(Args&&... aArgs)
@@ -297,9 +296,9 @@ inline T *sldNew(Args&&... aArgs)
 }
 
 /**
- * Уничтожает объект созданный через sldNew()
+ * Destroys the object created with sldNew ()
  *
- * @param[in] aPtr - указатель на объект
+ * @param[in] aPtr - pointer to object
  */
 template <typename T>
 inline void sldDelete(T *aPtr)

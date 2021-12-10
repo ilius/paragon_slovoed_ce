@@ -124,7 +124,7 @@ CSldArticles::CSldArticles(CSldDictionary &aDict, ISldLayerAccess &aLayerAccess,
 * @param[in]	aIndex		- номер перевода среди всех переводов
 * @param[in]	aFullness	- степень полноты полученного перевода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldArticles::Translate(Int32 aIndex, ESldTranslationFullnesType aFullness, UInt32 aStartBlock, UInt32 aEndBlock)
 {
@@ -173,7 +173,7 @@ ESldError CSldArticles::Translate(Int32 aIndex, ESldTranslationFullnesType aFull
 *
 * @param[in]	aFullness	- степень полноты полученного перевода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldArticles::TranslateContinue(ESldTranslationFullnesType aFullness)
 {
@@ -191,7 +191,7 @@ ESldError CSldArticles::TranslateContinue(ESldTranslationFullnesType aFullness)
 /** *********************************************************************
 * Производит очистку состояния перевода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldArticles::TranslateClear()
 {
@@ -250,7 +250,7 @@ UInt32 fixupBlockText(UInt16 *aBuffer, UInt32 aLength, const CSldStyleInfo *aSty
 *
 * @param[in]	aFullness	- полнота перевода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldArticles::GetNextArticle(ESldTranslationFullnesType aFullness, UInt32 aStartBlock, UInt32 aEndBlock)
 {
@@ -335,7 +335,7 @@ ESldError CSldArticles::GetNextArticle(ESldTranslationFullnesType aFullness, UIn
 * @param[out]	aStyleInfo	- по данному указателю будет записан адрес класса 
 *							  который хранит информацию о стиле
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldArticles::GetStyleInfo(UInt32 aIndex, const CSldStyleInfo **aStyleInfo) const
 {
@@ -355,11 +355,11 @@ ESldError CSldArticles::GetStyleInfo(UInt32 aIndex, const CSldStyleInfo **aStyle
 * @param[in]	aStyleIndex		- номер стиля
 * @param[in]	aVariantIndex	- номер варианта отображения
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldArticles::SetDefaultStyleVariant(Int32 aStyleIndex, Int32 aVariantIndex)
 {
-	if (aStyleIndex >= m_StylesInfo.size() || aStyleIndex < 0)
+	if (aStyleIndex >= (int)m_StylesInfo.size() || aStyleIndex < 0)
 		return eCommonWrongIndex;
 	
 	if (!m_StylesInfo[aStyleIndex])
@@ -387,7 +387,7 @@ UInt32 CSldArticles::GetNumberOfStyles() const
 *
 * @param[in]	aRegData	- указатель на структуру с регистрационной информацией
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldArticles::SetRegisterData(TRegistrationData *aRegData)
 {
@@ -407,7 +407,7 @@ ESldError CSldArticles::SetRegisterData(TRegistrationData *aRegData)
 * @param[in]	aStopType	- тип метаданных, встретив который, мы закончим получение статьи
 *							  в результат этот блок не попадет
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldArticles::GetArticle(const Int32 aIndex, SplittedArticle & aArticle, const ESldStyleMetaTypeEnum aStopType)
 {

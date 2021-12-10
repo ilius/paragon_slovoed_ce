@@ -102,7 +102,7 @@ static inline UInt32 fmix(UInt32 h)
 
 } // namespace murmur
 
-/// MurmurHash3
+// MurmurHash3
 static inline UInt32 MurmurHash3(const void *key, UInt32 len, UInt32 seed)
 {
 	const UInt8 *data = (const UInt8*)key;
@@ -131,7 +131,7 @@ static inline UInt32 MurmurHash3(const void *key, UInt32 len, UInt32 seed)
 	return murmur3::fmix(seed ^ len);
 }
 
-/// реализация std::swap
+// реализация std::swap
 template<typename Type>
 static inline void swap(Type & aFirst, Type & aSecond)
 {

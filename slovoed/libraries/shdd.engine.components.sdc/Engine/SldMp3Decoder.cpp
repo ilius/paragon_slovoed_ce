@@ -4,7 +4,7 @@
 /** *********************************************************************
 * Декодирует озвучку в формате mp3
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError Mp3Decode(ISldLayerAccess* aLayerAccess, FSoundBuilderMethodPtr aBuilderPtr, const UInt8* aDataPtr, UInt32 aDataSize, UInt8 aIsLast, UInt32* aStartPos)
 {

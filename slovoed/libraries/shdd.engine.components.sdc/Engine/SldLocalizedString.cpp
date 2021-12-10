@@ -59,7 +59,7 @@ UInt32 CSldLocalizedString::GetNumberOfLanguages() const
 * @param[out]	aNumberOfLanguages	- указатель на переменную, в которую нужно
 *									  будет записать код языка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetLanguagesCode(UInt32 aIndex, UInt32 *aLanguageCode) const
 {
@@ -98,10 +98,10 @@ Int32 CSldLocalizedString::FindLanguage(UInt32 aLanguageCode) const
 /** *********************************************************************
 * Возвращает название продукта
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetProductName(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -116,10 +116,10 @@ ESldError CSldLocalizedString::GetProductName(UInt32 aLanguageCode, const UInt16
 /** *********************************************************************
 * Возвращает название словаря
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryName(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -134,10 +134,10 @@ ESldError CSldLocalizedString::GetDictionaryName(UInt32 aLanguageCode, const UIn
 /** *********************************************************************
 * Возвращает сокращенное название словаря
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryNameShort(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -152,10 +152,10 @@ ESldError CSldLocalizedString::GetDictionaryNameShort(UInt32 aLanguageCode, cons
 /** *********************************************************************
 * Возвращает тип словаря(Compact, Classic, Deluxe)
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryClass(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -170,10 +170,10 @@ ESldError CSldLocalizedString::GetDictionaryClass(UInt32 aLanguageCode, const UI
 /** *********************************************************************
 * Возвращает название прямой языковой пары
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryLanguagePair(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -188,10 +188,10 @@ ESldError CSldLocalizedString::GetDictionaryLanguagePair(UInt32 aLanguageCode, c
 /** *********************************************************************
 * Возвращает название обратной языковой пары
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryLanguagePairReverse(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -206,10 +206,10 @@ ESldError CSldLocalizedString::GetDictionaryLanguagePairReverse(UInt32 aLanguage
 /** *********************************************************************
 * Возвращает короткое название прямой языковой пары
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryLanguagePairShort(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -224,10 +224,10 @@ ESldError CSldLocalizedString::GetDictionaryLanguagePairShort(UInt32 aLanguageCo
 /** *********************************************************************
 * Возвращает короткое название обратной языковой пары
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryLanguagePairShortReverse(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -242,10 +242,10 @@ ESldError CSldLocalizedString::GetDictionaryLanguagePairShortReverse(UInt32 aLan
 /** *********************************************************************
 * Возвращает название языка с которого производится перевод
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetLanguageNameFrom(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -260,10 +260,10 @@ ESldError CSldLocalizedString::GetLanguageNameFrom(UInt32 aLanguageCode, const U
 /** *********************************************************************
 * Возвращает название языка на который производится перевод
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetLanguageNameTo(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -278,10 +278,10 @@ ESldError CSldLocalizedString::GetLanguageNameTo(UInt32 aLanguageCode, const UIn
 /** *********************************************************************
 * Возвращает название автора словаря
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetAuthorName(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -296,10 +296,10 @@ ESldError CSldLocalizedString::GetAuthorName(UInt32 aLanguageCode, const UInt16 
 /** *********************************************************************
 * Возвращает адрес сайта автора словаря
 *
-* @param[in]	aLanguageCode	- код языка для которого требуется найти строчку
-* @param[out]	aText			- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aLanguageCode	- language code for which you want to find the line
+* @param[out]	aText			- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetAuthorWeb(UInt32 aLanguageCode, const UInt16 **aText) const
 {
@@ -314,10 +314,10 @@ ESldError CSldLocalizedString::GetAuthorWeb(UInt32 aLanguageCode, const UInt16 *
 /** *********************************************************************
 * Возвращает название продукта
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetProductNameByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -334,10 +334,10 @@ ESldError CSldLocalizedString::GetProductNameByIndex(UInt32 aIndex, const UInt16
 /** *********************************************************************
 * Возвращает название словаря
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryNameByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -354,10 +354,10 @@ ESldError CSldLocalizedString::GetDictionaryNameByIndex(UInt32 aIndex, const UIn
 /** *********************************************************************
 * Возвращает сокращенное название словаря
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryNameShortByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -374,10 +374,10 @@ ESldError CSldLocalizedString::GetDictionaryNameShortByIndex(UInt32 aIndex, cons
 /** *********************************************************************
 * Возвращает тип словаря(Compact, Classic, Deluxe)
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryClassByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -394,10 +394,10 @@ ESldError CSldLocalizedString::GetDictionaryClassByIndex(UInt32 aIndex, const UI
 /** *********************************************************************
 * Возвращает название прямой языковой пары
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryLanguagePairByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -414,10 +414,10 @@ ESldError CSldLocalizedString::GetDictionaryLanguagePairByIndex(UInt32 aIndex, c
 /** *********************************************************************
 * Возвращает название обратной языковой пары
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryLanguagePairReverseByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -434,10 +434,10 @@ ESldError CSldLocalizedString::GetDictionaryLanguagePairReverseByIndex(UInt32 aI
 /** *********************************************************************
 * Возвращает короткое название прямой языковой пары
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryLanguagePairShortByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -454,10 +454,10 @@ ESldError CSldLocalizedString::GetDictionaryLanguagePairShortByIndex(UInt32 aInd
 /** *********************************************************************
 * Возвращает короткое название обратной языковой пары
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetDictionaryLanguagePairShortReverseByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -474,10 +474,10 @@ ESldError CSldLocalizedString::GetDictionaryLanguagePairShortReverseByIndex(UInt
 /** *********************************************************************
 * Возвращает название языка с которого производится перевод
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetLanguageNameFromByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -494,10 +494,10 @@ ESldError CSldLocalizedString::GetLanguageNameFromByIndex(UInt32 aIndex, const U
 /** *********************************************************************
 * Возвращает название языка на который производится перевод
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetLanguageNameToByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -514,10 +514,10 @@ ESldError CSldLocalizedString::GetLanguageNameToByIndex(UInt32 aIndex, const UIn
 /** *********************************************************************
 * Возвращает название автора словаря
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetAuthorNameByIndex(UInt32 aIndex, const UInt16 **aText) const
 {
@@ -534,10 +534,10 @@ ESldError CSldLocalizedString::GetAuthorNameByIndex(UInt32 aIndex, const UInt16 
 /** *********************************************************************
 * Возвращает адрес сайта автора словаря
 *
-* @param[in]	aIndex	- номер языковых данных (не код языка)
-* @param[out]	aText	- указатель, по которому будет записан указатель на строчку.
+* @param[in]	aIndex	- language data number (not language code)
+* @param[out]	aText	- the pointer at which the pointer will be written to the line.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldLocalizedString::GetAuthorWebByIndex(UInt32 aIndex, const UInt16 **aText) const
 {

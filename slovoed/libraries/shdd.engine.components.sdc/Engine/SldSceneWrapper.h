@@ -5,44 +5,44 @@
 #include "Colour.h"
 #include "SldError.h"
 
-/// Класс для упрощеной работой с ресурсом типа RESOURCE_TYPE_SCENE
+// Класс для упрощеной работой с ресурсом типа RESOURCE_TYPE_SCENE
 class CSldSceneWrapper
 {
 public:
-	/// Конструктор
+	// Constructor
 	CSldSceneWrapper(void);
-	/// Деструктор
+	// Destructor
 	~CSldSceneWrapper(void);
 
-	/// Инициализация данными
+	// Инициализация данными
 	ESldError Init(TElement* aElement);
 
-	/// Получаем цвет сцены
+	// Получаем цвет сцены
 	ESldError GetColour(CColour* aAmbient, CColour* aBackground);
 
-	/// Сбрасываем на начало
+	// Сбрасываем на начало
 	ESldError Reset();
 
-	/// Получение следующего нода
+	// Получение следующего нода
 	ESldError GetNextNode(TSldSceneNode* aNode);
 
-	/// Получение количества нодов
+	// Получение количества нодов
 	ESldError GetCountNode(UInt32* aCount);
 
 protected:
-	/// Проверка поддержки версии
+	// Проверка поддержки версии
 	ESldError CheckVersion(UInt32 aVersion);
 
 protected:
-	/// Указатель на начало данных
+	// Указатель на начало данных
 	UInt8* m_BeginData;
-	/// Указатель на текущее положение в памяти
+	// Указатель на текущее положение в памяти
 	UInt8* m_CurrentData;
-	/// Номер текущего нода
+	// Номер текущего нода
 	UInt32 m_CurrenNode;
-	/// Количество нодов
+	// Количество нодов
 	UInt32 m_NodeCount;
-	/// Заголовк сцены
+	// Заголовк сцены
 	TSceneHeader m_header;
 };
 

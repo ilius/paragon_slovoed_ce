@@ -3,33 +3,32 @@
 
 #include "SldPlatform.h"
 
-/** 
+/*
 
-	@page Контейнер словарей.
+	@page Container of dictionaries.
 
-	Словари имеют в своем составе разнородные данные, которые для удобства хранения, 
-	распространения и обработки должны быть объединены в один файл который выступает 
-	контейнером и обеспечивает поиск и доступ к нужным данным.
+	Dictionaries contain heterogeneous data, which, for ease of storage,
+	distribution and processing should be combined into a single file which serves
+	container and provides search and access to the data you need.
 
-	Ранее в роли контейнера выступал формат PRC(Palm Resource Code: http://en.wikipedia.org/wiki/PRC_(Palm_OS))
-	Однако он имел некоторые проблемы, которые мешают использовать его в дальнейшем:
-	1) Ограничение размера ресурса в 64кБ
-	2) Ограничено количество ресурсов - не более 65565 на один тип
-	3) Структуры не выровнены по 4 байта, из-за чего требуются дополнительные действия при чтении
-	4) Необходимость переворачивать данные при работе - не Intel(ARM,MIPS) порядок байт в машинном слове.
-	5) Отсутствует контроль целостности файла(даже размера файла нет).
+	Previously, the container was the PRC format (Palm Resource Code: http://en.wikipedia.org/wiki/PRC_(Palm_OS))
+	However, he had some problems that prevent him from using it in the future:
+	1) Limiting the resource size to 64kB
+	2) The number of resources is limited - no more than 65565 per type
+	3) Structures are not aligned by 4 bytes, which is why additional actions are required when reading
+	4) The need to flip data during operation - not Intel (ARM, MIPS) byte order in a machine word.
+	5) There is no control over the integrity of the file (even the file size is not present).
 
-	Поэтому начиная с 2009 года начинается переход на новый контейнер, который будем называть 
-	SDC(SlovoEd Data Container).
+	Therefore, starting in 2009, the transition to a new container begins, which we will call
+	SDC (SlovoEd Data Container).
 
-	Все данные разделенные будем называть ресурсами. Ресурсы могут иметь тип(дерево хафмана, 
-	таблица сравнения, сжатые данные, заголовок словаря и т.д.) и номер(дерево хафмана 0, 
-	дерево хафмана 1, ..., дерево хафмана 8). Номер у ресурса может быть любой и не обязательно 
-	подряд с другими ресурсами того-же типа. Может быть множество ресурсов разных типов. 
-	Может быть множество ресурсов разных номеров. Может быть множество ресурсов с одним номером 
-	или типом, но не может быть ресурсов имеющих между собой одинаковые тип и номер.
-
-	Структура контейнера будет аналогичной структуре PRC:
+	All separated data will be called resources. Resources can be of type (Huffman tree,
+	comparison table, compressed data, dictionary header, etc.) and number (halfman tree 0,
+	halfman tree 1, ..., halfman tree 8). The resource number can be any and not necessary
+	in a row with other resources of the same type. There can be many different types of resources.
+	There can be many resources of different numbers. There can be many resources with the same number
+	or type, but there cannot be resources having the same type and number among themselves.
+	The container structure will be similar to the PRC structure:
 								\n
 	[SDC Header]				\n
 								\n
@@ -39,166 +38,166 @@
 								\n
 	[Data]						\n
 
-	В SDC Header находится заголовок контейнера, в котором хранится общая информация.
-	Набор записей Resource record X - это записи с информацией о том, где находятся ресурсы.
-	Data - собственно данные которые должны храниться в контейнере.
-	Внимание! Собственно данные ресурсов идут в том-же порядке, что и записи в Resource record.
+	The SDC Header contains the header of the container that stores general information.
+	Resource record X are records with information about where resources are located.
+	Data - the actual data that should be stored in the container.
+	Attention! The actual resource data goes in the same order as the records in the Resource record.
 */
 
-/// Структура заголовка файла
+// File header structure
 typedef struct SlovoEdContainerHeader
 {
-	/// Сигнатура файла, должна быть "SLD2"
+	// File signature, must be "SLD2"
 	UInt32	Signature;
-	/// Размер структуры заголовка.
+	// The size of the header structure.
 	UInt32	HeaderSize;
-	/// Версия контейнера.
+	// Container version.
 	UInt32	Version;
-	/// Контрольная сумма для файла.
+	// Checksum for the file.
 	UInt32	CRC;
-	/// Размер файла.
+	// File size.
 	UInt32	FileSize;
-	/// Идентификатор контейнера
+	// Container id
 	UInt32	DictID;
-	/// Количество ресурсов в файле.
+	// The number of resources in the file.
 	UInt32	NumberOfResources;
-	/// Размер структуры #SlovoEdContainerResourcePosition.
-	/** нужно для случая, если нам потребуется создать словарь больше 4ГБ */
+	// The size of the #SlovoEdContainerResourcePosition structure.
+	/** needed in case we need to create a dictionary larger than 4GB */
 	UInt32	ResourceRecordSize;
-	/// Тип содержимого контейнера (см. #ESlovoEdContainerDatabaseTypeEnum).
+	// Container content type (see #ESlovoEdContainerDatabaseTypeEnum).
 	UInt32	DatabaseType;
-	/// Флаг, если не равен 0, значит записи в таблице ресурсов отсортированы:
-	/// по типу ресурса, а внутри диапазона одного типа также и по номеру ресурса
+	// If the flag is not equal to 0, then the records in the resource table are sorted:
+	// by resource type, and within a range of one type also by resource number
 	UInt32	IsResourceTableSorted;
-	/// Количество дополнительных свойств базы
+	// Number of additional base properties
 	UInt32 BaseAddPropertyCount;
-	/// Флаг того, что это демо-база
+	// Flag that this is a demo database
 	UInt32 IsInApp;
-	/// Флаг, если не равен 0, значит есть имена ресурсов
+	// Flag, if not equal to 0, then there are resource names
 	UInt8	IsResourcesHaveNames;
-	/// Флаг, если не равен 0, значит в базе есть сжатые ресурсы
+	// If the flag is not equal to 0, then there are compressed resources in the database
 	UInt8	HasCompressedResources;
-	// явное выравнивание до следующего UInt32
+	// explicit alignment to next UInt32
 	UInt16	_pad0;
-	/// Зарезервировано
+	// Reserved
 	UInt32	Reserved[19];
 }SlovoEdContainerHeader;
 
-/// Структура описывающая местоположение ресурса.
+// A structure describing the location of the resource.
 typedef struct SlovoEdContainerResourcePosition
 {
-	/// Тип ресурса
+	// Resource type
 	UInt32 Type;
-	/// Индекс ресурса
+	// Resource index
 	UInt32 Index;
-	/// Размер ресурса
-	// Старший бит используется как флаг сжатости ресурса, соответственно текущий
-	// максимальный размер одного ресурса ограничен 2гб
+	// Resource size
+	// The most significant bit is used as a flag of resource compression, respectively, the current
+	// the maximum size of one resource is limited to 2GB
 	UInt32 Size;
-	/// Смещение от начала файла до начала ресурса
+	// Offset from the beginning of the file to the beginning of the resource
 	UInt32 Shift;
 }SlovoEdContainerResourcePosition;
 
-/// Тип алгоритма которым сжат ресурс
+// The type of algorithm by which the resource is compressed
 enum ESDCResourceCompressionType {
-	/// Без сжатия
+	// Without compression
 	eSDCResourceCompression_None = 0
 };
 
-/// Структура описывающая сжатый ресурс; хранится *перед* сжатыми данными ресурса
+// The structure describing the compressed resource; stored * before * the compressed resource data
 struct SlovoEdContainerCompressedResourceHeader
 {
-	/// Тип алгоритма которым сжат ресурс (см. #ESDCResourceCompressionType)
+	// The type of algorithm by which the resource is compressed (see #ESDCResourceCompressionType)
 	UInt16 CompressionType;
-	/// Выравнивание до следующего UInt32 (теоретически может использоваться для кастомизации
-	/// хидера под разные алгоритмы сжатия)
+	// Align to next UInt32 (theoretically can be used for customization
+	// header for different compression algorithms)
 	UInt16 _pad0;
-	/// Размер ресурса в несжатом, оригинальном виде
+	// Resource size in uncompressed, original form
 	UInt32 UncompressedSize;
 };
 
-/// Размер строчки с дополнительными свойствами словаря
+// Line size with additional dictionary properties
 #define DEFAULT_PROPERTY_SIZE		256
 
-/// Структура, описывающая дополнительные свойства базы
+// A structure describing additional properties of the base
 struct TBaseProperty
 {
-	/// Название свойства
+	// Property name
 	UInt16 PropertyName[DEFAULT_PROPERTY_SIZE];
 
-	/// Описание свойства
+	// Property Description
 	UInt16 Property[DEFAULT_PROPERTY_SIZE];
 };
 
-/// Номер текущей версии контейнера.
+// The current version number of the container.
 #define SDC_CURRENT_VERSION		(0x00000101)
-/// Сигнатура контейнера - SLD2
+// Container signature - SLD2
 #define SDC_SIGNATURE			('2DLS')
 
-/// Перечисление ошибок работы с контейнером.
+// Enumeration of errors in working with the container.
 enum SDCError
 {
-	/// Нет ошибок.
+	// No mistakes.
 	SDC_OK = 0,
 
-	/// База для ошибок памяти.
+	// Base for memory errors.
 	SDC_MEM_ERRORS = 0x0100,
-	/// Передан нулевой указатель
+	// Null pointer passed
 	SDC_MEM_NULL_POINTER,
-	/// Не хватает памяти
+	// Out of memory
 	SDC_MEM_NOT_ENOUGH_MEMORY,
 
-	/// Ошибки класса отвечающего за запись
+	// Writing class errors
 	SDC_WRITE_ERRORS = 0x0200,
-	/// Пытались добавить пустой ресурс.
+	// Tried to add an empty resource.
 	SDC_WRITE_EMPTY_RESOURCE,
-	/// Такой ресурс уже существует.
+	// Such a resource already exists.
 	SDC_WRITE_ALREADY_EXIST,
-	/// Ошибка создания файла(открытия для записи)
+	// Error creating file (opening for writing)
 	SDC_WRITE_CANT_CREATE_FILE,
-	/// Ошибка записи файла.
+	// File write error.
 	SDC_WRITE_CANT_WRITE,
-	/// Ошибка сортировки таблицы ресурсов
+	// Resource table sorting error
 	SDC_WRITE_CANT_SORT_RESOURCE_TABLE,
 
-	/// Ошибки класса отвечающего за чтение.
+	// Errors of the class responsible for reading.
 	SDC_READ_ERRORS = 0x0300,
-	/// Ошибка открытия файла.
+	// File opening error.
 	SDC_READ_CANT_OPEN_FILE,
-	/// Не могу прочитать заданное количество данных.
+	// I cannot read the specified amount of data.
 	SDC_READ_CANT_READ,
-	/// Не верная сигнатура, значит файл не в формате SDC!
+	// Incorrect signature, then the file is not in SDC format!
 	SDC_READ_WRONG_SIGNATURE,
-	/// Не правильный номер ресурса
+	// Invalid resource number
 	SDC_READ_WRONG_INDEX,
-	/// Не получается спозиционироваться согласно данным из таблицы смещений.
+	// It is not possible to position according to the data from the offset table.
 	SDC_READ_CANT_POSITIONING,
-	/// Ресурс не найден
+	// The resource can not be found
 	SDC_READ_RESOURCE_NOT_FOUND,
-	/// Контейнер не открыт
+	// Container not open
 	SDC_READ_NOT_OPENED,
-	/// Не верный размер файла
+	// Incorrect file size
 	SDC_READ_WRONG_FILESIZE,
-	/// Ошибка контрольной суммы
+	// Checksum error
 	SDC_READ_WRONG_CRC,
-	/// Не верный индекс свойства
+	// Invalid property index
 	SDC_READ_WRONG_PROPERTY_INDEX
 
 };
 
-/// Структура описывающая данные считанного ресурса
+// The structure describing the data of the read resource
 typedef struct ResourceMemType
 {
-	/// Указатель на данные
+	// Pointer to data
 	void	*ptr;
 
-	/// Размер данных
+	// Data size
 	UInt32	Size;
 
-	/// Тип ресурса
+	// Resource type
 	UInt32	Type;
 
-	/// Номер ресурса
+	// Resource number
 	UInt32	Index;
 }ResourceMemType;
 

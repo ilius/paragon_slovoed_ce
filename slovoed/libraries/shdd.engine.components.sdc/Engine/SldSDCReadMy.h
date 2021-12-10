@@ -42,7 +42,7 @@ struct list_head : public list_node {};
 
 } // namespace sld2
 
-/// Класс предназначеный для чтения данных из контейнера.
+// A class for reading data from a container.
 class CSDCReadMy
 {
 	struct ResourceStruct
@@ -50,13 +50,13 @@ class CSDCReadMy
 		// refcount
 		int refcnt;
 
-		/// размер данных
+		// data size
 		UInt32 size;
-		/// тип
+		// type
 		UInt32 type;
-		/// индекс среди ресурсов такого же типа
+		// index among resources of the same type
 		UInt32 index;
-		/// данные ресурса
+		// resource data
 		void *data;
 
 		// backref to the reader
@@ -81,7 +81,7 @@ class CSDCReadMy
 	};
 
 public:
-	/// Класс представляет из себя "хэндл" загруженого ресурса
+	// The class represents the "handle" of the loaded resource
 	class Resource
 	{
 	public:
@@ -140,8 +140,8 @@ public:
 		ResourceStruct *ptr_;
 	};
 
-	/// Класс представляет из себя "хэндл" *только что* загруженого ресурса
-	/// По сути Resource + статус загрузки (если eOK - значит ресурс загружен успешно)
+	// The class represents the "handle" of the *just* loaded resource
+	// In fact, Resource + loading status (if eOK - meaning the resource has been loaded successfully)
 	class ResourceHandle : protected Resource
 	{
 		friend class CSDCReadMy;
@@ -175,64 +175,64 @@ public:
 	};
 
 public:
-	/// Конструктор
+	// Constructor
 	CSDCReadMy(void);
 
-	/// Деструктор
+	// Destructor
 	~CSDCReadMy(void);
 
-	/// Открываем контейнер
+	// Opens the container
 	ESldError Open(ISDCFile *aFile);
 
-	/// Закрываем контейнер.
+	// Closes the container.
 	void Close();
 
-	/// Получаем ресурс по его типу и номеру
+	// Get a resource by its type and number
 	ResourceHandle GetResource(UInt32 aResType, UInt32 aResIndex);
 
-	/// Получаем данные ресурса по его типу и номеру без выделения памяти
+	// Get resource data by its type and number without memory allocation
 	ESldError GetResourceData(void* aData, UInt32 aResType, UInt32 aResIndex, UInt32 *aDataSize);
 
-	/// Получаем данные ресурса по его типу и номеру без выделения памяти
+	// Get resource data by its type and number without memory allocation
 	ESldError GetResourceData(void* aData, UInt32 aResType, UInt32 aResIndex, UInt32 aDataSize)
 	{
 		return GetResourceData(aData, aResType, aResIndex, &aDataSize);
 	}
 
-	/// Получает сдвиг от начала файла до ресурса с заданным типом и номером
+	// Gets the offset from the beginning of the file to the resource with the given type and number
 	ESldError GetResourceShiftAndSize(UInt32 *aShift, UInt32 *aSize, UInt32 aResType, UInt32 aResIndex) const;
 
-	/// Возвращает свойство базы по заданному ключу
+	// Returns the base property for the given key
 	bool GetPropertyByKey(const UInt16* aKey, UInt16** aValue);
-	/// Возвращает количество дополнительных свойств базы
+	// Returns the number of additional properties of the base
 	UInt32 GetNumberOfProperty() const;
-	/// Возвращает ключ и значение свойства базы по индексу свойства
+	// Returns the key and value of the base property by the property index
 	SDCError GetPropertyByIndex(UInt32 aPropertyIndex, UInt16** aKey, UInt16** aValue);
 
-	/// Возвращает CRC файла для заданного хидера и выходного потока
+	// Returns the CRC of the file for the given header and output stream
 	static SDCError GetFileCRC(const SlovoEdContainerHeader *aHeader, ISDCFile* aFileData, UInt32* aFileCRC);
 
-	/// Возвращает тип содержимого в контейнере
+	// Returns the type of content in the container
 	UInt32 GetDatabaseType(void) const;
 
-	/// Проверяет полная это база или нет
+	// Checks whether the database is complete or not
 	UInt32 IsInApp(void) const { return m_Header.IsInApp; }
 
-	/// Проверяем целостность контейнера.
+	// We check the integrity of the container.
 	SDCError CheckData(void);
 
-	/// Получает указатель на текущий файл контейнера
+	// Gets a pointer to the current container file
 	ISDCFile* GetFileData();
 
 private:
 
-	/// Возвращает количество ресурсов в открытом контейнере.
+	// Returns the number of resources in an open container.
 	UInt32 GetNumberOfResources() const;
 
-	/// Получает индекс ресурса в таблице расположения ресурсов по его типу и номеру
+	// Gets the index of a resource in the resource location table by its type and number
 	UInt32 GetResourceIndexInTable(UInt32 aResType, UInt32 aResIndex) const;
 
-	/// Освобождает данные ресурса если его рефкаунт падает до 0
+	// Releases resource data if its refcount falls to 0
 	void CloseResource(ResourceStruct *aResource);
 
 	static inline ResourceStruct* to_resource(sld2::list_node *node) {
@@ -241,25 +241,25 @@ private:
 
 private:
 
-	/// Открытый файл контейнера
+	// Open container file
 	ISDCFile								*m_FileData;
 
-	/// Заголовок контейнера
+	// Container header
 	SlovoEdContainerHeader					m_Header;
 
-	/// Таблица расположения ресурсов
+	// Resource Location Table
 	SlovoEdContainerResourcePosition*		m_resTable;
 
-	/// Список загружнных активных (используемых) ресурсов
+	// List of loaded active (used) resources
 	sld2::list_head							m_loadedResources;
 
-	/// Список неактивных ресурсов
+	// List of inactive resources
 	sld2::list_head							m_freeList;
 
-	/// Буфер для хранения текущего свойства
+	// Buffer for storing the current property
 	TBaseProperty*							m_Property;
 
-	/// Кэш для чтения запакованых ресурсов
+	// Cache for reading packed resources
 	sld2::DynArray<UInt8>					m_compressedData;
 };
 

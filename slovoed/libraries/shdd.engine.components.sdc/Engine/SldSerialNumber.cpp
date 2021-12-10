@@ -6,7 +6,7 @@
 *
 * Обрабатывает серийный номер
 *
-* @return код ошибки
+* @return error code
 *
 ************************************************************************/
 ESldError CSldSerialNumber::ParseSerialNumber(const UInt16 *aSerialNumber,

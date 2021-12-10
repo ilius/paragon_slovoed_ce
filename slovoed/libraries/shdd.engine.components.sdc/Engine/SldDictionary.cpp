@@ -7,19 +7,19 @@
 #include "SldTools.h"
 
 
-/// Стандартный конструктор
+// Стандартный конструктор
 CSldDictionary::CSldDictionary(void)
 {
 	Clear();
 }
 
-/// Деструктор
+// Destructor
 CSldDictionary::~CSldDictionary(void)
 {
 	Close();
 }
 
-/// Инициализация членов по умолчанию
+// Инициализация членов по умолчанию
 void CSldDictionary::Clear(void)
 {
 	m_LayerAccess = NULL;
@@ -48,7 +48,7 @@ void CSldDictionary::Clear(void)
 *								  внеядерным ресурсам (чтение/сохранение данных),
 *								  а также занимающийся сборкой перевода и озвучки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::Open(ISDCFile *aFile, ISldLayerAccess *aLayerAccess)
 {
@@ -317,7 +317,7 @@ ESldError CSldDictionary::Open(ISDCFile *aFile, ISldLayerAccess *aLayerAccess)
 /** *********************************************************************
 * Закрывает словарь и освобождает все ресурсы и память
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::Close(void)
 {
@@ -415,9 +415,9 @@ ESldError CSldDictionary::Close(void)
 * Устанавливает список слов в качестве текущего; таблица сравнения также
 * переключается на язык нового списка
 *
-* @param[in]	aIndex	- номер списка слов
+* @param[in]	aIndex	- word list number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SetCurrentWordlist(Int32 aIndex)
 {
@@ -496,7 +496,7 @@ ESldError CSldDictionary::SetCurrentWordlist(Int32 aIndex)
 		return eOK;
 	}
 
-	// Инициализация
+	// Initialization
 	error = m_List[m_ListIndex]->Init(m_data, GetLayerAccess(), m_ListInfo[m_ListIndex], &m_CMP, m_RegistrationData.HASH);
 	if (error != eOK)
 		return error;
@@ -579,7 +579,7 @@ ESldError CSldDictionary::SetCurrentWordlist(Int32 aIndex)
 *
 * @param[out]	aIndex	- указатель на переменную, куда сохраняется индекс
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordList(Int32* aIndex) const
 {
@@ -607,7 +607,7 @@ ESldError CSldDictionary::GetCurrentWordList(Int32* aIndex) const
 * @param[in]	aList		- указатель на список слов для добавления
 * @param[in]	aListIndex	- номер, под которым мы хотим добавить список в базу
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::AddList(sld2::UniquePtr<ISldList> aList, Int32 aListIndex)
 {
@@ -682,7 +682,7 @@ ESldError CSldDictionary::AddList(sld2::UniquePtr<ISldList> aList, Int32 aListIn
 *
 * @param[in]	aListIndex	- индекс списка, который нужно удалить из словаря
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::RemoveList(Int32 aListIndex)
 {
@@ -726,7 +726,7 @@ ESldError CSldDictionary::RemoveList(Int32 aListIndex)
 * @param[in]	aIndex	- номер слова относительно текущей базовой позиции
 *						  (MAX_UINT_VALUE - сбросить базу на начало списка слов)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SetBase(Int32 aIndex)
 {
@@ -737,11 +737,11 @@ ESldError CSldDictionary::SetBase(Int32 aIndex)
 * Устанавливает базовую позицию для списка слов по номеру списка,
 * относительно которой будут считаться номера слов
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[in]	aIndex		- номер слова относительно текущей базовой позиции
 *							  (MAX_UINT_VALUE - сбросить базу на начало списка слов)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SetBase(Int32 aListIndex, Int32 aIndex)
 {
@@ -762,7 +762,7 @@ ESldError CSldDictionary::SetBase(Int32 aListIndex, Int32 aIndex)
 *
 * @param[in]	aWordIndex	- номер слова по порядку, начиная с 0
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordByIndex(Int32 aWordIndex)
 {
@@ -773,10 +773,10 @@ ESldError CSldDictionary::GetWordByIndex(Int32 aWordIndex)
 * Получает слово по локальному номеру слова и номеру списка слов
 * (в пределах текущего уровня вложенности)
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[in]	aWordIndex	- номер слова по порядку, начиная с 0
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordByIndex(Int32 aListIndex, Int32 aWordIndex)
 {
@@ -794,10 +794,10 @@ ESldError CSldDictionary::GetWordByIndex(Int32 aListIndex, Int32 aWordIndex)
 /** *********************************************************************
 * Получает полное количество слов в списке слов по номеру списка
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aCount		- указатель на переменную, куда будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetTotalWordCount(Int32 aListIndex, Int32* aCount)
 {
@@ -824,7 +824,7 @@ ESldError CSldDictionary::GetTotalWordCount(Int32 aListIndex, Int32* aCount)
 *
 * @param[in]	aGlobalWordIndex	- глобальный номер слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordByGlobalIndex(Int32 aGlobalWordIndex)
 {
@@ -852,12 +852,12 @@ ESldError CSldDictionary::GetWordByGlobalIndex(Int32 aGlobalWordIndex)
 * Получает слово по номеру списка слов, глобальному номеру слова в списке слов и
 * номеру варианта написания; меняет состояние иерархии
 *
-* @param[in]	aListIndex			- номер списка слов
+* @param[in]	aListIndex			- word list number
 * @param[in]	aGlobalWordIndex	- глобальный номер слова
 * @param[in]	aVariantIndex		- номер варианта написания в списке слов
 * @param[out]	aWord				- указатель, по которому записывается указатель на слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordByGlobalIndex(Int32 aListIndex, Int32 aGlobalWordIndex, Int32 aVariantIndex, UInt16** aWord)
 {
@@ -890,9 +890,9 @@ ESldError CSldDictionary::GetWordByGlobalIndex(Int32 aListIndex, Int32 aGlobalWo
 /** *********************************************************************
 * Ищет ближайшее слово в текущем списке слов, которое больше или равно заданному
 *
-* @param[in]	aText	- искомое слово
+* @param[in]	aText	- search word
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordByText(const UInt16* aText)
 {
@@ -902,10 +902,10 @@ ESldError CSldDictionary::GetWordByText(const UInt16* aText)
 /** *********************************************************************
 * Ищет ближайшее слово в указанном списке слов, которое больше или равно заданному
 *
-* @param[in]	aListIndex	- номер списка слов
-* @param[in]	aText		- искомое слово
+* @param[in]	aListIndex	- word list number
+* @param[in]	aText		- search word
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordByText(Int32 aListIndex, const UInt16* aText)
 {
@@ -923,12 +923,12 @@ ESldError CSldDictionary::GetWordByText(Int32 aListIndex, const UInt16* aText)
 /** *********************************************************************
 * В текущем списке слов ищет слово, наиболее похожее на заданное
 *
-* @param[in]	aText		- искомое слово
+* @param[in]	aText		- search word
 * @param[out]	aResultFlag	- сюда сохраняется флаг результата:
 *							  1 - похожее слово найдено,
 *							  0 - похожее слово не найдено
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetMostSimilarWordByText(const UInt16* aText, UInt32* aResultFlag)
 {
@@ -938,13 +938,13 @@ ESldError CSldDictionary::GetMostSimilarWordByText(const UInt16* aText, UInt32* 
 /** *********************************************************************
 * В указанном списке слов ищет слово, наиболее похожее на заданное
 *
-* @param[in]	aListIndex	- номер списка слов
-* @param[in]	aText		- искомое слово
+* @param[in]	aListIndex	- word list number
+* @param[in]	aText		- search word
 * @param[out]	aResultFlag	- сюда сохраняется флаг результата:
 *							  1 - похожее слово найдено,
 *							  0 - похожее слово не найдено
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetMostSimilarWordByText(Int32 aListIndex, const UInt16* aText, UInt32* aResultFlag)
 {
@@ -992,7 +992,7 @@ ESldError CSldDictionary::GetMostSimilarWordByText(Int32 aListIndex, const UInt1
 * @param[in]	aVariantIndex	- номер варианта написания
 * @param[out]	aWord			- указатель, по которому записывается указатель на слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWord(Int32 aVariantIndex, UInt16** aWord)
 {
@@ -1003,11 +1003,11 @@ ESldError CSldDictionary::GetCurrentWord(Int32 aVariantIndex, UInt16** aWord)
 * По номеру варианта написания получает последнее найденное слово
 * в указанном списке слов
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aVariantIndex	- номер варианта написания
 * @param[out]	aWord			- указатель, по которому записывается указатель на слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWord(Int32 aListIndex, Int32 aVariantIndex, UInt16** aWord)
 {
@@ -1027,7 +1027,7 @@ ESldError CSldDictionary::GetCurrentWord(Int32 aListIndex, Int32 aVariantIndex, 
 *
 * @param[out]	aLabel	- указатель, по которому записывается указатель на метку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordLabel(UInt16** aLabel)
 {
@@ -1049,7 +1049,7 @@ ESldError CSldDictionary::GetCurrentWordLabel(UInt16** aLabel)
 *
 * @param[out]	aIndex	- сюда сохраняется номер слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentIndex(Int32* aIndex)
 {
@@ -1061,10 +1061,10 @@ ESldError CSldDictionary::GetCurrentIndex(Int32* aIndex)
 * В указанном списке слов получает локальный номер текущего слова
 * (в пределах текущего уровня вложенности)
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aIndex		- сюда сохраняется номер слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentIndex(Int32 aListIndex, Int32* aIndex)
 {
@@ -1094,7 +1094,7 @@ ESldError CSldDictionary::GetCurrentIndex(Int32 aListIndex, Int32* aIndex)
 *
 * @param[out]	aIndex	- сюда сохраняется номер слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentGlobalIndex(Int32* aIndex)
 {
@@ -1105,10 +1105,10 @@ ESldError CSldDictionary::GetCurrentGlobalIndex(Int32* aIndex)
 * В указанном списке слов получает глобальный номер текущего слова
 * (номер слова в пределах всего списка слов)
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aIndex		- сюда сохраняется номер слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentGlobalIndex(Int32 aListIndex, Int32* aIndex)
 {
@@ -1130,7 +1130,7 @@ ESldError CSldDictionary::GetCurrentGlobalIndex(Int32 aListIndex, Int32* aIndex)
 * @param[in]	aLocalIndex		- локальный номер слова в пределах текущего уровня вложенности
 * @param[out]	aGlobalIndex	- указатель на переменную, куда сохраняется глобальный номер слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::LocalIndex2GlobalIndex(Int32 aLocalIndex, Int32* aGlobalIndex)
 {
@@ -1141,11 +1141,11 @@ ESldError CSldDictionary::LocalIndex2GlobalIndex(Int32 aLocalIndex, Int32* aGlob
 * Конвертирует локальный номер слова в пределах текущего уровня вложенности в указанном списке слов
 * в глобальный номер слова в пределах указанного списка слов
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aLocalIndex		- локальный номер слова в пределах текущего уровня вложенности
 * @param[out]	aGlobalIndex	- указатель на переменную, куда сохраняется глобальный номер слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::LocalIndex2GlobalIndex(Int32 aListIndex, Int32 aLocalIndex, Int32* aGlobalIndex)
 {
@@ -1176,7 +1176,7 @@ ESldError CSldDictionary::LocalIndex2GlobalIndex(Int32 aListIndex, Int32 aLocalI
 * @param[in]	aLocalWordIndex	- локальный номер слова
 * @param[out]	aRealListIndex	- указатель на переменную, в которую сохраняется номер списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetRealListIndex(Int32 aLocalWordIndex, Int32* aRealListIndex)
 {
@@ -1189,11 +1189,11 @@ ESldError CSldDictionary::GetRealListIndex(Int32 aLocalWordIndex, Int32* aRealLi
 * Для поискового списка возвращается номер списка слов, в котором было найдено слово
 * Для списка полнотекстового поиска возвращается индекс базового списка для первого результата поиска
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aLocalWordIndex	- локальный номер слова
 * @param[out]	aRealListIndex	- указатель на переменную, в которую сохраняется номер списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetRealListIndex(Int32 aListIndex, Int32 aLocalWordIndex, Int32* aRealListIndex)
 {
@@ -1236,9 +1236,9 @@ ESldError CSldDictionary::GetRealListIndex(Int32 aListIndex, Int32 aLocalWordInd
 * Для списка полнотекстового поиска возвращается глобальный номер первого результата из базового списка
 *
 * @param[in]	aLocalWordIndex		- локальный номер слова
-* @param[out]	aGlobalWordIndex	- указатель на переменную, в которую сохраняется глобальный номер слова
+* @param[out]	aGlobalWordIndex	- a pointer to a variable that stores the global word number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetRealGlobalIndex(Int32 aLocalWordIndex, Int32* aGlobalWordIndex)
 {	
@@ -1251,11 +1251,11 @@ ESldError CSldDictionary::GetRealGlobalIndex(Int32 aLocalWordIndex, Int32* aGlob
 * Для поискового списка возвращается глобальный номер слова из списка слов, в котором было найдено слово
 * Для списка полнотекстового поиска возвращается глобальный номер первого результата из базового списка
 *
-* @param[in]	aListIndex			- номер списка слов
+* @param[in]	aListIndex			- word list number
 * @param[in]	aLocalWordIndex		- локальный номер слова
-* @param[out]	aGlobalWordIndex	- указатель на переменную, в которую сохраняется глобальный номер слова
+* @param[out]	aGlobalWordIndex	- a pointer to a variable that stores the global word number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetRealGlobalIndex(Int32 aListIndex, Int32 aLocalWordIndex, Int32* aGlobalWordIndex)
 {
@@ -1283,9 +1283,9 @@ ESldError CSldDictionary::GetRealGlobalIndex(Int32 aListIndex, Int32 aLocalWordI
 * @param[in]	aLocalWordIndex		- локальный номер слова
 * @param[in]	aTrnslationIndex	- номер индексов которые мы хотим получить (можно получить через GetNumberOfTranslations() для списков типа IsFullTextSearchList())
 * @param[out]	aRealListIndex		- указатель на переменную, в которую сохраняется индекс списка
-* @param[out]	aGlobalWordIndex	- указатель на переменную, в которую сохраняется глобальный номер слова
+* @param[out]	aGlobalWordIndex	- a pointer to a variable that stores the global word number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetRealIndexes(Int32 aLocalWordIndex, Int32 aTrnslationIndex, Int32* aRealListIndex, Int32* aGlobalWordIndex)
 {
@@ -1295,13 +1295,13 @@ ESldError CSldDictionary::GetRealIndexes(Int32 aLocalWordIndex, Int32 aTrnslatio
 /** *********************************************************************
 * Получает реальные индексы списка и записи в реальном списке в по локальному номеру слова в указанном списке слов
 *
-* @param[in]	aListIndex			- номер списка слов
+* @param[in]	aListIndex			- word list number
 * @param[in]	aLocalWordIndex		- локальный номер слова
 * @param[in]	aTrnslationIndex	- номер индексов которые мы хотим получить (можно получить через GetNumberOfTranslations() для списков типа IsFullTextSearchList())
 * @param[out]	aRealListIndex		- указатель на переменную, в которую сохраняется индекс списка
-* @param[out]	aGlobalWordIndex	- указатель на переменную, в которую сохраняется глобальный номер слова
+* @param[out]	aGlobalWordIndex	- a pointer to a variable that stores the global word number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetRealIndexes(Int32 aListIndex, Int32 aLocalWordIndex, Int32 aTrnslationIndex, Int32* aRealListIndex, Int32* aGlobalWordIndex)
 {
@@ -1327,7 +1327,7 @@ ESldError CSldDictionary::GetRealIndexes(Int32 aListIndex, Int32 aLocalWordIndex
 * @param[in]	aLocalWordIndex		- локальный номер слова
 * @param[out]	aRealListIndex		- указатель на переменную, в которую сохраняется количество индексов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetRealIndexesCount(Int32 aLocalWordIndex, Int32* aRealIndexesCount)
 {
@@ -1337,11 +1337,11 @@ ESldError CSldDictionary::GetRealIndexesCount(Int32 aLocalWordIndex, Int32* aRea
 /** *********************************************************************
 * Получает  количество реальных индексов в указанном списке слов
 *
-* @param[in]	aListIndex			- номер списка слов
+* @param[in]	aListIndex			- word list number
 * @param[in]	aLocalWordIndex		- локальный номер слова
 * @param[out]	aRealListIndex		- указатель на переменную, в которую сохраняется количество индексов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetRealIndexesCount(Int32 aListIndex, Int32 aLocalWordIndex, Int32* aRealIndexesCount)
 {
@@ -1366,7 +1366,7 @@ ESldError CSldDictionary::GetRealIndexesCount(Int32 aListIndex, Int32 aLocalWord
 *
 * @param[out]	aPictureIndexes	- вектор с индексами картинок для текущего слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordPictureIndex(CSldVector<Int32> & aPictureIndexes)
 {
@@ -1376,10 +1376,10 @@ ESldError CSldDictionary::GetCurrentWordPictureIndex(CSldVector<Int32> & aPictur
 /** *********************************************************************
 * Получает номер картинки текущего слова в указанном списке слов
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[out]	aPictureIndexes	- вектор с индексами картинок для текущего слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordPictureIndex(Int32 aListIndex, CSldVector<Int32> & aPictureIndexes)
 {		
@@ -1406,7 +1406,7 @@ ESldError CSldDictionary::GetCurrentWordPictureIndex(Int32 aListIndex, CSldVecto
 *
 * @param[out]	aVideoIndex	- указатель на переменную, в которую будет записан номер видео
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordVideoIndex(Int32* aVideoIndex)
 {
@@ -1416,10 +1416,10 @@ ESldError CSldDictionary::GetCurrentWordVideoIndex(Int32* aVideoIndex)
 /** *********************************************************************
 * Получает номер видео текущего слова в указанном списке слов
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aVideoIndex	- указатель на переменную, в которую будет записан номер видео
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordVideoIndex(Int32 aListIndex, Int32* aVideoIndex)
 {
@@ -1443,7 +1443,7 @@ ESldError CSldDictionary::GetCurrentWordVideoIndex(Int32 aListIndex, Int32* aVid
 *
 * @param[out]	aVideoIndex	- указатель на переменную, в которую будет записан номер видео
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordSceneIndex(Int32* aSceneIndex)
 {
@@ -1453,10 +1453,10 @@ ESldError CSldDictionary::GetCurrentWordSceneIndex(Int32* aSceneIndex)
 /** *********************************************************************
 * Получает номер видео текущего слова в указанном списке слов
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aVideoIndex	- указатель на переменную, в которую будет записан номер видео
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordSceneIndex(Int32 aListIndex, Int32* aSceneIndex)
 {
@@ -1479,7 +1479,7 @@ ESldError CSldDictionary::GetCurrentWordSceneIndex(Int32 aListIndex, Int32* aSce
 *
 * @param[out]	aSoundIndexes	- вектор с индексами озвучки для текущего слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordSoundIndex(CSldVector<Int32> & aSoundIndexes)
 {
@@ -1489,10 +1489,10 @@ ESldError CSldDictionary::GetCurrentWordSoundIndex(CSldVector<Int32> & aSoundInd
 /** *********************************************************************
 * Получает вектор индексов озвучек текущего слова в указанном списке слов
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[out]	aSoundIndexes	- вектор с индексами озвучки для текущего слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordSoundIndex(Int32 aListIndex, CSldVector<Int32> & aSoundIndexes)
 {		
@@ -1516,7 +1516,7 @@ ESldError CSldDictionary::GetCurrentWordSoundIndex(Int32 aListIndex, CSldVector<
 * @param[in]	aMaxSideSize	- максимальный размер стороны картинки (ширина или высота) в пикселах
 * @param[out]	aImageElement	- сюда сохраняется указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordPicture(Int32 aPictureIndex, Int32 aMaxSideSize, TImageElement* aImageElement)
 {
@@ -1555,7 +1555,7 @@ ESldError CSldDictionary::GetWordPicture(Int32 aPictureIndex, Int32 aMaxSideSize
 * @param[in]	aVideoIndex		- индекс запрашиваемого видео
 * @param[out]	aVideoElement	- сюда сохраняется указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordVideo(const UInt32 aVideoIndex, CSldVideoElement* aVideoElement)
 {
@@ -1580,7 +1580,7 @@ ESldError CSldDictionary::GetWordVideo(const UInt32 aVideoIndex, CSldVideoElemen
 *
 * @param[in]	aVideoElement	- указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::ReleaseWordVideo(CSldVideoElement* aVideoElement)
 {
@@ -1592,7 +1592,7 @@ ESldError CSldDictionary::ReleaseWordVideo(CSldVideoElement* aVideoElement)
 	return eOK;
 }
 
-/// Загружает ресурс по типу и номеру
+// Загружает ресурс по типу и номеру
 static ESldError LoadTElement(CSDCReadMy &aReader, UInt32 aType, UInt32 aIndex, TElement* aElement)
 {
 	if (!aElement)
@@ -1625,7 +1625,7 @@ static ESldError LoadTElement(CSDCReadMy &aReader, UInt32 aType, UInt32 aIndex, 
 *
 * @param[in]	aSceneElement	- указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordScene(Int32 aSceneIndex, TElement* aSceneElement)
 {
@@ -1637,7 +1637,7 @@ ESldError CSldDictionary::GetWordScene(Int32 aSceneIndex, TElement* aSceneElemen
 *
 * @param[in]	aElement	- указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::ReleaseWordResources(TElement* aElement)
 {
@@ -1660,7 +1660,7 @@ ESldError CSldDictionary::ReleaseWordResources(TElement* aElement)
 *
 * @param[in]	aModelElement	- указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordMesh(Int32 aModelIndex, TElement* aModelElement)
 {
@@ -1674,7 +1674,7 @@ ESldError CSldDictionary::GetWordMesh(Int32 aModelIndex, TElement* aModelElement
 *
 * @param[in]	aMaterialElement	- указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordMaterial(Int32 aMaterialIndex, TElement* aMaterialElement)
 {
@@ -1688,7 +1688,7 @@ ESldError CSldDictionary::GetWordMaterial(Int32 aMaterialIndex, TElement* aMater
 *
 * @param[out]	aAbstractResourceElement	- указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordAbstractResource(Int32 aAbstractResourceIndex, TElement* aAbstractResourceElement)
 {
@@ -1702,7 +1702,7 @@ ESldError CSldDictionary::GetWordAbstractResource(Int32 aAbstractResourceIndex, 
 *
 * @param[out]	aResource			- указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetBinaryResourceByIndex(const Int32 aResourceIndex, TElement* aResource)
 {
@@ -1719,7 +1719,7 @@ ESldError CSldDictionary::GetBinaryResourceByIndex(const Int32 aResourceIndex, T
 * @param[out]	aHeight			- сюда сохраняется высота картинки (если не передан NULL)
 *								  если полученное значение равно -1, то высоту определить не удалось
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetPictureInfo(TImageElement* aImageElement, UInt32* aFormatType, TSizeValue* aWidth, TSizeValue* aHeight) const
 {
@@ -1810,7 +1810,7 @@ ESldError CSldDictionary::GetPictureInfo(TImageElement* aImageElement, UInt32* a
 * @param[out]	apiWidth	- сюда сохраняется ширина картинки в пикселах (если не передан NULL)
 * @param[out]	apiHeight	- сюда сохраняется высота картинки в пикселах (если не передан NULL)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetJpgInfo(UInt8 *const apiData, const UInt32 aiDataSize, Int32 *const apiWidth, Int32 *const apiHeight) const
 {
@@ -1883,7 +1883,7 @@ ESldError CSldDictionary::GetJpgInfo(UInt8 *const apiData, const UInt32 aiDataSi
 *							  что озвучка будет предоставлена извне самой оболочкой
 * @param[in]	aBeginPlay	- обозначает с какого места проигрывать озвучку [0;100], в %
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::PlaySoundByIndex(Int32 aSoundIndex, UInt8 aIsLast, UInt32* aStartPos, UInt32 aExternFlag, UInt8 aBeginPlay)
 {
@@ -1962,7 +1962,7 @@ ESldError CSldDictionary::PlaySoundByIndex(Int32 aSoundIndex, UInt8 aIsLast, UIn
 *							  что озвучка будет предоставлена извне самой оболочкой
 * @param[in]	aBeginPlay	- обозначает с какого места проигрывать озвучку [0;100], в %
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::PlaySoundByIndex(Int32 aSoundIndex, UInt8 aIsLast, UInt32* aStartPos, UInt32 aExternFlag)
 {
@@ -1985,7 +1985,7 @@ ESldError CSldDictionary::PlaySoundByIndex(Int32 aSoundIndex, UInt8 aIsLast, UIn
 * @param[in]	aExternFlag	- флаг, если установлен, сообщает,
 *							  что озвучка будет предоставлена извне самой оболочкой
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::PlaySoundByIndexWithPosition(Int32 aSoundIndex, UInt8 aIsLast, UInt32* aStartPos,UInt8 aBeginPlay,UInt32 aExternFlag)
 {
@@ -2001,7 +2001,7 @@ ESldError CSldDictionary::PlaySoundByIndexWithPosition(Int32 aSoundIndex, UInt8 
 *					Озвучка ищется в текущем листе.
 *							  
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::PlaySoundByText(const UInt16 *aText, UInt32 *aResultFlag)
 {
@@ -2134,7 +2134,7 @@ ESldError CSldDictionary::GetDecoderObject(UInt32 aSoundIndex, SldSpxDecoder *aD
 *
 * @todo Пока возвращает тип озвучки, можно добавить еще несколько параметров
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetSoundInfo(Int32 aSoundIndex, TSoundElement* aSoundInfo)
 {
@@ -2163,7 +2163,7 @@ ESldError CSldDictionary::GetSoundInfo(Int32 aSoundIndex, TSoundElement* aSoundI
 * @param[out]	aDataSize	- указатель, по которому нужно записать размер памяти с сгенерированным звуком
 * @param[out]	aFrequency	- указатель, по которому нужно записать частоту дискретизации сгенерированного звука
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GenerateToneSound(UInt8** aDataPtr, UInt32* aDataSize, UInt32* aFrequency)
 {
@@ -2215,7 +2215,7 @@ ESldError CSldDictionary::GenerateToneSound(UInt8** aDataPtr, UInt32* aDataSize,
 *
 * @param[in]	aImageElement	- указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::ReleaseWordPicture(TImageElement* aImageElement) const
 {
@@ -2236,7 +2236,7 @@ ESldError CSldDictionary::ReleaseWordPicture(TImageElement* aImageElement) const
 *
 * @param[out]	aNumberOfWords	- указатель на буфер для количества слов.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetNumberOfWords(Int32* aNumberOfWords)
 {			
@@ -2246,10 +2246,10 @@ ESldError CSldDictionary::GetNumberOfWords(Int32* aNumberOfWords)
 /** *********************************************************************
 * Возвращает количество слов у указанного списка слов на текущем уровне вложенности
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[out]	aNumberOfWords	- указатель на буфер для количества слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetNumberOfWords(Int32 aListIndex, Int32* aNumberOfWords)
 {
@@ -2269,7 +2269,7 @@ ESldError CSldDictionary::GetNumberOfWords(Int32 aListIndex, Int32* aNumberOfWor
 *
 * @param[out]	aNumberOfLists	- указатель на буфер для количества слов.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetNumberOfLists(Int32* aNumberOfLists) const
 {
@@ -2290,7 +2290,7 @@ ESldError CSldDictionary::GetNumberOfLists(Int32* aNumberOfLists) const
 * @param[out]	aLevelType		- указатель, по которому будет записан тип поддерева (см #EHierarchyLevelType)
 *								  (можно передать NULL)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::isWordHasHierarchy(Int32 aIndex, UInt32* aIsHierarchy, EHierarchyLevelType* aLevelType)
 {
@@ -2300,7 +2300,7 @@ ESldError CSldDictionary::isWordHasHierarchy(Int32 aIndex, UInt32* aIsHierarchy,
 /** *********************************************************************
 * Определяет, имеет или нет слово с локальным номером в указанном списке слов поддерево иерархии
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aIndex			- локальный номер слова на текущем уровне иерархии
 * @param[out]	aIsHierarchy	- указатель на переменную, в которую будет возвращен флаг:
 *								  1 - слово имеет поддерево,
@@ -2308,7 +2308,7 @@ ESldError CSldDictionary::isWordHasHierarchy(Int32 aIndex, UInt32* aIsHierarchy,
 * @param[out]	aLevelType		- указатель, по которому будет записан тип поддерева (см #EHierarchyLevelType)
 *								  (можно передать NULL)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::isWordHasHierarchy(Int32 aListIndex, Int32 aIndex, UInt32* aIsHierarchy, EHierarchyLevelType* aLevelType)
 {
@@ -2338,7 +2338,7 @@ ESldError CSldDictionary::isWordHasHierarchy(Int32 aListIndex, Int32 aIndex, UIn
 *							  1 - список сортированный,
 *							  0 - список не сортированный
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsListSorted(Int32 aListIndex, UInt32* aIsSorted) const
 {
@@ -2362,7 +2362,7 @@ ESldError CSldDictionary::IsListSorted(Int32 aListIndex, UInt32* aIsSorted) cons
 *							  1 - сопоставлены,
 *							  0 - НЕ сопоставлены
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsListHasPicture(Int32 aListIndex, UInt32* aIsPicture) const
 {
@@ -2386,7 +2386,7 @@ ESldError CSldDictionary::IsListHasPicture(Int32 aListIndex, UInt32* aIsPicture)
 *							  1 - сопоставлена,
 *							  0 - НЕ сопоставлена
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsListHasSound(Int32 aListIndex, UInt32* aIsSound) const
 {
@@ -2410,7 +2410,7 @@ ESldError CSldDictionary::IsListHasSound(Int32 aListIndex, UInt32* aIsSound) con
 *							  1 - сопоставлено,
 *							  0 - НЕ сопоставлено
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsListHasVideo(Int32 aListIndex, UInt32* aIsVideo)
 {
@@ -2434,7 +2434,7 @@ ESldError CSldDictionary::IsListHasVideo(Int32 aListIndex, UInt32* aIsVideo)
 *							  1 - сопоставлено,
 *							  0 - НЕ сопоставлено
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsListHasScene(Int32 aListIndex, UInt32* aIsScene)
 {
@@ -2460,7 +2460,7 @@ ESldError CSldDictionary::IsListHasScene(Int32 aListIndex, UInt32* aIsScene)
 *									  1 - имеет,
 *									  0 - НЕ имеет
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsListHasLocalizedStrings(Int32 aListIndex, UInt32* aIsLocalizedStrings) const
 {
@@ -2490,9 +2490,9 @@ ESldError CSldDictionary::IsListHasLocalizedStrings(Int32 aListIndex, UInt32* aI
 * Возвращает номер старшей версии словарной базы
 *
 * @param[out]	aVersion			- указатель, по которому будет записан результат
-* @param[in]	aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in]	aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetDictionaryMajorVersion(UInt32* aVersion, const Int32 aDictionaryIndex) const
 {
@@ -2510,9 +2510,9 @@ ESldError CSldDictionary::GetDictionaryMajorVersion(UInt32* aVersion, const Int3
 * Возвращает номер младшей версии словарной базы
 *
 * @param[out]	aVersion			- указатель, по которому будет записан результат
-* @param[in]	aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in]	aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetDictionaryMinorVersion(UInt32* aVersion, const Int32 aDictionaryIndex) const
 {
@@ -2531,7 +2531,7 @@ ESldError CSldDictionary::GetDictionaryMinorVersion(UInt32* aVersion, const Int3
 *
 * @param[out]	aAdditionalInfo	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetAdditionalInfo(TAdditionalInfo *aAdditionalInfo)
 {
@@ -2551,12 +2551,12 @@ ESldError CSldDictionary::GetAdditionalInfo(TAdditionalInfo *aAdditionalInfo)
 /** *********************************************************************
 * Возвращает строку с аннотацией к базе
 *
-* ВНИМАНИЕ! Память для результирующей строки выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* ATTENTION! Memory for the resulting string is allocated in this method
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[out]	aAnnotation	- указатель, по которому будет записана итоговая строка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetAnnotation(UInt16 **aAnnotation)
 {
@@ -2582,9 +2582,9 @@ ESldError CSldDictionary::GetAnnotation(UInt16 **aAnnotation)
 * Возвращает константу, которая обозначает бренд словарной базы (см. EDictionaryBrandName)
 *
 * @param[out]	aBrand				- указатель, по которому будет записан результат
-* @param[in]	aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in]	aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetDictionaryBrand(UInt32* aBrand, const Int32 aDictionaryIndex) const
 {
@@ -2602,9 +2602,9 @@ ESldError CSldDictionary::GetDictionaryBrand(UInt32* aBrand, const Int32 aDictio
 * Возвращает хэш словарной базы
 *
 * @param[out]	aHash				- указатель, по которому будет записан результат
-* @param[in]	aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in]	aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetDictionaryHash(UInt32* aHash, const Int32 aDictionaryIndex) const
 {
@@ -2623,9 +2623,9 @@ ESldError CSldDictionary::GetDictionaryHash(UInt32* aHash, const Int32 aDictiona
 * Возвращает ID словарной базы
 *
 * @param[out]	aDictID				- указатель, по которому будет записан результат
-* @param[in]	aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in]	aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetDictionaryID(UInt32* aDictID, const Int32 aDictionaryIndex) const
 {
@@ -2645,7 +2645,7 @@ ESldError CSldDictionary::GetDictionaryID(UInt32* aDictID, const Int32 aDictiona
 *
 * @param[out]	aDictID	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetDictionaryStringID(UInt16* aDictID) const
 {
@@ -2661,7 +2661,7 @@ ESldError CSldDictionary::GetDictionaryStringID(UInt16* aDictID) const
 	if (error != eOK)
 		return error;
 
-	/// 8ми-значная .datf база
+	// 8ми-значная .datf база
 	if (flag != 0)
 	{
 		for (UInt8 i = 0; i < 8; i++)
@@ -2682,7 +2682,7 @@ ESldError CSldDictionary::GetDictionaryStringID(UInt16* aDictID) const
 		aDictID[8] = 0;
 	}
 
-	/// 4х-значная .sdc база
+	// 4х-значная .sdc база
 	else
 	{
 		for (UInt8 i = 0; i < 4; i++)
@@ -2699,7 +2699,7 @@ ESldError CSldDictionary::GetDictionaryStringID(UInt16* aDictID) const
 *
 * @param[out]	aWordsCount	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetMarketingTotalWordsCount(Int32* aWordsCount) const
 {
@@ -2716,7 +2716,7 @@ ESldError CSldDictionary::GetMarketingTotalWordsCount(Int32* aWordsCount) const
 *
 * @param[out]	aCount	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetTotalPictureCount(Int32* aCount) const
 {
@@ -2733,7 +2733,7 @@ ESldError CSldDictionary::GetTotalPictureCount(Int32* aCount) const
 *
 * @param[out]	aCount	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetTotalSoundCount(Int32* aCount) const
 {
@@ -2750,7 +2750,7 @@ ESldError CSldDictionary::GetTotalSoundCount(Int32* aCount) const
 *
 * @param[out]	aWordMaxSize	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetTranslateMaxBlockSize(Int32* aWordMaxSize) const
 {
@@ -2770,7 +2770,7 @@ ESldError CSldDictionary::GetTranslateMaxBlockSize(Int32* aWordMaxSize) const
 *
 * Устаревшее название, нужно удалить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetHeadwordMaxSize(Int32* aWordMaxSize) const
 {
@@ -2807,7 +2807,7 @@ ESldError CSldDictionary::GetHeadwordMaxSize(Int32* aWordMaxSize) const
 *
 * @param[out]	aLanguage	- указатель на переменную, в которую будет сохранен код языка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldLanguage CSldDictionary::GetLanguageFrom() const
 {
@@ -2822,7 +2822,7 @@ ESldLanguage CSldDictionary::GetLanguageFrom() const
 *
 * @param[out]	aLanguage	- указатель на переменную, в которую будет сохранен код языка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldLanguage CSldDictionary::GetCurrentLanguageFrom() const
 {
@@ -2832,10 +2832,10 @@ ESldLanguage CSldDictionary::GetCurrentLanguageFrom() const
 /** *********************************************************************
 * Получает основной язык указанного списка слов
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aLanguage	- указатель на переменную, в которую будет сохранен код языка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldLanguage CSldDictionary::GetListLanguageFrom(Int32 aListIndex) const
 {
@@ -2852,7 +2852,7 @@ ESldLanguage CSldDictionary::GetListLanguageFrom(Int32 aListIndex) const
 *
 * @param[out]	aLanguage	- указатель на переменную, в которую будет сохранен код языка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldLanguage CSldDictionary::GetLanguageTo() const
 {
@@ -2867,7 +2867,7 @@ ESldLanguage CSldDictionary::GetLanguageTo() const
 *
 * @param[out]	aLanguage	- указатель на переменную, в которую будет сохранен код языка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldLanguage CSldDictionary::GetCurrentLanguageTo() const
 {
@@ -2877,10 +2877,10 @@ ESldLanguage CSldDictionary::GetCurrentLanguageTo() const
 /** *********************************************************************
 * Получает язык перевода указанного списка слов
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aLanguage	- указатель на переменную, в которую будет сохранен код языка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldLanguage CSldDictionary::GetListLanguageTo(Int32 aListIndex) const
 {
@@ -2897,7 +2897,7 @@ ESldLanguage CSldDictionary::GetListLanguageTo(Int32 aListIndex) const
 *
 * @param[out]	aCount	- указатель на переменную, в которую будет сохранен результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentListUsageCount(Int32* aCount)
 {
@@ -2907,10 +2907,10 @@ ESldError CSldDictionary::GetCurrentListUsageCount(Int32* aCount)
 /** *********************************************************************
 * Получает количество кодов использования указанного списка слов
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aCount		- указатель на переменную, в которую будет сохранен результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetListUsageCount(Int32 aListIndex, Int32* aCount)
 {
@@ -2935,10 +2935,10 @@ ESldError CSldDictionary::GetListUsageCount(Int32 aListIndex, Int32* aCount)
 /** *********************************************************************
 * Получает количество кодов использования указанного списка слов
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aCount		- указатель на переменную, в которую будет сохранен результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetUsageCountByListIndex(Int32 aListIndex, Int32* aCount)
 {
@@ -2951,7 +2951,7 @@ ESldError CSldDictionary::GetUsageCountByListIndex(Int32 aListIndex, Int32* aCou
 * @param[in]	aIndex	- индекс кода использования
 * @param[out]	aUsage	- указатель на переменную, в которую будет сохранен код
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentListUsage(Int32 aIndex, UInt32* aUsage)
 {
@@ -2961,11 +2961,11 @@ ESldError CSldDictionary::GetCurrentListUsage(Int32 aIndex, UInt32* aUsage)
 /** *********************************************************************
 * Получает код использования указанного списка слов по индексу кода (см #EWordListTypeEnum)
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[in]	aUsageIndex	- индекс кода использования
 * @param[out]	aUsage		- указатель на переменную, в которую будет сохранен код
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetListUsage(Int32 aListIndex, Int32 aUsageIndex, UInt32* aUsage)
 {
@@ -2990,11 +2990,11 @@ ESldError CSldDictionary::GetListUsage(Int32 aListIndex, Int32 aUsageIndex, UInt
 /** *********************************************************************
 * Получает код использования указанного списка слов по индексу кода (см #EWordListTypeEnum)
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[in]	aUsageIndex	- индекс кода использования
 * @param[out]	aUsage		- указатель на переменную, в которую будет сохранен код
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetUsageByListIndex(Int32 aListIndex, Int32 aUsageIndex, UInt32* aUsage)
 {
@@ -3009,7 +3009,7 @@ ESldError CSldDictionary::GetUsageByListIndex(Int32 aListIndex, Int32 aUsageInde
 * @param[in]	aVariantIndex	- номер перевода
 * @param[in]	aFullness		- полнота получаемого перевода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::Translate(Int32 aIndex, Int32 aVariantIndex, ESldTranslationFullnesType aFullness, UInt32 aStartBlock, UInt32 aEndBlock)
 {
@@ -3020,12 +3020,12 @@ ESldError CSldDictionary::Translate(Int32 aIndex, Int32 aVariantIndex, ESldTrans
 * Производит перевод указанной статьи по локальному номеру слова в указанном списке слов и номеру перевода
 * В результате текст статьи будет поблочно передаваться в функцию сборки перевода класса прослойки
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aIndex			- локальный номер слова в текущем списке слов, для которого требуется получить перевод
 * @param[in]	aVariantIndex	- номер перевода
 * @param[in]	aFullness		- полнота получаемого перевода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::Translate(Int32 aListIndex, Int32 aIndex, Int32 aVariantIndex, ESldTranslationFullnesType aFullness, UInt32 aStartBlock, UInt32 aEndBlock)
 {
@@ -3103,7 +3103,7 @@ ESldError CSldDictionary::Translate(Int32 aListIndex, Int32 aIndex, Int32 aVaria
 * @param[in]	aIndex			- глобальный индекс статьи
 * @param[in]	aFullness		- полнота получаемого перевода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::TranslateByArticleIndex(Int32 aIndex, ESldTranslationFullnesType aFullness, UInt32 aStartBlock, UInt32 aEndBlock)
 {
@@ -3117,7 +3117,7 @@ ESldError CSldDictionary::TranslateByArticleIndex(Int32 aIndex, ESldTranslationF
 *
 * @param[in]	aFullness	- степень полноты полученного перевода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::TranslateContinue(ESldTranslationFullnesType aFullness)
 {
@@ -3131,7 +3131,7 @@ ESldError CSldDictionary::TranslateContinue(ESldTranslationFullnesType aFullness
 * Производит обновление состояния перевода (завершает предыдущий прерванный
 * перевод и производит реинициализацию
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::TranslateClear()
 {
@@ -3148,7 +3148,7 @@ ESldError CSldDictionary::TranslateClear()
 * @param[in]	aIndex					- локальный номер слова, для которого нужно получить информацию
 * @param[out]	aNumberOfTraslations	- указатель на переменную, в которую сохраняется количество переводов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetNumberOfTranslations(Int32 aIndex, Int32* aNumberOfTraslations)
 {
@@ -3158,11 +3158,11 @@ ESldError CSldDictionary::GetNumberOfTranslations(Int32 aIndex, Int32* aNumberOf
 /** *********************************************************************
 * Возвращает количество переводов слова по локальному номеру слова в указанном списке слов
 *
-* @param[in]	aListIndex				- номер списка слов
+* @param[in]	aListIndex				- word list number
 * @param[in]	aIndex					- локальный номер слова, для которого нужно получить информацию
 * @param[out]	aNumberOfTraslations	- указатель на переменную, в которую сохраняется количество переводов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetNumberOfTranslations(Int32 aListIndex, Int32 aIndex, Int32* aNumberOfTraslations)
 {
@@ -3223,7 +3223,7 @@ ESldError CSldDictionary::GetNumberOfTranslations(Int32 aListIndex, Int32 aIndex
 * @param[out]	aPath	- указатель на структуру, в которую будет помещен путь к 
 *						  текущему положению в каталоге
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentPath(TCatalogPath *aPath)
 {
@@ -3233,11 +3233,11 @@ ESldError CSldDictionary::GetCurrentPath(TCatalogPath *aPath)
 /** *********************************************************************
 * Возвращает путь к текущему положению в каталоге в указанном списке слов
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aPath		- указатель на структуру, в которую будет помещен путь к 
 *							  текущему положению в каталоге
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentPath(Int32 aListIndex, TCatalogPath *aPath)
 {
@@ -3265,7 +3265,7 @@ ESldError CSldDictionary::GetCurrentPath(Int32 aListIndex, TCatalogPath *aPath)
 *									  в каталоге, куда нужно попасть
 * @param[in]	aNavigationType		- тип перехода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GoToByPath(TCatalogPath* aPath, ESldNavigationTypeEnum aNavigationType)
 {
@@ -3300,7 +3300,7 @@ ESldError CSldDictionary::GoToByPath(TCatalogPath* aPath, ESldNavigationTypeEnum
 /** *********************************************************************
 * Поднимаемся в каталоге в текущем списке слов на уровень выше текущего
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GoToLevelUp(void)
 {
@@ -3310,9 +3310,9 @@ ESldError CSldDictionary::GoToLevelUp(void)
 /** *********************************************************************
 * Поднимаемся в каталоге в указанном списке слов на уровень выше текущего
 * 
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GoToLevelUp(Int32 aListIndex)
 {
@@ -3331,12 +3331,12 @@ ESldError CSldDictionary::GoToLevelUp(Int32 aListIndex)
 * Возвращает название родительской категории для текущего слова в текущем списке слов
 * Если у текущего слова нет родительской категории, возвращает пустую строку
 *
-* ВНИМАНИЕ! Память для результирующей строки выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* ATTENTION! Memory for the resulting string is allocated in this method
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[out]	aText	- указатель, по которому будет записан указатель на строку-результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentParentWordName(UInt16** aText)
 {	
@@ -3347,13 +3347,13 @@ ESldError CSldDictionary::GetCurrentParentWordName(UInt16** aText)
 * Возвращает название родительской категории для текущего слова в указанном списке слов
 * Если у текущего слова в указанном списке слов нет родительской категории, возвращает пустую строку
 *
-* ВНИМАНИЕ! Память для результирующей строки выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* ATTENTION! Memory for the resulting string is allocated in this method
+* and must be freed in the calling method by calling function sldMemFree()
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aText		- указатель, по которому будет записан указатель на строку-результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentParentWordName(Int32 aListIndex, UInt16** aText)
 {
@@ -3382,8 +3382,8 @@ ESldError CSldDictionary::GetCurrentParentWordName(Int32 aListIndex, UInt16** aT
 * возвращает список названий родительских категорий, разделенных строкой-разделителем;
 * если у слова нет родительских категорий, возвращает пустую строку
 *
-* ВНИМАНИЕ! Память для результирующей строки выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* ATTENTION! Memory for the resulting string is allocated in this method
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[in]	aGlobalWordIndex	- глобальный номер слова
 * @param[out]	aText				- указатель, по которому будет записан указатель на строку-результат
@@ -3391,7 +3391,7 @@ ESldError CSldDictionary::GetCurrentParentWordName(Int32 aListIndex, UInt16** aT
 * @param[in]	aMaxLevelCount		- максимальное количество родительских категорий (уровней иерархии),
 *									  названия которых нужно узнать. Значение -1 означает все уровни
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetParentWordNamesByGlobalIndex(Int32 aGlobalWordIndex, UInt16** aText, const UInt16* aSeparatorText, Int32 aMaxLevelCount)
 {	
@@ -3402,17 +3402,17 @@ ESldError CSldDictionary::GetParentWordNamesByGlobalIndex(Int32 aGlobalWordIndex
 * Возвращает список названий родительских категорий, разделенных строкой-разделителем, по глобальному номеру слова в указанном списке слов
 * Если у слова нет родительских категорий, возвращает пустую строку
 *
-* ВНИМАНИЕ! Память для результирующей строки выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* ATTENTION! Memory for the resulting string is allocated in this method
+* and must be freed in the calling method by calling function sldMemFree()
 *
-* @param[in]	aListIndex			- номер списка слов
+* @param[in]	aListIndex			- word list number
 * @param[in]	aGlobalWordIndex	- глобальный номер слова
 * @param[out]	aText				- указатель, по которому будет записан указатель на строку-результат
 * @param[in]	aSeparatorText		- указатель на строку-разделитель, может быть NULL
 * @param[in]	aMaxLevelCount		- максимальное количество родительских категорий (уровней иерархии),
 *									  названия которых нужно узнать. Значение -1 означает все уровни
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetParentWordNamesByGlobalIndex(Int32 aListIndex, Int32 aGlobalWordIndex, UInt16** aText, const UInt16* aSeparatorText, Int32 aMaxLevelCount)
 {
@@ -3438,7 +3438,7 @@ ESldError CSldDictionary::GetParentWordNamesByGlobalIndex(Int32 aListIndex, Int3
 * @param[in]	aGlobalWordIndex		- глобальный номер слова
 * @param[out]	aParentWordGlobalIndex	- указатель, по которому записывается глобальный номер слова-родителя
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetParentWordGlobalIndex(Int32 aGlobalWordIndex, Int32* aParentWordGlobalIndex)
 {
@@ -3449,11 +3449,11 @@ ESldError CSldDictionary::GetParentWordGlobalIndex(Int32 aGlobalWordIndex, Int32
 * Возвращает глобальный номер слова-родителя по глобальному номеру слова в указанном списке слов
 * Если у слова нет родительских категорий, глобальный номер слова-родителя будет равен -1
 *
-* @param[in]	aListIndex				- номер списка слов
+* @param[in]	aListIndex				- word list number
 * @param[in]	aGlobalWordIndex		- глобальный номер слова
 * @param[out]	aParentWordGlobalIndex	- указатель, по которому записывается глобальный номер слова-родителя
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetParentWordGlobalIndex(Int32 aListIndex, Int32 aGlobalWordIndex, Int32* aParentWordGlobalIndex)
 {
@@ -3521,7 +3521,7 @@ ESldError CSldDictionary::GetParentWordGlobalIndex(Int32 aListIndex, Int32 aGlob
 * @param[out]	aFirstGlobalIndex		- указатель, по которому записывается индекс левой границы
 * @param[out]	aLastGlobalIndex		- указатель, по которому записывается индекс правой границы
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetChildrenWordsGlobalIndexes(Int32 aParentGlobalWordIndex, Int32* aFirstGlobalIndex, Int32* aLastGlobalIndex)
 {
@@ -3533,12 +3533,12 @@ ESldError CSldDictionary::GetChildrenWordsGlobalIndexes(Int32 aParentGlobalWordI
 * Получается диапазон глобальных индексов вида [aFirstGlobalIndex, aLastGlobalIndex) - левая граница включается, правая - нет
 * Если у слова-родителя нет потомков, оба глобальных индекса будут равны -1
 *
-* @param[in]	aListIndex				- номер списка слов
+* @param[in]	aListIndex				- word list number
 * @param[in]	aParentGlobalWordIndex	- глобальный номер слова-родителя
 * @param[out]	aFirstGlobalIndex		- указатель, по которому записывается индекс левой границы
 * @param[out]	aLastGlobalIndex		- указатель, по которому записывается индекс правой границы
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetChildrenWordsGlobalIndexes(Int32 aListIndex, Int32 aParentGlobalWordIndex, Int32* aFirstGlobalIndex, Int32* aLastGlobalIndex)
 {
@@ -3616,7 +3616,7 @@ ESldError CSldDictionary::GetChildrenWordsGlobalIndexes(Int32 aListIndex, Int32 
 * @param[out]	aPath				- указатель на структуру, в которую будет сохранен путь к 
 *									  указанному элементу списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetPathByGlobalIndex(Int32 aGlobalWordIndex, TCatalogPath* aPath)
 {	
@@ -3629,12 +3629,12 @@ ESldError CSldDictionary::GetPathByGlobalIndex(Int32 aGlobalWordIndex, TCatalogP
 * Последний элемент в списке элементов пути содержит локальный номер слова 
 * на конечном уровне вложенности
 *
-* @param[in]	aListIndex			- номер списка слов
+* @param[in]	aListIndex			- word list number
 * @param[in]	aGlobalWordIndex	- номер слова без учета иерархии (глобальный номер слова)
 * @param[out]	aPath				- указатель на структуру, в которую будет сохранен путь к 
 *									  указанному элементу списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetPathByGlobalIndex(Int32 aListIndex, Int32 aGlobalWordIndex, TCatalogPath* aPath)
 {
@@ -3661,11 +3661,11 @@ ESldError CSldDictionary::GetPathByGlobalIndex(Int32 aListIndex, Int32 aGlobalWo
 /** *********************************************************************
 * Возвращает класс, хранящий информацию о свойствах списка слов
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aListInfo	- по данному указателю будет записан указатель на класс, 
 *							  который хранит данные о списке слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordListInfo(Int32 aListIndex, const CSldListInfo **aListInfo) const
 {
@@ -3693,7 +3693,7 @@ ESldError CSldDictionary::GetWordListInfo(Int32 aListIndex, const CSldListInfo *
 * @param[out]	aListInfo	- по данному указателю будет записан указатель на класс,
 *							  который хранит данные о списке слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordListInfo(const CSldListInfo **aListInfo) const
 {
@@ -3707,7 +3707,7 @@ ESldError CSldDictionary::GetWordListInfo(const CSldListInfo **aListInfo) const
 * @param[out]	aStyleInfo	- по данному указателю будет записан адрес класса, 
 *							  который хранит информацию о стиле
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetStyleInfo(Int32 aIndex, const CSldStyleInfo **aStyleInfo) const
 {
@@ -3735,7 +3735,7 @@ UInt32 CSldDictionary::GetNumberOfStyles() const
 * @param[in]	aStyleIndex		- номер стиля
 * @param[in]	aVariantIndex	- номер варианта отображения
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SetDefaultStyleVariant(Int32 aStyleIndex, Int32 aVariantIndex)
 {
@@ -3755,7 +3755,7 @@ ESldError CSldDictionary::SetDefaultStyleVariant(Int32 aStyleIndex, Int32 aVaria
 *
 * @param[in]	aVariantIndex	- номер варианта отображения
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SetDefaultStyleVariant(Int32 aVariantIndex)
 {
@@ -3799,9 +3799,9 @@ ESldError CSldDictionary::SetDefaultStyleVariant(Int32 aVariantIndex)
 *
 * @param[out] aStrings			- указатель по которому будет записан указатель на
 *								  объект хранящий строчки с переводами
-* @param[in] aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in] aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetLocalizedStrings(const CSldLocalizedString** aStrings, const Int32 aDictionaryIndex) const
 {
@@ -3820,7 +3820,7 @@ ESldError CSldDictionary::GetLocalizedStrings(const CSldLocalizedString** aStrin
 * @param[out]	aStrings	- указатель, по которому будет записан указатель на нужный объект,
 							  или NULL, если у списка слов нет локализованных строк
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetLocalizedStringsByListIndex(Int32 aListIndex, const CSldListLocalizedString** aStrings) const
 {
@@ -3848,7 +3848,7 @@ ESldError CSldDictionary::GetLocalizedStringsByListIndex(Int32 aListIndex, const
 *
 * @param[out]	aCMP	- указатель, по которому будет записан указатель на объект, занимающийся сравнением строк
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCompare(const CSldCompare** aCMP) const
 {
@@ -3867,7 +3867,7 @@ ESldError CSldDictionary::GetCompare(const CSldCompare** aCMP) const
 * @param[in]	aText			- шаблон поиска
 * @param[in]	aMaximumWords	- максимальное количество слов, которые могут быть найдены
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::DoWildCardSearch(TExpressionBox* aExpressionBox, Int32 aMaximumWords)
 {
@@ -3878,11 +3878,11 @@ ESldError CSldDictionary::DoWildCardSearch(TExpressionBox* aExpressionBox, Int32
 * Производит поиск слов по шаблону в указанном списке слов,
 * начиная с текущего уровня (и во всех вложенных уровнях)
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aText			- шаблон поиска
 * @param[in]	aMaximumWords	- максимальное количество слов, которые могут быть найдены
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::DoWildCardSearch(Int32 aListIndex, TExpressionBox* aExpressionBox, Int32 aMaximumWords)
 {
@@ -3996,7 +3996,7 @@ ESldError CSldDictionary::DoWildCardSearch(Int32 aListIndex, TExpressionBox* aEx
 *									  в зависимости от длины слова
 * @param[in]	aSearchMode			- тип поиска (см. #EFuzzySearchMode)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::DoFuzzySearch(const UInt16 *aText, Int32 aMaximumWords, Int32 aMaximumDifference, EFuzzySearchMode aSearchMode)
 {
@@ -4007,7 +4007,7 @@ ESldError CSldDictionary::DoFuzzySearch(const UInt16 *aText, Int32 aMaximumWords
 * Производит поиск похожих слов в указанном списке слов,
 * начиная с текущего уровня (и во всех вложенных уровнях)
 *
-* @param[in]	aListIndex			- номер списка слов
+* @param[in]	aListIndex			- word list number
 * @param[in]	aText				- шаблон поиска
 * @param[in]	aMaximumWords		- максимальное количество слов которые могут быть найдены
 * @param[in]	aMaximumDifference	- максимальная разница между искомыми словами.
@@ -4015,7 +4015,7 @@ ESldError CSldDictionary::DoFuzzySearch(const UInt16 *aText, Int32 aMaximumWords
 *									  в зависимости от длины слова
 * @param[in]	aSearchMode			- тип поиска (см. #EFuzzySearchMode)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::DoFuzzySearch(Int32 aListIndex, const UInt16 *aText, Int32 aMaximumWords, Int32 aMaximumDifference, EFuzzySearchMode aSearchMode)
 {
@@ -4123,7 +4123,7 @@ ESldError CSldDictionary::DoFuzzySearch(Int32 aListIndex, const UInt16 *aText, I
 *
 * @param[in]	aText	- текст (набор символов), по которым будет производиться поиск слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::DoAnagramSearch(const UInt16 *aText, Int32 aMaximumWords)
 {
@@ -4134,10 +4134,10 @@ ESldError CSldDictionary::DoAnagramSearch(const UInt16 *aText, Int32 aMaximumWor
 * Производит поиск анаграмм в указанном списке слов,
 * начиная с текущего уровня (и во всех вложенных уровнях)
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[in]	aText		- текст (набор символов), по которым будет производиться поиск слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::DoAnagramSearch(Int32 aListIndex, const UInt16 *aText, Int32 aMaximumWords)
 {
@@ -4235,7 +4235,7 @@ ESldError CSldDictionary::DoAnagramSearch(Int32 aListIndex, const UInt16 *aText,
 *
 * @param[in]	aText	- текст (набор символов), по которым будет производиться поиск слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::DoSpellingSearch(const UInt16 *aText, Int32 aMaximumWords)
 {
@@ -4246,10 +4246,10 @@ ESldError CSldDictionary::DoSpellingSearch(const UInt16 *aText, Int32 aMaximumWo
 * Производит поиск слов в указанном списке слов при вводе с учетом возможных опечаток,
 * начиная с текущего уровня (и во всех вложенных уровнях)
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[in]	aText		- текст (набор символов), по которым будет производиться поиск слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::DoSpellingSearch(Int32 aListIndex, const UInt16 *aText, Int32 aMaximumWords)
 {
@@ -4347,7 +4347,7 @@ ESldError CSldDictionary::DoSpellingSearch(Int32 aListIndex, const UInt16 *aText
 * @param[in]	aText			- текст, по которому будет производиться поиск
 * @param[in]	aMaximumWords	- максимальное количество слов, которое мы хотим получить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::DoFullTextSearch(const UInt16* aText, Int32 aMaximumWords)
 {
@@ -4357,11 +4357,11 @@ ESldError CSldDictionary::DoFullTextSearch(const UInt16* aText, Int32 aMaximumWo
 /** *********************************************************************
 * Производит полнотекстовый поиск в указанном списке слов
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aText			- текст, по которому будет производиться поиск
 * @param[in]	aMaximumWords	- максимальное количество слов, которое мы хотим получить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::DoFullTextSearch(Int32 aListIndex, const UInt16* aText, Int32 aMaximumWords)
 {
@@ -4463,7 +4463,7 @@ ESldError CSldDictionary::DoFullTextSearch(Int32 aListIndex, const UInt16* aText
 * @param[in]	aSimpleMode	- true: сортировать по упрощенной схеме если возможно - более быстро, но менее качественно
 *							  false: полная сортировка - более медленно, но более качественно
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SortSearchListRelevant(Int32 aListIndex, const UInt16* aText, const CSldVector<TSldMorphologyWordStruct>& aMorphologyForms, ESldFTSSortingTypeEnum aMode)
 {
@@ -4504,7 +4504,7 @@ ESldError CSldDictionary::SortSearchListRelevant(Int32 aListIndex, const UInt16*
 /** *********************************************************************
 * Удаляет все поисковые списки (очистка результатов поиска)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::ClearSearch(void)
 {
@@ -4517,7 +4517,7 @@ ESldError CSldDictionary::ClearSearch(void)
 *
 * @param[in]	aSerialNumber	- строчка с серийным номером
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::RegisterDictionary(const UInt16 *aSerialNumber)
 {
@@ -4569,7 +4569,7 @@ ESldError CSldDictionary::RegisterDictionary(const UInt16 *aSerialNumber)
 *
 * @param[out]	aIsRegistered	- указатель на переменную, куда будет сохранен флаг
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsDictionaryRegistered(UInt32* aIsRegistered) const
 {
@@ -4659,7 +4659,7 @@ bool CSldDictionary::IsDictionaryHasSwitchThematics() const
 *							  0 - нет, 1 - есть
 * @param[in]	aTableType	- тип таблицы пар соответствий
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsDictionaryHasCmpSymbolPairTable(UInt32* aFlag, ESymbolPairTableTypeEnum aTableType) const
 {
@@ -4697,7 +4697,7 @@ ESldError CSldDictionary::IsDictionaryHasCmpSymbolPairTable(UInt32* aFlag, ESymb
 *
 * @param[out]	aVersion	- указатель на переменную, куда будет сохранена версия ядра
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetEngineVersion(UInt32* aVersion) const
 {
@@ -4718,7 +4718,7 @@ ESldError CSldDictionary::GetEngineVersion(UInt32* aVersion) const
 * @param[in]	aFile			- указатель на открытый файл контейнера с sdc базой
 * @param[out]	aVersion		- указатель на переменную, куда будет сохранена версия ядра
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetEngineVersionForced(ISDCFile *aFile, UInt32* aVersion)
 {
@@ -4744,7 +4744,7 @@ ESldError CSldDictionary::GetEngineVersionForced(ISDCFile *aFile, UInt32* aVersi
 *
 * @param[in]	aFile - указатель на открытый файл контейнера с sdc базой
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::LoadBaseHeader(ISDCFile *aFile)
 {
@@ -4796,7 +4796,7 @@ ESldError CSldDictionary::LoadBaseHeader(ISDCFile *aFile)
 /** *********************************************************************
 * Инициализируем систему защиты.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::InitRegistration(void)
 {
@@ -4869,7 +4869,7 @@ ESldError CSldDictionary::InitRegistration(void)
 *							  1 - результат однозначно определен,
 *							  0 - результат не может быть определен (соответствующая таблица символов либо сам символ отсутствует)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsSymbolBelongToLanguage(UInt16 aSymbolCode, ESldLanguage aLang, UInt32* aFlag, UInt32* aResultFlag)
 {
@@ -4888,7 +4888,7 @@ ESldError CSldDictionary::IsSymbolBelongToLanguage(UInt16 aSymbolCode, ESldLangu
 *							  1 - результат однозначно определен,
 *							  0 - результат не может быть определен (соответствующая таблица символов либо сам символ отсутствует)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsSymbolBelongToLanguageDelimiters(UInt16 aSymbolCode, ESldLanguage aLang, UInt32* aFlag, UInt32* aResultFlag)
 {
@@ -4904,7 +4904,7 @@ ESldError CSldDictionary::IsSymbolBelongToLanguageDelimiters(UInt16 aSymbolCode,
 *							  1 - язык распознался успешно,
 *							  0 - язык нельзя определить однозначно
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::RecognizeLanguage(const UInt16* aText, ESldLanguage& aLang, UInt32& aResultFlag)
 {	
@@ -4938,7 +4938,7 @@ ESldError CSldDictionary::RecognizeLanguage(const UInt16* aText, ESldLanguage& a
 		if (langCodes.empty())
 			break;
 
-		/// Если символ не является значимым ни в одной из таблиц сортировки - нет смысла его учитывать
+		// Если символ не является значимым ни в одной из таблиц сортировки - нет смысла его учитывать
 		if (GetCMP().IsMarginalSymbol(aText[i]))
 			continue;
 
@@ -4949,7 +4949,7 @@ ESldError CSldDictionary::RecognizeLanguage(const UInt16* aText, ESldLanguage& a
 			if (error != eOK)
 				return error;
 			
-			/// В одной из таблиц нет нативных символов, значит дальнейший поиск языка будет некорректным
+			// В одной из таблиц нет нативных символов, значит дальнейший поиск языка будет некорректным
 			if (!ResultFlag)
 				return eOK;
 
@@ -4976,7 +4976,7 @@ ESldError CSldDictionary::RecognizeLanguage(const UInt16* aText, ESldLanguage& a
 *							  1 - направление переключилось,
 *							  0 - направление не переключилось (текущее состояние не изменилось)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SwitchCurrentDirection(UInt32* aResultFlag)
 {
@@ -5010,7 +5010,7 @@ ESldError CSldDictionary::SwitchCurrentDirection(UInt32* aResultFlag)
 *							  1 - направление переключилось,
 *							  0 - направление не переключилось (текущее состояние не изменилось)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SwitchDirection(const UInt16* aText, UInt32* aResultFlag)
 {
@@ -5096,7 +5096,7 @@ ESldError CSldDictionary::SwitchDirection(const UInt16* aText, UInt32* aResultFl
 *							  0 - направление не переключилось (текущее состояние не изменилось)
 * @param[in]	aAlphabetType - тип алфавита основного языка списка. По умолчанию равен EAlphabet_Standard, если направление словаря представлено одним списком. 
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SwitchDirectionTo(ESldLanguage aLangFrom, EWordListTypeEnum aUsage, UInt32* aResultFlag, UInt32 aAlphabetType)
 {
@@ -5145,7 +5145,7 @@ ESldError CSldDictionary::SwitchDirectionTo(ESldLanguage aLangFrom, EWordListTyp
 * @param[out]	aListPtr	- по данному указателю будет записан указатель на 
 							  текущий список слов
 
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordlistPtr(ISldList **aListPtr)
 {
@@ -5155,10 +5155,10 @@ ESldError CSldDictionary::GetCurrentWordlistPtr(ISldList **aListPtr)
 /** *********************************************************************
 * Возвращает указатель на экземпляр объекта списка слов по номеру списка
 *
-* @param[in]	aIndex		- номер списка слов
+* @param[in]	aIndex		- word list number
 * @param[out]	aListPtr	- указатель, по которому будет записан указатель на список слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordList(Int32 aIndex, ISldList** aListPtr)
 {
@@ -5205,7 +5205,7 @@ ESldError CSldDictionary::GetWordList(Int32 aIndex, ISldList** aListPtr)
 *						  если равен NULL, то возвращается только количество таких стилей (в переменной aCount)
 * @param[out]	aCount	- указатель на переменную, в которую сохраняется количество стилей в массиве
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetStylesWithStressVariants(Int32* aStyles, Int32* aCount)
 {
@@ -5267,7 +5267,7 @@ ESldError CSldDictionary::GetStylesWithStressVariants(Int32* aStyles, Int32* aCo
 * @param[out]	aDest - указатель на буфер, куда будем копировать
 * @param[in]	aSrc - указатель на строку, которую будем копировать
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::StrEffectiveCopyToLowerStr(UInt16* aDest, const UInt16* aSrc)
 {
@@ -5285,7 +5285,7 @@ ESldError CSldDictionary::StrEffectiveCopyToLowerStr(UInt16* aDest, const UInt16
 * @param[in]	aLanguageCode	- код языка на который нужно локализовать записи в списке;
 *								  если такой локализации нет, то локализация не меняется
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SetLocalization(ESldLanguage aLocalizationLanguageCode)
 {
@@ -5307,7 +5307,7 @@ ESldError CSldDictionary::SetLocalization(ESldLanguage aLocalizationLanguageCode
 *										  если такой локализации нет, то локализация не меняется
 * @param[in]	aLocalizationDetails	- дополнительные настройки локализации (например, название платформы)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SetLocalization(ESldLanguage aLocalizationLanguageCode, const UInt16* aLocalizationDetails)
 {
@@ -5329,7 +5329,7 @@ ESldError CSldDictionary::SetLocalization(ESldLanguage aLocalizationLanguageCode
 * @param[in]	aText - указатель на строку, по которой ищем озвучку
 * @param[out]	aSoundIndex - указатель на переменную в которую будет помещен индекс звука
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetSoundIndexByText(const UInt16 *aText, CSldVector<Int32> & aSoundIndexes)
 {
@@ -5354,7 +5354,7 @@ ESldError CSldDictionary::GetSoundIndexByText(const UInt16 *aText, CSldVector<In
 * @param[out]	aResultFlag		- указатель на переменную в которую запишется результат операции. 
 *								  0 - способ разбиения не найден, 1 - способ разбиения найден.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SearchChineseSound(const UInt16 *aText, Int32 aCount, CSldVector<Int32> & aSoundIndexes, UInt32 *aResultFlag)
 {
@@ -5428,7 +5428,7 @@ ESldError CSldDictionary::SearchChineseSound(const UInt16 *aText, Int32 aCount, 
 * @param[out]	aResultFlag - указатель на переменную в которую запишется результат операции. 
 *					0 - озвучки нет, 1 - озвучка есть.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsWordHasSound(const UInt16 *aText, UInt32 *aResultFlag)
 {
@@ -5468,15 +5468,15 @@ ESldError CSldDictionary::IsWordHasSound(const UInt16 *aText, UInt32 *aResultFla
 * Работает в несортированных списках, для сортированных по сорткею списках
 * ищет по Show-варианту(начиная с баз версии 112+)
 *
-* @param[in]	aText	- искомое слово
-* @param[out]	aResultFlag	- Флаг результата
+* @param[in]	aText	- search word
+* @param[out]	aResultFlag	- Result flag
 *							0 - найти слово не удалось
 *							1 - мы нашли само слово
 *							2 - мы нашли альтернативный заголовок слова (запрос и Show-вариант не совпадают)
 * @param[in]	aActionsOnFailFlag	- флаг, определяющий нужно ли подматываться к наиболее подходящем слову,
 *							  если поиск завершился неудачно, в иерархических списках ищет только в корне списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordByTextExtended(const UInt16* aText, UInt32* aResultFlag, UInt32 aActionsOnFailFlag)
 {
@@ -5488,16 +5488,16 @@ ESldError CSldDictionary::GetWordByTextExtended(const UInt16* aText, UInt32* aRe
 * Работает в несортированных списках, для сортированных по сорткею списках
 * ищет по Show-варианту(начиная с баз версии 112+)
 *
-* @param[in]	aListIndex	- номер списка слов
-* @param[in]	aText		- искомое слово
-* @param[out]	aResultFlag	- Флаг результата
+* @param[in]	aListIndex	- word list number
+* @param[in]	aText		- search word
+* @param[out]	aResultFlag	- Result flag
 *							0 - найти слово не удалось
 *							1 - мы нашли само слово
 *							2 - мы нашли альтернативный заголовок слова (запрос и Show-вариант не совпадают)
 * @param[in]	aActionsOnFailFlag	- флаг, определяющий нужно ли подматываться к наиболее подходящем слову,
 *							  если поиск завершился неудачно, в иерархических списках ищет только в корне списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordByTextExtended(Int32 aListIndex, const UInt16* aText, UInt32* aResultFlag, UInt32 aActionsOnFailFlag)
 {
@@ -5548,10 +5548,10 @@ ESldError CSldDictionary::GetWordByTextExtended(Int32 aListIndex, const UInt16* 
 * Работает в несортированных списках, для сортированных по сорткею списках
 * ищет по Show-варианту(начиная с баз версии 112+)
 *
-* @param[in]	aText		- искомое слово
+* @param[in]	aText		- search word
 * @param[out]	aWordSet	- вектор с индексами найденных слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordSetByTextExtended(const UInt16* aText, CSldVector<Int32>& aWordSet)
 {
@@ -5563,11 +5563,11 @@ ESldError CSldDictionary::GetWordSetByTextExtended(const UInt16* aText, CSldVect
 * Работает в несортированных списках, для сортированных по сорткею списках
 * ищет по Show-варианту(начиная с баз версии 112+)
 *
-* @param[in]	aListIndex	- номер списка слов
-* @param[in]	aText		- искомое слово
+* @param[in]	aListIndex	- word list number
+* @param[in]	aText		- search word
 * @param[out]	aWordSet	- вектор с индексами найденных слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordSetByTextExtended(Int32 aListIndex, const UInt16* aText, CSldVector<Int32>& aWordSet)
 {
@@ -5629,7 +5629,7 @@ ESldError CSldDictionary::GetWordSetByTextExtended(Int32 aListIndex, const UInt1
 *							  0 - уровень не сортирован
 *							  1 - уровень сортирван
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsCurrentLevelSorted(UInt32* aIsSorted)
 {
@@ -5652,7 +5652,7 @@ ESldError CSldDictionary::IsCurrentLevelSorted(UInt32* aIsSorted)
 *									  В случае одиночного словаря содержит один элемент.
 *									  Поля времени и даты заполняются самостоятельно.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetHistoryElement(Int32 aGlobalIndex, CSldVector<CSldHistoryElement> & aHistoryElements)
 {
@@ -5796,7 +5796,7 @@ ESldError CSldDictionary::GetHistoryElement(Int32 aGlobalIndex, CSldVector<CSldH
 *									  индекс нового списка, иначе SLD_DEFAULT_LIST_INDEX
 * @param[out]	aGlobalIndex		- указатель, по которому будет записан индекс полученного слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetWordByHistoryElement(CSldHistoryElement* aHistoryElement, ESldHistoryResult* aResultFlag, Int32* aListIndex, Int32* aGlobalIndex)
 {
@@ -5840,7 +5840,7 @@ ESldError CSldDictionary::GetWordByHistoryElement(CSldHistoryElement* aHistoryEl
 * @param[in]	aListIndex			- индекс списка, в котором мы хотим восстановить элемент истории
 * @param[out]	aResultFlag			- указатель, по которому будет записан результат выполнения функции	(см. #ESldHistoryResult)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::UpdateHistoryElementInList(CSldHistoryElement* aHistoryElement, const Int32 aListIndex, ESldHistoryResult* aResultFlag)
 {
@@ -5932,7 +5932,7 @@ bool CheckType(const UInt32 aType1, const UInt32 aType2)
 * @param[in]	aHistoryElement		- структура, содержащая информацию, необходимую для восстановления слова.
 * @param[out]	aResultFlag			- указатель, по которому будет записан результат выполнения функции (см. #ESldHistoryResult)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::UpdateHistoryElement(CSldHistoryElement* aHistoryElement, ESldHistoryResult* aResultFlag)
 {
@@ -5986,7 +5986,7 @@ ESldError CSldDictionary::UpdateHistoryElement(CSldHistoryElement* aHistoryEleme
 * @param[in]	aWordSearchType		- тип (правила) поиска слова (см. ESldWordSearchTypeEnum)
 * @param[in]	aActionsOnFailFlag	- флаг, определяющий нужно ли подматываться к наиболее подходящем слову, если поиск завершился неудачно
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::FindWordBySpecificRule(TWordVariantsSet* aWordVariantsSet, UInt32* aResultFlag, UInt32 aWordSearchType, UInt32 aActionsOnFailFlag)
 {
@@ -5996,7 +5996,7 @@ ESldError CSldDictionary::FindWordBySpecificRule(TWordVariantsSet* aWordVariants
 /** *********************************************************************
 * Ищет слово в указанном списке слов, совпадающее по всем переданным вариантам написания, всеми возможными способами
 *
-* @param[in]	aListIndex			- номер списка слов
+* @param[in]	aListIndex			- word list number
 * @param[in]	aWordVariantsSet	- набор вариантов написания слова
 * @param[out]	aResultFlag			- флаг результата
 *										0 - подмотаться не удалось
@@ -6006,7 +6006,7 @@ ESldError CSldDictionary::FindWordBySpecificRule(TWordVariantsSet* aWordVariants
 * @param[in]	aWordSearchType		- тип (правила) поиска слова (см. ESldWordSearchTypeEnum)
 * @param[in]	aActionsOnFailFlag	- флаг, определяющий нужно ли подматываться к наиболее подходящем слову, если поиск завершился неудачно
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::FindWordBySpecificRule(Int32 aListIndex, TWordVariantsSet* aWordVariantsSet, UInt32* aResultFlag, UInt32 aWordSearchType, UInt32 aActionsOnFailFlag)
 {
@@ -6058,7 +6058,7 @@ ESldError CSldDictionary::FindWordBySpecificRule(Int32 aListIndex, TWordVariants
 /** *********************************************************************
 * Ищет слово в текущем списке слов всеми возможными способами
 *
-* @param[in]	aText			- искомое слово
+* @param[in]	aText			- search word
 * @param[out]	aResultFlag		- флаг результата
 *									0 - подмотаться не удалось
 *									1 - мы подмотались к совпадающему слову
@@ -6066,7 +6066,7 @@ ESldError CSldDictionary::FindWordBySpecificRule(Int32 aListIndex, TWordVariants
 *										идентификатору (запрос и Show-вариант не совпадают)
 * @param[in]	aActionsOnFailFlag	- флаг, определяющий нужно ли подматываться к наиболее подходящем слову, если поиск завершился неудачно
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::FindWordBySpecificRule(const UInt16* aText, UInt32* aResultFlag, UInt32 aActionsOnFailFlag)
 {
@@ -6076,8 +6076,8 @@ ESldError CSldDictionary::FindWordBySpecificRule(const UInt16* aText, UInt32* aR
 /** *********************************************************************
 * Ищет слово в текущем списке слов всеми возможными способами
 *
-* @param[in]	aListIndex		- номер списка слов
-* @param[in]	aText			- искомое слово
+* @param[in]	aListIndex		- word list number
+* @param[in]	aText			- search word
 * @param[out]	aResultFlag		- флаг результата
 *									0 - подмотаться не удалось
 *									1 - мы подмотались к совпадающему слову
@@ -6085,7 +6085,7 @@ ESldError CSldDictionary::FindWordBySpecificRule(const UInt16* aText, UInt32* aR
 *										идентификатору (запрос и Show-вариант не совпадают)
 * @param[in]	aActionsOnFailFlag	- флаг, определяющий нужно ли подматываться к наиболее подходящем слову, если поиск завершился неудачно
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::FindWordBySpecificRule(Int32 aListIndex, const UInt16* aText, UInt32* aResultFlag, UInt32 aActionsOnFailFlag)
 {
@@ -6178,7 +6178,7 @@ ESldError CSldDictionary::FindWordBySpecificRule(Int32 aListIndex, const UInt16*
 * @param[out]	aMorphoData		- указатель на переменную, в которую будет сохранена морфология (память выделяется и освобождается внутри)
 * @param[in]	aDictId			- id базы морфологии
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetMorphology(UInt32 aLanguageCode, MorphoData **aMorphoData, UInt32 aDictId /*= 0*/)
 {
@@ -6248,11 +6248,11 @@ UInt32 CSldDictionary::IsInApp(void) const
 * Возвращает количество результатов полнотекстового поиска
 * Функция проверяет количество вхождений для данного запроса без использования логики
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[in]	aRequest	- текст, по которому будет производиться поиск
 * @param[out]	aCount		- указатель на переменную, в которую будет сохранено количество результатов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetFullTextResultCount(const UInt32 aListIndex, const UInt16* aRequest, Int32* aCount)
 {
@@ -6301,7 +6301,7 @@ UInt32 CSldDictionary::HasStylizedVariantForCurrentWord(Int32 aVariantIndex)
 * @param[out]	aArticle		- разобранная на блоки статья, содержащая форматированный вариант написания для текущего слова
 *								  В случае отсутсвия форматированного текста в aArticle ничего записано не будет
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentWordStylizedVariant(Int32 aVariantIndex, SplittedArticle & aArticle)
 {
@@ -6343,7 +6343,7 @@ ESldError CSldDictionary::GetCurrentWordStylizedVariant(Int32 aVariantIndex, Spl
 * @param[in]	aUncoverHierarchy	- флаг, указывающий на то, что всю иерархию в списке нужно будет раскрыть
 *									  иначе в список попадет лишь верхний уровень иерархии (включен по умолчанию)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::AddCustomWordList(CSldCustomListControl* aListControl, Int32* aCustomListIndex, Int32 aBaseListIndex, UInt32 aUncoverHierarchy)
 {
@@ -6439,7 +6439,7 @@ ESldError CSldDictionary::AddCustomWordList(CSldCustomListControl* aListControl,
 *							  по умолчанию передается -1 и удаляет все списки
 *							  определенного типа
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::RemoveCustomList(Int32 aListIndex)
 {	
@@ -6454,7 +6454,7 @@ ESldError CSldDictionary::RemoveCustomList(Int32 aListIndex)
 *							  по умолчанию передается -1 и удаляет все списки
 *							  определенного типа
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::RemoveList(EWordListTypeEnum aListType, Int32 aListIndex)
 {
@@ -6529,7 +6529,7 @@ ESldError CSldDictionary::RemoveList(EWordListTypeEnum aListType, Int32 aListInd
 * @param[in]	aUncoverHierarchy	- флаг, указывающий на то, что всю иерархию в списке нужно будет раскрыть
 *									  иначе в список попадет лишь верхний уровень иерархии (выключен по умолчанию)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetSubwordsList(CSldCustomListControl* aListControl, Int32* aCustomListIndex, const bool aUncoverHierarchy)
 {
@@ -6677,7 +6677,7 @@ ESldError CSldDictionary::GetSubwordsList(CSldCustomListControl* aListControl, I
 * @param[in]	aCustomListIndex	- индекс пользовательского списка, в который будут добавлены варианты написания
 * @param[in]	aListControl		- контрол пользовательского списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::UpdateVariantPropertyInCustomList(const Int32 aCheckedListIndex, const Int32 aCustomListIndex, CSldCustomListControl* aListControl)
 {
@@ -6716,7 +6716,7 @@ ESldError CSldDictionary::UpdateVariantPropertyInCustomList(const Int32 aChecked
 *
 * @param[out]	aCount	- число ресурсов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetExternContentInfo(TExternContentInfo (&aExtInf)[eExternContentTypeMax]) const
 {
@@ -6779,7 +6779,7 @@ ESldError CSldDictionary::GetExternContentInfo(TExternContentInfo (&aExtInf)[eEx
 *
 * @param[out]	aCount	- число ресурсов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetExternContentInfoCount(UInt32* aCount) const
 {
@@ -6799,12 +6799,12 @@ ESldError CSldDictionary::GetExternContentInfoCount(UInt32* aCount) const
 /** *********************************************************************
 * Возвращает номер статьи
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aIndex			- локальный номер слова в текущем списке слов
 * @param[in]	aVariantIndex	- номер варианта написания в списке слов
 * @param[out]	aArticleIndex	- глобальный номер статьи
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetTranslationIndex(Int32 aListIndex, Int32 aIndex, Int32 aVariantIndex, Int32* aArticleIndex)
 {
@@ -6851,11 +6851,11 @@ ESldError CSldDictionary::GetTranslationIndex(Int32 aListIndex, Int32 aIndex, In
 /** *********************************************************************
 * Возвращает номер статьи
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aIndex			- локальный номер слова в текущем списке слов
 * @param[out]	aArticleIndex	- глобальный номер статьи
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetTranslationIndex(Int32 aIndex, Int32 aVariantIndex, Int32* aArticleIndex)
 {
@@ -6867,7 +6867,7 @@ ESldError CSldDictionary::GetTranslationIndex(Int32 aIndex, Int32 aVariantIndex,
 * @param[in]	aResId			- номер ресурса
 * @param[out]	aResInfo		- заполняемая структура с информацией
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCMPTableResourceInfo(UInt32 aResId, TResourceInfo* aResInfo)
 {
@@ -6881,7 +6881,7 @@ ESldError CSldDictionary::GetCMPTableResourceInfo(UInt32 aResId, TResourceInfo* 
 * @param[in]	aResId			- номер ресурса
 * @param[out]	aResInfo		- заполняемая структура с информацией
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetPictureResourceInfo(UInt32 aResId, TResourceInfo* aResInfo)
 {
@@ -6895,7 +6895,7 @@ ESldError CSldDictionary::GetPictureResourceInfo(UInt32 aResId, TResourceInfo* a
 * @param[in]	aResId			- номер ресурса
 * @param[out]	aResInfo		- заполняемая структура с информацией
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetAbstractResourceInfo(UInt32 aResId, TResourceInfo* aResInfo)
 {
@@ -6909,7 +6909,7 @@ ESldError CSldDictionary::GetAbstractResourceInfo(UInt32 aResId, TResourceInfo* 
 * @param[in]	aResId			- номер ресурса
 * @param[out]	aResInfo		- заполняемая структура с информацией
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetResourceInfo(UInt32 aResType, UInt32 aResId, TResourceInfo* aResInfo)
 {
@@ -6976,7 +6976,7 @@ ESldError CSldDictionary::GetResourceInfo(UInt32 aResType, UInt32 aResId, TResou
 *
 * @param[out]	aFlag		- флаг того, что это .datf база
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::IsETBDatabase(UInt8* aFlag) const
 {
@@ -6993,7 +6993,7 @@ ESldError CSldDictionary::IsETBDatabase(UInt8* aFlag) const
 *
 * @param[in]	aGlobalIndex	- глобальный индекс, к которому мы хотим перейти
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GoToByGlobalIndex(const Int32 aGlobalIndex)
 {
@@ -7004,9 +7004,9 @@ ESldError CSldDictionary::GoToByGlobalIndex(const Int32 aGlobalIndex)
 * Переходит по пути, соответсвующему заданному глобальному индексу
 *
 * @param[in]	aGlobalIndex	- глобальный индекс, к которому мы хотим перейти
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GoToByGlobalIndex(const Int32 aGlobalIndex, const Int32 aListIndex)
 {
@@ -7027,7 +7027,7 @@ ESldError CSldDictionary::GoToByGlobalIndex(const Int32 aGlobalIndex, const Int3
 * @param[in]	aListIndex		- номер списка, который мы хотим индексировать
 * @param[in]	aVariantType	- тип варианта написания, по которому будет индексирован список
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SortListByVariant(const Int32 aListIndex, const EListVariantTypeEnum aVariantType)
 {
@@ -7062,7 +7062,7 @@ ESldError CSldDictionary::SortListByVariant(const Int32 aListIndex, const EListV
 * @param[out]	aAtomicObject	- указатель, по которому будет записан указатель на структуру
 *								  с информацией об атомарном объекте
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetAtomicObjectInfo(const Int32 aIndex, const TAtomicObjectInfo **aAtomicObject) const
 {
@@ -7108,7 +7108,7 @@ ESldError CSldDictionary::GetAtomicObjectInfo(const Int32 aIndex, const TAtomicO
 * @param[out]	aInitialListIndex	- номер списка слов, который является изначальным для переданной во входных аргументах статьи-перевода (результата поиска)
 * @param[out]	aInitialWordIndex	- номер слова внутри списка слов (вестимо, глобальный)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetInitialWordIndexes(Int32 aLocalIndex, Int32* aInitialListIndex, Int32* aInitialWordIndex)
 {
@@ -7122,12 +7122,12 @@ ESldError CSldDictionary::GetInitialWordIndexes(Int32 aLocalIndex, Int32* aIniti
 * Эта функция позволяет получить список и слово, к которым изначально относится, например Список 2 (Оглавление), Слово - "Глава 3. Строение бактерий".
 * Это необходимо для восстановления правильного пути к результатам поиска
 *
-* @param[in]	aListIndex			- номер списка слов
+* @param[in]	aListIndex			- word list number
 * @param[in]	aLocalIndex			- номер слова в текущем списке слов, для которого мы хотим получить InitialIndexes
 * @param[out]	aInitialListIndex	- номер списка слов, который является изначальным для переданной во входных аргументах статьи-перевода (результата поиска)
 * @param[out]	aInitialWordIndex	- номер слова внутри списка слов (вестимо, глобальный)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetInitialWordIndexes(Int32 aListIndex, Int32 aLocalIndex, Int32* aInitialListIndex, Int32* aInitialWordIndex)
 {
@@ -7205,7 +7205,7 @@ Int32 CSldDictionary::FindListIndex(UInt32 aListType) const
 * @param[in]	aType		- тип варианта написания, по которому нужно отсортировать
 *							  приоритетными считаются варианты из Auxiliary списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SortResultByVariantType(const Int32 aListIndex, const EListVariantTypeEnum aType)
 {
@@ -7355,7 +7355,7 @@ ESldError CSldDictionary::SortResultByVariantType(const Int32 aListIndex, const 
 *
 * @param[out]	aNumberOfLocalization	- количество локализаций
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetNumberOfLocalization(Int32 & aNumberOfLocalization)
 {
@@ -7372,7 +7372,7 @@ ESldError CSldDictionary::GetNumberOfLocalization(Int32 & aNumberOfLocalization)
 *
 * @param[in]	aIndex	- номер локализации, которую нужно установить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SetLocalizationByIndex(const Int32 aIndex)
 {
@@ -7391,7 +7391,7 @@ ESldError CSldDictionary::SetLocalizationByIndex(const Int32 aIndex)
 * @param[out]	aLocalizationCode	- код языка локализации
 * @param[out]	aLocalizationName	- строчка с названием локализации
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetLocalizationInfoByIndex(const Int32 aIndex, UInt32 & aLocalizationCode, SldU16String & aLocalizationName)
 {
@@ -7408,7 +7408,7 @@ ESldError CSldDictionary::GetLocalizationInfoByIndex(const Int32 aIndex, UInt32 
 *
 * @param[out]	aIndex		- номер текущей локализации
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetCurrentLocalizationIndex(Int32 & aIndex)
 {
@@ -7431,7 +7431,7 @@ ESldError CSldDictionary::GetCurrentLocalizationIndex(Int32 & aIndex)
  *  т.е. ситуация когда функция возвращает eOK и пустую строку - нормальна, просто
  *  в словаре нету js для статей
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldDictionary::GetArticlesJavaScript(SldU16String &aString)
 {
@@ -7464,7 +7464,7 @@ ESldError CSldDictionary::GetArticlesJavaScript(SldU16String &aString)
 * @param[in]	aGlobalIndex	- номер слова в списке слияния
 * @param[out]	aDictIndexes	- вектор с индексами словаря
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetDictionaryIndexesByGlobalIndex(const Int32 aListIndex, const Int32 aGlobalIndex, CSldVector<Int32> & aDictIndexes)
 {
@@ -7486,7 +7486,7 @@ ESldError CSldDictionary::GetDictionaryIndexesByGlobalIndex(const Int32 aListInd
 * @param[in]	aGlobalIndex	- номер слова в списке слияния
 * @param[out]	aDictIndex		- вектор с индексами словаря
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetDictionaryIndexesByGlobalIndex(const Int32 aGlobalIndex, CSldVector<Int32> & aDictIndexes)
 { 
@@ -7501,7 +7501,7 @@ ESldError CSldDictionary::GetDictionaryIndexesByGlobalIndex(const Int32 aGlobalI
 *										  если вместо одного из индексов возвращается (-1), значит запись имеет количество ссылок,
 *										  отличных от 1 и однозначно перейти не удалось
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GoToRealIndexes(Int32 & aRealListIndex, Int32 & aRealWordIndex)
 {
@@ -7559,7 +7559,7 @@ ESldError CSldDictionary::GoToRealIndexes(Int32 & aRealListIndex, Int32 & aRealW
 * @param[in]	aInfo		- указатель на дополнительные данные о слиянии
 * @param[in]	aDictIdx	- номер текущего словаря среди всех слитых словарей
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::SetMergeInfo(const TMergedMetaInfo *aInfo, UInt32 aDictIdx)
 {
@@ -7592,11 +7592,11 @@ ESldError CSldDictionary::SetMergeInfo(const TMergedMetaInfo *aInfo, UInt32 aDic
 * Возвращает коллекцию ссылок, идущих в начале статьи
 * Декодирует статью до первого текстового блока
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aGlobalIndex	- глобальный индекс статьи, для которой мы хотим получить коллекцию ссылок
 * @param[out]	aLinks			- коллекция ссылок
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionary::GetArticleLinks(const Int32 aListIndex, const Int32 aGlobalIndex, SldLinksCollection & aLinks)
 {

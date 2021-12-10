@@ -96,7 +96,7 @@ CSldMetadataManager::CSldMetadataManager(CSDCReadMy &aReader, const CSDCReadMy::
  * Время жизни строки привязано к данному объекту; *контент* строки актуален только до следующего
  * вызова данного метода.
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldMetadataManager::GetString(UInt32 aIndex, SldU16StringRef &aString)
 {

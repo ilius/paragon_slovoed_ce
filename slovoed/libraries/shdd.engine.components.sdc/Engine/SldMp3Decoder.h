@@ -7,7 +7,7 @@
 #include "SldError.h"
 
 
-/// Производит декодирование озвучки в формате mp3
+// Производит декодирование озвучки в формате mp3
 ESldError Mp3Decode(ISldLayerAccess* aLayerAccess, FSoundBuilderMethodPtr aBuilderPtr, const UInt8* aDataPtr, UInt32 aDataSize, UInt8 aIsLast, UInt32* aStartPos);
 
 #endif //_SLD_MP3_DECODER_H_

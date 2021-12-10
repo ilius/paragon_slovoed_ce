@@ -107,7 +107,7 @@ UInt16 *CSldImageAreaItem::GetId() const
 *
 * @param[in] asId	- идентификатор области
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::SetId(const UInt16 *const asId)
 {
@@ -139,7 +139,7 @@ void CSldImageAreaItem::SetLeft(const UInt32 aiLeft)
 *
 * @param[in] asLeft	- координаты левой границы области
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::SetLeft(const UInt16 *const asLeft)
 {
@@ -171,7 +171,7 @@ void CSldImageAreaItem::SetTop(const UInt32 aiTop)
 *
 * @param[in] asTop	- координаты верхней границы области
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::SetTop(const UInt16 *const asTop)
 {
@@ -203,7 +203,7 @@ void CSldImageAreaItem::SetWidth(const UInt32 aiWidth)
 *
 * @param[in] asWidth	- ширина области
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::SetWidth(const UInt16 *const asWidth)
 {
@@ -235,7 +235,7 @@ void CSldImageAreaItem::SetHeight(const UInt32 aiHeight)
 *
 * @param[in] asHeight	- высота области
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::SetHeight(const UInt16 *const asHeight)
 {
@@ -267,7 +267,7 @@ void CSldImageAreaItem::SetType(const ESldImageAreaType aeType)
 *
 * @param[in] asTypeToken	- тип события, ассоциированного с областью
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::SetType(const UInt16 *const asTypeToken)
 {
@@ -289,7 +289,7 @@ const UInt16 *CSldImageAreaItem::GetActionString() const
 *
 * @param[in] asActionString	- строка-сценарий, необходимая для обработки события
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::SetActionString(const UInt16 *const asActionString)
 {
@@ -324,7 +324,7 @@ ESldAreaShape CSldImageAreaItem::GetShapeType() const
 *
 * @param[in] asCoordsString	- строка координат, необходимаая для задания области произвольной формы
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::SetCoordsString(const UInt16 *const asCoordsString)
 {
@@ -337,7 +337,7 @@ ESldError CSldImageAreaItem::SetCoordsString(const UInt16 *const asCoordsString)
 * @param[in] asDst	- указатель на строку, на место которой надо поместить новую строчку
 * @param[in] asSrc	- строчка, которую необходимо сохранить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::ReplaceString(UInt16 **const asDst, const UInt16 *const asSrc)
 {
@@ -375,7 +375,7 @@ UInt32 CSldImageAreaItem::IsPercent() const
 *
 * @param[in] asPercent	- флаг того, что значения размеров указаны в процентах
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::SetPercent(const UInt16 *const asPercent)
 {
@@ -399,7 +399,7 @@ void CSldImageAreaItem::SetPercent(const UInt32 asPercent)
 * @param[in] aHeight - высота картинки
 * @param[in] aUnit	- единица измерения ширины и высоты
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageAreaItem::TransformToPixel(Int32 aWidth, Int32 aHeight, Int32 aUnit)
 {
@@ -437,14 +437,14 @@ UInt32 CSldImageAreaItem::GetMask() const
 *
 * @param[in] aMask	- флаг того, что значения размеров указаны в процентах
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 void CSldImageAreaItem::SetMask(const UInt32 aMask)
 {
 	m_iMask = aMask;
 }
 
-/// Устанавливает индекс маски из строки
+// Устанавливает индекс маски из строки
 ESldError CSldImageAreaItem::SetMask(const UInt16 *const asMask)
 {
 	return CSldCompare::StrToUInt32(asMask, 10, &m_iMask);

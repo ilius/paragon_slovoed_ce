@@ -16,7 +16,7 @@
 *						  озвучиваться отдельно, можно передавать NULL.
 * @param aBeginPlay		- обозначает с какого места проигрывать озвучку [0;100], в %
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError SpeexDecode(ISldLayerAccess* aLayerAccess, FSoundBuilderMethodPtr aBuilderPtr, const UInt8* aDataPtr, UInt32 aDataSize, UInt8 aIsLast, UInt32* aStartPos, UInt8 aBeginPlay)
 {
@@ -195,13 +195,13 @@ ESldError SpeexDecode(ISldLayerAccess* aLayerAccess, FSoundBuilderMethodPtr aBui
 }
 
 
-/// Конструктор
+// Constructor
 SldSpxDecoder::SldSpxDecoder(void) : m_Buffer(NULL), m_DataPtr(NULL), m_St(NULL)
 {
 	sldMemZero(&m_Bits, sizeof(SpeexBits));
 }
 
-/// Деструктор
+// Destructor
 SldSpxDecoder::~SldSpxDecoder(void)
 {
 	if(m_Buffer != NULL)
@@ -214,11 +214,11 @@ SldSpxDecoder::~SldSpxDecoder(void)
 }
 
 /***********************************************************************
-* Инициализация
+* Initialization
 *
 * @param aRes		- Ресурс с озвучкой
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError SldSpxDecoder::Init(const CSDCReadMy::Resource &aRes)
 {
@@ -232,12 +232,12 @@ ESldError SldSpxDecoder::Init(const CSDCReadMy::Resource &aRes)
 }
 
 /***********************************************************************
-* Инициализация
+* Initialization
 *
 * @param aData		- Указатель на данные с озвучкой
 * @param aSize		- Размер данных озвучки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError SldSpxDecoder::Init(const UInt8 *aData, UInt32 aSize)
 {
@@ -301,7 +301,7 @@ ESldError SldSpxDecoder::Init(const UInt8 *aData, UInt32 aSize)
 	return eOK;
 }
 
-/// Сброс декодировщика
+// Сброс декодировщика
 ESldError SldSpxDecoder::Reset(void)
 {
 	m_Res = CSDCReadMy::Resource();
@@ -319,7 +319,7 @@ ESldError SldSpxDecoder::Reset(void)
 	return eOK;
 }
 
-/// Подготовка декодировщика
+// Подготовка декодировщика
 ESldError SldSpxDecoder::PrepareDecoder(void)
 {
 	// Выделяем память для декодированных данных
@@ -364,7 +364,7 @@ void SldSpxDecoder::SetPos(UInt32 aPos)
 * @param aBuf[out]	- указатель на буфер с декодированными данными
 * @param aSize[out]	- размер буфера
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError SldSpxDecoder::GetNextBuff(UInt8** aBuf, UInt32* aSize)
 {

@@ -9,46 +9,46 @@ class CSldInputBase : public ISldInput
 public:
 	CSldInputBase() : m_HASH(0) { sld2::memzero(m_QAHeader); }
 
-	/// Инициализация
+	// Initialization
 	ESldError Init(CSDCReadMy &aData, UInt32 aDataType, UInt32 aAssistType, UInt32 aAssistCount, UInt32 aQAType, UInt32 aListVersion) override;
 
-	/// Устанавливаем HASH для декодирования данного списка слов.
+	// Устанавливаем HASH для декодирования данного списка слов.
 	void SetHASH(UInt32 aHASH) override;
 
-	/// Получаем количество точек по которым может производится поиск
+	// Получаем количество точек по которым может производится поиск
 	UInt32 GetSearchPointCount() override;
 
-	/// Получаем текст для указанной точки
+	// Получаем текст для указанной точки
 	ESldError GetSearchPointText(UInt32 aPointIndex, const UInt16 **aText) override;
 
-	/// Получаем номер слова для указанной точки
+	// Получаем номер слова для указанной точки
 	ESldError GetSearchPointIndex(UInt32 aPointIndex, Int32 *aIndex) override;
 
-	/// Получаем начало слова для указанной точки
+	// Получаем начало слова для указанной точки
 	ESldError GetSearchPointText(UInt32 aPointIndex, UInt16 *aWord) override;
 
-	/// Производим переход внутреннего состояния в позицию точки из таблицы быстрого поиска.
+	// Производим переход внутреннего состояния в позицию точки из таблицы быстрого поиска.
 	ESldError GoTo(UInt32 aPointIndex) override;
 
-	/// Производит получение данных, до 32 бит.
+	// Производит получение данных, до 32 бит.
 	ESldError GetData(UInt32 *aDataBuffer, UInt32 aDataSize) override;
 
-	/// Возвращает текущее положение в битах.
+	// Возвращает текущее положение в битах.
 	UInt32 GetCurrentPosition() override;
 
-	/// Перемещаем указатель текущей позиции чтения в указанную позицию
+	// Перемещаем указатель текущей позиции чтения в указанную позицию
 	ESldError SetCurrentPosition(UInt32 aShift) override;
 
 protected:
-	/// HASH который используется для правильного перемещения по закодированным данным.
+	// HASH который используется для правильного перемещения по закодированным данным.
 	UInt32 m_HASH;
 
-	/// Заголовок таблицы быстрого поиска
+	// Заголовок таблицы быстрого поиска
 	TQAHeader	m_QAHeader;
-	/// Данные таблицы быстрого поиска (реальный тип зависит от m_QAHeader.Type)
+	// Данные таблицы быстрого поиска (реальный тип зависит от m_QAHeader.Type)
 	sld2::DynArray<UInt8>	m_QA;
 
-	/// Объект получения бинарных данных.
+	// Объект получения бинарных данных.
 	CSldBitInput	m_input;
 
 	template <typename Decoder>

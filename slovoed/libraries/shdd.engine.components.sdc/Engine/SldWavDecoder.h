@@ -9,7 +9,7 @@
 
 #define MAX_FRAME_SIZE			(640)
 
-/// Производит декодирование озвучки в формате wav
+// Производит декодирование озвучки в формате wav
 ESldError WavDecode(ISldLayerAccess* aLayerAccess, FSoundBuilderMethodPtr aBuilderPtr, const UInt8* aDataPtr, UInt32 aDataSize, UInt8 aIsLast, UInt32* aStartPos);
 
 #endif //_SLD_WAV_DECODER_H_

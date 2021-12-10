@@ -6,76 +6,74 @@
 #include "SldSDCReadMy.h"
 
 
-// Предварительное объявление класса.
+// Class preliminary declaration.
 class CSldDictionary;
 
 /***********************************************************************
-*	Данный класс отвечает за взаимодействие ядра и программы
+*	This class is responsible for the interaction between the kernel and the program.
 ************************************************************************/
 class ISldLayerAccess
 {
 public:
 
-	/// Деструктор
+	// Destructor
 	virtual ~ISldLayerAccess(void) {};
 
 	/***********************************************************************
-	* Метод, производящий сборку перевода.
+	* The method that assembles the translation.
 	*
-	* @param aDictionary	- указатель на экземпляр словаря, в котором хранятся
-	*						  все данные по статье
-	* @param aText			- кусок текста
-	* @param aTree			- номер стиля для форматирования переданного куска текста
-	*						  или флаги начала/конца статьи
+	* @param aDictionary	- a pointer to an instance of the dictionary,
+	*                         which stores all the data for the article
+	* @param aText			- piece of text
+	* @param aTree			- style number for formatting the transferred piece
+	*                         of text or flags of the beginning / end of the article
 	*
-	* @return код ошибки
+	* @return error code
 	************************************************************************/
 	virtual ESldError BuildTranslationRight(const CSldDictionary *aDictionary, const UInt16 *aText, ESldTranslationModeType aTree) = 0;
 
 	/***********************************************************************
-	* Метод, производящий сборку сообщения о том, что словарь не зарегестрирован.
+	* The method that assembles the message that the dictionary is not registered.
 	*
-	* @param aDictionary	- указатель на экземпляр словаря, в котором хранятся
-	*						  все данные по статье
-	* @param aText			- кусок текста
-	* @param aTree			- номер стиля для форматирования переданного куска текста
-	*						  или флаги начала/конца статьи
+	* @param aDictionary	- a pointer to an instance of the dictionary,
+	*                         which stores all the data for the article
+	* @param aText			- piece of text
+	* @param aTree			- style number for formatting the transferred piece
+	*                         of text or flags of the beginning / end of the article
 	*
-	* @return код ошибки
+	* @return error code
 	************************************************************************/
 	virtual ESldError BuildTranslationWrong(const CSldDictionary *aDictionary, const UInt16 *aText, ESldTranslationModeType aTree) = 0;
 
 	/***********************************************************************
-	* Метод производит действия в случае, если при поиске по шаблону
-	* слово было найдено.
-	* Кроме того, данный метод вызывается периодически в случае, если
-	* даже ничего не было найдено для того, чтобы оболочка могла корректно
-	* остановить поиск.
+	* The method performs actions if a word was found when searching by a pattern.
+	* In addition, this method is called periodically, even if nothing was
+	* found, so that the shell can gracefully stop the search.
 	*
-	* @param aText	- название найденного слова. Если NULL - значит это вызов
-	*				  для того, чтобы узнать, не хочет ли оболочка прекратить поиск.
-	* @param aIndex	- индекс найденного слова. Если MAX_UINT_VALUE - значит это 
-	*				  вызов для того, чтобы узнать, не хочет ли оболочка прекратить поиск.
+	* @param aText	- name of the found word. If NULL, then this is a call to
+	*                 find out if the shell wants to stop searching.
+	* @param aIndex	- the index of the word found. If MAX_UINT_VALUE is a call
+	*                 to see if the shell wants to stop searching.
 	*
-	* @return код ошибки
+	* @return error code
 	************************************************************************/
 	virtual ESldError WordFound(const ESldWordFoundCallbackType aCallbackType, const UInt32 aIndex = 0) = 0;
 	
 	/***********************************************************************
-	* Возвращает идентификатор платформы
+	* Returns the platform identifier
 	*
-	* @return идентификатор платформы
+	* @return platform identifier
 	************************************************************************/
 	virtual const UInt16 * GetPlatformID() = 0;
 
 	/** ********************************************************************
-	* Сохраняет регистрационные данные
+	* Saves registration data
 	*
-	* @param aDictID	- идентификатор словаря для которого сохраняются данные.
-	* @param aData		- указатель на данные которые нужно сохранить.
-	* @param aSize		- количество данных для сохранения.
+	* @param aDictID	- the identifier of the dictionary for which the data is being saved.
+	* @param aData		- a pointer to the data to be stored.
+	* @param aSize		- the amount of data to save.
 	*
-	* @return код ошибки
+	* @return error code
 	************************************************************************/
 	virtual ESldError SaveSerialData(UInt32 aDictID, const UInt8 *aData, UInt32 aSize) = 0;
 
@@ -89,7 +87,7 @@ public:
 	* @param aSize		- указатель на переменную с количеством данных для сохранения, 
 	*						при выходе из функции сюда помещается размер который был необходим в байтах.
 	*
-	* @return код ошибки
+	* @return error code
 	*
 	*
 	* Шаблон использования выглядит так:
@@ -147,7 +145,7 @@ public:
 	* @param aDataPtr		- указатель, по которому нужно записать указатель на память с загруженными данными
 	* @param aDataSize		- указатель на переменную, в которую нужно сохранить размер в байтах загруженных данных
 	*
-	* @return код ошибки
+	* @return error code
 	************************************************************************/
 	virtual ESldError LoadSoundByIndex(Int32 aSoundIndex, const UInt8** aDataPtr, UInt32* aDataSize) = 0;
 	
@@ -159,13 +157,13 @@ public:
 	* @param aDataPtr		- указатель, по которому нужно записать указатель на память с загруженными данными
 	* @param aDataSize		- указатель на переменную, в которую нужно сохранить размер в байтах загруженных данных
 	*
-	* @return код ошибки
+	* @return error code
 	************************************************************************/
 	virtual ESldError LoadImageByIndex(Int32 aImageIndex, const UInt8** aDataPtr, UInt32* aDataSize) = 0;
 };
 
 
-/// Описание типа метода, осуществляющего сборку перевода
+// Описание типа метода, осуществляющего сборку перевода
 /**
 	Данный метод производит сборку перевода или сообщения о том, что словарь не зарегистрирован
 
@@ -173,13 +171,13 @@ public:
 	@param aText		- кусок текста
 	@param aTree		- номер стиля для форматирования переданного куска текста или флаги начала/конца статьи
 	
-	@return код ошибки
+	@return error code
 */
 typedef ESldError (ISldLayerAccess::*FTranslationBuilderMethodPtr)(const CSldDictionary *aDictionary, const UInt16 *aText, ESldTranslationModeType aTree);
 
 
 
-/// Описание типа метода, осуществляющего сборку озвучки
+// Описание типа метода, осуществляющего сборку озвучки
 /**
 	Данный метод производит сборку озвучки либо тонового сигнала в случае, если словарь не зарегистрирован
 
@@ -189,7 +187,7 @@ typedef ESldError (ISldLayerAccess::*FTranslationBuilderMethodPtr)(const CSldDic
 	@param aFrequency		- частота дискретизации данных
 	@param aFinishFlag		- флаг, который сообщает, закончилось декодирование звука или нет
 	
-	@return код ошибки
+	@return error code
 */
 typedef ESldError (ISldLayerAccess::*FSoundBuilderMethodPtr)(const UInt8 *aBlockPtr, UInt32 aBlockSize, UInt32 aPreviousSize, UInt32 aFrequency, UInt32 aFinishFlag);
 

@@ -1,20 +1,20 @@
 ﻿#include "SldSymbolsTable.h"
 
 
-/// Конструктор
+// Constructor
 CSldSymbolsTable::CSldSymbolsTable(void)
 {
 	sldMemZero(&m_Header, sizeof(m_Header));
 }
 
 /** *********************************************************************
-* Инициализация
+* Initialization
 *
 * @param aData			- ссылка на объект, отвечающий за получение данных из контейнера
 * @param aResourceType	- тип ресурса с таблицей
 * @param aResourceIndex	- индекс ресурса с таблицей
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSymbolsTable::Init(CSDCReadMy &aData, UInt32 aResourceType, UInt32 aResourceIndex)
 {
@@ -80,7 +80,7 @@ bool CSldSymbolsTable::IsSymbolBelongToLanguage(UInt16 aCode) const
 *
 * @param aTable	- указатель на таблицу элементы которой нужно добавить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSymbolsTable::MergeTables(const CSldSymbolsTable* aTable)
 {

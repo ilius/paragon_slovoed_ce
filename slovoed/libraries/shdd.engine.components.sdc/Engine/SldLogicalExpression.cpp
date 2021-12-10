@@ -4,7 +4,7 @@
 
 namespace {
 
-/// Символы, представляющие логические операции в выражении
+// Символы, представляющие логические операции в выражении
 enum EOperationTokens
 {
 	eOperationToken_AND = '&',
@@ -16,7 +16,7 @@ enum EOperationTokens
 
 } // anon namespace
 
-/// Конструктор
+// Constructor
 CSldLogicalExpression::CSldLogicalExpression(void)
 	: m_ExpressionCurrPos(0)
 {}

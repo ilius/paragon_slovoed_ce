@@ -17,7 +17,7 @@ CSldStyleInfo::CSldStyleInfo()
 * @param aStyleDataType - тип ресурсов с данными стиля
 * @param aStyleIndex - номер стиля.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldStyleInfo::Init(CSDCReadMy &aData, UInt32 aStyleDataType, UInt32 aStyleIndex)
 {
@@ -41,7 +41,7 @@ ESldError CSldStyleInfo::Init(CSDCReadMy &aData, UInt32 aStyleDataType, UInt32 a
  *                       стиля
  * @param[in]    aStyleIndex - номер стиля
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldStyleInfo::Init(const UInt8 **aData, UInt32 aStyleIndex)
 {
@@ -120,19 +120,19 @@ ESldError CSldStyleInfo::UsagesStruct::init(UInt32 aCount, const UInt8* aPtr)
 	return eOK;
 }
 
-/// Возвращает язык данного стиля
+// Возвращает язык данного стиля
 ESldLanguage CSldStyleInfo::GetLanguage(void) const
 {
 	return SldLanguage::fromCode(m_Header.Language);
 }
 
-/// Возвращает количество вариантов данного стиля
+// Возвращает количество вариантов данного стиля
 Int32 CSldStyleInfo::GetNumberOfVariants(void) const
 {
 	return (Int32)m_Header.NumberOfVariants;
 }
 
-/// Возвращает количество вариантов использования данного стиля
+// Возвращает количество вариантов использования данного стиля
 Int32 CSldStyleInfo::GetNumberOfUsages(void) const
 {
 	return (Int32)m_Header.NumberOfUsages;
@@ -154,7 +154,7 @@ Int32 CSldStyleInfo::GetNumberOfUsages(void) const
 * @param aVariantType[out]	- указатель на переменную, куда будет сохранен тип варианта
 * @param aVariantIndex[in]	- номер запрашиваемого варианта
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldStyleInfo::GetVariantType(UInt32* aVariantType, Int32 aVariantIndex) const
 {
@@ -167,13 +167,13 @@ ESldError CSldStyleInfo::GetVariantType(UInt32* aVariantType, Int32 aVariantInde
 	return eOK;
 }
 
-/// Возвращает номер варианта стиля, который используется по умолчанию
+// Возвращает номер варианта стиля, который используется по умолчанию
 Int32 CSldStyleInfo::GetDefaultVariantIndex(void) const
 {
 	return m_DefaultVariantIndex;
 }
 
-/// Устанавливает номер варианта стиля, который будет использоваться по умолчанию
+// Устанавливает номер варианта стиля, который будет использоваться по умолчанию
 ESldError CSldStyleInfo::SetDefaultVariantIndex(Int32 aVariantIndex)
 {
 	if ((UInt32)aVariantIndex >= m_Header.NumberOfVariants)
@@ -183,50 +183,50 @@ ESldError CSldStyleInfo::SetDefaultVariantIndex(Int32 aVariantIndex)
 	return eOK;
 }
 
-/// Возвращает жирность шрифта данного стиля
+// Возвращает жирность шрифта данного стиля
 ESldBoldValue CSldStyleInfo::GetBold(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, eBoldValueNormal);
 	return (ESldBoldValue)m_VariantHeaders[aVariantIndex].Bold;
 }
 
-/// Возвращает жирность шрифта данного стиля (enum #ESldBoldType)
+// Возвращает жирность шрифта данного стиля (enum #ESldBoldType)
 UInt32 CSldStyleInfo::GetBoldValue(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, eBoldValueNormal);
 	return m_VariantHeaders[aVariantIndex].Bold;
 }
 
-/// Возвращает наклонность шрифта данного стиля
+// Возвращает наклонность шрифта данного стиля
 UInt32 CSldStyleInfo::IsItalic(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].Italic;
 }
 
-/// Возвращает подчеркнутость шрифта данного стиля
+// Возвращает подчеркнутость шрифта данного стиля
 UInt32 CSldStyleInfo::IsUnderline(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].Underline;
 }
 
-/// Возвращает подчеркнутость шрифта данного стиля (enum #ESldUnderlineType)
+// Возвращает подчеркнутость шрифта данного стиля (enum #ESldUnderlineType)
 UInt32 CSldStyleInfo::GetUnderlineValue(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, eUnderlineNone);
 	return m_VariantHeaders[aVariantIndex].Underline;
 }
 
-/// Возвращает флаг того, что используется кастомный цвет подчеркивания (не совпадающий с цветом текста)
+// Возвращает флаг того, что используется кастомный цвет подчеркивания (не совпадающий с цветом текста)
 UInt32 CSldStyleInfo::UnderlineUseColor(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, false);
 	return m_VariantHeaders[aVariantIndex].UnderlineUseCustomColor;
 }
 
-/// Возвращает код цвета в виде типа HTML, т.е. если его напечатать printf("%06X", style->GetColor());
-/// Он даст правильную строчку для данного цвета.
+// Возвращает код цвета в виде типа HTML, т.е. если его напечатать printf("%06X", style->GetColor());
+// Он даст правильную строчку для данного цвета.
 UInt32 CSldStyleInfo::GetUnderlineColor(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
@@ -234,56 +234,56 @@ UInt32 CSldStyleInfo::GetUnderlineColor(Int32 aVariantIndex) const
 	return (v.UnderlineColorRed << 16) | (v.UnderlineColorGreen << 8) | (v.UnderlineColorBlue);
 }
 
-/// Возвращает красную компоненту для цвета подчеркивания шрифта.
+// Возвращает красную компоненту для цвета подчеркивания шрифта.
 UInt32 CSldStyleInfo::GetUnderlineColorRed(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].UnderlineColorRed;
 }
 
-/// Возвращает зеленую компоненту для цвета подчеркивания шрифта.
+// Возвращает зеленую компоненту для цвета подчеркивания шрифта.
 UInt32 CSldStyleInfo::GetUnderlineColorGreen(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].UnderlineColorGreen;
 }
 
-/// Возвращает синюю компоненту для цвета подчеркивания шрифта.
+// Возвращает синюю компоненту для цвета подчеркивания шрифта.
 UInt32 CSldStyleInfo::GetUnderlineColorBlue(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].UnderlineColorBlue;
 }
 
-/// Возвращает значение альфа-канала для цвета подчеркивания шрифта.
+// Возвращает значение альфа-канала для цвета подчеркивания шрифта.
 UInt32 CSldStyleInfo::GetUnderlineColorAlpha(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].UnderlineColorAlpha;
 }
 
-/// Возвращает перечеркнутость шрифта данного стиля
+// Возвращает перечеркнутость шрифта данного стиля
 UInt32 CSldStyleInfo::IsStrikethrough(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].Strikethrough;
 }
 
-/// Возвращает надчеркнутость шрифта данного стиля
+// Возвращает надчеркнутость шрифта данного стиля
 UInt32 CSldStyleInfo::IsOverline(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].Overline;
 }
 
-/// Возвращает видимость данного стиля
+// Возвращает видимость данного стиля
 UInt32 CSldStyleInfo::IsVisible(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].Visible;
 }
 
-/// Возвращает уровень, на котором написан текст данного стиля
+// Возвращает уровень, на котором написан текст данного стиля
 ESldStyleLevelEnum CSldStyleInfo::GetLevel(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, eLevelNormal);
@@ -361,7 +361,7 @@ UInt32 CSldStyleInfo::GetLineHeight(Int32 aVariantIndex) const
 	return m_VariantHeaders[aVariantIndex].LineHeight;
 }
 
-/// Возвращает размер межстрочного интервала данного стиля в новом формате
+// Возвращает размер межстрочного интервала данного стиля в новом формате
 // Ведет себя так же как ::GetTextSizeValue()
 TSizeValue CSldStyleInfo::GetLineHeightValue(Int32 aVariantIndex) const
 {
@@ -379,7 +379,7 @@ TSizeValue CSldStyleInfo::GetLineHeightValue(Int32 aVariantIndex) const
 	return TSizeValue();
 }
 
-/// Возвращает код предназначения стиля (например: для заголовков, для перевода, для примеров)
+// Возвращает код предназначения стиля (например: для заголовков, для перевода, для примеров)
 ESldStyleUsageEnum CSldStyleInfo::GetStyleUsage(Int32 aUsageIndex) const
 {
 	if (!m_Header.NumberOfUsages)
@@ -391,29 +391,29 @@ ESldStyleUsageEnum CSldStyleInfo::GetStyleUsage(Int32 aUsageIndex) const
 	return m_Usages[aUsageIndex];
 }
 
-/// Возвращает константу, описывающую тип семейства шрифта
+// Возвращает константу, описывающую тип семейства шрифта
 ESldStyleFontFamilyEnum CSldStyleInfo::GetStyleFontFamily(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, eFontFamily_SansSerif);
 	return (ESldStyleFontFamilyEnum)m_VariantHeaders[aVariantIndex].FontFamily;
 }
 
-/// Возвращает константу, описывающую название шрифта
+// Возвращает константу, описывающую название шрифта
 ESldStyleFontNameEnum CSldStyleInfo::GetStyleFontName(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, eFontName_DejaVu_Sans);
 	return (ESldStyleFontNameEnum)m_VariantHeaders[aVariantIndex].FontName;
 }
 
-/// Возвращает константу, описывающую тип данных стиля (таблица, просто текст, картинки, ссылка и т.д.)
+// Возвращает константу, описывающую тип данных стиля (таблица, просто текст, картинки, ссылка и т.д.)
 ESldStyleMetaTypeEnum CSldStyleInfo::GetStyleMetaType(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, eMetaUnknown);
 	return (ESldStyleMetaTypeEnum)m_VariantHeaders[aVariantIndex].TextType;
 }
 
-/// Возвращает код цвета в виде типа HTML, т.е. если его напечатать printf("%06X", style->GetColor());
-/// Он даст правильную строчку для данного цвета.
+// Возвращает код цвета в виде типа HTML, т.е. если его напечатать printf("%06X", style->GetColor());
+// Он даст правильную строчку для данного цвета.
 UInt32 CSldStyleInfo::GetColor(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
@@ -421,34 +421,34 @@ UInt32 CSldStyleInfo::GetColor(Int32 aVariantIndex) const
 	return (v.ColorRed << 16) | (v.ColorGreen << 8) | (v.ColorBlue);
 }
 
-/// Возвращает красную компоненту цвета шрифта.
+// Возвращает красную компоненту цвета шрифта.
 UInt32 CSldStyleInfo::GetColorRed(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].ColorRed;
 }
-/// Возвращает зеленую компоненту цвета шрифта.
+// Возвращает зеленую компоненту цвета шрифта.
 UInt32 CSldStyleInfo::GetColorGreen(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].ColorGreen;
 }
-/// Возвращает синюю компоненту цвета шрифта.
+// Возвращает синюю компоненту цвета шрифта.
 UInt32 CSldStyleInfo::GetColorBlue(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].ColorBlue;
 }
 
-/// Возвращает значение альфа-канала цвета шрифта.
+// Возвращает значение альфа-канала цвета шрифта.
 UInt32 CSldStyleInfo::GetColorAlpha(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].ColorAlpha;
 }
 
-/// Возвращает код цвета фона в виде типа HTML, т.е. если его напечатать printf("%06X", style->GetColor());
-/// Он даст правильную строчку для данного цвета.
+// Возвращает код цвета фона в виде типа HTML, т.е. если его напечатать printf("%06X", style->GetColor());
+// Он даст правильную строчку для данного цвета.
 UInt32 CSldStyleInfo::GetBackgroundColor(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
@@ -456,40 +456,40 @@ UInt32 CSldStyleInfo::GetBackgroundColor(Int32 aVariantIndex) const
 	return (v.BackgroundColorRed << 16) | (v.BackgroundColorGreen << 8) | (v.BackgroundColorBlue);
 }
 
-/// Возвращает красную компоненту цвета фона.
+// Возвращает красную компоненту цвета фона.
 UInt32 CSldStyleInfo::GetBackgroundColorRed(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].BackgroundColorRed;
 }
-/// Возвращает зеленую компоненту цвета фона.
+// Возвращает зеленую компоненту цвета фона.
 UInt32 CSldStyleInfo::GetBackgroundColorGreen(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].BackgroundColorGreen;
 }
-/// Возвращает синюю компоненту цвета фона.
+// Возвращает синюю компоненту цвета фона.
 UInt32 CSldStyleInfo::GetBackgroundColorBlue(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].BackgroundColorBlue;
 }
 
-/// Возвращает значение альфа-канала цвета фона.
+// Возвращает значение альфа-канала цвета фона.
 UInt32 CSldStyleInfo::GetBackgroundColorAlpha(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].BackgroundColorAlpha;
 }
 
-/// Возвращает префикс
+// Возвращает префикс
 const UInt16* CSldStyleInfo::GetPrefix(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, nullptr);
 	return m_VariantHeaders[aVariantIndex].Prefix;
 }
 
-/// Возвращает префикс
+// Возвращает префикс
 SldU16StringRef CSldStyleInfo::GetPrefixRef(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, nullptr);
@@ -497,14 +497,14 @@ SldU16StringRef CSldStyleInfo::GetPrefixRef(Int32 aVariantIndex) const
 	return SldU16StringRef(v.Prefix, v.Reserved[sld2::array_size(v.Reserved) - VariantPrefixOffset]);
 }
 
-/// Возвращает постфикс
+// Возвращает постфикс
 const UInt16* CSldStyleInfo::GetPostfix(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, nullptr);
 	return m_VariantHeaders[aVariantIndex].Postfix;
 }
 
-/// Возвращает префикс
+// Возвращает префикс
 SldU16StringRef CSldStyleInfo::GetPostfixRef(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, nullptr);
@@ -512,14 +512,14 @@ SldU16StringRef CSldStyleInfo::GetPostfixRef(Int32 aVariantIndex) const
 	return SldU16StringRef(v.Postfix, v.Reserved[sld2::array_size(v.Reserved) - VariantPostfixOffset]);
 }
 
-/// Возвращает доступность текста для кроссрефа
+// Возвращает доступность текста для кроссрефа
 UInt32 CSldStyleInfo::IsUnclickable(Int32 aVariantIndex) const
 {
 	CHECK_VARIANT_INDEX(aVariantIndex, 0);
 	return m_VariantHeaders[aVariantIndex].Unclickable;
 }
 
-/// Возвращает название тега
+// Возвращает название тега
 const UInt16* CSldStyleInfo::GetTag() const
 {
 	return m_Header.Tag;

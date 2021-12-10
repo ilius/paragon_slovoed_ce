@@ -9,7 +9,7 @@
 *								  внеядерным ресурсам (чтение/сохранение данных),
 *								  а также занимающийся сборкой перевода и озвучки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::Open(ISDCFile *aFile, ISldLayerAccess *aLayerAccess)
 {
@@ -21,7 +21,7 @@ ESldError CSldMergedDictionary::Open(ISDCFile *aFile, ISldLayerAccess *aLayerAcc
 /** *********************************************************************
 * Закрывает словарь и освобождает все ресурсы и память
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::Close()
 {
@@ -54,7 +54,7 @@ void CSldMergedDictionary::Clear()
 *
 * @param[in]	aFile	- указатель на открытый файл контейнера с sdc базой
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::AddDictionary(ISDCFile & aFile)
 {
@@ -99,7 +99,7 @@ ESldError CSldMergedDictionary::AddDictionary(ISDCFile & aFile)
 * @param[in]	aMergedDictionary	- если у нас уже есть полностью инициализированное ядро слияния
 *									  мы можем воспользоваться им и ускорить загрузку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::Merge(const CSldMergedDictionary * aMergedDictionary)
 {
@@ -183,7 +183,7 @@ ESldError CSldMergedDictionary::Merge(const CSldMergedDictionary * aMergedDictio
 /** *********************************************************************
 * Подготавливает списки для слияния
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::CheckWordLists()
 {
@@ -231,7 +231,7 @@ ESldError CSldMergedDictionary::CheckWordLists()
 * @param[out]	resultListIndex	- индекс подходящего списка слияния
 *								  SLD_DEFAULT_LIST_INDEX - если такого списка нет
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::CheckList(const Int32 aDictIndex, ISldList* aListPtr, UInt32 & resultListIndex)
 {
@@ -305,7 +305,7 @@ ESldError CSldMergedDictionary::CheckList(const Int32 aDictIndex, ISldList* aLis
 * @param[in]	aListPtr		- указатель на одиночный список
 * @param[out]	aBaseListIndex	- индекс базового списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetBaseListIndex(const Int32 aDictIndex, ISldList * aListPtr, Int32 & aBaseListIndex)
 {
@@ -345,7 +345,7 @@ ESldError CSldMergedDictionary::GetBaseListIndex(const Int32 aDictIndex, ISldLis
 *
 * @param[out]	aNumberOfLists	- указатель на буфер для количества слов.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetNumberOfLists(Int32* aNumberOfLists) const
 {
@@ -359,11 +359,11 @@ ESldError CSldMergedDictionary::GetNumberOfLists(Int32* aNumberOfLists) const
 /** *********************************************************************
 * Возвращает класс, хранящий информацию о свойствах списка слов
 *
-* @param[in]	aListIndex	- номер списка слов
+* @param[in]	aListIndex	- word list number
 * @param[out]	aListInfo	- по данному указателю будет записан указатель на класс,
 *							  который хранит данные о списке слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetWordListInfo(Int32 aListIndex, const CSldListInfo **aListInfo) const
 {
@@ -380,9 +380,9 @@ ESldError CSldMergedDictionary::GetWordListInfo(Int32 aListIndex, const CSldList
 * Устанавливает список слов в качестве текущего; таблица сравнения также
 * переключается на язык нового списка
 *
-* @param[in]	aIndex	- номер списка слов
+* @param[in]	aIndex	- word list number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::SetCurrentWordlist(Int32 aIndex)
 {
@@ -406,7 +406,7 @@ ESldError CSldMergedDictionary::SetCurrentWordlist(Int32 aIndex)
 *
 * @param[out]	aIndex	- указатель на переменную, куда сохраняется индекс
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetCurrentWordList(Int32* aIndex) const
 {
@@ -422,10 +422,10 @@ ESldError CSldMergedDictionary::GetCurrentWordList(Int32* aIndex) const
 /** *********************************************************************
 * Возвращает указатель на экземпляр объекта списка слов по номеру списка
 *
-* @param[in]	aIndex		- номер списка слов
+* @param[in]	aIndex		- word list number
 * @param[out]	aListPtr	- указатель, по которому будет записан указатель на список слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetWordList(Int32 aIndex, ISldList** aListPtr)
 {
@@ -451,7 +451,7 @@ ESldError CSldMergedDictionary::GetWordList(Int32 aIndex, ISldList** aListPtr)
 * @param[in]	aList		- указатель на список слов для добавления
 * @param[in]	aListIndex	- номер, под которым мы хотим добавить список в базу
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::AddList(sld2::UniquePtr<ISldList> aList, Int32 aListIndex)
 {
@@ -464,7 +464,7 @@ ESldError CSldMergedDictionary::AddList(sld2::UniquePtr<ISldList> aList, Int32 a
 *
 * @param[in]	aListIndex	- индекс списка, который нужно удалить из словаря
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::RemoveList(Int32 aListIndex)
 {
@@ -479,7 +479,7 @@ ESldError CSldMergedDictionary::RemoveList(Int32 aListIndex)
 * @param[out]	aStyleInfo	- по данному указателю будет записан адрес класса,
 *							  который хранит информацию о стиле
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetStyleInfo(Int32 aIndex, const CSldStyleInfo **aStyleInfo) const
 {
@@ -504,7 +504,7 @@ UInt32 CSldMergedDictionary::GetNumberOfStyles() const
 * @param[in]	aIndex			- глобальный индекс статьи
 * @param[in]	aFullness		- полнота получаемого перевода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::TranslateByArticleIndex(Int32 aIndex, ESldTranslationFullnesType aFullness, UInt32 aStartBlock, UInt32 aEndBlock)
 {
@@ -517,7 +517,7 @@ ESldError CSldMergedDictionary::TranslateByArticleIndex(Int32 aIndex, ESldTransl
 *
 * @param[in]	aFullness	- степень полноты полученного перевода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::TranslateContinue(ESldTranslationFullnesType aFullness)
 {
@@ -529,7 +529,7 @@ ESldError CSldMergedDictionary::TranslateContinue(ESldTranslationFullnesType aFu
 * Производит обновление состояния перевода (завершает предыдущий прерванный
 * перевод и производит реинициализацию
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::TranslateClear()
 {
@@ -540,7 +540,7 @@ ESldError CSldMergedDictionary::TranslateClear()
 /** *********************************************************************
 * Инициализируем систему защиты.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::InitRegistration(void)
 {
@@ -562,7 +562,7 @@ ESldError CSldMergedDictionary::InitRegistration(void)
 * @param[out]	aArticle		- разобранная на блоки статья, содержащая форматированный вариант написания для текущего слова
 *								  В случае отсутсвия форматированного текста в aArticle ничего записано не будет
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetCurrentWordStylizedVariant(Int32 aVariantIndex, SplittedArticle & aArticle)
 {
@@ -574,7 +574,7 @@ ESldError CSldMergedDictionary::GetCurrentWordStylizedVariant(Int32 aVariantInde
 *
 * @param[out]	aCount	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetTotalPictureCount(Int32* aCount) const
 {
@@ -591,7 +591,7 @@ ESldError CSldMergedDictionary::GetTotalPictureCount(Int32* aCount) const
 *
 * @param[out]	aCount	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetTotalSoundCount(Int32* aCount) const
 {
@@ -610,7 +610,7 @@ ESldError CSldMergedDictionary::GetTotalSoundCount(Int32* aCount) const
 * @param[in]	aMaxSideSize	- максимальный размер стороны картинки (ширина или высота) в пикселах
 * @param[out]	aImageElement	- сюда сохраняется указатель на структуру с данными
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetWordPicture(Int32 aPictureIndex, Int32 aMaxSideSize, TImageElement* aImageElement)
 {
@@ -643,7 +643,7 @@ ESldError CSldMergedDictionary::GetWordPicture(Int32 aPictureIndex, Int32 aMaxSi
 *							  что озвучка будет предоставлена извне самой оболочкой
 * @param[in]	aBeginPlay	- обозначает с какого места проигрывать озвучку [0;100], в %
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::PlaySoundByIndex(Int32 aSoundIndex, UInt8 aIsLast, UInt32* aStartPos, UInt32 aExternFlag, UInt8 aBeginPlay)
 {
@@ -660,9 +660,9 @@ ESldError CSldMergedDictionary::PlaySoundByIndex(Int32 aSoundIndex, UInt8 aIsLas
 *
 * @param[out] aStrings			- указатель по которому будет записан указатель на
 *								  объект хранящий строчки с переводами
-* @param[in] aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in] aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetLocalizedStrings(const CSldLocalizedString** aStrings, const Int32 aDictionaryIndex) const
 {
@@ -676,9 +676,9 @@ ESldError CSldMergedDictionary::GetLocalizedStrings(const CSldLocalizedString** 
 * Возвращает номер старшей версии словарной базы
 *
 * @param[out]	aVersion			- указатель, по которому будет записан результат
-* @param[in]	aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in]	aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetDictionaryMajorVersion(UInt32* aVersion, const Int32 aDictionaryIndex) const
 {
@@ -689,9 +689,9 @@ ESldError CSldMergedDictionary::GetDictionaryMajorVersion(UInt32* aVersion, cons
 * Возвращает номер младшей версии словарной базы
 *
 * @param[out]	aVersion			- указатель, по которому будет записан результат
-* @param[in]	aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in]	aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetDictionaryMinorVersion(UInt32* aVersion, const Int32 aDictionaryIndex) const
 {
@@ -702,9 +702,9 @@ ESldError CSldMergedDictionary::GetDictionaryMinorVersion(UInt32* aVersion, cons
 * Возвращает константу, которая обозначает бренд словарной базы (см. EDictionaryBrandName)
 *
 * @param[out]	aBrand				- указатель, по которому будет записан результат
-* @param[in]	aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in]	aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetDictionaryBrand(UInt32* aBrand, const Int32 aDictionaryIndex) const
 {
@@ -715,9 +715,9 @@ ESldError CSldMergedDictionary::GetDictionaryBrand(UInt32* aBrand, const Int32 a
 * Возвращает хэш словарной базы
 *
 * @param[out]	aHash				- указатель, по которому будет записан результат
-* @param[in]	aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in]	aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetDictionaryHash(UInt32* aHash, const Int32 aDictionaryIndex) const
 {
@@ -728,9 +728,9 @@ ESldError CSldMergedDictionary::GetDictionaryHash(UInt32* aHash, const Int32 aDi
 * Возвращает ID словарной базы
 *
 * @param[out]	aDictID				- указатель, по которому будет записан результат
-* @param[in]	aDictionaryIndex	- индекс словаря, для которого мы хотим получить информацию
+* @param[in]	aDictionaryIndex	- the index of the dictionary for which we want to get information
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetDictionaryID(UInt32* aDictID, const Int32 aDictionaryIndex) const
 {
@@ -740,11 +740,11 @@ ESldError CSldMergedDictionary::GetDictionaryID(UInt32* aDictID, const Int32 aDi
 /** *********************************************************************
 * Производит полнотекстовый поиск в указанном списке слов
 *
-* @param[in]	aListIndex		- номер списка слов
+* @param[in]	aListIndex		- word list number
 * @param[in]	aText			- текст, по которому будет производиться поиск
 * @param[in]	aMaximumWords	- максимальное количество слов, которое мы хотим получить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::DoFullTextSearch(Int32 aListIndex, const UInt16* aText, Int32 aMaximumWords)
 {
@@ -882,9 +882,9 @@ ESldError CSldMergedDictionary::DoFullTextSearch(Int32 aListIndex, const UInt16*
 * @param[in]	aWordIndex			- глобальный номер слова
 * @param[in]	aTrnslationIndex	- номер индексов которые мы хотим получить (можно получить через GetNumberOfTranslations() для списков типа IsFullTextSearchList())
 * @param[out]	aRealListIndex		- указатель на переменную, в которую сохраняется индекс списка
-* @param[out]	aGlobalWordIndex	- указатель на переменную, в которую сохраняется глобальный номер слова
+* @param[out]	aGlobalWordIndex	- a pointer to a variable that stores the global word number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetRealIndexes(Int32 aListIndex, Int32 aLocalWordIndex, Int32 aTrnslationIndex, Int32* aRealListIndex, Int32* aGlobalWordIndex)
 {
@@ -924,7 +924,7 @@ ESldError CSldMergedDictionary::GetRealIndexes(Int32 aListIndex, Int32 aLocalWor
 * @param[in]	aHistoryElement		- структура, содержащая информацию, необходимую для восстановления слова.
 * @param[out]	aResultFlag			- указатель, по которому будет записан результат выполнения функции (см. #ESldHistoryResult)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::UpdateHistoryElement(CSldHistoryElement* aHistoryElement, ESldHistoryResult* aResultFlag)
 {
@@ -956,7 +956,7 @@ ESldError CSldMergedDictionary::UpdateHistoryElement(CSldHistoryElement* aHistor
 *									  индекс нового списка, иначе SLD_DEFAULT_LIST_INDEX
 * @param[out]	aGlobalIndex		- указатель, по которому будет записан индекс полученного слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedDictionary::GetWordByHistoryElement(CSldHistoryElement* aHistoryElement, ESldHistoryResult* aResultFlag, Int32* aListIndex, Int32* aGlobalIndex)
 {

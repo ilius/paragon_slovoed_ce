@@ -9,19 +9,19 @@
 #include "SldTypeDefs.h"
 #include "SldVector.h"
 
-/// вектор двухбайтовых строк
+// вектор двухбайтовых строк
 typedef CSldVector<SldU16String> SldU16WordsArray;
 
-/// Структура, описывающая свойства одного варианта написания списка слов
+// Структура, описывающая свойства одного варианта написания списка слов
 typedef struct TListVariantProperty
 {
-	/// Номер варианта написания
+	// Номер варианта написания
 	UInt32 Number;
-	/// Тип варианта написания (см. #EListVariantTypeEnum)
+	// Тип варианта написания (см. #EListVariantTypeEnum)
 	UInt32 Type;
-	/// Код языка
+	// Код языка
 	UInt32 LangCode;
-	/// Зарезервировано
+	// Reserved
 	UInt32 Reserved[5];
 
 	TListVariantProperty()
@@ -31,10 +31,10 @@ typedef struct TListVariantProperty
 
 }TListVariantProperty;
 
-/// Индекс отсутствующего перевода (для TCatalogPath::WordIndex)
+// Индекс отсутствующего перевода (для TCatalogPath::WordIndex)
 #define TRANSLATION_NO	(0xFFFFFFFFUL)
 
-/// Структура, описывающая путь в иерархии к определенному месту.
+// Структура, описывающая путь в иерархии к определенному месту.
 class TCatalogPath
 {
 private:
@@ -128,24 +128,24 @@ private:
 		explicit operator bool() const { return Count() != 0; }
 	};
 public:
-	/// Номер списка слов
+	// Номер списка слов
 	ListIndexStruct ListIndex;
-	/// Количество элементов в пути
+	// Количество элементов в пути
 	BaseListCountStruct BaseListCount;
-	/// Список элементов в пути каталога
+	// Список элементов в пути каталога
 	BaseListStruct BaseList;
 
-	/// Указывает ли путь на самый верхний уровень иерархии
+	// Указывает ли путь на самый верхний уровень иерархии
 	bool isRoot() const { return BaseListCount < 2; }
 
-	/// Возвращает локальный индекс слова, которое является родительским для данного пути
-	/// Если путь указывает на самый верхний уровень иерархии (нет родительского слова), возвращает -1
+	// Возвращает локальный индекс слова, которое является родительским для данного пути
+	// Если путь указывает на самый верхний уровень иерархии (нет родительского слова), возвращает -1
 	Int32 GetParentWordLocalIndex() const { return isRoot() ? -1 : BaseList[BaseListCount - 2]; }
 
-	/// Пустой ли путь
+	// Пустой ли путь
 	bool Empty() const { return BaseListCount == 0; }
 
-	/// Стандартный конструктор
+	// Стандартный конструктор
 	TCatalogPath() : ListIndex(0), BaseListCount(0) {}
 
 	TCatalogPath(const TCatalogPath&) = delete;
@@ -169,10 +169,10 @@ public:
 		return *this;
 	}
 
-	/// Деструктор
+	// Destructor
 	~TCatalogPath() = default;
 
-	/// Очищает путь от всех элементов
+	// Очищает путь от всех элементов
 	void Clear()
 	{
 		ListIndex = 0;
@@ -184,7 +184,7 @@ public:
 	 *
 	 * @param[in]  aLocalWordIndex - локальный индекс слова
 	 *
-	 * @return код ошибки
+	 * @return error code
 	 */
 	ESldError PushList(Int32 aLocalWordIndex)
 	{
@@ -199,10 +199,10 @@ public:
 		return eOK;
 	}
 
-	/// Копирует текущий путь в переданный
+	// Копирует текущий путь в переданный
 	ESldError CopyTo(TCatalogPath &aPath) const;
 
-	/// Копирует текущий путь в переданный
+	// Копирует текущий путь в переданный
 	ESldError CopyTo(TCatalogPath *aPath) const {
 		return aPath ? CopyTo(*aPath) : eMemoryNullPointer;
 	}
@@ -221,45 +221,45 @@ public:
 
 #define SLD_SIZE_VALUE_SCALE (100)
 
-/// Структурка отвечающая за размеры
+// Структурка отвечающая за размеры
 typedef struct TSizeValue
 {
-	/// Число
-	/// ВАЖНО! Число хранится в умноженном на SLD_SIZE_VALUE_SCALE (100) виде.
-	/// Т.е. 1 хранится как 100, 1.01 - 101, .01 - 1 и т.п.
+	// Число
+	// ВАЖНО! Число хранится в умноженном на SLD_SIZE_VALUE_SCALE (100) виде.
+	// Т.е. 1 хранится как 100, 1.01 - 101, .01 - 1 и т.п.
 	Int32 Value;
-	/// Единица измерения (см. #EMetadataUnitType)
+	// Единица измерения (см. #EMetadataUnitType)
 	UInt32 Units;
 
-	/// Создает TSizeValue с дефолтными значениями (невалидными)
+	// Создает TSizeValue с дефолтными значениями (невалидными)
 	TSizeValue() : Value(-1), Units(eMetadataUnitType_UNKNOWN) {}
 
-	/// Создает TSizeValue c переданными значениями
-	/// ВАЖНО! aValue должен быть "скалированным" - т.е. 320 вместо 3.2, 100 вместо 1 и т.п.
+	// Создает TSizeValue c переданными значениями
+	// ВАЖНО! aValue должен быть "скалированным" - т.е. 320 вместо 3.2, 100 вместо 1 и т.п.
 	TSizeValue(Int32 aValue, EMetadataUnitType aUnits) : Value(aValue), Units(aUnits) {}
 
-	/// Присваивает заданные значения
+	// Присваивает заданные значения
 	void Set(Int32 aValue, EMetadataUnitType aUnits) { Value = aValue; Units = aUnits; }
 
-	/// Возвращает является ли размер "валидным"
+	// Возвращает является ли размер "валидным"
 	bool IsValid() const { return Units < eMetadataUnitType_end; }
 
-	/// Возвращает размер в виде "скалированного" Float32
+	// Возвращает размер в виде "скалированного" Float32
 	Float32 AsFloat32() const { return (Float32)Value / (Float32)SLD_SIZE_VALUE_SCALE; }
 
-	/// Возвращает целую часть размера
+	// Возвращает целую часть размера
 	Int32 Integer() const { return Value / SLD_SIZE_VALUE_SCALE; }
 
-	/// Возвращает дробную часть размера - от 0 до 100
+	// Возвращает дробную часть размера - от 0 до 100
 	UInt32 Fractional() const { return (Value >= 0 ? Value : -Value) % SLD_SIZE_VALUE_SCALE; }
 
-	/// Возвращает является ли число 100%
+	// Возвращает является ли число 100%
 	bool Is100Percent() const { return Value == 100 * SLD_SIZE_VALUE_SCALE && Units == eMetadataUnitType_percent; }
 
-	/// Переводит размер в строку
+	// Переводит размер в строку
 	ESldError ToString(UInt16 *aStr) const;
 
-	/// Парсит строку на "наличие" размера
+	// Парсит строку на "наличие" размера
 	static TSizeValue FromString(const UInt16 *aStr, EMetadataUnitType aDefaultUnits = eMetadataUnitType_UNKNOWN);
 
 	// Арифметические операторы
@@ -333,148 +333,148 @@ static inline TSizeValue operator/(const TSizeValue &lhs, Int32 rhs)
 	return TSizeValue(lhs.Value / rhs, (EMetadataUnitType)lhs.Units);
 }
 
-/// Признак того что в стиль зашиты размеры с единицами измерения
+// Признак того что в стиль зашиты размеры с единицами измерения
 #define SIZE_VALUE_UNITS	(0xFFFFFFFFUL)
 
-/// Заголовок варианта стиля
+// Заголовок варианта стиля
 typedef struct TStyleVariantHeader
 {
-	/// Размер структуры в байтах
+	// Размер структуры в байтах
 	UInt32 structSize;
 	
-	/// Тип варианта (см. #EStyleVariantType)
+	// Тип варианта (см. #EStyleVariantType)
 	UInt32 VariantType;
 	
-	/// Флаг, если установлен, значит текст видимый
+	// Флаг, если установлен, значит текст видимый
 	UInt32 Visible;
 	
-	/// Информация, как должен восприниматься текст (см. #ESldStyleMetaTypeEnum)
-	/// Если тип - метаданные, то в тексте содержатся только 
-	/// конкретные данные для обработки - например ссылки или еще что-то
+	// Информация, как должен восприниматься текст (см. #ESldStyleMetaTypeEnum)
+	// Если тип - метаданные, то в тексте содержатся только 
+	// конкретные данные для обработки - например ссылки или еще что-то
 	UInt32 TextType;
 	
-	/// Выравнивание текста по высоте (см. #ESldStyleLevelEnum)
+	// Выравнивание текста по высоте (см. #ESldStyleLevelEnum)
 	UInt32 Level;
 	
-	/// Величина красной компоненты цвета шрифта
+	// Величина красной компоненты цвета шрифта
 	UInt32 ColorRed;
-	/// Величина зеленой компоненты цвета шрифта
+	// Величина зеленой компоненты цвета шрифта
 	UInt32 ColorGreen;
-	/// Величина синей компоненты цвета шрифта
+	// Величина синей компоненты цвета шрифта
 	UInt32 ColorBlue;
-	/// Значение альфа-канала
+	// Значение альфа-канала
 	UInt32 ColorAlpha;
 
-	/// Величина красной компоненты цвета фона
+	// Величина красной компоненты цвета фона
 	UInt32 BackgroundColorRed;
-	/// Величина зеленой компоненты цвета фона
+	// Величина зеленой компоненты цвета фона
 	UInt32 BackgroundColorGreen;
-	/// Величина синей компоненты цвета фона
+	// Величина синей компоненты цвета фона
 	UInt32 BackgroundColorBlue;
-	/// Значение альфа-канала
+	// Значение альфа-канала
 	UInt32 BackgroundColorAlpha;
 	
-	/// Стиль насыщенности, значение енума #ESldBoldValue
+	// Стиль насыщенности, значение енума #ESldBoldValue
 	UInt32 Bold;
 
-	/// Флаг, если установлен, значит текст написан наклонным
+	// Флаг, если установлен, значит текст написан наклонным
 	UInt32 Italic;
 
-	/// Стиль подчеркивания, значение енума, #ESldUnderlineType
+	// Стиль подчеркивания, значение енума, #ESldUnderlineType
 	UInt32 Underline;
 	
-	/// Флаг, если установлен, значит текст перечеркнут
+	// Флаг, если установлен, значит текст перечеркнут
 	UInt32 Strikethrough;
 
-	/// Размер текста (см. #ESldStyleSizeEnum)
-	/// Число больше 5 - конкретный размер текста
-	/// Если == SIZE_VALUE_UNITS => смотри TextSizeValue & TextSizeUnits
+	// Размер текста (см. #ESldStyleSizeEnum)
+	// Число больше 5 - конкретный размер текста
+	// Если == SIZE_VALUE_UNITS => смотри TextSizeValue & TextSizeUnits
 	UInt32 TextSize;
 
-	/// Высота строки текста (см. #ESldStyleSizeEnum)
-	/// Число больше 5 - абсолютный размер
-	/// Если == SIZE_VALUE_UNITS => смотри LineHeightValue & LineHeightUnits
+	// Высота строки текста (см. #ESldStyleSizeEnum)
+	// Число больше 5 - абсолютный размер
+	// Если == SIZE_VALUE_UNITS => смотри LineHeightValue & LineHeightUnits
 	UInt32 LineHeight;
 
-	/// Семейство шрифта (см. #ESldStyleFontFamilyEnum)
+	// Семейство шрифта (см. #ESldStyleFontFamilyEnum)
 	UInt32 FontFamily;
 
-	/// Название шрифта (см. #ESldStyleFontNameEnum)
+	// Название шрифта (см. #ESldStyleFontNameEnum)
 	UInt32 FontName;
 	
-	/// Префикс
+	// Префикс
 	UInt16 Prefix[SLD_MAX_STYLE_PREFIX_SIZE + 1];
 	
-	/// Постфикс
+	// Постфикс
 	UInt16 Postfix[SLD_MAX_STYLE_POSTFIX_SIZE + 1];
 	
-	/// Флаг, если установлен, значит текст надчеркнут
+	// Флаг, если установлен, значит текст надчеркнут
 	UInt32 Overline;
 
-	/// Индекс верхней фоновой картинки
+	// Индекс верхней фоновой картинки
 	Int32 BackgroundTopImageIndex;
 
-	/// Индекс нижней фоновой картинки
+	// Индекс нижней фоновой картинки
 	Int32 BackgroundBottomImageIndex;
 
-	/// Если установлен данный флаг - текст размеченным данным стилем будет недоступен для кроссрефа
+	// Если установлен данный флаг - текст размеченным данным стилем будет недоступен для кроссрефа
 	UInt32 Unclickable;
 
-	/// Флаг того, что для подчеркивания нужно использовать свой, отдельно определенный цвет
+	// Флаг того, что для подчеркивания нужно использовать свой, отдельно определенный цвет
 	UInt32 UnderlineUseCustomColor;
 
-	/// Красная составляющая цвета для подчеркивания 
+	// Красная составляющая цвета для подчеркивания 
 	UInt32 UnderlineColorRed;
 
-	/// Зеленая составляющая цвета для подчеркивания 
+	// Зеленая составляющая цвета для подчеркивания 
 	UInt32 UnderlineColorGreen;
 
-	/// Синяя составляющая цвета для подчеркивания 
+	// Синяя составляющая цвета для подчеркивания 
 	UInt32 UnderlineColorBlue;
 
-	/// Альфа составляющая цвета для подчеркивания 
+	// Альфа составляющая цвета для подчеркивания 
 	UInt32 UnderlineColorAlpha;
 
-	/// Размер текста с явно заданными единицами измерения
+	// Размер текста с явно заданными единицами измерения
 	TSizeValue TextSizeValue;
 
-	/// Высота строки текста с явно заданными единицами измерения
+	// Высота строки текста с явно заданными единицами измерения
 	TSizeValue LineHeightValue;
 
-	/// Зарезервировано
+	// Reserved
 	UInt32 Reserved[14];
 
 } TStyleVariantHeader;
 
-/// Структура хранящая информацию для системы защиты.
+// Структура хранящая информацию для системы защиты.
 typedef struct TRegistrationData
 {
-	/// HASH для декодирования данного словаря
+	// HASH для декодирования данного словаря
 	UInt32	HASH;
-	/// Порядковый номер серийного номера.
+	// Порядковый номер серийного номера.
 	UInt32	Number;
-	/// Количество просмотров перевода
+	// Количество просмотров перевода
 	UInt32	Clicks;
-	/// Срок работоспособности.
+	// Срок работоспособности.
 	UInt32	Date;
 }TRegistrationData;
 
 
-/// Структура хранящая информацию генератора случайных чисел.
+// Структура хранящая информацию генератора случайных чисел.
 typedef struct TRandomSeed
 {
-	/// Параметр генератора случайных чисел инициируемый пользователем
+	// Параметр генератора случайных чисел инициируемый пользователем
 	UInt32	Seed;
-	/// Остальные параметры генератора случайных чисел
+	// Остальные параметры генератора случайных чисел
 	UInt32	y;
-	/// Остальные параметры генератора случайных чисел
+	// Остальные параметры генератора случайных чисел
 	UInt32	z;
-	/// Остальные параметры генератора случайных чисел
+	// Остальные параметры генератора случайных чисел
 	UInt32	c;
 }TRandomSeed;
 
 
-/// Структура таблицы аттрибутов символов
+// Структура таблицы аттрибутов символов
 typedef struct TSoundLieralType
 {
 	UInt8 _type;
@@ -482,107 +482,107 @@ typedef struct TSoundLieralType
 	UInt8 _big;
 } TSoundLieralType;
 
-/// Общий заголовок файла озвучки
+// Общий заголовок файла озвучки
 typedef struct TSoundFileHeader
 {
-	/// Размер структуры
+	// The size of the structure
 	UInt32 structSize;
-	/// Версия формата озвучки
+	// Версия формата озвучки
 	UInt32 Version;
-	/// Формат звуковых данных (spx, wav, ...)
+	// Формат звуковых данных (spx, wav, ...)
 	UInt32 SoundFormat;
-	/// Размер собственно звуковых данных без заголовка TSoundFileHeader и специфического заголовка wav или spx
+	// Размер собственно звуковых данных без заголовка TSoundFileHeader и специфического заголовка wav или spx
 	UInt32 SoundDataSize;
 
-	/// Частота звукового потока
+	// Частота звукового потока
 	UInt32 SampleRate;
-	/// Битность (8 или 16)
+	// Битность (8 или 16)
 	UInt32 BitFormat;
-	/// Количество каналов
+	// Количество каналов
 	UInt32 ChannelCount;
-	/// Зарезервировано
+	// Reserved
 	UInt32 Reserved[1];
 
 } TSoundFileHeader;
 
-/// Специфический заголовок файла озвучки speex
+// Специфический заголовок файла озвучки speex
 typedef struct TSpeexHeader
 {
-	/// Размер структуры
+	// The size of the structure
 	UInt32 structSize;
-	/// Версия формата озвучки
+	// Версия формата озвучки
 	UInt32 Version;
-	/// В структуре версии 1 здесь хранилось Quality - Качество сжатого звука
-	/// 1 - наихудшее (максимальное сжатие), 10 - наилучшее (минимальное сжатие), в версии 2:
-	/// Размер пакета декодированных данных
+	// В структуре версии 1 здесь хранилось Quality - Качество сжатого звука
+	// 1 - наихудшее (максимальное сжатие), 10 - наилучшее (минимальное сжатие), в версии 2:
+	// Размер пакета декодированных данных
 	UInt32 PacketSize;
-	/// Зарезервировано
+	// Reserved
 	UInt32 Reserved[1];
 
 } TSpeexHeader;
 
-/// Структура заголовка звуковой базы.
+// Структура заголовка звуковой базы.
 typedef struct TSoundHeaderType
 {
 	//	0:
-	/// Номер версии формата базы.
+	// Номер версии формата базы.
 	UInt32 Version; 
 	//	4:
-	/// Информация о HASH(для возможности проигрывать озвучку в незарегистрированном режиме)
+	// Информация о HASH(для возможности проигрывать озвучку в незарегистрированном режиме)
 	UInt32 DictIDxorHASH;
 	//	8:
-	/// Количество слов имеющихся в базе.
+	// Количество слов имеющихся в базе.
 	UInt16 WordCount;
 	//	10:
-	/// Частота оцифровки
+	// Частота оцифровки
 	UInt16 freq;
 	//	12:
-	/// Точность - количество бит на один отсчет.
+	// Точность - количество бит на один отсчет.
 	UInt8 precision;
 	//	13:
-	/// Количество каналов звука - по идее звук должен быть моно.
+	// Количество каналов звука - по идее звук должен быть моно.
 	UInt8 channels;
 	//	14:
-	/// Коэффициент сжатия Speex
+	// Коэффициент сжатия Speex
 	UInt8 SpeexCodecKoef;
 	//	15:
-	/// Краткий номер базы - не используется.
+	// Краткий номер базы - не используется.
 	UInt8 LangIDShort;
 	//	16:
-	/// Код качества
+	// Код качества
 	UInt8 quality;
 	//	17:
-	/// Количество записей с озвучкой на один ресурс.
+	// Количество записей с озвучкой на один ресурс.
 	UInt8 EntriesPerBlock;
 	//	18:
-	/// Зарезервировано
+	// Reserved
 	UInt8 temp1;
 	//	19:
-	/// Зарезервировано
+	// Reserved
 	UInt8 temp2;
 	//	20:
-	/// Некий текст - не используется.
+	// Некий текст - не используется.
 	UInt8 buf[512]; // text field
 	//	532
-	/// Код языка.
+	// Код языка.
 	UInt32 LanguageCode;
 	//	536:
-	/// Имя автора звуковой базы
+	// Имя автора звуковой базы
 	UInt8 Author[64];
 	//	600:
-	/// Ссылка на автора базы
+	// Ссылка на автора базы
 	UInt8 WebAuthor[64];
 	//	664:
-	/// Строчка с текстом "Quality"
+	// Строчка с текстом "Quality"
 	UInt8 QualityText[64];
 	//	728:
-	/// Полное маркетинговое название звука
+	// Полное маркетинговое название звука
 	UInt8 SoundMarketingName[64];
 	//	792:
-	/// Идентификатор озвучки
+	// Идентификатор озвучки
 	UInt32 DictID;
 	//	796:
-	/// Название размера данной звуковой базы.
+	// Название размера данной звуковой базы.
 	/** 
 		Согласно последним веяниям это должно быть: \n
 		Compact \n
@@ -591,88 +591,88 @@ typedef struct TSoundHeaderType
 	*/
 	UInt8 SizeName[64];
 	//	860:
-	/// название качества: Low, Phone, Medium, Hi-Fi, Hi-End
+	// название качества: Low, Phone, Medium, Hi-Fi, Hi-End
 	UInt8 QualityName[64];
 	//	924:
-	/// Название языка.
+	// Название языка.
 	UInt8 LanguageName[64];
 	//	988:
-	/// Количество озвученых слов.
+	// Количество озвученых слов.
 	UInt32	WordCountLong;
 	//	992:
-	/// Зарезервировано
+	// Reserved
 	UInt8 reserved[96]; // total struct size must be 1088
 } TSoundHeaderType, *TSoundHeaderPtr;
 
-/// Структура хранящая данные результатов последнего поиска слова.
+// Структура хранящая данные результатов последнего поиска слова.
 typedef struct
 {
-	/// Флаг:	0 - поиска не было или он не удачный.
+	// Флаг:	0 - поиска не было или он не удачный.
 	///			1 - поиск был успешен, можно использовать для перехода к слову.
 	Int8 set;
-	/// Зарезервировано для лучшего выравнивания.
+	// Зарезервировано для лучшего выравнивания.
 	UInt8	Reserved[3];
-	/// Последнее искомое слово.
+	// Последнее искомое слово.
 	UInt8 word[SLD_SOUND_MAX_WORD_LEN];
-	/// Смещение в битах.
+	// Смещение в битах.
 	Int32 bit;
-	/// Номер записи в таблице быстрого доступа.
+	// Номер записи в таблице быстрого доступа.
 	Int16 block;
-	/// Смещение слова от первой записи.
+	// Смещение слова от первой записи.
 	Int16 dataOffset;
-	/// Номер ресурса с данными.
+	// Номер ресурса с данными.
 	UInt32	data_index;
-	/// Номер последнего декодированного слова
+	// Номер последнего декодированного слова
 	Int32	CurrentWord;
 } TSoundLastSearchResult;
 
-/// Количество символов текста в одной записи индексной таблицы
+// Количество символов текста в одной записи индексной таблицы
 #define IndexArrayElementSize	(4)
 
-/// Элемент быстрого доступа к озвучке.
+// Элемент быстрого доступа к озвучке.
 typedef struct
 {
-	/// Первые 4 символа слова
+	// Первые 4 символа слова
 	UInt8 w[IndexArrayElementSize];
-	/// количество бит смещения от начала пожатых данных.
+	// количество бит смещения от начала пожатых данных.
 	UInt32 bit;
 }TSoundIndexArrayElement;
 
-/// Количество символов текста в одной записи "большой" индексной таблицы.
+// Количество символов текста в одной записи "большой" индексной таблицы.
 #define IndexArrayBigElementSize	(8)
 
-/// Элемент быстрого доступа к озвучке.
+// Элемент быстрого доступа к озвучке.
 typedef struct
 {
-	/// Первые 8 символов слова
+	// Первые 8 символов слова
 	UInt8 w[IndexArrayBigElementSize];
-	/// количество бит смещения от начала пожатых данных.
+	// количество бит смещения от начала пожатых данных.
 	UInt32 bit;
 }TSoundIndexArrayBigElement;
 
-/// Структура ресурса с юникодными строчками.
+// Структура ресурса с юникодными строчками.
 typedef struct TUnicodeSoundType
 {
-	/// Код языка.
+	// Код языка.
 	UInt32	LanguageCode;
 
-	/// Строчка с маркетинговым названием данной озвучки.
+	// Строчка с маркетинговым названием данной озвучки.
 	UInt16	MarketingName[128];
 
-	/// Название языка.
+	// Название языка.
 	UInt16	LanguageName[64];
 }TUnicodeSoundType, *TUnicodeSoundPtr;
 
-/// Структура для хранения слова, полученного из морфологии
+// Структура для хранения слова, полученного из морфологии
 typedef struct TSldMorphologyWordStruct
 {
-	/// Слово
+	// Слово
 	SldU16String				MorphologyForm;
 
-	/// Тип слова
+	// Тип слова
 	ESldMorphologyWordTypeEnum	MorphologyFormType;
 
-	/// Конструктор
+	// Constructor
 	TSldMorphologyWordStruct(void) :
 		MorphologyFormType(eMorphologyWordTypeBase) {};
 
@@ -692,28 +692,28 @@ typedef struct TSldMorphologyWordStruct
 
 } TSldMorphologyWordStruct;
 
-/// Структура для хранения инофрмации о слайдшоу(без информации о слайдах)
+// Структура для хранения инофрмации о слайдшоу(без информации о слайдах)
 typedef struct TSldSlideShowStruct
 {
-	/// Индекс глобальной озвучки
+	// Индекс глобальной озвучки
 	UInt32 SlideShowSound;
-	/// Время показа одного кадра
+	// Время показа одного кадра
 	UInt32 SlideShowTime;
-	/// Cпособ обтекания слайдшоу текстом (см. #ESldFlow)
+	// Cпособ обтекания слайдшоу текстом (см. #ESldFlow)
 	UInt32 SlideShowFlow;
-	/// Cпособ расположения слайдшоу на странице (см. #ESldPlace)
+	// Cпособ расположения слайдшоу на странице (см. #ESldPlace)
 	UInt32 SlideShowPlace;
-	/// Эффект переключения между кадрами (см. #ESldMoveEffect)
+	// Эффект переключения между кадрами (см. #ESldMoveEffect)
 	UInt32 SlideShowMoveEffect;
-	/// Эффект отображения слайдшоу на странице (см. #ESldShowEffect)
+	// Эффект отображения слайдшоу на странице (см. #ESldShowEffect)
 	UInt32 SlideShowShowEffect;
-	/// Индекс списка слов
+	// Индекс списка слов
 	UInt32 SlideShowListIndex;
-	/// Индекс слова в списке слов, которое отвечает за слайдшоу
+	// Индекс слова в списке слов, которое отвечает за слайдшоу
 	UInt32 SlideShowWordIndex;
-	/// ширина контейнера
+	// ширина контейнера
 	TSizeValue SlideShowWidth;
-	/// высота контейнера
+	// высота контейнера
 	TSizeValue SlideShowHeight;
 
 	TSldSlideShowStruct(void)
@@ -735,34 +735,34 @@ typedef struct TSldSlideShowStruct
 
 } TSldSlideShowStruct;
 
-/// Структура для заголовка файла 3d сцены
+// Структура для заголовка файла 3d сцены
 typedef struct TSceneHeader
 {
-	/// Размер структуры
+	// The size of the structure
 	UInt32 sizeHeader;
-	/// Версия заголовка
+	// Версия заголовка
 	UInt32 version;
-	/// Размер бинаризованной сцены
+	// Размер бинаризованной сцены
 	UInt32 sizeScene;
 
 	UInt32 hasAnimation;
 
-	/// Зарезервировано
+	// Reserved
 	UInt32 Reserved[4];
 } TSceneHeader;
 
-/// Структура для описание ориентации (3d)
-/// ориентация задается кватернионом вида W + Xi + Yj + Zk
+// Структура для описание ориентации (3d)
+// ориентация задается кватернионом вида W + Xi + Yj + Zk
 typedef struct TQuaternion
 {
-	/// одноименные коэффициенты из формулы кватерниона
-	/// X
+	// одноименные коэффициенты из формулы кватерниона
+	// X
 	Float32 X;
-	/// Y
+	// Y
 	Float32 Y;
-	/// Z
+	// Z
 	Float32 Z;
-	/// W
+	// W
 	Float32 W;
 
 	TQuaternion() 
@@ -789,14 +789,14 @@ typedef struct TQuaternion
 	}
 } TQuaternion;
 
-/// Структура для описания положения в пространстве (3d)
+// Структура для описания положения в пространстве (3d)
 typedef struct TPosition
 {
-	/// координата по оси X
+	// координата по оси X
 	Float32 X;
-	/// координата по оси Y
+	// координата по оси Y
 	Float32 Y;
-	/// координата по оси Z
+	// координата по оси Z
 	Float32 Z;
 
 	TPosition()
@@ -818,14 +818,14 @@ typedef struct TPosition
 	}
 } TPosition;
 
-/// Структура для описания масштаба (3d)
+// Структура для описания масштаба (3d)
 typedef struct TScale
 {
-	/// масштаб по оси X
+	// масштаб по оси X
 	Float32 X;
-	/// масштаб по оси Y
+	// масштаб по оси Y
 	Float32 Y;
-	/// масштаб по оси Z
+	// масштаб по оси Z
 	Float32 Z;
 
 	TScale()
@@ -847,21 +847,21 @@ typedef struct TScale
 	}
 } TScale;
 
-/// Структура для описания одной подсущности (3d)
+// Структура для описания одной подсущности (3d)
 typedef struct TSubentity
 {
-	/// Индекс подсущности
+	// Индекс подсущности
 	UInt32 Index;
-	/// Глобальный индекс материала
+	// Глобальный индекс материала
 	UInt32 Material;
 } TSubentity;
 
 typedef struct TKeyframe
 {
 	TKeyframe() : time(0), pos(), rotation(), size() {}
-	/// Время кадра
+	// Время кадра
 	double time;
-	/// Параметры кадра
+	// Параметры кадра
 	TPosition pos;
 	TQuaternion rotation;
 	TScale size;
@@ -870,15 +870,15 @@ typedef struct TKeyframe
 
 typedef struct TAnimation
 {
-	/// Время анимации
+	// Время анимации
 	double length;
-	/// Название анимации
+	// Название анимации
 	UInt16 name[128];
 
-	/// Число кадров
+	// Число кадров
 	UInt32 keyframesCount;
 
-	/// Кадры
+	// Кадры
 	TKeyframe* keyframes;
 
 	TAnimation() : length(0), keyframesCount(0) 
@@ -909,24 +909,24 @@ typedef struct TAnimation
 
 } TAnimation;
 
-/// Структура для описания нода 
+// Структура для описания нода 
 typedef struct TSldSceneNode
 {
-	/// координаты точки положения в пространстве нода
+	// координаты точки положения в пространстве нода
 	TPosition	Position;
-	/// кватернион вращения нода
+	// кватернион вращения нода
 	TQuaternion	Rotation;
-	/// масштаб нода
+	// масштаб нода
 	TScale		Scale;
-	/// индекс меша в базе
+	// индекс меша в базе
 	UInt32		MeshIndex;
-	/// количество подсущностей в ноде
+	// количество подсущностей в ноде
 	UInt32		CountSubEntity;
-	/// массив подсущностей
+	// массив подсущностей
 	TSubentity*	SubEntities;
-	/// Количество анимаций в ноде
+	// Количество анимаций в ноде
 	UInt32		CountAnimations;
-	/// Анимации
+	// Анимации
 	TAnimation* Animations;
 
 	TSldSceneNode() : MeshIndex(0), CountSubEntity(0), SubEntities(NULL), CountAnimations(0), Animations(NULL) {};
@@ -968,32 +968,32 @@ typedef struct TSldSceneNode
 	};
 } TSldSceneNode;
 
-/// Блок перевода статей
+// Блок перевода статей
 typedef struct TArticleBlock
 {
 	TArticleBlock(const Int32 aStyleIndex, SldU16StringRef aText)
 	: StyleIndex(aStyleIndex), Text(aText) {}
 
-	/// Индекс стиля, которым размечен данный блок
+	// Индекс стиля, которым размечен данный блок
 	Int32 StyleIndex;
-	/// Текст блока
+	// Текст блока
 	SldU16String Text;
 
 }TArticleBlock;
 
-/// Статья, разбитая на блоки
+// Статья, разбитая на блоки
 using SplittedArticle = CSldVector<TArticleBlock>;
 
-/// Один элемент, представляющий озвучку
+// Один элемент, представляющий озвучку
 typedef struct TSoundElement
 {
-	/// Индекс озвучки
+	// Индекс озвучки
 	UInt32	SoundIndex;
-	/// Заголовок файла с озвучкой
+	// Заголовок файла с озвучкой
 	TSoundFileHeader Header;
-	/// Указатель на загруженные данные
+	// Указатель на загруженные данные
 	UInt8*	Data;
-	/// Размер загруженных данных
+	// Размер загруженных данных
 	UInt32	Size;
 
 	TSoundElement(void)
@@ -1006,7 +1006,7 @@ typedef struct TSoundElement
 		Close();
 	}
 
-	/// Инициализация членов по умолчанию
+	// Инициализация членов по умолчанию
 	void Clear(void)
 	{
 		SoundIndex = 0;
@@ -1015,14 +1015,14 @@ typedef struct TSoundElement
 		sldMemZero(&Header, sizeof(TSoundFileHeader));
 	}
 
-	/// Очистка памяти
+	// Очистка памяти
 	void Close(void)
 	{
 		if(Data)
 			sldMemFree(Data);
 		Clear();
 	}
-	/// Инициализация
+	// Initialization
 	ESldError Init(const UInt8* aData, UInt32 aSize)
 	{
 		Close();
@@ -1063,7 +1063,7 @@ typedef struct TSoundElement
 
 }TSoundElement;
 
-/// Структура с информацией о связях с внешними базами
+// Структура с информацией о связях с внешними базами
 typedef struct TExternContentInfo
 {
 	// Пары id словаря - число использований
@@ -1147,7 +1147,7 @@ typedef struct TExternContentInfo
 	}
 } TExternContentInfo;
 
-/// Структура для хранения незагруженной дополнительной информации по ресурсу
+// Структура для хранения незагруженной дополнительной информации по ресурсу
 typedef struct TResourceInfoIndexes
 {
 	UInt32 NameIndex;
@@ -1155,16 +1155,16 @@ typedef struct TResourceInfoIndexes
 } TResourceInfoIndexes;
 
 
-/// Структура для хранения дополнительной информации по ресурсу 
+// Структура для хранения дополнительной информации по ресурсу 
 typedef struct TResourceInfo
 {
-	/// Имя ресурса
+	// Имя ресурса
 	UInt16* ResName;
-	/// Путь ресурса
+	// Путь ресурса
 	UInt16* ResPath;
-	/// Длина имени (потенциально не нужна, строка 0-терминирована)
+	// Длина имени (потенциально не нужна, строка 0-терминирована)
 	UInt32 ResNameLength;
-	/// Длина пути (потенциально не нужна, строка 0-терминирована)
+	// Длина пути (потенциально не нужна, строка 0-терминирована)
 	UInt32 ResPathLength;
 
 	TResourceInfo()
@@ -1225,7 +1225,7 @@ typedef struct TResourceInfo
 	}
 } TResourceInfo;
 
-/// Структура, содержащая ключ-значение, позволяющая производить сравнение по ключу
+// Структура, содержащая ключ-значение, позволяющая производить сравнение по ключу
 template<typename Key, typename Value>
 struct TSldPair
 {
@@ -1259,27 +1259,27 @@ struct TSldPair
 	bool operator<=(const Key & aRef)		const { return first <= aRef; }
 };
 
-/// Структура, содержащая информацию о статьях в слитых словарях и соответсвующих метаданных
+// Структура, содержащая информацию о статьях в слитых словарях и соответсвующих метаданных
 struct TMergedMetaInfo
 {
 	enum IndexType { Article, Style, Sound, Picture };
 
-	/// Вектор количества статей
+	// Вектор количества статей
 	CSldVector<Int32>							ArticlesCount;
 
-	/// Вектор количества стилей
+	// Вектор количества стилей
 	CSldVector<Int32>							StylesCount;
 
-	/// Вектор количества звуков
+	// Вектор количества звуков
 	CSldVector<Int32>							SoundsCount;
 
-	/// Вектор количества изображений
+	// Вектор количества изображений
 	CSldVector<Int32>							PicturiesCount;
 
-	/// Вектор индексов словарей, учавствующих в слиянии каждого из списков
+	// Вектор индексов словарей, учавствующих в слиянии каждого из списков
 	CSldVector<CSldVector<Int32>>				DictIndexes;
 
-	/// Вектор индексов списков слияния для одиночных индексов списков каждого словаря
+	// Вектор индексов списков слияния для одиночных индексов списков каждого словаря
 	CSldVector<CSldVector<Int32>>				ListIndexes;
 
 	///Вектор индексов слов в смерженых списках для индексов в одиночных словарях
@@ -1371,7 +1371,7 @@ struct TMergedDictInfo
 	Int32						DictIndex;
 };
 
-/// Структура, описывающая индексы слова в словаре
+// Структура, описывающая индексы слова в словаре
 struct TSldWordIndexes
 {
 	TSldWordIndexes() : ListIndex(SLD_DEFAULT_LIST_INDEX), WordIndex(SLD_DEFAULT_WORD_INDEX) {}
@@ -1380,15 +1380,15 @@ struct TSldWordIndexes
 	bool IsValid() const { return ListIndex != SLD_DEFAULT_LIST_INDEX && WordIndex != SLD_DEFAULT_WORD_INDEX; }
 	bool operator==(const TSldWordIndexes aRef) const { return ListIndex == aRef.ListIndex && WordIndex == aRef.WordIndex; }
 
-	/// Номер списка слов
+	// Номер списка слов
 	Int32 ListIndex;
-	/// Номер слова
+	// Номер слова
 	Int32 WordIndex;
 };
 
 using SldWordsCollection = CSldVector<TSldWordIndexes>;
 
-/// Структура, хранящая данный о ссылке
+// Структура, хранящая данный о ссылке
 struct TLinkInfo
 {
 	TLinkInfo(const Int32 aListIndex, const Int32 aWordIndex)
@@ -1397,13 +1397,13 @@ struct TLinkInfo
 	TLinkInfo(const Int32 aListIndex, const Int32 aWordIndex, const SldU16StringRef aDictId, const SldU16StringRef aKey)
 		: Indexes(aListIndex, aWordIndex), DictId(aDictId), Key(aKey) { }
 
-	/// Индекс списка / статьи
+	// Индекс списка / статьи
 	TSldWordIndexes			Indexes;
 
-	/// ID внешней базы, если пустой - ссылка ведет на туже базу
+	// ID внешней базы, если пустой - ссылка ведет на туже базу
 	SldU16String			DictId;
 
-	/// Ключ поиска во внешней базе
+	// Ключ поиска во внешней базе
 	SldU16String			Key;
 };
 

@@ -31,7 +31,7 @@ private:
 
 }
 
-/// Инициализация
+// Initialization
 ESldError CSldMorphology::Init(CSDCReadMy &aData)
 {
 	auto res = aData.GetResource(RESOURCE_TYPE_MORPHOLOGY_DATA_HEADER, 0);
@@ -53,7 +53,7 @@ ESldError CSldMorphology::Init(CSDCReadMy &aData)
 	return eOK;
 }
 
-/// Получает индекс (порядковый номер) ресурса морфологии в словаре, которая соответствует заданным коду языка и id базы
+// Получает индекс (порядковый номер) ресурса морфологии в словаре, которая соответствует заданным коду языка и id базы
 Int32 CSldMorphology::GetResourceIndexByLangCode(UInt32 aLanguageCode, UInt32 aDictId) const
 {
 	if (m_Morphology.empty())
@@ -68,7 +68,7 @@ Int32 CSldMorphology::GetResourceIndexByLangCode(UInt32 aLanguageCode, UInt32 aD
 	return -1;
 }
 
-/// Инициализация базы морфологии
+// Инициализация базы морфологии
 ESldError CSldMorphology::InitMorphology(ISDCFile *aFileData, ISldLayerAccess * aLayerAcces, UInt32 aIndex, UInt32 aShift, UInt32 aSize)
 {
 	if (!aFileData)
@@ -102,14 +102,14 @@ ESldError CSldMorphology::InitMorphology(ISDCFile *aFileData, ISldLayerAccess * 
 	return morpho.data->Init(morpho.file.get(), aLayerAcces) ? eOK : eResourceCantInitMorphology;
 }
 
-/// Получает указатель на базу морфологии
+// Получает указатель на базу морфологии
 MorphoData* CSldMorphology::GetMorphologyByIndex(UInt32 aIndex)
 {
 	Morpho &morpho = m_Morphology[aIndex];
 	return (morpho.data && morpho.data->IsInit()) ? morpho.data.get() : nullptr;
 }
 
-/// Проверяет инициализирована ли база морфологии
+// Проверяет инициализирована ли база морфологии
 bool CSldMorphology::IsMorphologyInit(UInt32 aIndex) const
 {
 	const Morpho &morpho = m_Morphology[aIndex];

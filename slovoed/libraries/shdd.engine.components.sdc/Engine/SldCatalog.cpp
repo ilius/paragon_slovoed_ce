@@ -29,7 +29,7 @@ ESldError TResourceCache::FindResourceIndex(UInt32 aIndex, UInt32 *aResourceInde
 	return eCommonWrongIndex;
 }
 
-/// Возвращает размер "массива" для заданного количества элементов
+// Возвращает размер "массива" для заданного количества элементов
 static UInt32 GetNewCapacity(UInt32 need)
 {
 	UInt32 newCapacity;
@@ -41,7 +41,7 @@ static UInt32 GetNewCapacity(UInt32 need)
 	return newCapacity;
 }
 
-/// Удостоверяется что в кэше есть достаточно места для N новых записей
+// Удостоверяется что в кэше есть достаточно места для N новых записей
 static ESldError ResourceCacheEnsureCapacity(TResourceCache *aResourceCache, UInt32 aAdditionalItemCount)
 {
 	UInt32 newCount = aResourceCache->count + aAdditionalItemCount;
@@ -67,7 +67,7 @@ static ESldError ResourceCacheEnsureCapacity(TResourceCache *aResourceCache, UIn
 * @param[in]  aStartIndex    - глобальный индекс первого элемента в ресурсе
 * @param[in]  aEndIndex      - глобальный индекс последнего элемента в ресурсе
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError TResourceCache::PushResource(UInt32 aResourceIndex, UInt32 aStartIndex, UInt32 aEndIndex)
 {
@@ -97,7 +97,7 @@ ESldError TResourceCache::PushResource(UInt32 aResourceIndex, UInt32 aStartIndex
 	return eOK;
 }
 
-/// Возвращает указатель на элемент под заданным индексом
+// Возвращает указатель на элемент под заданным индексом
 static inline const THierarchyElement* GetElement(const CSDCReadMy::Resource &aResource, UInt32 aIndex)
 {
 	return ((const THierarchyElement *)aResource.ptr()) + aIndex;
@@ -109,7 +109,7 @@ static inline const THierarchyElement* GetElement(const CSDCReadMy::Resource &aR
 * @param[in]	aData			- 
 * @param[in]	aCatalogType	- 
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::Init(CSDCReadMy &aData, UInt32 aCatalogType)
 {
@@ -140,7 +140,7 @@ ESldError CSldCatalog::Init(CSDCReadMy &aData, UInt32 aCatalogType)
 * @param[out]	aNumberOfWords	- указатель на переменную в которую нужно записать
 *								  количество слов в текущем уровне иерархии.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::GetNumberOfWords(Int32 *aNumberOfWords)
 {
@@ -157,7 +157,7 @@ ESldError CSldCatalog::GetNumberOfWords(Int32 *aNumberOfWords)
 * @param[out]	aNumberOfWords	- указатель на переменную в которую нужно записать
 *								  количество слов на корневом уровне иерархии.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::GetNumberOfWordsInRoot(Int32 *aNumberOfWords)
 {
@@ -196,7 +196,7 @@ ESldError CSldCatalog::GetNumberOfWordsInRoot(Int32 *aNumberOfWords)
 *			  			  Если MAX_UINT_VALUE, тогда указанный элемент является конечным
 *						  и перейти по нему нельзя.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::GetBaseByIndex(UInt32 aIndex, UInt32 *aBase)
 {
@@ -220,7 +220,7 @@ ESldError CSldCatalog::GetBaseByIndex(UInt32 aIndex, UInt32 *aBase)
 *
 * @param[in]	aIndex	- номер слова в текущем уровне иерархии.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::SetBaseByIndex(UInt32 aIndex)
 {
@@ -261,7 +261,7 @@ ESldError CSldCatalog::SetBaseByIndex(UInt32 aIndex)
 * @param[in]	aIndex		- номер запрашиваемого элемента
 * @param[out]	aElement	- по данному указателю будет записан указатель на элемент
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::GetElementPtr(UInt32 aIndex, const THierarchyElement **aElement)
 {
@@ -330,7 +330,7 @@ ESldError CSldCatalog::GetElementPtr(UInt32 aIndex, const THierarchyElement **aE
 *
 * @param[in]	aShift	- смещение в байтах относительно начала всех данных иерархии
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::GoToByShift(UInt32 aShift)
 {
@@ -415,7 +415,7 @@ ESldError CSldCatalog::GoToByShift(UInt32 aShift)
 * @param[out]	aPath	- указатель на структуру, в которую будет прописан путь к 
 *						  указанному элементу списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::GetPathByGlobalIndex(UInt32 aIndex, TCatalogPath *aPath)
 {
@@ -541,7 +541,7 @@ ESldError CSldCatalog::GetPathByGlobalIndex(UInt32 aIndex, TCatalogPath *aPath)
 * @param[in]   aIndex         - глобальный номер запрашиваемого элемента
 * @param[out]  aResourceIndex - индекс ресурса
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::FindResourceIndexCached(UInt32 aIndex, UInt32 *aResourceIndex)
 {
@@ -567,7 +567,7 @@ ESldError CSldCatalog::FindResourceIndexCached(UInt32 aIndex, UInt32 *aResourceI
 *
 * @param[in]  aResourceIndex - индекс ресурса
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::LoadCurrentResource(UInt32 aResourceIndex)
 {
@@ -585,7 +585,7 @@ ESldError CSldCatalog::LoadCurrentResource(UInt32 aResourceIndex)
 /** ********************************************************************
 * Обновляет кэш ресурсов для текущего уровня иерархии
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCatalog::UpdateResourceCache()
 {

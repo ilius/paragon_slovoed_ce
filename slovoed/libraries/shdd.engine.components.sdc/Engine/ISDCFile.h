@@ -7,25 +7,24 @@
 class ISDCFile
 {
 public:
-	/// Деструктор
+	// Destructor
 	virtual ~ISDCFile(void) {}
 
-	/// Проверяет открыт ли файл. 1 - если открыт, 0 если нет
+	// Checks if a file is open. 1 - if open, 0 if not
 	virtual Int8 IsOpened() const = 0;
 
 	/**
-	 * Считывает блок данных из файла
+	 * Reads a block of data from a file
 	 *
-	 * @param[in] aDestPtr - указатель куда будут записаны прочитаные данные
-	 * @param[in] aSize    - размер блока данных (в байтах)
-	 * @param[in] aOffset  - смещение (в байтах) относительно начала файла откуда
-	 *                       производить чтение
+	 * @param[in] aDestPtr - pointer where the read data will be written
+	 * @param[in] aSize    - data block size (in bytes)
+	 * @param[in] aOffset  - offset (in bytes) relative to the beginning of the file from where read
 	 *
-	 * @return размер считанного блока данных (в байтах)
+	 * @return size of the read data block (in bytes)
 	 */
 	virtual UInt32 Read(void *aDestPtr, UInt32 aSize, UInt32 aOffset) = 0;
 
-	/// Возвращает размер файла в байтах
+	// Returns the size of the file in bytes
 	virtual UInt32 GetSize() const = 0;
 };
 

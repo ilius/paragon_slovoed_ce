@@ -239,7 +239,7 @@ static bool getStringIndex(sld2::Span<const TSldStringStoreResourceDescriptor> a
  * Время жизни строки привязано к данному объекту; *контент* строки актуален только до следующего
  * вызова любого неконстантного метода данного объекта.
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldStringStore::GetString(UInt32 aIndex, SldU16StringRef &aString)
 {
@@ -274,7 +274,7 @@ ESldError CSldStringStore::GetString(UInt32 aIndex, SldU16StringRef &aString)
  * Время жизни строки привязано к данному объекту; *контент* строки актуален только до следующего
  * вызова любого неконстантного метода данного объекта.
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldStringStore::GetStringDirect(UInt32 aResourceIndex, UInt32 aOffset, SldU16StringRef &aString)
 {
@@ -312,7 +312,7 @@ CSldSingleStringStore::CSldSingleStringStore(CSDCReadMy &aReader) : m_reader(aRe
  * @param[in] aType  - тип ресурса
  * @param[in] aIndex - индекс ресурса (по умолчанию 0)
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldSingleStringStore::Load(UInt32 aType, UInt32 aIndex)
 {
@@ -335,7 +335,7 @@ ESldError CSldSingleStringStore::Load(UInt32 aType, UInt32 aIndex)
 	return decoders::check(header->compressionMethod, m_resource.ptr() + header->_size);
 }
 
-/// Возвращает размер хранимой строки *включая nul-терминатор*, 0 при ошибке
+// Возвращает размер хранимой строки *включая nul-терминатор*, 0 при ошибке
 UInt32 CSldSingleStringStore::Size() const
 {
 	if (m_resource.empty())
@@ -352,7 +352,7 @@ UInt32 CSldSingleStringStore::Size() const
  * @param[inout] aLength - указатель на переменную где хранится размер переданного буфера,
  *                         сюда же будет записан размер декодированной строки
  *
- * @return код ошибки
+ * @return error code
  */
 ESldError CSldSingleStringStore::Decode(UInt16 *aString, UInt32 *aLength) const
 {

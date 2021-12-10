@@ -21,31 +21,31 @@ typedef void MorphoDataType;
 #define MAXIMUM_WORD_LENGTH 100
 #endif
 
-/// Преобразует строку поиска, введенную пользователем, в расширенный запрос, использую морфологию встроенную в базу
+// Преобразует строку поиска, введенную пользователем, в расширенный запрос, использую морфологию встроенную в базу
 ESldError PrepareQueryForFullTextSearch(const UInt16 *aText, CSldDictionary *aDict, Int32 aListIndex, SldU16String& aResultQuery, SldU16WordsArray * aMorphoForms = NULL);
 
-/// Преобразует строку поиска, введенную пользователем, в расширенный запрос для полнотекстового поиска
+// Преобразует строку поиска, введенную пользователем, в расширенный запрос для полнотекстового поиска
 ESldError PrepareQueryForFullTextSearch(const UInt16* aText, CSldDictionary* aDict, Int32 aListIndex, MorphoDataType* aMorpho, SldU16String& aResultQuery, SldU16WordsArray * aMorphoForms = NULL);
 
-/// Преобразует строку поиска, введенную пользователем, в расширенный запрос для поиска по шаблону, использую морфологию встроенную в базу.
+// Преобразует строку поиска, введенную пользователем, в расширенный запрос для поиска по шаблону, использую морфологию встроенную в базу.
 ESldError PrepareQueryForWildCardSearch(const UInt16* aText, CSldDictionary* aDict, Int32 aListIndex, TExpressionBox* aExpressionBox);
 
-/// Преобразует строку поиска, введенную пользователем, в расширенный запрос для поиска по шаблону
+// Преобразует строку поиска, введенную пользователем, в расширенный запрос для поиска по шаблону
 ESldError PrepareQueryForWildCardSearch(const UInt16* aText, CSldDictionary* aDict, Int32 aListIndex, MorphoDataType* aMorpho, TExpressionBox* aExpressionBox);
 
-/// Преобразует строку поиска, введенную пользователем, в расширенный запрос для полнотекстового поиска
+// Преобразует строку поиска, введенную пользователем, в расширенный запрос для полнотекстового поиска
 ESldError PrepareQueryForSortingSearchResults(const UInt16* aText, CSldDictionary* aDict, MorphoDataType* aMorpho, CSldVector<TSldMorphologyWordStruct>& aMorphologyForms);
 
-/// Преобразует строку поиска, введенную пользователем, в расширенный запрос для полнотекстового поиска
+// Преобразует строку поиска, введенную пользователем, в расширенный запрос для полнотекстового поиска
 ESldError PrepareQueryForSortingSearchResults(const UInt16* aText, CSldDictionary* aDict, UInt32 aLangCode, CSldVector<TSldMorphologyWordStruct>& aMorphologyForms);
 
-/// Возвращает все Морфоформы для данного слова из внешней базы
+// Возвращает все Морфоформы для данного слова из внешней базы
 ESldError GetAllMorphoForms(const UInt16* aText, MorphoDataType* aMorpho, CSldVector<TSldMorphologyWordStruct> & aMorphologyForms);
 
-/// Возвращает все Морфоформы для данного слова, используя встроенную морфологию
+// Возвращает все Морфоформы для данного слова, используя встроенную морфологию
 ESldError GetAllMorphoForms(const UInt16* aText, CSldDictionary *aDict, UInt32 aLangFrom, CSldVector<TSldMorphologyWordStruct> & aMorphologyForms, UInt32 aWithoutRequest = 0);
 
-/// Возвращает все Морфоформы выбранного типа для данного слова, используя встроенную морфологию
+// Возвращает все Морфоформы выбранного типа для данного слова, используя встроенную морфологию
 ESldError GetMorphoForms(const UInt16* aText, CSldDictionary *aDict, UInt32 aLangFrom, CSldVector<TSldMorphologyWordStruct> & aMorphologyForms, UInt32 aWithoutRequest = 0, const EMorphoFormsType aType = eMorphoAll);
 
 #endif //_C_SLD_AUXILIARY_

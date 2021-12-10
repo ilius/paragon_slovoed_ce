@@ -37,7 +37,7 @@ inline UInt16 convert(const CharFrom *source, CharTo *dest)
   * @param[in]	aTable		- ссылка на таблицу сравнения которую необходимо инициализировать
   * @param[in]	aData		- данные таблицы сравнения
   *
-  * @return код ошибки
+  * @return error code
   ************************************************************************/
 static ESldError initTable(TCompareTableSplit &aTable, sld2::Span<const UInt8> aData)
 {
@@ -146,19 +146,19 @@ static void freeTable(TCompareTableSplit &aTable)
 	aTable.Header = nullptr;
 }
 
-/// Конструктор
+// Constructor
 CSldCompare::CSldCompare(void)
 {
 	Clear();
 }
 
-/// Конструктор копирования
+// Конструктор копирования
 CSldCompare::CSldCompare(const CSldCompare& aRef)
 {
 	*this = aRef;
 }
 
-/// Оператор присваивания
+// Оператор присваивания
 CSldCompare& CSldCompare::operator=(const CSldCompare& aRef)
 {
 	if (this == &aRef)
@@ -191,14 +191,14 @@ CSldCompare& CSldCompare::operator=(const CSldCompare& aRef)
 	return *this;
 }
 
-/// Деструктор
+// Destructor
 CSldCompare::~CSldCompare(void)
 {
 	for (auto&& table : m_CMPTable)
 		freeTable(table);
 }
 
-/// Очистка объекта
+// Очистка объекта
 void CSldCompare::Clear(void)
 {
 	m_DefaultTable = 0;
@@ -212,7 +212,7 @@ void CSldCompare::Clear(void)
 * @param[in]	aLanguageSymbolsTableCount			- количество таблиц символов, которые нужно загрузить
 * @param[in]	aLanguageDelimiterSymbolsTableCount	- количество таблиц символов-разделителей, которые нужно загрузить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::Open(CSDCReadMy &aData, UInt32 aLanguageSymbolsTableCount, UInt32 aLanguageDelimiterSymbolsTableCount)
 {
@@ -257,7 +257,7 @@ ESldError CSldCompare::Open(CSDCReadMy &aData, UInt32 aLanguageSymbolsTableCount
 	if (count != cmpTable.size())
 		return eCommonWrongCMPTableCount;
 
-	/// Загружаем таблицы символов
+	// Загружаем таблицы символов
 	decltype(m_LanguageSymbolsTable) symbolsTable;
 	if (aLanguageSymbolsTableCount)
 	{
@@ -274,7 +274,7 @@ ESldError CSldCompare::Open(CSDCReadMy &aData, UInt32 aLanguageSymbolsTableCount
 		}
 	}
 
-	/// Загружаем таблицы символов-разделителей
+	// Загружаем таблицы символов-разделителей
 	decltype(m_LanguageDelimiterSymbolsTable) delimitersTable;
 	if (aLanguageDelimiterSymbolsTableCount)
 	{
@@ -302,7 +302,7 @@ ESldError CSldCompare::Open(CSDCReadMy &aData, UInt32 aLanguageSymbolsTableCount
 /** ********************************************************************
 * Освобождаем память выделенную для таблиц 
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::Close()
 {
@@ -1000,7 +1000,7 @@ UInt16 CSldCompare::ToLowerChr(UInt16 aChr) const
 * @param[out]	aOutStr	- указатель на строку, куда будет сохранена преобразованная строка,
 *						  должно быть выделено достаточное количество памяти
 * 
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::ToUpperStr(const UInt16* aStr, UInt16* aOutStr) const
 {
@@ -1025,7 +1025,7 @@ ESldError CSldCompare::ToUpperStr(const UInt16* aStr, UInt16* aOutStr) const
 * @param[out]	aOutStr	- указатель на строку, куда будет сохранена преобразованная строка
 *						  должно быть выделено достаточное количество памяти
 * 
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::ToLowerStr(const UInt16* aStr, UInt16* aOutStr) const
 {
@@ -1361,8 +1361,8 @@ UInt16 CSldCompare::GetMass(UInt16 aChr, const UInt16 *aSimpleTable, UInt16 aNot
 * Возвращает строку символов, имеющих в таблице сортировки с заданным индексом
 * тот же вес, что и переданный символ
 *
-* ВНИМАНИЕ! Память для результирующей строки выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* ATTENTION! Memory for the resulting string is allocated in this method
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[in]	aChr		- символ, для которого ищем все символы с такой же массой
 * @param[in]	aTableIndex	- индекс таблицы сортировки	
@@ -1426,8 +1426,8 @@ UInt16* CSldCompare::GetSimilarMassSymbols(UInt16 aChr, UInt32 aTableIndex) cons
 * Возвращает строку символов, имеющих во всех таблицах сортировки
 * тот же вес, что и переданный символ; символы строки отсортированы
 *
-* ВНИМАНИЕ! Память для результирующей строки выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* ATTENTION! Memory for the resulting string is allocated in this method
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[in]	aCh	- символ, для которого ищем все символы с такой же массой	
 *
@@ -1642,7 +1642,7 @@ bool CSldCompare::IsAddTableDefine() const
 * @param[in]	aLanguageCode	- код языка для которого нужно установить 
 *								  таблицу сравнения
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::SetDefaultLanguage(ESldLanguage aLanguageCode)
 {
@@ -1672,7 +1672,7 @@ ESldError CSldCompare::SetDefaultLanguage(ESldLanguage aLanguageCode)
 *  
 * @param[out]	aCount	- сюда сохраняется количество таблиц сравнения
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::GetTablesCount(UInt32* aCount) const
 {
@@ -1690,7 +1690,7 @@ ESldError CSldCompare::GetTablesCount(UInt32* aCount) const
 * @param[in]	aTableIndex	- номер таблицы сравнения
 * @param[out]	aLangCode	- указатель на переменную, куда сохраняется код языка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldLanguage CSldCompare::GetTableLanguage(UInt32 aTableIndex) const
 {
@@ -1710,7 +1710,7 @@ ESldLanguage CSldCompare::GetTableLanguage(UInt32 aTableIndex) const
 *							  0 - нет,
 *							  1 - есть
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::IsTableHasSymbolPairTable(UInt32 aTableIndex, ESymbolPairTableTypeEnum aTableType, UInt32* aFlag) const
 {
@@ -1772,7 +1772,7 @@ ESldError CSldCompare::IsTableHasSymbolPairTable(UInt32 aTableIndex, ESymbolPair
 *							  1 - результат однозначно определен,
 *							  0 - результат не определен (соответствующая таблица символов либо сам символ отсутствует)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::IsSymbolBelongToLanguage(UInt16 aSymbolCode, ESldLanguage aLang, UInt32* aFlag, UInt32* aResultFlag) const
 {
@@ -1910,7 +1910,7 @@ ESldError CSldCompare::IsSymbolBelongToLanguage(UInt16 aSymbolCode, ESldLanguage
 *							  0 - результат не может быть определен,
 *							  1 - результат однозначно определен
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::IsSymbolBelongToLanguageDelimiters(UInt16 aSymbolCode, ESldLanguage aLang, UInt32* aFlag, UInt32* aResultFlag) const
 {
@@ -1971,7 +1971,7 @@ ESldError CSldCompare::IsSymbolBelongToLanguageDelimiters(UInt16 aSymbolCode, ES
 *  
 * @param[out]	aLanguageCode - указатель на переменную, куда сохраняется код языка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldLanguage CSldCompare::GetDefaultLanguage() const
 {
@@ -1984,7 +1984,7 @@ ESldLanguage CSldCompare::GetDefaultLanguage() const
 * @param[out]	aDestStr	- сюда записывается результирующая строка, память выделяется и освобождается снаружи
 * @param[in]	aSourceStr	- исходная строка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 UInt32 CSldCompare::PrepareTextForAnagramSearch(UInt16* aDestStr, const UInt16* aSourceStr)
 {
@@ -2021,7 +2021,7 @@ UInt32 CSldCompare::PrepareTextForAnagramSearch(UInt16* aDestStr, const UInt16* 
 * @param[out]	aDestStr	- сюда записывается результирующая строка, память выделяется и освобождается снаружи
 * @param[in]	aSourceStr	- исходная строка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::EncodeSearchQuery(UInt16* aDestStr, const UInt16* aSourceStr)
 {
@@ -2102,7 +2102,7 @@ ESldError CSldCompare::EncodeSearchQuery(UInt16* aDestStr, const UInt16* aSource
 * @param[out]	aDestStr	- сюда записывается результирующая строка, память выделяется и освобождается снаружи
 * @param[in]	aSourceStr	- исходная строка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::EncodeSearchWord(UInt16* aDestStr, const UInt16* aSourceStr)
 {
@@ -2347,12 +2347,12 @@ UInt8 CSldCompare::AnagramCompare(UInt16* aSearchStr, const UInt16* aCurrentWord
 * - добавляет "*" в начало и конец каждого слова
 *
 * ВНИМАНИЕ! Память для строки aOut выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[in]	aQuery	- строка запроса
 * @param[out]	aOut	- указатель, по которому записывается указатель на строку с результатом
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::CorrectNonSmartWildCardSearchQuery(const UInt16* aQuery, UInt16** aOut)
 {
@@ -2411,12 +2411,12 @@ ESldError CSldCompare::CorrectNonSmartWildCardSearchQuery(const UInt16* aQuery, 
 * Метод корректирует "умный" запрос для поиска по шаблону
 *
 * ВНИМАНИЕ! Память для строки aOut выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[in]	aQuery	- строка запроса
 * @param[out]	aOut	- указатель, по которому записывается указатель на строку с результатом
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::CorrectSmartWildCardSearchQuery(const UInt16* aQuery, UInt16** aOut)
 {
@@ -2462,12 +2462,12 @@ ESldError CSldCompare::CorrectSmartWildCardSearchQuery(const UInt16* aQuery, UIn
 * (добавляет логическое "И" между словами запроса)
 *
 * ВНИМАНИЕ! Память для строки aOut выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[in]	aQuery	- строка запроса
 * @param[out]	aOut	- указатель, по которому записывается указатель на строку с результатом
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::CorrectNonSmartFullTextSearchQuery(const UInt16* aQuery, UInt16** aOut)
 {
@@ -2520,7 +2520,7 @@ ESldError CSldCompare::CorrectNonSmartFullTextSearchQuery(const UInt16* aQuery, 
 * Метод корректирует "умный" запрос для полнотекстового поиска
 *
 * ВНИМАНИЕ! Память для строки aOut выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[in]	aQuery		- строка запроса
 * @param[out]	aOut		- указатель, по которому записывается указатель на строку с результатом
@@ -2777,7 +2777,7 @@ Int32 CSldCompare::FuzzyCompare(const UInt16 *aStr1, const UInt16 *aStr2, Int32 
 * @param[out]	aAscii			- указатель на буффер для итоговой однобайтовой строчки
 * @param[in]	aLanguageCode	- код языка который требуется использовать при перекодировании
 *
-* @return код ошибки
+* @return error code
 ***********************************************************************/
 ESldError CSldCompare::Unicode2ASCIIByLanguage(const UInt16* aUnicode, UInt8* aAscii, ESldLanguage aLanguageCode)
 {
@@ -2890,7 +2890,7 @@ ESldError CSldCompare::Unicode2ASCIIByLanguage(const UInt16* aUnicode, UInt8* aA
 * @param[out]	aUnicode		- указатель на буффер для юникодной строчки
 * @param[in]	aLanguageCode	- код языка который требуется использовать при перекодировании
 *
-* @return код ошибки
+* @return error code
 ***********************************************************************/
 ESldError CSldCompare::ASCII2UnicodeByLanguage(const UInt8* aAscii, UInt16* aUnicode, ESldLanguage aLanguageCode)
 {
@@ -2998,7 +2998,7 @@ ESldError CSldCompare::ASCII2UnicodeByLanguage(const UInt8* aAscii, UInt16* aUni
 *									  0 - числа не учитываются в сравнении
 *									  1 - числа учитываются в сравнении
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::GetStrOfMass(const UInt16* aSourceStr, SldU16String & aMassStr, Int8 aEraseZeroSymbols, Int8 aUseMassForDigit) const
 {
@@ -3071,7 +3071,7 @@ ESldError CSldCompare::GetStrOfMass(const UInt16* aSourceStr, SldU16String & aMa
 *									  0 - числа не учитываются в сравнении
 *									  1 - числа учитываются в сравнении
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::GetStrOfMassWithDelimiters(const UInt16* aSourceStr, SldU16String & aMassStr, Int8 aEraseZeroSymbols, Int8 aUseMassForDigit) const
 {
@@ -3165,7 +3165,7 @@ ESldError CSldCompare::GetStrOfMassWithDelimiters(const UInt16* aSourceStr, SldU
 *									  0 - числа не учитываются в сравнении
 *									  1 - числа учитываются в сравнении
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::GetSearchPatternOfMass(const UInt16* aSourceStr, SldU16String & aMassStr, Int8 aUseMassForDigit) const
 {
@@ -3247,7 +3247,7 @@ ESldError CSldCompare::GetSearchPatternOfMass(const UInt16* aSourceStr, SldU16St
 *								  Память освобождается в FreeParts
 * @param[out]	aTextCount		- количество слов в строчке
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::DivideQueryByParts(const UInt16 *aText, SldU16WordsArray& aTextWords) const
 {
@@ -3263,7 +3263,7 @@ ESldError CSldCompare::DivideQueryByParts(const UInt16 *aText, SldU16WordsArray&
 *								  Память освобождается в FreeParts
 * @param[out]	aTextCount		- количество слов в строчке
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::DivideQueryByParts(const UInt16 *aText, const UInt16 *aDelimitersStr, SldU16WordsArray& aTextWords) const
 {
@@ -3403,7 +3403,7 @@ void CSldCompare::DivideQueryByParts(SldU16StringRef aText, const UInt16 *aDelim
 *								  сюда попадет didnt, в то время, как в основном массиве окажуться didn и t)
 * @param[out]	aTextCount		- количество слов в строчке
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::DivideQuery(const UInt16 *aText, SldU16WordsArray& aTextWords, SldU16WordsArray& aAltrnativeWords) const
 {
@@ -3619,7 +3619,7 @@ UInt32 CSldCompare::GetAlphabetTypeByText(const UInt16 *aText) const
 * @param[in]	aChar		- проверяемый символ
 * @param[in]	aTableIndex	- индекс таблицы сортировки
 *
-* @return результат выполнения функции:
+* @return the result of executing the function:
 *						0 - символ не нулевой или его нет в таблице сортировки
 *						1 - символ есть в таблице сортировке и его масса равна 0
 ************************************************************************/
@@ -3639,7 +3639,7 @@ Int8 CSldCompare::IsZeroSymbol(UInt16 aChar, UInt32 aTableIndex) const
 *
 * @param[in]	aChar	- проверяемый символ
 *
-* @return результат выполнения функции:
+* @return the result of executing the function:
 *						0 - символ не нулевой или его нет в таблице сортировки
 *						1 - символ есть в таблице сортировке и его масса равна 0
 ************************************************************************/
@@ -3654,7 +3654,7 @@ Int8 CSldCompare::IsZeroSymbol(UInt16 aChar) const
 * @param[in]	aChar		- проверяемый символ
 * @param[in]	aTableIndex	- индекс таблицы сортировки
 *
-* @return результат выполнения функции:
+* @return the result of executing the function:
 *						0 - символ не разделитель
 *						1 - символ разделитель
 ************************************************************************/
@@ -3689,7 +3689,7 @@ Int8 CSldCompare::IsDelimiter(UInt16 aChar, UInt32 aTableIndex) const
 *
 * @param[in]	aChar		- проверяемый символ
 *
-* @return результат выполнения функции:
+* @return the result of executing the function:
 *						0 - символ не разделитель
 *						1 - символ разделитель
 ************************************************************************/
@@ -3704,7 +3704,7 @@ Int8 CSldCompare::IsDelimiter(UInt16 aChar) const
 * @param[in]	aChar		- проверяемый символ
 * @param[in]	aTableIndex	- индекс таблицы сортировки
 *
-* @return результат выполнения функции:
+* @return the result of executing the function:
 *						0 - символ не разделитель
 *						1 - символ разделитель
 ************************************************************************/
@@ -3721,7 +3721,7 @@ Int8 CSldCompare::IsHalfDelimiter(UInt16 aChar, UInt32 aTableIndex) const
 *
 * @param[in]	aChar		- проверяемый символ
 *
-* @return результат выполнения функции:
+* @return the result of executing the function:
 *						0 - символ не разделитель
 *						1 - символ разделитель
 ************************************************************************/
@@ -3736,7 +3736,7 @@ Int8 CSldCompare::IsHalfDelimiter(UInt16 aChar) const
 * @param[in]	aChar		- проверяемый символ
 * @param[in]	aType		- тип Emoji
 *
-* @return результат выполнения функции:
+* @return the result of executing the function:
 *						0 - символ не Emoji
 *						1 - символ Emoji
 ************************************************************************/
@@ -3763,7 +3763,7 @@ Int8 CSldCompare::IsEmoji(const UInt16 aChar, const EEmojiTypes aType)
 *
 * @param[in]	aChar		- проверяемый символ
 *
-* @return результат выполнения функции:
+* @return the result of executing the function:
 *						0 - символ не пробельный
 *						1 - символ пробельный
 ************************************************************************/
@@ -3778,7 +3778,7 @@ Int8 CSldCompare::IsWhitespace(const UInt16 aChar)
 *
 * @param[in]	aChar		- проверяемый символ
 *
-* @return результат выполнения функции:
+* @return the result of executing the function:
 *						0 - у символа есть масса в одной из таблиц
 *						1 - у символа нет массы
 ************************************************************************/
@@ -3800,7 +3800,7 @@ Int8 CSldCompare::IsMarginalSymbol(const UInt16 aChar) const
 * @param[in]	aRadix	- основание системы счисления
 * @param[out]	aNumber	- сюда сохраняется результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::StrToInt32Base(const UInt16* aStr, UInt32 aRadix, Int32* aNumber)
 {
@@ -3857,7 +3857,7 @@ ESldError CSldCompare::StrToInt32Base(const UInt16* aStr, UInt32 aRadix, Int32* 
 * @param[in]	aRadix	- основание системы счисления
 * @param[out]	aNumber	- сюда сохраняется результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::StrToInt32(const UInt16* aStr, UInt32 aRadix, Int32* aNumber)
 {
@@ -3874,7 +3874,7 @@ ESldError CSldCompare::StrToInt32(const UInt16* aStr, UInt32 aRadix, Int32* aNum
 * @param[in]	aRadix	- основание системы счисления
 * @param[out]	aNumber	- сюда сохраняется результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::StrToUInt32(const UInt16* aStr, UInt32 aRadix, UInt32* aNumber)
 {
@@ -3927,7 +3927,7 @@ ESldError CSldCompare::StrToUInt32(const UInt16* aStr, UInt32 aRadix, UInt32* aN
 * @param[in]	aRadix	- основание системы счисления
 * @param[out]	aNumber	- сюда сохраняется результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::StrToBeginInt32(const UInt16* aStr, UInt32 aRadix, Int32* aNumber)
 {
@@ -3939,7 +3939,7 @@ ESldError CSldCompare::StrToBeginInt32(const UInt16* aStr, UInt32 aRadix, Int32*
 *
 * @param[in]	aText	- проверяемая строка вместе с открывающей скобкой
 *
-* @return результат выполнения функции:
+* @return the result of executing the function:
 *					0 - нет открывающей или закрывыющей скобки
 *					1 - закрывающая скобка стоит в конце слова
 *					2 - закрывающая скобка стоит в середине слова
@@ -3991,7 +3991,7 @@ Int8 CSldCompare::CheckBracket(const UInt16 *aText) const
  * @param[out]  aEnd    - сюда сохраняется начало строки сразу после числа
  * @param[out]	aNumber	- сюда сохраняется результат
  *
- * @return код ошибки
+ * @return error code
  ************************************************************************/
 ESldError CSldCompare::StrToFloat32(const UInt16 *aStr, const UInt16 **aEnd, Float32 *aNumber)
 {
@@ -4041,7 +4041,7 @@ ESldError CSldCompare::StrToFloat32(const UInt16 *aStr, const UInt16 **aEnd, Flo
 * @param	aBegin	- начало переворачиваемого участка
 * @param	aEnd	- конец переворачиваемого участка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::StrReverse(UInt16* aBegin, UInt16* aEnd)
 {
@@ -4058,7 +4058,7 @@ ESldError CSldCompare::StrReverse(UInt16* aBegin, UInt16* aEnd)
 * @param[in]	aRadix	- основание системы счисления
 * @param[out]	aStr	- строка с текстовым представлением числа
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::UInt32ToStr(UInt32 aNumber, UInt16* aStr, UInt32 aRadix)
 {
@@ -4092,7 +4092,7 @@ ESldError CSldCompare::UInt32ToStr(UInt32 aNumber, UInt16* aStr, UInt32 aRadix)
  *                                 не zero-terminated
  * @param[out]  aDelimitersCount - длина строки с разделителями
  *
- * @return код ошибки
+ * @return error code
  ************************************************************************/
 static ESldError GetDelimiters(const TCompareTableSplit *aCMPTable, const UInt16 **aDelimitersStr, UInt32 *aDelimitersCount)
 {
@@ -4113,7 +4113,7 @@ static ESldError GetDelimiters(const TCompareTableSplit *aCMPTable, const UInt16
  *                                 не zero-terminated
  * @param[out]  aDelimitersCount - длина строки с разделителями
  *
- * @return код ошибки
+ * @return error code
  ************************************************************************/
 ESldError CSldCompare::GetDelimiters(ESldLanguage aLangCode, const UInt16 **aDelimitersStr, UInt32 *aDelimitersCount) const
 {
@@ -4136,7 +4136,7 @@ ESldError CSldCompare::GetDelimiters(ESldLanguage aLangCode, const UInt16 **aDel
  *                                не zero-terminated
  * @param[out] aDelimitersCount - длина строки с разделителями
  *
- * @return код ошибки
+ * @return error code
  ************************************************************************/
 ESldError CSldCompare::GetDelimiters(const UInt16 **aDelimitersStr, UInt32 *aDelimitersCount) const
 {
@@ -4153,7 +4153,7 @@ ESldError CSldCompare::GetDelimiters(const UInt16 **aDelimitersStr, UInt32 *aDel
 * @param[in]	 aType		- тип Emoji
 * @param[in]	 aSelector	- код селектора (по дефолту 0xFE0E)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::AddEmojiSelector(SldU16String & aString, const EEmojiTypes aType, const UInt16 aSelector)
 {
@@ -4175,7 +4175,7 @@ ESldError CSldCompare::AddEmojiSelector(SldU16String & aString, const EEmojiType
 	return eOK;
 }
 
-/// Проверяет, является ли данный символ Emoji-селектором
+// Проверяет, является ли данный символ Emoji-селектором
 static inline Int8 IsEmojiSelector(const UInt16 aChar)
 {
 	return (aChar >= 0xFE00 && aChar <= 0xFE0F) ? 1 : 0;
@@ -4187,7 +4187,7 @@ static inline Int8 IsEmojiSelector(const UInt16 aChar)
 * @param[in/out] aString	- строка, в которой мы хотим удалить селекторы
 * @param[in]	 aType		- тип Emoji
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCompare::ClearEmojiSelector(SldU16String & aString, const EEmojiTypes aType)
 {
@@ -4212,7 +4212,7 @@ ESldError CSldCompare::ClearEmojiSelector(SldU16String & aString, const EEmojiTy
 *
 * @param[out] aString	- строка, которую мы хотим сконвертировать в число
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 UInt32 CSldCompare::UInt16StrToUInt32Code(const SldU16StringRef aString)
 {
@@ -4278,7 +4278,7 @@ SldU16StringRef CSldCompare::GetWordByPosition(const SldU16StringRef aPhrase, co
 * @param[in]     aWordIndex	- номер заменяемого слова
 * @param[in]     aNewWord	- слово, на которое заменяем
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 void CSldCompare::ReplaceWordInPhraseByIndex(SldU16String& aPhrase, const SldU16StringRef aNewWord, const UInt32 aWordIndex) const
 {

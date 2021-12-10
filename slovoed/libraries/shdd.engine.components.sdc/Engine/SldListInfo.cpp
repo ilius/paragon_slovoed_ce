@@ -6,7 +6,7 @@
 * @param[in]	aData	- ссылка на объект, отвечающий за получение данных из контейнера
 * @param[in]	aHeader	- указатель на заголовок списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListInfo::Init(CSDCReadMy &aData, const TListHeader* aHeader)
 {
@@ -65,7 +65,7 @@ ESldError CSldListInfo::Init(CSDCReadMy &aData, const TListHeader* aHeader)
 *
 * @param[in]	aHeader	- указатель на заголовок списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListInfo::Init(const TListHeader & aHeader)
 {
@@ -87,7 +87,7 @@ ESldError CSldListInfo::Init(const TListHeader & aHeader)
 * @param[in]	aListInfo	- информация о списке
 * @param[in]	aHeader	    - указатель на заголовок списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListInfo::Init(const CSldListInfo & aListInfo, const TListHeader* aHeader)
 {
@@ -173,7 +173,7 @@ EWordListTypeEnum CSldListInfo::GetUsage() const
 *									  в listInfo новый вариант не будет добавлен
 *									  дефолтное значение - false
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldListInfo::AddVariantProperty(const TListVariantProperty & aVariantProperty, bool aUnique)
 {

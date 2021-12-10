@@ -1,11 +1,11 @@
 ﻿#include "SldSceneWrapper.h"
 
-/// Конструктор
+// Constructor
 CSldSceneWrapper::CSldSceneWrapper(void) : m_BeginData(NULL), m_CurrentData(NULL), m_CurrenNode(0), m_NodeCount(0)
 {
 }
 
-/// Деструктор
+// Destructor
 CSldSceneWrapper::~CSldSceneWrapper(void)
 {
 }
@@ -15,7 +15,7 @@ CSldSceneWrapper::~CSldSceneWrapper(void)
 *
 * @param[in]	aVersion	- номер версии
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSceneWrapper::CheckVersion(UInt32 aVersion)
 {
@@ -29,7 +29,7 @@ ESldError CSldSceneWrapper::CheckVersion(UInt32 aVersion)
 *
 * @param[out]	aBackground	- цвет сцены
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSceneWrapper::GetColour(CColour* aAmbient, CColour* aBackground)
 {
@@ -50,7 +50,7 @@ ESldError CSldSceneWrapper::GetColour(CColour* aAmbient, CColour* aBackground)
 *
 * @param[in]	aElement	- данные ресурса
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSceneWrapper::Init(TElement* aElement)
 {
@@ -88,7 +88,7 @@ ESldError CSldSceneWrapper::Init(TElement* aElement)
 	return eOK;
 }
 
-/// Сбрасываем на начало
+// Сбрасываем на начало
 ESldError CSldSceneWrapper::Reset()
 {
 	if(!m_BeginData)
@@ -104,7 +104,7 @@ ESldError CSldSceneWrapper::Reset()
 *
 * @param[out]	aCount	- количество нодов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSceneWrapper::GetCountNode(UInt32* aCount)
 {
@@ -120,7 +120,7 @@ ESldError CSldSceneWrapper::GetCountNode(UInt32* aCount)
 *
 * @param[out]	aNode	- нода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldSceneWrapper::GetNextNode(TSldSceneNode* aNode)
 {

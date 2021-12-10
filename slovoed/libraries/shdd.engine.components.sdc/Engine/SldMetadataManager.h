@@ -25,7 +25,7 @@ public:
 	 *  @param [in] aIndex - индекс метаданных
 	 *  @param [in] aData  - указатель на структуру метаданных куда копировать
 	 *
-	 *  @return код ошибки
+	 *  @return error code
 	 */
 	template<typename T>
 	ESldError LoadMetadata(UInt32 aIndex, T *aData) {
@@ -33,7 +33,7 @@ public:
 		return LoadMetadata(aIndex, T::metaType, (UInt32)sizeof(T), aData);
 	}
 
-	/// Возвращает строку метаданных живущую в string store
+	// Возвращает строку метаданных живущую в string store
 	ESldError GetString(UInt32 aIndex, SldU16StringRef &aString);
 
 private:

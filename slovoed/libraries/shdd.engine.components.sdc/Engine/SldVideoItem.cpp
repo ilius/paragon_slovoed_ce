@@ -64,7 +64,7 @@ UInt8 CSldVideoItem::IsValid() const
 *
 * @param[in] asVideoId	- строка, содержащая идентификатор видео
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldVideoItem::SetVideoId(const UInt16 *const asVideoId)
 {
@@ -117,7 +117,7 @@ void CSldVideoItem::SetExtListIdx(const Int32 aiExtListIdx)
 *
 * @param[in] asExtListIdx	- идентификатор списка во внешнем словаре в виде строки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldVideoItem::SetExtListIdx(const UInt16 *const asExtListIdx)
 {
@@ -139,7 +139,7 @@ const UInt16 *CSldVideoItem::GetExtKey() const
 *
 * @param[in] asExtKey	- ключ (слово) в списке внешнего словаря
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldVideoItem::SetExtKey(const UInt16 *const asExtKey)
 {
@@ -151,7 +151,7 @@ ESldError CSldVideoItem::SetExtKey(const UInt16 *const asExtKey)
 *
 * @param[in] aVideoCodecStr	- строка, содержащая идентификатор кодека
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldVideoItem::SetVideoCodec(const UInt16 *const aVideoCodecStr)
 {
@@ -170,7 +170,7 @@ ESldError CSldVideoItem::SetVideoCodec(const UInt16 *const aVideoCodecStr)
 *
 * @param[in] asVideoResolution	- строка, содержащая размер видеоконтента (в пикселах)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldVideoItem::SetVideoResolution(const UInt16 *const asVideoResolution)
 {
@@ -202,7 +202,7 @@ CSldVideoItem& CSldVideoItem::operator=(const CSldVideoItem &videoType)
 * @param[in] asDst	- указатель на строку, на место которой надо поместить новую строчку
 * @param[in] asSrc	- строчка, которую необходимо сохранить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldVideoItem::ReplaceString(UInt16 **const asDst, const UInt16 *const asSrc)
 {

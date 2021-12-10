@@ -9,7 +9,7 @@
 * @param[out]	aBuffer		- буфер в который необходимо поместить строчку после декодирования
 * @param[out]	aLength		- длина декодированой строки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldInputText::GetText(UInt32 aDataType, sld2::Span<UInt16> aBuffer, UInt32 *aLength)
 {

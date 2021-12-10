@@ -6,7 +6,7 @@
 * @param[in]	aVariantIndex	- номер запрашиваемого варианта написания
 * @param[out]	aWord			- указатель на буфер для указателя на слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError TSldCustomListWordInfo::GetCurrentWordPtr(Int32 aVariantIndex, UInt16** aWord, UInt16* aDefaultWord)
 {
@@ -72,7 +72,7 @@ ESldError TSldRealLists::Init(ISldList** aWordLists, const UInt32 aNumberOfLists
 	return eOK;
 }
 
-/// Возвращает указатель на словарный список слов
+// Возвращает указатель на словарный список слов
 ESldError TSldRealLists::GetListPtr(const Int32 aListIndex, ISldList** aListPtr)
 {
 	if (!aListPtr)
@@ -87,7 +87,7 @@ ESldError TSldRealLists::GetListPtr(const Int32 aListIndex, ISldList** aListPtr)
 }
 
 
-/// Деструктор
+// Destructor
 CSldCustomList::~CSldCustomList()
 {
 	if (m_WordVector)
@@ -121,7 +121,7 @@ CSldCustomList::~CSldCustomList()
 * @param[in]	aCMP			- указатель на класс сравнения строк
 * @param[in]	aHASH			- число необходимое для декодирования списка слов (в поисковом списке не используется)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::Init(CSDCReadMy* aData, ISldLayerAccess* aLayerAccess, const CSldListInfo* aListInfo, CSldCompare* aCMP, UInt32 aHASH)
 {
@@ -184,7 +184,7 @@ bool CSldCustomList::isInit(void)
 * @param[in]	aInLocalization	- флаг учета локализации. true - мы запрашиваем индекс с учетом локализации
 *								  false - мы запрашиваем индекс без учета локализации
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetWordByGlobalIndex(Int32 aGlobalIndex, const bool aInLocalization)
 {
@@ -197,7 +197,7 @@ ESldError CSldCustomList::GetWordByGlobalIndex(Int32 aGlobalIndex, const bool aI
 *
 * @param[in]	aWordIndex - номер слова по порядку, начиная с 0.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetWordByIndex(Int32 aWordIndex)
 {	
@@ -212,9 +212,9 @@ ESldError CSldCustomList::GetWordByIndex(Int32 aWordIndex)
 /** *********************************************************************
 * Ищем ближайшее слово, которое больше или равно заданному
 *
-* @param[in]	aText	- искомое слово
+* @param[in]	aText	- search word
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetWordByText(const UInt16* aText)
 {
@@ -303,12 +303,12 @@ ESldError CSldCustomList::GetWordByText(const UInt16* aText)
 /** *********************************************************************
 * Ищем наиболее похожее слово, которое равно заданному
 *
-* @param[in]	aText		- искомое слово
+* @param[in]	aText		- search word
 * @param[out]	aResultFlag	- сюда сохраняется флаг результата:
 *							  1	- похожее слово найдено,
 *							  0	- похожее слово не найдено
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetMostSimilarWordByText(const UInt16* aText, UInt32* aResultFlag)
 {
@@ -340,7 +340,7 @@ ESldError CSldCustomList::GetMostSimilarWordByText(const UInt16* aText, UInt32* 
 * @param[in]	aVariantIndex	- номер варианта написания для текущего слова.
 * @param[out]	aWord			- указатель на буфер для указателя на слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetCurrentWord(Int32 aVariantIndex, UInt16** aWord)
 {	
@@ -357,7 +357,7 @@ ESldError CSldCustomList::GetCurrentWord(Int32 aVariantIndex, UInt16** aWord)
 	else if (currentWordInfo.RealListPtr && currentWordInfo.RealWordIndex != SLD_DEFAULT_WORD_INDEX)
 	{
 		ISldList* pList = currentWordInfo.RealListPtr;
-		/// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
+		// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
 		ESldError error = pList->GetWordByGlobalIndex(currentWordInfo.RealWordIndex);
 		if(error != eOK)
 			return error;
@@ -385,7 +385,7 @@ ESldError CSldCustomList::GetCurrentWord(Int32 aVariantIndex, UInt16** aWord)
 *
 * @param[out]	aIndex	- указатель на переменную, в которую будет сохранен номер текущего слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetCurrentIndex(Int32* aIndex) const
 {
@@ -402,7 +402,7 @@ ESldError CSldCustomList::GetCurrentIndex(Int32* aIndex) const
 *
 * @param[out]	aIndex	- указатель на переменную, в которую будет сохранен номер текущего слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetCurrentGlobalIndex(Int32* aIndex) const
 {
@@ -421,7 +421,7 @@ ESldError CSldCustomList::GetCurrentGlobalIndex(Int32* aIndex) const
 * @param[in]	aLocalIndex		- локальный номер слова в пределах текущего уровня вложенности
 * @param[out]	aGlobalIndex	- указатель на переменную, куда сохраняется глобальный номер слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::LocalIndex2GlobalIndex(Int32 aLocalIndex, Int32* aGlobalIndex)
 {
@@ -447,7 +447,7 @@ ESldError CSldCustomList::LocalIndex2GlobalIndex(Int32 aLocalIndex, Int32* aGlob
 * @param[in]	aLocalWordIndex	- локальный номер слова
 * @param[out]	aListIndex		- указатель на переменную, в которую сохраняется номер списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetRealListIndex(Int32 aLocalWordIndex, Int32* aListIndex)
 {
@@ -466,9 +466,9 @@ ESldError CSldCustomList::GetRealListIndex(Int32 aLocalWordIndex, Int32* aListIn
 * Получает глобальный номер слова по локальному номеру слова
 *
 * @param[in]	aLocalWordIndex		- локальный номер слова
-* @param[out]	aGlobalWordIndex	- указатель на переменную, в которую сохраняется глобальный номер слова
+* @param[out]	aGlobalWordIndex	- a pointer to a variable that stores the global word number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetRealGlobalIndex(Int32 aLocalWordIndex, Int32* aGlobalWordIndex)
 {	
@@ -488,7 +488,7 @@ ESldError CSldCustomList::GetRealGlobalIndex(Int32 aLocalWordIndex, Int32* aGlob
 *
 * @param[out]	aCount	- указатель на переменную, в которую сохраняется полное количество слов в списке слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetTotalWordCount(Int32* aCount)
 {
@@ -508,7 +508,7 @@ ESldError CSldCustomList::GetTotalWordCount(Int32* aCount)
 *
 * @param[out]	aNumberOfWords	- указатель на переменную, в которую будет сохранено количество слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetNumberOfWords(Int32* aNumberOfWords) const
 {
@@ -524,7 +524,7 @@ ESldError CSldCustomList::GetNumberOfWords(Int32* aNumberOfWords) const
 *
 * @param[out]	aNumberOfVariants	- указатель на буфер для количества вариантов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetNumberOfVariants(UInt32* aNumberOfVariants)
 {
@@ -537,7 +537,7 @@ ESldError CSldCustomList::GetNumberOfVariants(UInt32* aNumberOfVariants)
 * @param[in]	aBase	- Номер текущего слова которое должно будет стать базой.
 *						  MAX_UINT_VALUE - сбросить базу.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SetBase(Int32 aBase)
 {
@@ -552,7 +552,7 @@ ESldError CSldCustomList::SetBase(Int32 aBase)
 *
 * @param[out]	aCount	- указатель на переменную, в которую будет сохранен результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetUsageCount(Int32* aCount) const
 {
@@ -565,7 +565,7 @@ ESldError CSldCustomList::GetUsageCount(Int32* aCount) const
 * @param[in]	aIndex	- индекс кода использования
 * @param[out]	aUsage	- указатель на переменную, в которую будет сохранен код (см. #EWordListTypeEnum)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetListUsage(Int32 aIndex, UInt32* aUsage) const
 {
@@ -578,7 +578,7 @@ ESldError CSldCustomList::GetListUsage(Int32 aIndex, UInt32* aUsage) const
 * @param[out]	aListInfo	- указатель на переменную, в которую будет возвращен указатель
 * @param[in]	aDictIndex	- индекс словаря в ядре слияния, имеет дефолтное значение SLD_DEFAULT_DICTIONARY_INDEX
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetWordListInfo(const CSldListInfo** aListInfo, Int32 aDictIndex) const
 {
@@ -598,7 +598,7 @@ ESldError CSldCustomList::GetWordListInfo(const CSldListInfo** aListInfo, Int32 
 *
 * @param[out]	aIsSorted	- указатель на переменную, в которую будет возвращен флаг
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::IsListSorted(UInt32* aIsSorted)
 {
@@ -617,7 +617,7 @@ ESldError CSldCustomList::IsListSorted(UInt32* aIsSorted)
 *
 * @param[out]	aIsPicture	- указатель на переменную, в которую будет возвращен флаг
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::IsListHasPicture(UInt32* aIsPicture)
 {
@@ -636,7 +636,7 @@ ESldError CSldCustomList::IsListHasPicture(UInt32* aIsPicture)
 *
 * @param[out]	aIsVideo	- указатель на переменную, в которую будет возвращен флаг
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::IsListHasVideo(UInt32* aIsVideo)
 {
@@ -655,7 +655,7 @@ ESldError CSldCustomList::IsListHasVideo(UInt32* aIsVideo)
 *
 * @param[out]	aIsSound	- указатель на переменную, в которую будет возвращен флаг
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::IsListHasSound(UInt32* aIsSound)
 {
@@ -678,7 +678,7 @@ ESldError CSldCustomList::IsListHasSound(UInt32* aIsSound)
 * @param[out]	aLevelType		- указатель, по которому будет записан тип поддерева (см #EHierarchyLevelType)
 *								  (можно передать NULL)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::isWordHasHierarchy(Int32 aIndex, UInt32* aIsHierarchy, EHierarchyLevelType* aLevelType)
 {
@@ -715,7 +715,7 @@ ESldError CSldCustomList::isWordHasHierarchy(Int32 aIndex, UInt32* aIsHierarchy,
 *
 * @param[out]	aPictureIndexes	- вектор индексов изображений для текущего слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetPictureIndex(CSldVector<Int32> & aPictureIndexes)
 {
@@ -729,7 +729,7 @@ ESldError CSldCustomList::GetPictureIndex(CSldVector<Int32> & aPictureIndexes)
 	if (m_WordVector[m_CurrentIndex].RealWordIndex == SLD_DEFAULT_WORD_INDEX)
 		return eOK;
 
-	/// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
+	// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
 	ESldError error = pList->GetWordByGlobalIndex(m_WordVector[m_CurrentIndex].RealWordIndex);
 	if(error != eOK)
 		return error;
@@ -747,7 +747,7 @@ ESldError CSldCustomList::GetPictureIndex(CSldVector<Int32> & aPictureIndexes)
 * @param[out]	aVideoIndex	- указатель на переменную, в которую будет записан номер видео,
 *							  либо SLD_INDEX_VIDEO_NO в случае его отсутствия
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetVideoIndex(Int32* aVideoIndex)
 {
@@ -765,7 +765,7 @@ ESldError CSldCustomList::GetVideoIndex(Int32* aVideoIndex)
 	if (m_WordVector[m_CurrentIndex].RealWordIndex == SLD_DEFAULT_WORD_INDEX)
 		return eOK;
 
-	/// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
+	// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
 	ESldError error = pList->GetWordByGlobalIndex(m_WordVector[m_CurrentIndex].RealWordIndex);
 	if(error != eOK)
 		return error;
@@ -782,7 +782,7 @@ ESldError CSldCustomList::GetVideoIndex(Int32* aVideoIndex)
 *
 * @param[out]	aSoundIndexes	- вектор с индексами озвучки для текущего слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetSoundIndex(CSldVector<Int32> & aSoundIndexes)
 {
@@ -796,7 +796,7 @@ ESldError CSldCustomList::GetSoundIndex(CSldVector<Int32> & aSoundIndexes)
 	if (m_WordVector[m_CurrentIndex].RealWordIndex == SLD_DEFAULT_WORD_INDEX)
 		return eOK;
 
-	/// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
+	// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
 	ESldError error = pList->GetWordByGlobalIndex(m_WordVector[m_CurrentIndex].RealWordIndex);
 	if(error != eOK)
 		return error;
@@ -811,12 +811,12 @@ ESldError CSldCustomList::GetSoundIndex(CSldVector<Int32> & aSoundIndexes)
 /** ********************************************************************
 * Возвращает количество переводов у указанного слова.
 *
-* @param[in]	aGlobalIndex				- номер слова из списка слов для которого требуется узнать
-*									  количество переводов
+* @param[in]	aGlobalIndex				- the number of the word from the list of words for which you want to know
+*									  the number of translations
 * @param[out]	aTranslationCount	- указатель на переменную, в которую будет помещено
 *									  количество переводов у последнего декодированного слова.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetTranslationCount(Int32 aGlobalIndex, Int32* aTranslationCount)
 {
@@ -875,7 +875,7 @@ ESldError CSldCustomList::GetTranslationCount(Int32 aGlobalIndex, Int32* aTransl
 	else if (listInfo->IsFullTextSearchList())
 		return eOK;
 
-	/// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
+	// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
 	error = pList->GoToByGlobalIndex(realWordIndex);
 	if(error != eOK)
 		return error;
@@ -895,12 +895,12 @@ ESldError CSldCustomList::GetTranslationCount(Int32 aGlobalIndex, Int32* aTransl
 /** ********************************************************************
 * Возвращает количество ссылок у указанного слова из списка слов
 *
-* @param[in]	aGlobalIndex		- номер слова из списка слов для которого требуется узнать
+* @param[in]	aGlobalIndex		- the number of the word from the list of words for which you want to know
 *									  количество ссылок
 * @param[out]	aTranslationCount	- указатель на переменную, в которую будет помещено
 *									  количество переводов у последнего декодированного слова.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetReferenceCount(Int32 aGlobalIndex, Int32* aTranslationCount)
 {
@@ -925,14 +925,14 @@ ESldError CSldCustomList::GetReferenceCount(Int32 aGlobalIndex, Int32* aTranslat
 /** ********************************************************************
 * Возвращает номер статьи с переводом, по номеру перевода
 *
-* @param[in]	aGlobalIndex		- номер слова из списка слов для которого требуется узнать
-*									  количество переводов
+* @param[in]	aGlobalIndex		- the number of the word from the list of words for which you want to know
+*									  the number of translations
 * @param[in]	aTranslationIndex	- номер перевода текущего слова для которого 
 *									  хотим получить номер статьи с переводом.
 * @param[out]	aArticleIndex		- указатель на переменную в которую будет
 *									  помещен номер статьи с переводом.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetTranslationIndex(Int32 aGlobalIndex, Int32 aTranslationIndex, Int32* aArticleIndex)
 {
@@ -972,7 +972,7 @@ ESldError CSldCustomList::GetTranslationIndex(Int32 aGlobalIndex, Int32 aTransla
 		}
 	}
 
-	/// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
+	// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
 	error = pList->GoToByGlobalIndex(realWordIndex);
 	if(error != eOK)
 		return error;
@@ -995,7 +995,7 @@ ESldError CSldCustomList::GetTranslationIndex(Int32 aGlobalIndex, Int32 aTransla
 * @param[out]	aPath	- указатель на структуру в которую будет помещен путь к 
 *						  текущему положению в каталоге.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetCurrentPath(TCatalogPath* aPath)
 {
@@ -1026,7 +1026,7 @@ ESldError CSldCustomList::GetCurrentPath(TCatalogPath* aPath)
 * @param[out]	aPath	- указатель на структуру, в которую будет прописан путь к 
 *						  указанному элементу списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetPathByGlobalIndex(Int32 aIndex, TCatalogPath* aPath)
 {	
@@ -1049,7 +1049,7 @@ ESldError CSldCustomList::GetPathByGlobalIndex(Int32 aIndex, TCatalogPath* aPath
 *								  в каталоге, куда нужно попасть
 * @param[in]	aNavigationType	- тип перехода
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GoToByPath(const TCatalogPath* aPath, ESldNavigationTypeEnum aNavigationType)
 {
@@ -1094,7 +1094,7 @@ ESldError CSldCustomList::GoToByPath(const TCatalogPath* aPath, ESldNavigationTy
 /** *********************************************************************
 * Поднимаемся в каталоге на уровень выше текущего или остаемся на текущем, если выше некуда
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GoToLevelUp(void)
 {
@@ -1105,8 +1105,8 @@ ESldError CSldCustomList::GoToLevelUp(void)
 * Возвращает список названий родительских категорий, разделенных строкой-разделителем, по глобальному номеру слова
 * Если у слова нет родительских категорий, возвращает пустую строку
 *
-* ВНИМАНИЕ! Память для результирующей строки выделяется в этом методе
-* и должна быть освобождена в вызывающем методе вызовом функции sldMemFree()
+* ATTENTION! Memory for the resulting string is allocated in this method
+* and must be freed in the calling method by calling function sldMemFree()
 *
 * @param[in]	aGlobalWordIndex	- глобальный номер слова
 * @param[out]	aText				- указатель, по которому будет записан указатель на строку-результат
@@ -1114,7 +1114,7 @@ ESldError CSldCustomList::GoToLevelUp(void)
 * @param[in]	aMaxLevelCount		- максимальное количество родительских категорий (уровней иерархии),
 *									  названия которых нужно узнать. Значение -1 означает все уровни.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetParentWordNamesByGlobalIndex(Int32 aGlobalWordIndex, UInt16** aText, const UInt16* aSeparatorText, Int32 aMaxLevelCount)
 {	
@@ -1126,11 +1126,11 @@ ESldError CSldCustomList::GetParentWordNamesByGlobalIndex(Int32 aGlobalWordIndex
 *
 * @param[in]	aText			- шаблон поиска
 * @param[in]	aMaximumWords	- максимальное количество слов, которые могут быть найдены
-* @param[in]	aList			- список слов, в котором производим поиск
-* @param[in]	aRealListIndex	- реальный индекс списка слов, в котором производим поиск
+* @param[in]	aList			- a list of words in which we search
+* @param[in]	aRealListIndex	- the real index of the word list in which we are searching
 * @param[in]	aRealList		- указатель на реальный список(в том случае, если для поиска использовался SimpleSorted)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::DoWildCardSearch(TExpressionBox* aExpressionBox, Int32 aMaximumWords, ISldList* aList, Int32 aRealListIndex, ISldList* aRealList)
 {
@@ -1143,11 +1143,11 @@ ESldError CSldCustomList::DoWildCardSearch(TExpressionBox* aExpressionBox, Int32
 * @param[in]	aText				- шаблон поиска
 * @param[in]	aMaximumWords		- максимальное количество слов, которые могут быть найдены
 * @param[in]	aMaximumDifference	- максимальная разница между искомыми словами
-* @param[in]	aList				- список слов, в котором производим поиск
-* @param[in]	aRealListIndex		- реальный индекс списка слов, в котором производим поиск
+* @param[in]	aList				- a list of words in which we search
+* @param[in]	aRealListIndex		- the real index of the word list in which we are searching
 * @param[in]	aSearchMode			- тип поиска (см. #EFuzzySearchMode)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::DoFuzzySearch(const UInt16* aText, Int32 aMaximumWords, Int32 aMaximumDifference, ISldList* aList, Int32 aRealListIndex, EFuzzySearchMode aSearchMode)
 {
@@ -1159,10 +1159,10 @@ ESldError CSldCustomList::DoFuzzySearch(const UInt16* aText, Int32 aMaximumWords
 *
 * @param[in]	aText			- текст (набор символов), по которым будет производиться поиск слов
 * @param[in]	aTextLen		- длина переданного текста (количество символов)
-* @param[in]	aList			- список слов, в котором производим поиск
-* @param[in]	aRealListIndex	- реальный индекс списка слов, в котором производим поиск
+* @param[in]	aList			- a list of words in which we search
+* @param[in]	aRealListIndex	- the real index of the word list in which we are searching
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::DoAnagramSearch(const UInt16* aText, Int32 aTextLen, ISldList* aList, Int32 aRealListIndex)
 {
@@ -1173,10 +1173,10 @@ ESldError CSldCustomList::DoAnagramSearch(const UInt16* aText, Int32 aTextLen, I
 * Производит поиск слов с учетом возможных опечаток в пределах текущего уровня вложенности
 *
 * @param[in]	aText			- текст (набор символов), по которым будет производиться поиск слов
-* @param[in]	aList			- список слов, в котором производим поиск
-* @param[in]	aRealListIndex	- реальный индекс списка слов, в котором производим поиск
+* @param[in]	aList			- a list of words in which we search
+* @param[in]	aRealListIndex	- the real index of the word list in which we are searching
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::DoSpellingSearch(const UInt16* aText, ISldList* aList, Int32 aRealListIndex)
 {
@@ -1190,9 +1190,9 @@ ESldError CSldCustomList::DoSpellingSearch(const UInt16* aText, ISldList* aList,
 * @param[in]	aMaximumWords	- максимальное количество слов, которые могут быть найдены
 * @param[in]	aList			- указатель на массив списков слов словаря
 * @param[in]	aListCount		- количество списков слов в массиве
-* @param[in]	aRealListIndex	- реальный индекс списка слов, в котором производим поиск
+* @param[in]	aRealListIndex	- the real index of the word list in which we are searching
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::DoFullTextSearch(const UInt16* aText, Int32 aMaximumWords, ISldList** aList, Int32 aListCount, Int32 aRealListIndex)
 {
@@ -1206,7 +1206,7 @@ ESldError CSldCustomList::DoFullTextSearch(const UInt16* aText, Int32 aMaximumWo
 * @param[in]	aMode	- true: сортировать по упрощенной схеме если возможно - более быстро, но менее качественно
 *							  false: полная сортировка - более медленно, но более качественно
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SortListRelevant(const UInt16* aText, const CSldVector<TSldMorphologyWordStruct>& aMorphologyForms, ESldFTSSortingTypeEnum aMode)
 {		
@@ -1218,7 +1218,7 @@ ESldError CSldCustomList::SortListRelevant(const UInt16* aText, const CSldVector
 *
 * @param[in]	aHASH	- HASH, используемый для декодирования
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SetHASH(UInt32 aHASH)
 {
@@ -1228,7 +1228,7 @@ ESldError CSldCustomList::SetHASH(UInt32 aHASH)
 /** *********************************************************************
 * Сохраняет текущее состояние списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SaveCurrentState(void)
 {
@@ -1238,7 +1238,7 @@ ESldError CSldCustomList::SaveCurrentState(void)
 /** *********************************************************************
 * Восстанавливает ранее сохраненное состояние списка слов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::RestoreState(void)
 {
@@ -1248,7 +1248,7 @@ ESldError CSldCustomList::RestoreState(void)
 /** ********************************************************************
 * Получает следующее слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetNextWord()
 {
@@ -1265,7 +1265,7 @@ ESldError CSldCustomList::GetNextWord()
 *
 * @param[out]	aCompare	- указатель на переменную, в которую будет помещен указатель на объект сравнения строк
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetCompare(CSldCompare **aCompare)
 {
@@ -1278,7 +1278,7 @@ ESldError CSldCustomList::GetCompare(CSldCompare **aCompare)
 * @param[out]	aNumberOfQAItems	- указатель на переменную,
 *									  в которую нужно будет поместить количество записей в таблице быстрого доступа.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::QAGetNumberOfQAItems(Int32 *aNumberOfQAItems)
 {
@@ -1291,7 +1291,7 @@ ESldError CSldCustomList::QAGetNumberOfQAItems(Int32 *aNumberOfQAItems)
 * @param aIndex - номер элемента в таблице быстрого доступа
 * @param aQAText - указатель на буфер для текста элемента таблицы быстрого доступа
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::QAGetItemText(Int32 aIndex, const UInt16 **aQAText)
 {
@@ -1304,7 +1304,7 @@ ESldError CSldCustomList::QAGetItemText(Int32 aIndex, const UInt16 **aQAText)
 * @param[in]	aIndex		- номер элемента в таблице быстрого доступа
 * @param[out]	aQAIndex	- указатель на буфер для номера из элемента таблицы быстрого доступа
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::QAGetItemIndex(Int32 aIndex, Int32 *aQAIndex)
 {
@@ -1316,7 +1316,7 @@ ESldError CSldCustomList::QAGetItemIndex(Int32 aIndex, Int32 *aQAIndex)
 *
 * @param[in]	aIndex	- номер элемента в таблице быстрого доступа по которому нужно произвести переход
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::JumpByQAIndex(Int32 aIndex)
 {
@@ -1330,7 +1330,7 @@ ESldError CSldCustomList::JumpByQAIndex(Int32 aIndex)
 * @param[out]	aLowGlobalIndex		- указатель на переменную, в которую записывается нижняя (левая) граница
 * @param[out]	aHighGlobalIndex	- указатель на переменную, в которую записывается верхняя (правая) граница
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetHierarchyLevelBounds(Int32* aLowGlobalIndex, Int32* aHighGlobalIndex)
 {
@@ -1349,7 +1349,7 @@ ESldError CSldCustomList::GetHierarchyLevelBounds(Int32* aLowGlobalIndex, Int32*
 * @param[in]	aText - указатель на строку, по которой ищем озвучку
 * @param[out]	aSoundIndex - указатель на переменную в которую будет помещен индекс звука
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetSoundIndexByText(const UInt16 *aText, CSldVector<Int32> & aSoundIndexes)
 {
@@ -1364,7 +1364,7 @@ ESldError CSldCustomList::GetSoundIndexByText(const UInt16 *aText, CSldVector<In
 * @param[in]	aLanguageCode	- код языка на который нужно локализовать записи в списке;
 *								  если такой локализации нет, то локализация не меняется
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SetLocalization(ESldLanguage aLocalizationLangCode)
 {
@@ -1378,7 +1378,7 @@ ESldError CSldCustomList::SetLocalization(ESldLanguage aLocalizationLangCode)
 *										  если такой локализации нет, то локализация не меняется
 * @param[in]	aLocalizationDetails	- дополнительные настройки локализации (например, название платформы)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SetLocalization(ESldLanguage aLocalizationLangCode, const UInt16* aLocalizationDetails)
 {
@@ -1390,7 +1390,7 @@ ESldError CSldCustomList::SetLocalization(ESldLanguage aLocalizationLangCode, co
 *
 * @param[in]	aSortedListPtr			- указатель на сортированный список;
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::InitSortedList(ISldList* aSortedListPtr)
 {
@@ -1402,12 +1402,12 @@ ESldError CSldCustomList::InitSortedList(ISldList* aSortedListPtr)
 * Работает в несортированных списках, для сортированных по сорткею списках
 * ищет по Show-варианту(начиная с баз версии 112+)
 *
-* @param[in]	aText		- искомое слово
-* @param[out]	aResultFlag	- Флаг результата
+* @param[in]	aText		- search word
+* @param[out]	aResultFlag	- Result flag
 *							0 - подмотаться не удалось
 *							1 - мы подмотались к заданному слову
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetWordBySortedText(const UInt16* aText, UInt32* aResultFlag)
 {
@@ -1418,15 +1418,15 @@ ESldError CSldCustomList::GetWordBySortedText(const UInt16* aText, UInt32* aResu
 /** *********************************************************************
 * Ищет максимально похожее слово с помощью GetWordBySortedText()
 *
-* @param[in]	aText		- искомое слово
-* @param[out]	aResultFlag	- Флаг результата
+* @param[in]	aText		- search word
+* @param[out]	aResultFlag	- Result flag
 *							0 - найти слово не удалось
 *							1 - мы нашли само слово
 *							2 - мы нашли альтернативный заголовок слова (запрос и Show-вариант не совпадают)
 * @param[in]	aActionsOnFailFlag	- флаг, определяющий нужно ли подматываться к наиболее подходящем слову,
 *							  если поиск завершился неудачно, в иерархических списках ищет только в корне списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetWordByTextExtended(const UInt16* aText, UInt32* aResultFlag, UInt32 aActionsOnFailFlag)
 {
@@ -1471,7 +1471,7 @@ ESldError CSldCustomList::GetWordByTextExtended(const UInt16* aText, UInt32* aRe
 /** *********************************************************************
 * Синхронизирует состояние вспомогательного сортированного списка с базовым
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SynchronizeWithASortedList()
 {
@@ -1483,7 +1483,7 @@ ESldError CSldCustomList::SynchronizeWithASortedList()
 *
 * @param[in]	aIndex		- запрашиваемый индекс слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetWordBySortedIndex(Int32 aIndex)
 {
@@ -1493,7 +1493,7 @@ ESldError CSldCustomList::GetWordBySortedIndex(Int32 aIndex)
 /** *********************************************************************
 * Получает следующее сортированное слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetNextSortedWord()
 {
@@ -1507,7 +1507,7 @@ ESldError CSldCustomList::GetNextSortedWord()
 *							  выполнения функции	0 - мы не встретили ни 1 реального слова
 *													1 - мы смогли получить следующее слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetNextRealSortedWord(Int8* aResult)
 {
@@ -1521,7 +1521,7 @@ ESldError CSldCustomList::GetNextRealSortedWord(Int8* aResult)
 * @param[in]	aIndex		- указатель, по которому будет записан
 *							  текущий индекс сортированного списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetCurrentSortedIndex(Int32* aIndex) const
 {
@@ -1534,7 +1534,7 @@ ESldError CSldCustomList::GetCurrentSortedIndex(Int32* aIndex) const
 * @param[out]	aNumberOfQAItems - указатель на переменную, в которую нужно будет
 *								   поместить количество записей в таблице быстрого доступа.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::QAGetNumberOfSortedQAItems(Int32 *aNumberOfQAItems)
 {
@@ -1547,7 +1547,7 @@ ESldError CSldCustomList::QAGetNumberOfSortedQAItems(Int32 *aNumberOfQAItems)
 * @param[in]	aIndex	- номер элемента в таблице быстрого доступа
 * @param[out]	aQAText	- указатель на буфер для текста элемента таблицы быстрого доступа
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::QAGetSortedItemText(Int32 aIndex, const UInt16 **aQAText)
 {
@@ -1560,7 +1560,7 @@ ESldError CSldCustomList::QAGetSortedItemText(Int32 aIndex, const UInt16 **aQATe
 * @param[in]	aIndex		- номер элемента в таблице быстрого доступа
 * @param[out]	aQAIndex	- указатель на буфер, куда сохраняется результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::QAGetSortedItemIndex(Int32 aIndex, Int32 *aQAIndex)
 {
@@ -1572,7 +1572,7 @@ ESldError CSldCustomList::QAGetSortedItemIndex(Int32 aIndex, Int32 *aQAIndex)
 *
 * @param[in]	aIndex	- номер элемента в таблице быстрого доступа по которому нужно произвести переход.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::JumpByQASortedIndex(Int32 aIndex)
 {
@@ -1630,7 +1630,7 @@ ESldError CSldCustomList::GoToCachedPoint(UInt32 aQAPointIndex, Int32 aNeedGloba
 *							  0 - уровень не сортирован
 *							  1 - уровень сортирван
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::IsCurrentLevelSorted(UInt32* aIsSorted)
 {
@@ -1646,7 +1646,7 @@ ESldError CSldCustomList::IsCurrentLevelSorted(UInt32* aIsSorted)
 *								  (см. #ESldHistoryResult)
 * @param[out]	aGlobalIndex	- указатель, по которому будет записан индекс найденного слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetWordByHistoryElement(CSldHistoryElement* aHistoryElement, ESldHistoryResult* aResultFlag, Int32* aGlobalIndex)
 {
@@ -1683,7 +1683,7 @@ ESldError CSldCustomList::SetCatalogSynchronizedFlag(UInt8 aFlag)
 *									  1 - совпадающее слово найдено,
 *									  0 - совпадающее слово не найдено					
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetExactWordBySetOfVariants(TWordVariantsSet* aWordVariantsSet, UInt32* aResultFlag)
 {
@@ -1705,7 +1705,7 @@ ESldError CSldCustomList::GetExactWordBySetOfVariants(TWordVariantsSet* aWordVar
 * @param[in]	aActionsOnFailFlag	- флаг, определяющий нужно ли подматываться к наиболее подходящем слову,
 *							  если поиск завершился неудачно, в иерархических списках ищет только в корне списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetWordBySetOfVariants(TWordVariantsSet* aWordVariantsSet, UInt32 aWordSearchType, UInt32* aResultFlag, UInt32 aActionsOnFailFlag)
 {
@@ -1720,7 +1720,7 @@ ESldError CSldCustomList::GetWordBySetOfVariants(TWordVariantsSet* aWordVariants
 * @param[in]	aRequest	- текст, по которому будет производиться поиск
 * @param[out]	aCount		- указатель на переменную, в которую будет сохранено количество результатов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetFullTextResultCount(const UInt16* aRequest, Int32* aCount)
 {
@@ -1772,7 +1772,7 @@ Int32 CSldCustomList::GetStylizedVariantArticleIndex(UInt32 aVariantIndex) const
 	if (!pList)
 		return SLD_INDEX_STYLIZED_VARIANT_NO;
 
-	/// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
+	// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
 	if(pList->GetWordByGlobalIndex(m_WordVector[m_CurrentIndex].RealWordIndex) != eOK)
 		return SLD_INDEX_STYLIZED_VARIANT_NO;
 
@@ -1796,7 +1796,7 @@ Int32 CSldCustomList::GetStyleVariantIndex(Int32 aVariantIndex)
 	if (!pList)
 		return 0;
 
-	/// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
+	// Считаем, что в ядре активным является CSldCustomList, значит при переключении на базовый список - состояние восстановится
 	if (pList->GetWordByGlobalIndex(m_WordVector[m_CurrentIndex].RealWordIndex) != eOK)
 		return 0;
 
@@ -1820,7 +1820,7 @@ ESldError CSldCustomList::GoToByGlobalIndex(const Int32 aGlobalIndex)
 *
 * @param[in]	aSearchIndex	- номер записи в таблице быстрого поиска
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GoToBySearchIndex(Int32 aSearchIndex)
 {
@@ -1834,7 +1834,7 @@ ESldError CSldCustomList::GoToBySearchIndex(Int32 aSearchIndex)
 * @param[in]	aWordIndex			- индекс добавляемого слова
 * @param[in]	aUncoverHierarchy	- глубина раскрытия иерархии для слов, имеющих потомков
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::AddWord(const Int32 aRealListIndex, const Int32 aWordIndex, const UInt32 aUncoverHierarchy)
 {
@@ -1909,7 +1909,7 @@ ESldError CSldCustomList::AddWord(const Int32 aRealListIndex, const Int32 aWordI
 					return error;
 			}
 
-			/// newWordPtr мог быть перемещен
+			// newWordPtr мог быть перемещен
 			newWordPtr = &m_WordVector[currentWordIndex];
 
 			error = newWordPtr->RealListPtr->GoToLevelUp();
@@ -1934,7 +1934,7 @@ ESldError CSldCustomList::AddWord(const Int32 aRealListIndex, const Int32 aWordI
 *
 * @param[in]	aRealListIndex		- индекс списка, из которого мы хотим добавить слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::AddWord(const Int32 aRealListIndex)
 {
@@ -1968,7 +1968,7 @@ ESldError CSldCustomList::AddWord(const Int32 aRealListIndex)
 * @param[in]	aSubWordListIndex	- индекс списка слов, при значении SLD_DEFAULT_LIST_INDEX считаем,
 *									  что список слов соответствует списку, в котором находится слово-родитель
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::AddSubWord(const Int32 aWordIndex, const Int32 aSubWordIndex, const Int32 aSubWordListIndex)
 {
@@ -2003,7 +2003,7 @@ ESldError CSldCustomList::AddSubWord(const Int32 aWordIndex, const Int32 aSubWor
 * @param[in]	aEndRealWordIndex		- индекс последнего добавляемого слова
 * @param[in]	aInsertAfterIndex		- индекс, после которого нужно добавить слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::InsertWords(const Int32 aRealListIndex, const Int32 aBeginRealWordIndex, const Int32 aEndRealWordIndex, Int32 aInsertAfterIndex)
 {
@@ -2059,7 +2059,7 @@ ESldError CSldCustomList::InsertWords(const Int32 aRealListIndex, const Int32 aB
 /** *********************************************************************
 * Выделяет память, если это необходимо
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::CheckAllocateMemory()
 {
@@ -2100,7 +2100,7 @@ ESldError CSldCustomList::CheckAllocateMemory()
 *									  для поиска по тексту. Если мы добавляем тот же вариант, что и в базовом списке
 *									  (для ускорения работы, например), то передается 0
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SetCurrentWord(const Int32 aWordIndex, const UInt16* aText, const Int32 aVariantIndex, const UInt32 aResetSearchVector)
 {
@@ -2120,7 +2120,7 @@ ESldError CSldCustomList::SetCurrentWord(const Int32 aWordIndex, const UInt16* a
 *									  для поиска по тексту. Если мы добавляем тот же вариант, что и в базовом списке
 *									  (для ускорения работы, например), то передается 0
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SetCurrentWord(TSldCustomListWordInfo* aWordInfoPtr, const UInt16* aText, const Int32 aVariantIndex, const UInt32 aResetSearchVector)
 {
@@ -2195,7 +2195,7 @@ ESldError CSldCustomList::SetCurrentWord(TSldCustomListWordInfo* aWordInfoPtr, c
 * @param[in]	aBeginIndex	- индекс первого из удаляемых слов
 * @param[in]	aEndIndex	- следующий индекс после последнего удаляемого слова [...)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::EraseWords(const Int32 aBeginIndex, const Int32 aEndIndex)
 {
@@ -2232,7 +2232,7 @@ ESldError CSldCustomList::EraseWords(const Int32 aBeginIndex, const Int32 aEndIn
 * @param[in]	aCreateWordsBuffer	- в процессе индексации все слова будут буфферизированы,
 *									  данный флаг определяет, нужно ли оставить этот буфер для ускорения поиска
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SortListByVariant(const Int32 aVariantIndex, const Int8 aCreateWordsBuffer)
 {
@@ -2394,7 +2394,7 @@ ESldError CSldCustomList::SortListByVariant(const Int32 aVariantIndex, const Int
 *								0 - записи сортируются по тексту
 *								1 - записи сортируются по реальным индексам из базового списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::QuickSortSearchVector(const Int32 aFirstIndex, const Int32 aLastIndex, const Int8 aSortByIndex)
 {
@@ -2492,7 +2492,7 @@ ESldError CSldCustomList::QuickSortSearchVector(const Int32 aFirstIndex, const I
 *								  1 первая строка больше второй, 
 *								 -1 первая строка меньше второй
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::CompareWords(const UInt16* aFirstWord, const UInt16* aSecondWord, Int32* aResult)
 {
@@ -2511,8 +2511,8 @@ ESldError CSldCustomList::CompareWords(const UInt16* aFirstWord, const UInt16* a
 /** *********************************************************************
 * Ищет максимально похожее слово с помощью GetWordBySortedText() в базовом списке слов
 *
-* @param[in]	aText			- искомое слово
-* @param[out]	aResultFlag		- Флаг результата
+* @param[in]	aText			- search word
+* @param[out]	aResultFlag		- Result flag
 *								0 - найти слово не удалось
 *								1 - мы нашли само слово
 *								2 - мы нашли альтернативный заголовок слова (запрос и Show-вариант не совпадают)
@@ -2521,7 +2521,7 @@ ESldError CSldCustomList::CompareWords(const UInt16* aFirstWord, const UInt16* a
 *								1 - в случае неудачи подмотаться к максимально похожему слову в корне списка
 *								2 - в случае неудачи подмотаться к слову, которое больше или равно заданному
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetWordByTextInRealList(const UInt16* aText, UInt32* aResultFlag, UInt32 aActionsOnFailFlag)
 {
@@ -2613,7 +2613,7 @@ ESldError CSldCustomList::GetWordByTextInRealList(const UInt16* aText, UInt32* a
 * @param[in]	aWordIndex		- индекс слова
 * @param[out]	aSubWordsCount	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetSubWordsCount(const Int32 aWordIndex, UInt32* aSubWordsCount)
 {
@@ -2642,7 +2642,7 @@ ESldError CSldCustomList::GetSubWordsCount(const Int32 aWordIndex, UInt32* aSubW
 * @param[out]	aUncoverFlag	- указатель, по которому будет записано текущее состояние связанных с записью слов
 *								  получение этих индексов предполагает их последующее использование, поэтому состояние списка меняется
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetSubWords(const Int32 aWordIndex, const CSldVector<TSldWordIndexes> ** aSubWordsIndexes, ESubwordsState* aUncoverFlag)
 {
@@ -2673,7 +2673,7 @@ ESldError CSldCustomList::GetSubWords(const Int32 aWordIndex, const CSldVector<T
 * @param[in]	aWordIndex	- индекс слова
 * @param[out]	aWordState	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::CheckSubwordsState(const Int32 aWordIndex, ESubwordsState* aWordState)
 {
@@ -2706,7 +2706,7 @@ ESldError CSldCustomList::CheckSubwordsState(const Int32 aWordIndex, ESubwordsSt
 * @param[in]	aWordIndex	- индекс слова
 * @param[out]	aWordState	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::ChengeSubwordsState(const Int32 aWordIndex, ESubwordsState* aWordState)
 {
@@ -2744,7 +2744,7 @@ ESldError CSldCustomList::ChengeSubwordsState(const Int32 aWordIndex, ESubwordsS
 *
 * @param[out]	aLabel			- указатель на буфер для указателя на слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetCurrentWordLabel(UInt16** aLabel)
 {
@@ -2764,7 +2764,7 @@ ESldError CSldCustomList::GetSceneIndex(Int32* aSceneIndex)
 /** *********************************************************************
 * Объединяет все записи для вспомогательных листов, относящиеся к одному заголовку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GroupWordsByHeadwords()
 {
@@ -2835,7 +2835,7 @@ ESldError CSldCustomList::GroupWordsByHeadwords()
 * @param[in]	aWordIndex              - индекс слова
 * @param[out]	aUncoveredWordsCount	- указатель, по которому будет записан результат
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetUncoveredWordsCount(const Int32 aWordIndex, UInt32* aUncoveredWordsCount)
 {
@@ -2872,9 +2872,9 @@ ESldError CSldCustomList::GetUncoveredWordsCount(const Int32 aWordIndex, UInt32*
 * @param[in]	aWordIndex			- глобальный номер слова
 * @param[in]	aTrnslationIndex	- номер индексов которые мы хотим получить (можно получить через GetNumberOfTranslations() для списков типа IsFullTextSearchList())
 * @param[out]	aRealListIndex		- указатель на переменную, в которую сохраняется индекс списка
-* @param[out]	aGlobalWordIndex	- указатель на переменную, в которую сохраняется глобальный номер слова
+* @param[out]	aGlobalWordIndex	- a pointer to a variable that stores the global word number
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetRealIndexes(Int32 aWordIndex, Int32 aTrnslationIndex, Int32* aRealListIndex, Int32* aGlobalWordIndex)
 {
@@ -2896,7 +2896,7 @@ ESldError CSldCustomList::GetRealIndexes(Int32 aWordIndex, Int32 aTrnslationInde
 * @param[in]	aWordLists		- массив указателей на все списки слов в словаре
 * @param[in]	aNumberOfLists	- количество списков в словаре
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SetRealLists(ISldList** aWordLists, const UInt32 aNumberOfLists)
 {
@@ -2908,7 +2908,7 @@ ESldError CSldCustomList::SetRealLists(ISldList** aWordLists, const UInt32 aNumb
 *
 * @param[in]	aWordIndexes	- соритрованный вектор с индексами
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SortByVector(const CSldVector<Int32> & aWordIndexes)
 {
@@ -2921,7 +2921,7 @@ ESldError CSldCustomList::SortByVector(const CSldVector<Int32> & aWordIndexes)
 *
 * @param[out]	aNumberOfLocalization	- количество локализаций
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetNumberOfLocalization(Int32 & aNumberOfLocalization)
 {
@@ -2933,7 +2933,7 @@ ESldError CSldCustomList::GetNumberOfLocalization(Int32 & aNumberOfLocalization)
 *
 * @param[in]	aIndex	- номер локализации, которую нужно установить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::SetLocalizationByIndex(const Int32 aIndex)
 {
@@ -2947,7 +2947,7 @@ ESldError CSldCustomList::SetLocalizationByIndex(const Int32 aIndex)
 * @param[out]	aLocalizationCode	- код языка локализации
 * @param[out]	aLocalizationName	- строчка с названием локализации
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetLocalizationInfoByIndex(const Int32 aIndex, UInt32 & aLocalizationCode, SldU16String & aLocalizationName)
 {
@@ -2959,7 +2959,7 @@ ESldError CSldCustomList::GetLocalizationInfoByIndex(const Int32 aIndex, UInt32 
 *
 * @param[out]	aIndex		- номер текущей локализации
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetCurrentLocalizationIndex(Int32 & aIndex)
 {
@@ -2972,7 +2972,7 @@ ESldError CSldCustomList::GetCurrentLocalizationIndex(Int32 & aIndex)
 * @param[in]	aGlobalIndex	- номер слова в списке слияния
 * @param[out]	aDictIndexes	- вектор с индексами словаря
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldCustomList::GetDictionaryIndexesByGlobalIndex(const Int32 aGlobalIndex, CSldVector<Int32> & aDictIndexes)
 {

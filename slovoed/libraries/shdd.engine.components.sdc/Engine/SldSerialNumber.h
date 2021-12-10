@@ -4,16 +4,16 @@
 #include "SldTypes.h"
 #include "SldSDCReadMy.h"
 
-/// Класс работы со строками.
+// Класс работы со строками.
 class CSldSerialNumber
 {
 public:
 
-	/// Сравнение 2 строк с учетом регистра
+	// Сравнение 2 строк с учетом регистра
 	static ESldError ParseSerialNumber(const UInt16 *aSerialNumber,
 		UInt16 *aPlatformID, UInt32 *aDictID, UInt32 *aNumber, UInt32 *aHASH, UInt32 *aDate, UInt32 *aIsBundle);
 
-	/// Расчитывает CRC для одного символа.
+	// Расчитывает CRC для одного символа.
 	static UInt32 QuasiCRC32(UInt32 n);
 private:
 

@@ -175,7 +175,7 @@ DEFINE_OP_CMP2(>=)
 
 } // namespace sld2
 
-/// двухбайтовая ссылка на строчку
+// двухбайтовая ссылка на строчку
 using SldU16StringRef = sld2::BasicStringRef<UInt16>;
 
 // UTF-16 string reference literal macro

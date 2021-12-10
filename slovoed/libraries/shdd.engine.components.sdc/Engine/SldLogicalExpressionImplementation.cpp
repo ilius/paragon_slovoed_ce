@@ -2,14 +2,14 @@
 
 #include "SldSearchList.h"
 
-/// Конструктор
+// Constructor
 CWildCardSearchImplementation::CWildCardSearchImplementation(void)
 	: m_SearchList(nullptr), m_RealList(nullptr),
 	  m_MaximumNumberOfWordsInRealList(0), m_RealListIndex(0)
 {}
 
 /** *********************************************************************
-* Инициализация
+* Initialization
 *
 * @param[in]	aSearchList						- указатель на список, куда будут помещаться результаты
 * @param[in]	aRealList						- указатель на список, в котором производится поиск
@@ -55,14 +55,14 @@ CSldSimpleSearchWordResult* CWildCardSearchImplementation::CalculateResult(CSldL
 	return result;
 };
 
-/// Конструктор
+// Constructor
 CFullTextSearchImplementation::CFullTextSearchImplementation(void)
 	: m_SearchList(nullptr), m_RealLists(nullptr), m_RealListCount(0),
 	  m_RealListIndex(0), m_MaximumWords(0)
 {}
 
 /** *********************************************************************
-* Инициализация
+* Initialization
 *
 * @param[in]	aSearchList		- указатель на список, куда будут помещаться результаты
 * @param[in]	aRealLists		- указатель на массив списков словаря

@@ -104,7 +104,7 @@ ESldError CSldDictionaryHelper::GetExternalBaseName(Int32 aListIndex, SldU16Word
 * @param[in]	aLocalIndex		- индекс слова, для которого мы хотим получить информацию
 * @param[out]	aRefs			- структура с информацией о внешних ресурсах
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::GetExternReference(Int32 aLocalIndex, TExternReference* aRefs)
 {
@@ -240,7 +240,7 @@ ESldError CSldDictionaryHelper::GetExternReference(Int32 aLocalIndex, TExternRef
 *											  текущий установленный список в ядре не меняется
 *											  в случае неудачного поиска возвращает индекс пустого кастомного списка
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::SearchByAuxiliarySearchList(const UInt16* aWord, const UInt32 aLangCode, const UInt32 aLocalizationCode, const UInt32 aUnlockedCategoriesCount, Int32 & aResultListIndex)
 {
@@ -491,7 +491,7 @@ ESldError CSldDictionaryHelper::AddCustomList(const Int32 aListIndex, CSldCustom
 * @param[out]	aListControl		- контрол созданного пользовательского списка
 * @param[out]	aResult				- результат выполнения функции
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::SearchByDictionaryForSearchList(const UInt16* aWord, MorphoDataType* aMorpho, CSldCustomListControl & aListControl, EDictionaryForSearchResultType & aResult)
 {
@@ -671,7 +671,7 @@ ESldError AddVariantProperties(const CSldListInfo* aListInfo, CSldCustomListCont
 *									  в случае неудачного поиска возвращает индекс пустого кастомного списка
 *									  текущий установленный список в ядре не меняется
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::AdvancedHeadwordSearch(const UInt16* aRequest, const UInt32 aLangCode, MorphoDataType* aMorpho, Int32 & aResultListIndex)
 {
@@ -1103,7 +1103,7 @@ Int32 CSldDictionaryHelper::GetIndexFromSimpleSortedList(const Int32 aListIndex,
 *									  в случае неудачного поиска возвращает индекс пустого кастомного списка
 *									  текущий установленный список в ядре не меняется
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::CollocationsSearch(const UInt16* aRequest, const UInt32 aLangCode, MorphoDataType* aMorpho, CSldCustomListControl & aListControl, Int32 & aResultListIndex)
 {
@@ -1330,7 +1330,7 @@ ESldError CSldDictionaryHelper::CollocationsSearch(const UInt16* aRequest, const
 * @param[out]	aAlphabet			- вектор с алфавитом, содержащий пары вида
 *									  символ в верхнем регистре - глобальный индекс слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::GetAlphabet(const Int32 aListIndex, CSldVector<TSldPair<UInt16, Int32>> & aAlphabet)
 {
@@ -1435,7 +1435,7 @@ ESldError AddWordForMorphoTips(const Int32 aListIndex, const Int32 aGlobalIndex,
 	return eOK;
 }
 
-/// @todo заменить на лямбду, если в ядре появится std::function
+// @todo заменить на лямбду, если в ядре появится std::function
 ESldError RecursiveCheckPhraseForMorphoTips(CSldDictionary& aDictionary, const Int32 aListIndex, const UInt32 aIndex, const UInt16* aOriginalWord,
 	const CSldVector<CSldVector<TSldMorphologyWordStruct>>& aFraseBaseForms, SldU16String& aStringBuffer, CSldVector<Int32>& aWordSetBuffer, const Int32 aMaxSearchBound, CSldVector<Int32>& aMorphoTipsIndexes)
 {
@@ -1478,7 +1478,7 @@ ESldError RecursiveCheckPhraseForMorphoTips(CSldDictionary& aDictionary, const I
 * @param[in]	aOnlyRoot			- флаг, определяющий на каком уровне искать морфо-подсказки
 *									  true - только в корне списка, false - по всему списку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::GetMorphoTips(const Int32 aListIndex, const UInt16* aWord, MorphoDataType* aMorpho, CSldVector<Int32> & aMorphoTipsIndexes, const bool aOnlyRoot)
 {
@@ -1583,7 +1583,7 @@ ESldError CSldDictionaryHelper::GetMorphoTips(const Int32 aListIndex, const UInt
 * @param[in]	aOnlyRoot	- флаг, определяющий на каком уровне искать записи
 *							  true - только в корне списка, false - по всему списку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::GetCrossReference(const ESldLanguage aLangCode, const SldU16String & aWord, MorphoDataType* aMorpho, SldWordsCollection& aRefs, const bool aOnlyRoot)
 {
@@ -1715,7 +1715,7 @@ ESldError CSldDictionaryHelper::GetMaxSearchBound(const Int32 aListIndex, const 
 * @param[in]	currentListControl	- Указатель на структуру управления кастомным списком.
 *									  nullptr - в случае, когда список в котором нужно выполнить свайп не является кастомным
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::Swipe(Int32 aDirection, ESwipingMode aSwipingMode,
 	CSldCustomListControl* currentListControl)
@@ -1936,7 +1936,7 @@ ESldError CSldDictionaryHelper::Swipe(Int32 aDirection, ESwipingMode aSwipingMod
 * @param[in]	aDirection			- Знаковое число, по которому определяется направление свайпа aDirection/abs(aDirection)
 * @param[in]	aSwipingMode		- Режим свайпа
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::Swipe(Int32 aDirection, ESwipingMode aSwipingMode)
 {
@@ -2139,7 +2139,7 @@ ESldError CSldDictionaryHelper::Swipe(Int32 aDirection, ESwipingMode aSwipingMod
 * @param[in]	aMorphos	- указатели на морфологические базы
 * @param[out]	aRefs		- контейнер с найденными словами результатами
 * @param[in] aUseBuiltInMorpho - флаг, включающий использование встроенной морфологии
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::GetWordReference(SldU16StringRef aPhrase, const CSldVector<MorphoDataType*>& aMorphos, CSldVector<TWordRefInfo>& aRefs, UInt8 aUseBuiltInMorpho/* = 0*/)
 {
@@ -2186,7 +2186,7 @@ ESldError CSldDictionaryHelper::GetWordReference(SldU16StringRef aPhrase, const 
 * @param[out]	aRefs		- контейнер с найденными словами результатами
 * @param[in]	aListIndex	- индекс списка, в котором ищутся записи, по умолчанию в текущем
 * @param[in] aUseBuiltInMorpho - флаг, включающий использование встроенной морфологии
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::GetWordReferenceInList(SldU16StringRef aPhrase, const CSldVector<MorphoDataType*>& aMorphos, CSldVector<TWordRefInfo>& aRefs, Int32 aListIndex /*= SLD_DEFAULT_LIST_INDEX*/, UInt8 aUseBuiltInMorpho/* = 0*/)
 {
@@ -2241,7 +2241,7 @@ ESldError CSldDictionaryHelper::GetWordReferenceInList(SldU16StringRef aPhrase, 
 * @param[out]	aRefs		- контейнер с найденными индексами слов
 * @param[in]	aQuery	- запрос, слова которого ищутся во фразу
 * @param[in] aUseBuiltInMorpho - флаг, включающий использование встроенной морфологии
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::GetWordReferenceInQuery(SldU16StringRef aPhrase, const CSldVector<MorphoDataType*>& aMorphos, CSldVector<UInt32>& aRefs, SldU16StringRef aQuery, UInt8 aUseBuiltInMorpho/* = 0*/) const
 {
@@ -2382,7 +2382,7 @@ ESldError CSldDictionaryHelper::GetWordReferenceInQuery(SldU16StringRef aPhrase,
 * @param[in]	aPhrase		- фраза
 * @param[in]	aWords		- индексы слов во фразе
 * @param[out]	aRefs	- диапазоны слов во фразе
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::GetWordsPositionsInPhraseIncludingWhitespaces(SldU16StringRef aPhrase, const CSldVector<UInt32>& aWords, CSldVector<TWordRefInfo>& aRefs)
 {
@@ -2495,7 +2495,7 @@ CSldVector<Int32> CSldDictionaryHelper::GetListIndexes(const EWordListTypeEnum a
 * @param[in]	aMorphos	- указатели на морфологические базы
 * @param[out]	aHighlightData	- диапазоны фразы и слов из запроса
 * @param[in] aUseBuiltInMorpho - флаг, включающий использование встроенной морфологии
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldDictionaryHelper::GetQueryHighlightData(SldU16StringRef aText, SldU16StringRef aPhrase, SldU16StringRef aQuery, SldU16StringRef aHeadword, const CSldVector<MorphoDataType*>& aMorphos, CSldVector<UInt32>& aHighlightData, UInt8 aUseBuiltInMorpho/* = 0*/) const
 {

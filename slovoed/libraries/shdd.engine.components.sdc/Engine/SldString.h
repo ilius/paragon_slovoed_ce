@@ -3,8 +3,8 @@
 
 #include "SldStringReference.h"
 
-/// собственная реализация std::string
-/// Максимальный размер символа 4 байта
+// собственная реализация std::string
+// Максимальный размер символа 4 байта
 template <typename Char, typename traits = sld2::char_traits<Char>>
 class CSldString
 {
@@ -18,16 +18,16 @@ public:
 	typedef typename traits::size_type size_type;
 	static SLD_CONSTEXPR_OR_CONST size_type npos = size_type(-1);
 
-	/// стандартный конуструктор
+	// стандартный конуструктор
 	CSldString() : m_String(nullptr), m_Size(0), m_Capacity(0) {}
 
-	/// конуструктор, принимающий строку
+	// конуструктор, принимающий строку
 	CSldString(const value_type* aString) : CSldString()
 	{
 		assign(aString);
 	}
 
-	/// конуструктор, принимающий не null-terminated строку
+	// конуструктор, принимающий не null-terminated строку
 	CSldString(const value_type* aString, size_type aLength) : CSldString()
 	{
 		assign(aString, aLength);
@@ -38,13 +38,13 @@ public:
     assign(aCount, aChar);
   }
 
-	/// конструктор копирования
+	// конструктор копирования
 	CSldString(const CSldString& aString) : CSldString()
 	{
 		assign(aString);
 	}
 
-	/// move конструктор
+	// move конструктор
 	CSldString(CSldString&& aString)
 		: m_String(aString.m_String), m_Size(aString.m_Size), m_Capacity(aString.m_Capacity)
 	{
@@ -53,44 +53,44 @@ public:
 		aString.m_Size = aString.m_Capacity = 0;
 	}
 
-	/// конструктор из string reference
+	// конструктор из string reference
 	explicit CSldString(sld2::BasicStringRef<Char, traits> aString) : CSldString()
 	{
 		assign(aString);
 	}
 
-	/// деструктор
+	// деструктор
 	~CSldString()
 	{
 		if (m_String)
 			sldMemFree(m_String);
 	}
 
-	/// оператор присваивания
+	// оператор присваивания
 	CSldString& operator=(const value_type* aString)
 	{
 		return assign(aString);
 	}
 
-	/// оператор присваивания
+	// оператор присваивания
 	CSldString& operator=(sld2::BasicStringRef<Char, traits> aString)
 	{
 		return assign(aString.data(), aString.length());
 	}
 
-	/// оператор присваивания
+	// оператор присваивания
 	CSldString& operator=(const CSldString& aString)
 	{
 		return assign(aString);
 	}
 
-	/// move оператор присваивания
+	// move оператор присваивания
 	CSldString& operator=(CSldString&& aString)
 	{
 		return assign(sld2::move(aString));
 	}
 
-	/// оператор добавления в конец строки
+	// оператор добавления в конец строки
 	CSldString& operator+=(const CSldString& aString)
 	{
 		return append(aString);
@@ -111,13 +111,13 @@ public:
 		return append(aString);
 	}
 
-	/// очистка строчки (не очищает выделенную память)
+	// очистка строчки (не очищает выделенную память)
 	void clear()
 	{
 		m_Size = 0;
 	}
 
-	/// добавляет новый символ в конец строки
+	// добавляет новый символ в конец строки
 	void push_back(const value_type aNewChar)
 	{
 		MemGrow(1);
@@ -126,13 +126,13 @@ public:
 		m_String[m_Size] = 0;
 	}
 
-	/// удаляет последний символ из строки
+	// удаляет последний символ из строки
 	void pop_back()
 	{
 		m_String[--m_Size] = 0;
 	}
 
-	/// добавление в конец строки
+	// добавление в конец строки
 	CSldString& append(sld2::BasicStringRef<Char, traits> aString)
 	{
 		return append(aString.data(), aString.size());
@@ -160,7 +160,7 @@ public:
     return *this;
   }
 
-	/// присваивание значения
+	// присваивание значения
 	CSldString& assign(const CSldString& aString)
 	{
 		return assign(aString.c_str(), aString.size());
@@ -212,14 +212,14 @@ public:
 		return *this;
 	}
 
-	/// удостоверивается что памяти выделено достаточно для aSize символов
+	// удостоверивается что памяти выделено достаточно для aSize символов
 	void reserve(size_type aSize)
 	{
 		if (aSize >= m_Capacity)
 			reallocate(aSize);
 	}
 
-	/// изменяет размер строки, новые символы (если размер больше текущего) инициализируюся в '\0'
+	// изменяет размер строки, новые символы (если размер больше текущего) инициализируюся в '\0'
 	void resize(size_type aSize)
 	{
 		if (aSize < m_Size)
@@ -234,7 +234,7 @@ public:
 		m_Size = aSize;
 	}
 
-	/// возвращает подстроку
+	// возвращает подстроку
 	CSldString substr(size_type aPos, size_type aCount = npos) const
 	{
 		if (aPos > size())
@@ -244,13 +244,13 @@ public:
 		return CSldString(c_str() + aPos, aCount);
 	}
 
-	/// возвращает константный указатель на строчку
+	// возвращает константный указатель на строчку
 	const value_type* c_str() const
 	{
 		return m_Size ? m_String : (value_type*)&m_Size;
 	}
 
-	/// возвращает указатель на строчку
+	// возвращает указатель на строчку
 	value_type* data()
 	{
 		return m_String;
@@ -261,7 +261,7 @@ public:
     return m_String;
   }
 
-	/// доступ к элементам строки
+	// доступ к элементам строки
 	value_type& operator[](size_type aPos)             { return m_String[aPos]; }
 	const value_type& operator[](size_type aPos) const { return m_String[aPos]; }
 	value_type& front()                                { return m_String[0]; }
@@ -269,7 +269,7 @@ public:
 	value_type& back()                                 { return m_String[m_Size - 1]; }
 	const value_type& back()  const                    { return m_String[m_Size - 1]; }
 
-	/// сравнение строк
+	// сравнение строк
 	Int32 compare(sld2::BasicStringRef<Char, traits> aStr) const
 	{
 		return compare(0, size(), aStr.data(), aStr.size());
@@ -285,24 +285,24 @@ public:
 		return sld2::BasicStringRef<Char, traits>(*this).substr(aPos, aLen).compare(aStr);
 	}
 
-	/// возвращает длинну строки
+	// возвращает длинну строки
 	inline size_type size() const
 	{
 		return m_Size;
 	}
 
-	/// возвращает длинну строки
+	// возвращает длинну строки
 	inline size_type length() const
 	{
 		return m_Size;
 	}
 
-	/// проверяет, пустая ли строка
+	// проверяет, пустая ли строка
 	bool empty() const
 	{
 		return m_Size == 0;
 	}
-	/// возвращает 4-х байтовый хэш строчки
+	// возвращает 4-х байтовый хэш строчки
 	UInt32 hash() const
 	{
 		return sld2::MurmurHash3(m_String, m_Size * sizeof(value_type), 0x736c6432);
@@ -394,7 +394,7 @@ public:
 
 private:
 
-	/// расширяет текущую память, если это необходимо
+	// расширяет текущую память, если это необходимо
 	void MemGrow(size_type aAmount)
 	{
 		const size_type size = m_Size + aAmount;
@@ -410,13 +410,13 @@ private:
 		m_String = sldMemReallocT(m_String, m_Capacity);
 	}
 
-	/// строка
+	// строка
 	value_type *		m_String;
 
-	/// длинна строки (исключая nul-терминатор)
+	// длинна строки (исключая nul-терминатор)
 	size_type			m_Size;
 
-	/// размер доступной памяти (включая nul-терминатор)
+	// размер доступной памяти (включая nul-терминатор)
 	size_type			m_Capacity;
 };
 
@@ -520,7 +520,7 @@ DEFINE_OP_CMP(>=)
 
 #undef DEFINE_OP_CMP
 
-/// двухбайтовая строчка
+// двухбайтовая строчка
 typedef CSldString<UInt16> SldU16String;
 
 #endif

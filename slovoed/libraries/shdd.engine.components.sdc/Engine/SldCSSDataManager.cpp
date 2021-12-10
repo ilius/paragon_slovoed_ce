@@ -369,7 +369,7 @@ static ESldError toString(Context &ctx, const TSldCSSProperty &aProp, SldU16Stri
 
 } // anon namespace
 
-/// Выдает строку css параметров по глобальному индексу блока
+// Выдает строку css параметров по глобальному индексу блока
 ESldError CSldCSSDataManager::GetCSSStyleString(UInt32 aIndex, SldU16String *aString, CSldCSSUrlResolver *aResolver)
 {
 	if (!aString || !aResolver)

@@ -493,7 +493,7 @@ void sld2::html::StyleSerializer::custom(SldU16String &aString)
 {
 	aString.append(U16(" white-space: pre-wrap; word-wrap: break-word; unicode-bidi: embed;"));
 	const auto langCode = style->GetLanguage();
-	/// Направление написания текста: для арабского и иврита - справа налево
+	// Направление написания текста: для арабского и иврита - справа налево
 	if (langCode != SldLanguage::Arabic && langCode != SldLanguage::Hebrew && langCode != SldLanguage::Urdu && langCode != SldLanguage::Farsi)
 		aString.append(U16(" direction: ltr;"));
 	else
@@ -543,7 +543,7 @@ void sld2::html::CreateCSSStyle(SldU16String &aString, const CSldMetadataProxy<e
 	if (aContainer->Colour)
 		b.append(U16(" background-color: "), asColor(aContainer->Colour), U16(";"));
 
-	/// Добавление градиента в стиль
+	// Добавление градиента в стиль
 	if (aContainer->Gradient)
 	{
 		static const SldU16StringRef gradients[] = {
@@ -572,7 +572,7 @@ void sld2::html::CreateCSSStyle(SldU16String &aString, const CSldMetadataProxy<e
 		}
 	}
 
-	/// добавление в стиль обтекания
+	// добавление в стиль обтекания
 	static const SldU16StringRef floats[] = {
 		U16(" float: none;"),
 		U16(" float: left;"),
@@ -596,13 +596,13 @@ void sld2::html::CreateCSSStyle(SldU16String &aString, const CSldMetadataProxy<e
 	if (aContainer->Height.IsValid())
 		b.append(U16(" height: "), aContainer->Height, U16(";"));
 
-	/// добавление всего связанного с фоновым изображением
+	// добавление всего связанного с фоновым изображением
 	if (aContainer->Background != SLD_INDEX_PICTURE_NO)
 	{
 		const SldU16String fileName = aResolver.ResolveImageUrl(aContainer->Background);
 		if (fileName.size())
 		{
-			/// тайлинг для фонового изображения
+			// тайлинг для фонового изображения
 			static const SldU16StringRef tiling[] = {
 				U16(" background-repeat: no-repeat;"),
 				U16(" background-repeat: repeat-x;"),
@@ -1757,7 +1757,7 @@ void addBlock(const CSldMetadataProxy<eMetaSwitchState> &aData, IDataAccess &acc
 				 U16("-state"), switchControl.stateIndex,
 				 U16("' data-control-id='"), id, 
 				 U16("' data-state-id='"), switchControl.stateIndex,
-		/// при нажатии на контрол вызываем скрипт для каждого управляемого этом контролом блока switch
+		// при нажатии на контрол вызываем скрипт для каждого управляемого этом контролом блока switch
 				 U16("' onclick=\"sld2_switchState_onClick('switch-control"), id,
 				 U16("',"), numStates, U16(");"));
 

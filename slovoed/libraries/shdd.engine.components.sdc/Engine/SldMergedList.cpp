@@ -1,11 +1,11 @@
 ﻿#include "SldMergedList.h"
 
 /** *********************************************************************
-* Инициализация
+* Initialization
 *
 * @param[in]	aLists	- вектор указателей на одиночные списки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldIndexesStore::Init(CSldVector<ISldList*> & aLists)
 {
@@ -18,7 +18,7 @@ ESldError CSldIndexesStore::Init(CSldVector<ISldList*> & aLists)
 *
 * @param[in]	aSingleIndexes	- массив одиночных индексов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 void CSldIndexesStore::AddIndex(const Int32 * aSingleIndexes)
 {
@@ -43,7 +43,7 @@ void CSldIndexesStore::AddIndex(const Int32 * aSingleIndexes)
 * @param[in]	aIndex			- запрашиваемый индекс в ядре слияния
 * @param[out]	aSingleIndexes	- массив одиночных индексов
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldIndexesStore::GetIndex(const Int32 aIndex, const Int32 ** aSingleIndexes) const
 {
@@ -64,7 +64,7 @@ ESldError CSldIndexesStore::GetIndex(const Int32 aIndex, const Int32 ** aSingleI
 * @param[in]	aLists			- вектор указателей на одиночные списки
 * @param[in]	aMergedMetaInfo	- дополнительная информация о слиянии
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 CSldMergedList::CSldMergedList(CSldVector<TSldPair<ISldList*, Int32>> & aLists, const TMergedMetaInfo& aMergedMetaInfo) :
 m_CurrentGlobalIndex(0)
@@ -79,13 +79,13 @@ m_CurrentGlobalIndex(0)
 };
 
 /** *********************************************************************
-* Инициализация
+* Initialization
 *
 * @param[out] aWordIndexes	- вектор соответствия локальных и глобальных индексов в словаре
 * @param[in]  aMergedList	- если у нас уже есть полностью инициализированное список слияния
 *							  мы можем воспользоваться им и ускорить загрузку
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::InitMergedList(CSldVector<CSldVector<Int32>> & aWordIndexes, CSldMergedList * aMergedList)
 {
@@ -233,7 +233,7 @@ void FillVector(CSldVector<VectorElement> & aVector, const VectorElement aElemen
 * @param[in]	aEndList			- вектор флагов, закончили ли мы декодировать данный список
 * @param[out]	aIndexes			- вектор булевых значений, активно данное слово или нет
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetMinWordIndexes(const CSldVector<Int32> & aShowVariantIndexes, const CSldVector<Int8> & aEndList, CSldVector<bool> & aIndexes)
 {
@@ -300,7 +300,7 @@ ESldError CSldMergedList::GetMinWordIndexes(const CSldVector<Int32> & aShowVaria
 * @param[in]	aInLocalization	- флаг учета локализации. true - мы запрашиваем индекс с учетом локализации
 *								  false - мы запрашиваем индекс без учета локализации
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetWordByGlobalIndex(Int32 aGlobalIndex, const bool aInLocalization)
 {
@@ -317,7 +317,7 @@ ESldError CSldMergedList::GetWordByGlobalIndex(Int32 aGlobalIndex, const bool aI
 * @param[in]	aVariantIndex	- номер варианта написания для текущего слова.
 * @param[out]	aWord			- указатель на буфер для указателя на слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetCurrentWord(Int32 aVariantIndex, UInt16** aWord)
 {
@@ -350,14 +350,14 @@ ESldError CSldMergedList::GetCurrentWord(Int32 aVariantIndex, UInt16** aWord)
 /** *********************************************************************
 * Возвращает номер статьи по номеру слова и номеру перевода в обычном списке слов
 *
-* @param[in]	aGlobalIndex		- номер слова из списка слов для которого требуется узнать
-*									  количество переводов
+* @param[in]	aGlobalIndex		- the number of the word from the list of words for which you want to know
+*									  the number of translations
 * @param[in]	aTranslationIndex	- номер перевода текущего слова для которого
 *									  хотим получить номер статьи с переводом.
 * @param[out]	aArticleIndex		- указатель на переменную в которую будет
 *									  помещен номер статьи с переводом.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetTranslationIndex(Int32 aGlobalIndex, Int32 aTranslationIndex, Int32* aArticleIndex)
 {
@@ -392,12 +392,12 @@ ESldError CSldMergedList::GetTranslationIndex(Int32 aGlobalIndex, Int32 aTransla
 /** *********************************************************************
 * Возвращает количество переводов у указанного слова.
 *
-* @param[in]	aGlobalIndex		- номер слова из списка слов для которого требуется узнать
-*									  количество переводов
+* @param[in]	aGlobalIndex		- the number of the word from the list of words for which you want to know
+*									  the number of translations
 * @param[out]	aTranslationCount	- указатель на переменную, в которую будет помещено
 *									  количество переводов у последнего декодированного слова.
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetTranslationCount(Int32 aGlobalIndex, Int32* aTranslationCount)
 {
@@ -422,9 +422,9 @@ ESldError CSldMergedList::GetTranslationCount(Int32 aGlobalIndex, Int32* aTransl
 /** *********************************************************************
 * Ищем ближайшее слово, которое больше или равно заданному
 *
-* @param[in]	aText	- искомое слово
+* @param[in]	aText	- search word
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetWordByText(const UInt16* aText)
 {
@@ -465,12 +465,12 @@ ESldError CSldMergedList::GetWordByText(const UInt16* aText)
 * Работает в несортированных списках, для сортированных по сорткею списках
 * ищет по Show-варианту(начиная с баз версии 112+)
 *
-* @param[in]	aText		- искомое слово
-* @param[out]	aResultFlag	- Флаг результата
+* @param[in]	aText		- search word
+* @param[out]	aResultFlag	- Result flag
 *							0 - подмотаться не удалось
 *							1 - мы подмотались к заданному слову
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetWordBySortedText(const UInt16* aText, UInt32* aResultFlag)
 {
@@ -484,7 +484,7 @@ ESldError CSldMergedList::GetWordBySortedText(const UInt16* aText, UInt32* aResu
 /** *********************************************************************
 * Ищет точное вхождение слова в Show-вариантах и альтернативных заголовках
 *
-* @param[in]	aText		- искомое слово
+* @param[in]	aText		- search word
 * @param[out]	aResult		- сюда сохраняется флаг результата:
 *							  0 - точное совпадение не найдено
 *							  1 - точное совпадение найдено
@@ -492,7 +492,7 @@ ESldError CSldMergedList::GetWordBySortedText(const UInt16* aText, UInt32* aResu
 *							  Если в списке нет совпадающих по массе show-вариантов, а альтернативный заголовок
 *							  по массе совпал, так же вернется это значение
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::FindBinaryMatch(const UInt16* aText, UInt32* aResult)
 {
@@ -504,7 +504,7 @@ ESldError CSldMergedList::FindBinaryMatch(const UInt16* aText, UInt32* aResult)
 *
 * @param[out]	aSoundIndexes	- вектор с индексами озвучки для текущего слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetSoundIndex(CSldVector<Int32> & aSoundIndexes)
 {
@@ -539,7 +539,7 @@ ESldError CSldMergedList::GetSoundIndex(CSldVector<Int32> & aSoundIndexes)
 *
 * @param[out]	aPictureIndexes	- вектор индексов изображений для текущего слова
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetPictureIndex(CSldVector<Int32> & aPictureIndexes)
 {
@@ -572,7 +572,7 @@ ESldError CSldMergedList::GetPictureIndex(CSldVector<Int32> & aPictureIndexes)
 /** *********************************************************************
 * Получает следующее сортированное слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetNextSortedWord()
 {
@@ -589,7 +589,7 @@ ESldError CSldMergedList::GetNextSortedWord()
 * @param[out]	aListInfo	- указатель на переменную, в которую будет возвращен указатель
 * @param[in]	aDictIndex	- индекс словаря в ядре слияния, имеет дефолтное значение SLD_DEFAULT_DICTIONARY_INDEX
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetWordListInfo(const CSldListInfo** aListInfo, Int32 aDictIndex) const
 {
@@ -608,7 +608,7 @@ ESldError CSldMergedList::GetWordListInfo(const CSldListInfo** aListInfo, Int32 
 	return eMergeWrongDictionaryIndex;
 }
 
-/// Возвращает индекс слова из одиночного словаря по смерженому индексу
+// Возвращает индекс слова из одиночного словаря по смерженому индексу
 ESldError CSldMergedList::GetSingleIndex(Int32 aMergedIndex, Int32 aTranslationIndex, Int32 & aSingleIndex)
 {
 	const Int32 * indexes = NULL;
@@ -641,7 +641,7 @@ ESldError CSldMergedList::GetSingleIndex(Int32 aMergedIndex, Int32 aTranslationI
 *													или список закончился
 *													1 - мы смогли получить следующее слово
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetNextRealSortedWord(Int8* aResult)
 {
@@ -664,7 +664,7 @@ ESldError CSldMergedList::GetNextRealSortedWord(Int8* aResult)
 * @param[in]	aGlobalIndex	- номер слова в списке слияния
 * @param[out]	aDictIndexes	- вектор с индексами словаря
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldMergedList::GetDictionaryIndexesByGlobalIndex(const Int32 aGlobalIndex, CSldVector<Int32> & aDictIndexes)
 {

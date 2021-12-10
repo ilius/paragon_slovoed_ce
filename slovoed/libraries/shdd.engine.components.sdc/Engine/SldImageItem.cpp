@@ -98,7 +98,7 @@ void CSldImageItem::SetPictureIndex(const UInt32 aiPictureIndex)
 *
 * @param[in] asPictureIndex	- идентификатор изображения в виде строки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageItem::SetPictureIndex(const UInt16 *const asPictureIndex)
 {
@@ -120,7 +120,7 @@ const UInt16* CSldImageItem::GetExtDict() const
 *
 * @param[in] asExtDictId	- идентификатор внешнего словаря в виде строки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageItem::SetExtDict(const UInt16 *const asExtDictId)
 {
@@ -152,7 +152,7 @@ void CSldImageItem::SetExtListIdx(const Int32 aiExtListIdx)
 *
 * @param[in] asExtListIdx	- идентификатор списка во внешнем словаре в виде строки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageItem::SetExtListIdx(const UInt16 *const asExtListIdx)
 {
@@ -174,7 +174,7 @@ const UInt16 *CSldImageItem::GetExtKey() const
 *
 * @param[in] asExtKey	- ключ (слово) в списке внешнего словаря
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageItem::SetExtKey(const UInt16 *const asExtKey)
 {
@@ -206,7 +206,7 @@ void CSldImageItem::SetShowWidth(const TSizeValue aiShowWidth)
 *
 * @param[in] asShowWidth	- желаемая ширина изображения при его отображении в виде строки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageItem::SetShowWidth(const UInt16 *const asShowWidth)
 {
@@ -242,7 +242,7 @@ void CSldImageItem::SetShowHeight(const TSizeValue aiShowHeight)
 *
 * @param[in] asiShowHeight	- изображения при его отображении в виде строки
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageItem::SetShowHeight(const UInt16 *const asiShowHeight)
 {
@@ -301,7 +301,7 @@ bool CSldImageItem::GetSystemFlag() const
 * @param[in] asDst	- указатель на строку, на место которой надо поместить новую строчку
 * @param[in] asSrc	- строчка, которую необходимо сохранить
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldImageItem::ReplaceString(UInt16 **const asDst, const UInt16 *const asSrc)
 {

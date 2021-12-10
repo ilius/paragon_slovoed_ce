@@ -1,17 +1,17 @@
 ﻿#include "SDC_CRC.h"
 
-/** 
-Вычисляет контрольную сумму блока данных.
+/*
+Calculates the checksum of a data block.
 
-В качестве основного полинома можно использовать следующие
-числа: 0x04C11DB7 / 0xEDB88320 / 0x82608EDB
-Чаще всего используется 0xEDB88320.
+The following can be used as the base polynomial
+numbers: 0x04C11DB7 / 0xEDB88320 / 0x82608EDB
+The most commonly used is 0xEDB88320.
 
-@param buf - указатель на буффер с данными для вычисления CRC32
-@param size - размер данных для вычисления CRC32
-@param start_value - начальное значение(результат предыдущего 
-вызова данной функции). При первом вызове должно быть 0xFFFFFFFFUL.
-@param inverse_flag - флаг, инвертировать биты в crc в конце вычисления или нет 
+@param buf - pointer to a buffer with data for calculating CRC32
+@param size - data size for CRC32 calculation
+@param start_value - the initial value (the result of the previous
+calling this function). The first call should be 0xFFFFFFFFUL.
+@param inverse_flag - flag whether to invert bits in crc at the end of calculation or not
 */
 UInt32 CRC32(const UInt8 *buf, UInt32 size, UInt32 start_value, bool inverse_flag)
 {

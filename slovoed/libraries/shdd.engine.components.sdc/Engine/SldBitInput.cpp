@@ -8,7 +8,7 @@
 * @param[in]	aBlockSize	- размер нарезки ресурсов(нужно для вычисления нужного 
 *							  ресурса по позиции)
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldBitInput::Init(CSDCReadMy &aData, UInt32 aDataType, UInt32 aBlockSize)
 {
@@ -28,7 +28,7 @@ ESldError CSldBitInput::Init(CSDCReadMy &aData, UInt32 aDataType, UInt32 aBlockS
 *
 * @param[out]	aBit	- указатель на переменную куда будет помещен этот самый 1 бит
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldBitInput::GetBit(UInt32 *aBit)
 {
@@ -62,7 +62,7 @@ ESldError CSldBitInput::GetBit(UInt32 *aBit)
 * @param[out]	aDataBuffer	- 
 * @param[in]	aDataSize	- 
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldBitInput::GetData(UInt32 *aDataBuffer, UInt32 aDataSize)
 {
@@ -113,7 +113,7 @@ ESldError CSldBitInput::GetData(UInt32 *aDataBuffer, UInt32 aDataSize)
 *
 * @param[in]	aPosition	- новая позиция чтения в БИТАХ
 *
-* @return код ошибки
+* @return error code
 ************************************************************************/
 ESldError CSldBitInput::GoTo(UInt32 aPosition)
 {

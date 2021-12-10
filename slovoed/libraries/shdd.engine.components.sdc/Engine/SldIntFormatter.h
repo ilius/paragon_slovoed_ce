@@ -111,7 +111,7 @@ private:
 
 } // namespace fmt
 
-/// формaттер с буфером на 32 символа
+// формaттер с буфером на 32 символа
 class IntFormatter : public fmt::FormatterBase<32> {};
 
 } // namespace sld2

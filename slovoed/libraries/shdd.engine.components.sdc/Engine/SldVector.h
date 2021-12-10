@@ -4,7 +4,7 @@
 #include "SldPlatform.h"
 #include "SldUtil.h"
 
-/// собственная реализация std::vector
+// собственная реализация std::vector
 template <typename VectorElement>
 class CSldVector
 {

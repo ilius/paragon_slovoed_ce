@@ -7,131 +7,133 @@
 #include "SldTypes.h"
 #include "SldSDCReadMy.h"
 #include "SldSymbolsTable.h"
-// TODO: избавиться от разного уровня вложений в include
+// TODO: get rid of different levels of nesting in include
 //#include "../DataReader.h"
 
-/// Максимальная длина строки со значением параметра
+// Maximum length of a string with a parameter value
 static const UInt32 MetaParamMaxValSize = 1024;
 
-/// Таблица сравнения разобранная на основные части
+// Comparison table disassembled into main parts
 typedef struct TCompareTableSplit
 {
-	/// Указатель на заголовок таблицы сравнения
+	// Pointer to the header of the comparison table
 	CMPHeaderType									*Header;
 
-	/// Указатель на массив весов простых символов(одна масса на один символ)
+	// Pointer to array of weights of simple characters (one weight per character)
 	CMPSimpleType									*Simple;
 
-	/// Указатель на массив сложных символов
+	// Pointer to an array of complex characters
 	CMPComplexType									*Complex;
 
-	/// Указатель на массив символов разделителей
+	// Pointer to a delimiter character array
 	CMPDelimiterType								*Delimiter;
 
-	/// Указатель на массив родных символов языка
+	// Pointer to an array of native characters of the language
 	CMPNativeType									*Native;
 
-	/// Указатель на массив частичных разделителей
+	// Pointer to array of partial delimiters
 	CMPHalfDelimiterType							*HalfDelimiter;
 
-	/// Указатель на заголовок таблицы соответствия символов в верхнем и нижнем регистрах
+	// Pointer to the header of the uppercase / lowercase mapping table
 	CMPSymbolPairTableHeader						*HeaderPairSymbols;
 
-	/// Указатель на массив пар соответствий символов в верхнем и нижнем регистрах для данного языка
+	// Pointer to an array of uppercase / lowercase match pairs for the given language
 	CMPSymbolPair									*NativePair;
 
-	/// Указатель на массив пар соответствий символов в верхнем и нижнем регистрах для всех символов, которые мы знаем
+	// Pointer to an array of uppercase and lowercase character pairs for all
+	// the characters we know
 	CMPSymbolPair									*CommonPair;
 
-	/// Указатель на массив пар соответствий символов в верхнем и нижнем регистрах для символов, встречающихся в списках слов данного словаря
+	// Pointer to an array of uppercase and lowercase character pairs for
+	// characters that appear in the wordlists of this dictionary
 	CMPSymbolPair									*DictionaryPair;
 
-	/// Таблица масс символов
+	// Character mass table
 	sld2::Array<UInt16, MAX_UINT16_VALUE>			SimpleMassTable;
 
-	/// Таблица свойств наиболее часто используемых символов
+	// Properties table for the most commonly used symbols
 	sld2::Array<UInt8, CMP_MOST_USAGE_SYMBOL_RANGE>	MostUsageCharTable;
 
-	/// Массив символов, сортированных по массе
+	// Array of characters sorted by mass
 	sld2::DynArray<Int16>							SortedMass;
 
-	/// Размер всей таблицы
+	// Size of the whole table
 	UInt32											TableSize;
 }TCompareTableSplit;
 
-/// Маска для флага - определяет что это - вес символа или индекс таблицы сложных символов.
+// Flag mask - defines what it is - the weight of the symbol or the index of the complex symbol table.
 #define CMP_MASK_OF_INDEX_FLAG		(0x8000)
-/// Маска для индекса - в случае, если это индекс, убирает флаг, оставляя чистый индекс.
+// Index mask - in case it is an index, removes the flag, leaving a clean index.
 #define CMP_MASK_OF_INDEX			(0x7fff)
-/// Идентификатор символа игнорирования.
+// Ignore character identifier.
 #define CMP_IGNORE_SYMBOL			(0)
-/// Идентификатор символа который не найден.
+// The identifier of the symbol that was not found.
 #define CMP_NOT_FOUND_SYMBOL		(0xffff)
 
-/// Код символа-разделителя в списке слов(используется в китайском).
+// The code of the delimiter character in the wordlist (used in Chinese).
 #define CMP_DELIMITER				(9)
 
-/// Символ по умолчанию для замены тех символов которые не найдены.
+// The default character to replace those characters that are not found.
 #define CMP_DEFAULT_CHAR			(0x98)
 
-/// Масса символа для нулевых символов(в GetStrOfMass())
+// Character mass for null characters (in GetStrOfMass ())
 #define CMP_MASS_ZERO				(0x7A00)
-/// Масса символа для разделителей(в GetStrOfMass())
+// Character mass for delimiters (in GetStrOfMass ())
 #define CMP_MASS_DELIMITER			(0x7A01)
-/// Виртуальная масса нуля
+// Virtual zero mass
 #define CMP_MASS_ZERO_DIGIT			(0x7A10)
 
-/// Символ для экранирования спец. символов в поисковом запросе
+// Character for escaping spec. characters in the search query
 #define CMP_QUERY_SPECIAL_SYMBOL_ESCAPE_CHAR	'%'
-/// Спец. символ в поисковом запросе - операция И
+// Specialist. the character in the search query is the AND operation
 #define CMP_QUERY_SPECIAL_SYMBOL_AND			'&'
-/// Спец. символ в поисковом запросе - операция ИЛИ
+// Specialist. a character in a search query is an OR operation
 #define CMP_QUERY_SPECIAL_SYMBOL_OR				'|'
-/// Спец. символ в поисковом запросе - операция НЕ
+// Specialist. character in a search query - NOT operation
 #define CMP_QUERY_SPECIAL_SYMBOL_NOT			'!'
-/// Спец. символ в поисковом запросе - открывающая скобка
+// Specialist. the character in the search term is an open parenthesis
 #define CMP_QUERY_SPECIAL_SYMBOL_OPEN_BR		'('
-/// Спец. символ в поисковом запросе - закрывающая скобка
+// Specialist. a character in a search term is a closing parenthesis
 #define CMP_QUERY_SPECIAL_SYMBOL_CLOSE_BR		')'
-/// Спец. символ в поисковом запросе - последовательность любых символов
+// Specialist. a character in a search query - a sequence of any characters
 #define CMP_QUERY_SPECIAL_SYMBOL_ANY_CHARS		'*'
-/// Спец. символ в строке масс - последовательность любых символов
+// Specialist. character in a string of masses - a sequence of any characters
 #define CMP_MASS_SPECIAL_SYMBOL_ANY_CHARS		(0x7B01)
-/// Спец. символ в поисковом запросе - любой символ
+// Specialist. character in a search query - any character
 #define CMP_QUERY_SPECIAL_SYMBOL_ONE_CHAR		'?'
-/// Спец. символ в строке масс - любой символ
+// Specialist. character in the mass string - any character
 #define CMP_MASS_SPECIAL_SYMBOL_ONE_CHAR		(0x7B02)
 
-/// Версия таблицы сравнения занимающая небольшое место.
+// Small version of the comparison table.
 #define CMP_VERSION_1		1
-/// Версия таблицы сравнения имеющая прямое отображение символов в их веса.
+// A version of the comparison table that has a direct mapping of characters to their weights.
 #define CMP_VERSION_2		2
 
-/// Макрос определения достигнут ли конец строки
+// Macro to determine if the end of a line has been reached
 #define CMP_IS_EOL(header, str)		(*(str)==0 || ((header)->EOL==*(str)))
 
-/// Расчет номера элемента
+// Element number calculation
 #define TIO(X, Y)	X][Y
 
-/// Определение наименьшего из 3 символов
+// Determining the smallest of 3 characters
 #define sldMin3(i1, i2, i3)			( sldMin2((i1), sldMin2((i2), (i3)))  )
-/// Определение наименьшего из 2 символов
+// Determining the smallest of 2 characters
 #define sldMin2(i1, i2)				( (i1)<(i2) ? (i1) : (i2))
 
-/// Проверяет, является ли символ числом
+// Checks if a character is a number
 #define CMP_IS_DIGIT(ch)			( ((ch) > 0x2F) && ((ch) < 0x3A) ? 1 : 0)
-/// Возвращает виртуальную массу символа
+// Returns the virtual mass of a character
 #define CMP_VIRTUAL_DIGIT_MASS(ch)	( CMP_MASS_ZERO_DIGIT + (ch) - 0x30 )
 
-// шаблонные функции по работе со строками
+// template functions for working with strings
 namespace sld2 {
 
 /**
- * Определяет длину строки
+ * Determines the length of a string
  *
- * @param[in]  aStr - указатель на строку
+ * @param[in]  aStr - pointer to string
  *
- * @return длина строки или 0, если передан нулевой указатель на строку
+ * @return the length of the string, or 0 if a null pointer to a string is passed
  */
 template <typename Char>
 UInt32 StrLen(const Char *aStr)
@@ -140,14 +142,14 @@ UInt32 StrLen(const Char *aStr)
 }
 
 /**
- * Бинарное сравнение 2 строк
+ * Binary comparison of 2 strings
  *
- * @param[in]  aStr1 - указатель на первую из сравниваемых строк
- * @param[in]  aStr2 - указатель на вторую из сравниваемых строк
+ * @param[in]  aStr1 - pointer to the first of the compared strings
+ * @param[in]  aStr2 - pointer to the second of the compared strings
  *
- * @return   0 - строки равны
- *          >0 - первая строка больше второй
- *          <0 - первая строка меньше второй
+ * @return   0 - strings are equal
+ *          >0 - the first line is greater than the second
+ *          <0 - the first line is less than the second
  */
 template <typename Char>
 Int32 StrCmp(const Char *aStr1, const Char *aStr2)
@@ -164,15 +166,15 @@ Int32 StrCmp(const Char *aStr1, const Char *aStr2)
 }
 
 /**
- * Сравнение 2 строк с учетом регистра с максимальным количеством сравниваемых символов
+ * Compare 2 strings case sensitive with the maximum number of characters to compare
  *
- * @param[in]  aStr1  - указатель на первую из сравниваемых строк
- * @param[in]  aStr2  - указатель на вторую из сравниваемых строк
- * @param[in]  aCount - максимальное количество символов для сравнения
+ * @param[in]  aStr1  - pointer to the first of the compared strings
+ * @param[in]  aStr2  - pointer to the second of the compared strings
+ * @param[in]  aCount - maximum number of characters to compare
  *
- * @return   0 - строки равны
- *          >0 - первая строка больше второй
- *          <0 - первая строка меньше второй
+ * @return   0 - strings are equal
+ *          >0 - the first line is greater than the second
+ *          <0 - the first line is less than the second
  */
 template <typename Char>
 Int32 StrNCmp(const Char *aStr1, const Char *aStr2, UInt32 aCount)
@@ -192,10 +194,10 @@ Int32 StrNCmp(const Char *aStr1, const Char *aStr2, UInt32 aCount)
 }
 
 /**
- * Возвращает равны ли 2 строки
+ * Returns whether 2 strings are equal
  *
- * @param[in]  aStr1 - указатель на первую из сравниваемых строк
- * @param[in]  aStr2 - указатель на вторую из сравниваемых строк
+ * @param[in]  aStr1 - pointer to the first of the compared strings
+ * @param[in]  aStr2 - pointer to the second of the compared strings
  */
 template <typename Char>
 bool StrEqual(const Char *aStr1, const Char *aStr2)
@@ -204,11 +206,11 @@ bool StrEqual(const Char *aStr1, const Char *aStr2)
 }
 
 /**
- * Возвращает равны ли 2 строки
+ * Returns whether 2 strings are equal
  *
- * @param[in]  aStr1  - указатель на первую из сравниваемых строк
- * @param[in]  aStr2  - указатель на вторую из сравниваемых строк
- * @param[in]  aCount - максимальное количество символов для сравнения
+ * @param[in]  aStr1  - pointer to the first of the compared strings
+ * @param[in]  aStr2  - pointer to the second of the compared strings
+ * @param[in]  aCount - maximum number of characters to compare
  */
 template <typename Char>
 bool StrEqual(const Char *aStr1, const Char *aStr2, UInt32 aCount)
@@ -217,12 +219,12 @@ bool StrEqual(const Char *aStr1, const Char *aStr2, UInt32 aCount)
 }
 
 /**
- * Копирует строку
+ * Copies a string
  *
- * @param[out]  aDest   - указатель на буфер, куда будем копировать
- * @param[in]   aSource - указатель на строку, которую будем копировать
+ * @param[out]  aDest   - pointer to the buffer where we will copy
+ * @param[in]   aSource - pointer to the string to be copied
  *
- * @return количество скопированных символов (исключая nul-terminator)
+ * @return number of characters copied (excluding null-terminator)
  */
 template <typename Char>
 UInt32 StrCopy(Char* aDest, const Char* aSource)
@@ -239,13 +241,13 @@ UInt32 StrCopy(Char* aDest, const Char* aSource)
 }
 
 /**
- * Копирует строку длиной с максимальным количеством копируемых символов
+ * Copies a string of length with the maximum number of characters to copy
  *
- * @param[out]  aDest   - указатель на буфер, куда будем копировать
- * @param[in]   aSource - указатель на строку, которую будем копировать
- * @param[in]   aCount  - максимальное количество символов для копирования
+ * @param[out]  aDest   - pointer to the buffer where we will copy
+ * @param[in]   aSource - pointer to the string to be copied
+ * @param[in]   aCount  - maximum number of characters to copy
  *
- * @return количество скопированных символов (исключая nul-terminator)
+ * @return number of characters copied (excluding null-terminator)
  */
 template <typename Char>
 UInt32 StrNCopy(Char* aDest, const Char* aSource, UInt32 aCount)
@@ -263,12 +265,12 @@ UInt32 StrNCopy(Char* aDest, const Char* aSource, UInt32 aCount)
 }
 
 /**
- * Ищет указанный символ в строке
+ * Searches for the specified character in a string
  *
- * @param[in]  aStr - указатель на строку
- * @param[in]  aChr - символ
+ * @param[in]  aStr - pointer to string
+ * @param[in]  aChr - symbol
  *
- * @return если символ найден, тогда указатель на его положение в строке, иначе nullptr
+ * @return if a character is found, then a pointer to its position in the string, otherwise nullptr
  */
 template <typename Char>
 const Char* StrChr(const Char *aStr, Char aChr)
@@ -290,13 +292,14 @@ Char* StrChr(Char *aStr, Char aChr)
 }
 
 /**
- * Ищет указанную подстроку в строке
+ * Searches for the specified substring in a string
  *
- * @param[in]  aSource - строка, в которой происходит поиск
- * @param[in]  aStr    - подстрока, которую ищем
+ * @param[in]  aSource - the string in which the search occurs
+ * @param[in]  aStr    - the substring we are looking for
  *
- * @return  указатель на первое вхождение искомой подстроки в строку, или nullptr,
- *          если подстрока не найдена. Если aStr == nullptr, возвращает aSource
+ * @return  pointer to the first occurrence of the desired substring in the
+ *          string, or nullptr if the substring was not found.
+ *          If aStr == nullptr returns aSource
  */
 template <typename Char>
 const Char* StrStr(const Char *aSource, const Char *const aStr)
@@ -333,10 +336,10 @@ Char* StrStr(Char *aSource, const Char *const aStr)
 }
 
 /**
- * Переворачивает кусок строки на месте (основано на Kernighan & Ritchie's "Ansi C")
+ * Flips a piece of string in place (based on Kernighan & Ritchie's "Ansi C")
  *
- * @param  aBegin - начало переворачиваемого участка
- * @param  aEnd   - конец переворачиваемого участка
+ * @param  aBegin - the beginning of the overturned section
+ * @param  aEnd   - end of the overturned section
  */
 template <typename Char>
 void StrReverse(Char *aBegin, Char *aEnd)
@@ -354,359 +357,372 @@ void StrReverse(Char *aBegin, Char *aEnd)
 
 } // namespace sld2
 
-/// Класс работы со строками.
+// Class for working with strings.
 class CSldCompare
 {
 public:
 
-	/// Конструктор
+	// Constructor
 	CSldCompare(void);
-	
-	/// Конструктор копирования
+
+	// Copy constructor
 	CSldCompare(const CSldCompare& aRef);
-	
-	/// Оператор присваивания
+
+	// Assignment operator
 	CSldCompare& operator=(const CSldCompare& aRef);
-	
-	/// Деструктор
+
+	// Destructor
 	~CSldCompare(void);
-	
+
 public:
-	
-	/// Инициализация
+
+	// Initialization
 	ESldError Open(CSDCReadMy &aData, UInt32 aLanguageSymbolsTableCount, UInt32 aLanguageDelimiterSymbolsTableCount);
-	
-	
-	/// Возвращает количество записей в таблице соответствия символов верхнего и нижнего регистров для текущей таблицы сравнения
+
+
+	// Returns the number of entries in the uppercase and lowercase character
+	// mapping table for the current comparison table
 	Int32 GetSymbolPairTableElementsCount(ESymbolPairTableTypeEnum aSymbolTable) const;
-	
-	/// Возвращает код символа в верхнем регистре по номеру записи и типу таблицы в таблице соответствия символов верхнего и нижнего регистров
-	/// для текущей таблицы сравнения
+
+	// Returns an uppercase character code by record number and table type in
+	// the uppercase and lowercase character mapping table for the current
+	// comparison table
 	UInt16 GetUpperSymbolFromSymbolPairTable(Int32 aIndex, ESymbolPairTableTypeEnum aSymbolTable) const;
-	
-	/// Возвращает код символа в нижнем регистре по номеру записи и типу таблицы в таблице соответствия символов верхнего и нижнего регистров
-	/// для текущей таблицы сравнения
+
+	// Returns the lowercase character code by record number and table type in
+	// the uppercase and lowercase character mapping table for the current
+	// comparison table
 	UInt16 GetLowerSymbolFromSymbolPairTable(Int32 aIndex, ESymbolPairTableTypeEnum aSymbolTable) const;
-	
-	
-	/// Преобразует символ к верхнему регистру
+
+
+	// Converts a character to uppercase
 	UInt16 ToUpperChr(UInt16 aChr) const;
-	
-	/// Преобразует символ к нижнему регистру
+
+	// Converts a character to lowercase
 	UInt16 ToLowerChr(UInt16 aChr) const;
-	
-	/// Преобразует строку к верхнему регистру
+
+	// Converts a string to uppercase
 	ESldError ToUpperStr(const UInt16* aStr, UInt16* aOutStr) const;
-	
-	/// Преобразует строку к нижнему регистру
+
+	// Converts a string to lowercase
 	ESldError ToLowerStr(const UInt16* aStr, UInt16* aOutStr) const;
-	
-	/// Возвращает строку символов, имеющих во всех таблицах сортировки тот же вес, что и переданный символ
+
+	// Returns a string of characters that have the same weight in all
+	// collation tables as the passed character
 	UInt16* GetSimilarMassSymbols(UInt16 aCh) const;
 
-	/// Возвращает строку символов, имеющих в таблице сортировки с заданным индексом тот же вес, что и переданный символ
+	// Returns a string of characters that have the same weight in the
+	// collation table at the given index as the passed character
 	UInt16* GetSimilarMassSymbols(UInt16 aCh, UInt32 aTableIndex) const;
 
-	/// Сравнение 2 строк по таблице сравнения (сравниваются веса символов), с указанием конкретной таблицы.
+	// Comparison of 2 strings according to the comparison table
+	// (character weights are compared), indicating a specific table.
 	Int32 StrICmp(const UInt16 *str1, const UInt16 *str2, UInt32 aTableIndex) const;
 
-	/// Сравнение 2 строк по таблице сравнения (сравниваются веса символов)
+	// Comparison of 2 strings by comparison table (compare weights of characters)
 	Int32 StrICmp(const UInt16 *str1, const UInt16 *str2) const;
 
-	/// Сравнение 2 строк по таблице сравнения (сравниваются веса символов), с указанием конкретной таблицы.
+	// Comparison of 2 strings according to the comparison table
+	// (character weights are compared), indicating a specific table.
 	Int32 StrICmp(SldU16StringRef str1, SldU16StringRef str2, UInt32 aTableIndex) const;
 
-	/// Сравнение 2 строк по таблице сравнения (сравниваются веса символов)
+	// Comparison of 2 strings by comparison table (compare weights of characters)
 	Int32 StrICmp(SldU16StringRef str1, SldU16StringRef str2) const;
 
-	
+
 	Int32 StrICmpByLanguage(const UInt16 *str1, const UInt16 *str2, ESldLanguage aLanguageCode) const;
 
-	/// Бинарное сравнение 2 строк
+	// Binary comparison of 2 strings
 	static Int32 StrCmp(const UInt16 *str1, const UInt16 *str2);
 
-	/// Определяет длину строки
+	// Determines the length of a string
 	static UInt32 StrLen(const UInt16 *aStr);
-	
-	/// Копирует строку
+
+	// Copies a string
 	static UInt32 StrCopy(UInt16* aStrDest, const UInt16* aStrSource);
 
-	/// Возвращает количество символов в строке, имеющих массу
+	// Returns the number of characters in a string that have mass
 	UInt32 StrEffectiveLen(const SldU16StringRef aStrSource, Int8 aEraseNotFoundSymbols = 1) const;
 
-	/// Копирует строку игнорируя символы с нулевой массой
+	// Copies a string ignoring zero mass characters
 	UInt32 StrEffectiveCopy(UInt16* aStrOut, const UInt16* aStrSource, Int8 aEraseNotFoundSymbols = 1) const;
 
-	/// Копирует строку игнорируя символы с нулевой массой
+	// Copies a string ignoring zero mass characters
 	void GetEffectiveString(const UInt16* aStrSource, SldU16String & aEffectiveString, Int8 aEraseNotFoundSymbols = 1) const;
 
-	/// Копирует строку игнорируя символы с нулевой массой
+	// Copies a string ignoring zero mass characters
 	SldU16String GetEffectiveString(const SldU16StringRef aStrSource, Int8 aEraseNotFoundSymbols = 1) const;
 
-	/// Копирует строку, игнорируя разделители в начале и конце строки
+	// Copies a line, ignoring delimiters at the beginning and end of the line
 	SldU16String TrimDelimiters(const SldU16StringRef aStrSource) const;
-	/// Возвращает SldU16StringRef без разделители в начале и конце строки
+	// Returns SldU16StringRef with no separators at the beginning and end of the string
 	SldU16StringRef TrimDelimitersRef(const SldU16StringRef aStrSource) const;
 
-	/// Копирует строку, игнорируя нулевые символы в начале и конце строки
+	// Copies a string, ignoring zero characters at the beginning and end of the string
 	SldU16String TrimIngnores(const SldU16StringRef aStrSource) const;
-	/// Возвращает SldU16StringRef без нулевых символов в начале и конце строки
+	// Returns SldU16StringRef without null characters at the beginning and end of the string
 	SldU16StringRef TrimIngnoresRef(const SldU16StringRef aStrSource) const;
 
-	/// Обмен двух элементов в сортируемом массиве
+	// Swapping two elements in a sorted array
 	static void Swap(UInt16 *aStr, Int32 aFirstIndex, Int32 aSecondIndex);
-	
-	/// Быстрая сортировка
+
+	// Quick sort
 	static void DoQuickSort(UInt16 *aStr, Int32 aFirstIndex, Int32 aLastIndex);
-	
-	/// Сравнение 2 строк с учетом регистра
+
+	// Compare 2 strings case sensitive
 	static Int32 StrCmpA(const UInt8 *str1, const UInt8 *str2);
 
-	/// Определяет длину строки
+	// Determines the length of a string
 	static Int32 StrLenA(const UInt8 *str);
 
-	/// Копирует строку
+	// Copies a string
 	static UInt32 StrCopyA(UInt8* aStrDest, const UInt8* aStrSource);
 
-	/// Копирует строку длиной не более N
+	// Copies a string of at most N length
 	static UInt32 StrNCopyA(UInt8* aStrDest, const UInt8* aStrSource, UInt32 aSize);
 
-	/// Копирует строку длиной не более N
+	// Copies a string of at most N length
 	static UInt32 StrNCopy(UInt16* aStrDest, const UInt16* aStrSource, UInt32 aSize);
 
-	/// Ищет указанный символ в строке
+	// Searches for the specified character in a string
 	static UInt8* StrChrA(UInt8* aStr, UInt8 aChr);
-	
-	/// Ищет указанную подстроку в строке
+
+	// Searches for the specified substring in a string
 	static const UInt16* StrStr(const UInt16* aSourceStr, const UInt16* aSearchStr);
 
-	/// Ищет указанную подстроку в строке
+	// Searches for the specified substring in a string
 	static const UInt8* StrStrA(const UInt8* aSourceStr, const UInt8* aSearchStr);
 
-	/// Конвертирует строку из UTF8 в UTF16
+	// Converts a string from UTF-8 to UTF-16
 	static UInt16 StrUTF8_2_UTF16(UInt16* unicode, const UInt8* utf8);
-	
-	/// Конвертирует строку из UTF8 в UTF32
+
+	// Converts a string from UTF-8 to UTF-32
 	static UInt16 StrUTF8_2_UTF32(UInt32* unicode, const UInt8* utf8);
-	
-	/// Конвертирует строку из UTF16 в UTF8
+
+	// Converts a string from UTF16 to UTF8
 	static UInt16 StrUTF16_2_UTF8(UInt8* utf8, const UInt16* unicode);
-	
-	/// Конвертирует строку из UTF16 в UTF32
+
+	// Converts a string from UTF16 to UTF32
 	static UInt16 StrUTF16_2_UTF32(UInt32* unicode32, const UInt16* unicode16);
-	
-	/// Конвертирует строку из UTF32 в UTF8
+
+	// Converts a string from UTF32 to UTF8
 	static UInt16 StrUTF32_2_UTF8(UInt8* utf8, const UInt32* unicode);
-	
-	/// Конвертирует строку из UTF32 в UTF16
+
+	// Converts a string from UTF32 to UTF16
 	static UInt16 StrUTF32_2_UTF16(UInt16* unicode16, const UInt32* unicode32);
 
-	/// Переворачивает кусок строки на месте
+	// Flips a piece of string in place
 	static ESldError StrReverse(UInt16* aBegin, UInt16* aEnd);
 
-	/// Функция преобразования из юникода в однобайтовую кодировку с учетом языка на котором предполагается фраза.
+	// A function for converting from unicode to single-byte encoding, taking
+	// into account the language in which the phrase is supposed to be.
 	static ESldError Unicode2ASCIIByLanguage(const UInt16* aUnicode, UInt8* aAscii, ESldLanguage aLanguageCode);
-	/// Функция преобразования из однобайтовой кодировки в юникод с учетом языка на котором предполагается фраза.
+
+	// The function of converting from single-byte encoding to unicode, taking
+	// into account the language in which the phrase is intended.
 	static ESldError ASCII2UnicodeByLanguage(const UInt8* aAscii, UInt16* aUnicode, ESldLanguage aLanguageCode);
 
-	/// Получает число из его текстового представления
+	// Gets a number from its textual representation
 	static ESldError StrToInt32(const UInt16* aStr, UInt32 aRadix, Int32* aNumber);
 
-	/// Получает дестичное число с плавающей точкой из строки
+	// Gets a decimal floating point number from a string
 	static ESldError StrToFloat32(const UInt16 *aStr, const UInt16 **aEnd, Float32 *aNumber);
 
-	/// Получает число из его текстового представления
+	// Gets a number from its textual representation
 	static ESldError StrToUInt32(const UInt16* aStr, UInt32 aRadix, UInt32* aNumber);
 
-	/// Получает строку из числа
+	// Gets a string from a number
 	static ESldError UInt32ToStr(UInt32 aNumber, UInt16* aStr, UInt32 aRadix = 10);
 
-	/// Получает число с которого начинается строка
+	// Gets the number at which the string starts
 	static ESldError StrToBeginInt32(const UInt16* aStr, UInt32 aRadix, Int32* aNumber);
 
-	/// Закрытие объекта
+	// Closing an object
 	ESldError Close(void);
-	
-	/// Возвращает количество таблиц сравнения
-	ESldError GetTablesCount(UInt32* aCount) const;
-	
-	/// Возвращает код языка таблицы сравнения по номеру таблицы
-	ESldLanguage GetTableLanguage(UInt32 aTableIndex) const;
-	
-	/// Возвращает флаг того, есть ли в таблице сравнения таблица пар соответствий символов верхнего и нижнего регистров определенного типа
-	ESldError IsTableHasSymbolPairTable(UInt32 aTableIndex, ESymbolPairTableTypeEnum aTableType, UInt32* aFlag) const;
-	
-	/// Проверяет, принадлежит ли символ определеленному языку,
-	/// либо к общим символам-разделителям для всех языков словарной базы (aLang == SldLanguage::Delimiters)
-	ESldError IsSymbolBelongToLanguage(UInt16 aSymbolCode, ESldLanguage aLangCode, UInt32* aFlag, UInt32* aResultFlag) const;
-	
-	/// Проверяет, является ли символ разделителем в конкретном языке
-	ESldError IsSymbolBelongToLanguageDelimiters(UInt16 aSymbolCode, ESldLanguage aLang, UInt32* aFlag, UInt32* aResultFlag) const;
-		
 
-	/// Устанавливает таблицу сравнения для указанного языка
+	// Returns the number of comparison tables
+	ESldError GetTablesCount(UInt32* aCount) const;
+
+	// Returns the language code of the comparison table by the table number
+	ESldLanguage GetTableLanguage(UInt32 aTableIndex) const;
+
+	// Returns a flag of whether the comparison table has a table of pairs of
+	// upper and lower case characters of a certain type
+	ESldError IsTableHasSymbolPairTable(UInt32 aTableIndex, ESymbolPairTableTypeEnum aTableType, UInt32* aFlag) const;
+
+	// Checks if a character belongs to a specific language or to common
+	// delimiters for all languages in the dictionary base
+	// (aLang == SldLanguage :: Delimiters)
+	ESldError IsSymbolBelongToLanguage(UInt16 aSymbolCode, ESldLanguage aLangCode, UInt32* aFlag, UInt32* aResultFlag) const;
+
+	// Checks if a character is a delimiter in a specific language
+	ESldError IsSymbolBelongToLanguageDelimiters(UInt16 aSymbolCode, ESldLanguage aLang, UInt32* aFlag, UInt32* aResultFlag) const;
+
+
+	// Sets the comparison table for the specified language
 	ESldError SetDefaultLanguage(ESldLanguage aLanguageCode);
 
-	/// Возвращает код языка по умолчанию
+	// Returns the default language code
 	ESldLanguage GetDefaultLanguage() const;
-	
-	/// Имеется ли дополнительная таблица сравнения для текущего языка
+
+	// Is there an additional comparison table for the current language
 	bool IsAddTableDefine() const;
 
-	/// Возвращает индекс дополнительной таблицы сравнения для текущего языка
+	// Returns the index of the additional comparison table for the current language
 	UInt32 GetAddTableIndex() const { return m_DefaultAddTable; };
 
-	/// Метод подготавливает строку для сравнения по шаблону
+	// The method prepares a string for pattern matching
 	UInt32 PrepareTextForAnagramSearch(UInt16* aDestStr, const UInt16* aSourceStr);
-	/// Кодирует спец. символы в строке запроса ('&', '|', '(', ')', '!', '*', '?')
+	// Encodes spec. characters in the query string ('&', '|', '(', ')', '!', '*', '?')
 	static ESldError EncodeSearchQuery(UInt16* aDestStr, const UInt16* aSourceStr);
-	/// Кодирует спец. символы в слове из словаря ('&', '|', '(', ')', '!', '*', '?')
+	// Encodes spec. characters in a word from a dictionary ('&', '|', '(', ')', '!', '*', '?')
 	static ESldError EncodeSearchWord(UInt16* aDestStr, const UInt16* aSourceStr);
-	
-	/// Метод сравнения шаблона и строчки на соответствие. 
+
+	// A method for comparing a pattern and a line for matching.
 	UInt32 WildCompare(const UInt16* aWildCard, const UInt16* aText) const;
 
 	UInt8 GetCompareLen(const UInt16* aWildCard, const UInt16* aText) const;
-	/// Метод сравнения анаграмм
+	// Anagram comparison method
 	UInt8 AnagramCompare(UInt16* aSearchStr, const UInt16* aCurrentWord, UInt8* aFlagArray, UInt32 aSearchStrLen) const;
 
-	/// Метод проверяет, есть ли в строке разделители
+	// The method checks if the string contains delimiters
 	UInt32 QueryIsExistDelim(const UInt16* aStr);
-	
-	/// Метод проверяет, является ли поисковый запрос "умным"
+
+	// The method checks if the search term is "smart"
 	static UInt32 IsSmartWildCardSearchQuery(const UInt16* aStr);
-	/// Метод проверяет наличие в строке символов '*' и '?'
+	// The method checks for the characters '*' and '?'
 	static UInt32 IsWordHasWildCardSymbols(const UInt16* aStr);
-	/// Метод корректирует "умный" поисковый запрос
+	// The method adjusts the "smart" search query
 	static ESldError CorrectSmartWildCardSearchQuery(const UInt16* aQuery, UInt16** aOut);
-	/// Метод корректирует "неумный" поисковый запрос
+	// The method corrects the "stupid" search query
 	static ESldError CorrectNonSmartWildCardSearchQuery(const UInt16* aQuery, UInt16** aOut);
-	
-	/// Метод проверяет, является ли поисковый запрос "умным"
+
+	// The method checks if the search term is "smart"
 	static UInt32 IsSmartFullTextSearchQuery(const UInt16* aStr);
-	/// Метод корректирует "умный" поисковый запрос
+	// The method adjusts the "smart" search query
 	static ESldError CorrectSmartFullTextSearchQuery(const UInt16* aQuery, UInt16** aOut);
-	/// Метод корректирует "неумный" поисковый запрос
+	// The method corrects the "stupid" search query
 	static ESldError CorrectNonSmartFullTextSearchQuery(const UInt16* aQuery, UInt16** aOut);
 
-	/// Метод проверяет наличие в строке aStr символов '*' и '?'
+	// The method checks for the characters '*' and '?' In the aStr string.
 	UInt32 QueryIsExistWildSym(const UInt16* aStr);
 
-	/// Функция вычисляет расстояние редактирования
+	// The function calculates the edit distance
 	Int32 FuzzyCompare(const UInt16 *aStr1, const UInt16 *aStr2, Int32 aStr1len, Int32 aStr2len, Int32 (*aFuzzyBuffer)[ARRAY_DIM]);
 
-	/// Преобразует строку символов в строку их масс 
+	// Converts a string of characters to a string of their masses
 	ESldError GetStrOfMass(const UInt16* aSourceStr, SldU16String & aMassStr, Int8 aEraseZeroSymbols = 1, Int8 aUseMassForDigit = 0) const;
-	/// Преобразует строку символов в строку их масс с учетом разделителей
+	// Converts a string of characters to a string of their masses, taking into account the delimiters
 	ESldError GetStrOfMassWithDelimiters(const UInt16* aSourceStr, SldU16String & aMassStr, Int8 aEraseZeroSymbols = 1, Int8 aUseMassForDigit = 0) const;
-	/// Преобразует поисковый паттерн в паттерн масс с учетом спец символов
+	// Converts search pattern to mass pattern with special characters
 	ESldError GetSearchPatternOfMass(const UInt16* aSourceStr, SldU16String & aMassStr, Int8 aUseMassForDigit = 0) const;
-	
-	/// Разделяет запрос на слова.
+
+	// Splits the query into words.
 	ESldError DivideQueryByParts(const UInt16 *aText, SldU16WordsArray& aTextWords) const;
-	/// Разделяет запрос на слова, используя переданные разделители
+	// Splits a query into words using passed delimiters
 	ESldError DivideQueryByParts(const UInt16 *aText, const UInt16 *aDelimitersStr, SldU16WordsArray& aTextWords) const;
 
-	/// Разделяет запрос на слова.
+	// Splits the query into words.
 	void DivideQueryByParts(SldU16StringRef aText, CSldVector<SldU16StringRef> &aTextWords) const;
-	/// Разделяет запрос на слова, используя переданные разделители
+	// Splits a query into words using passed delimiters
 	void DivideQueryByParts(SldU16StringRef aText, const UInt16 *aDelimitersStr, CSldVector<SldU16StringRef> &aTextWords) const;
 
-	/// Разделяет запрос на слова, возвращая альтернативные варианты для частичных разделителей
+	// Splits a query into words, returning alternatives for partial delimiters
 	ESldError DivideQuery(const UInt16 *aText, SldU16WordsArray& aTextWords, SldU16WordsArray& aAltrnativeWords) const;
-	
-	/// Функция возвращает тип алфавита для введенного текста в контексте текущего языка
+
+	// The function returns the type of alphabet for the entered text in the context of the current language
 	UInt32 GetAlphabetTypeByText(const UInt16 *text) const;
 
-	/// Проверяет, является ли данный символ игнорируемым в заданной таблице сортировки
+	// Checks if the given character is ignored in the given collation table
 	Int8 IsZeroSymbol(UInt16 aChar, UInt32 aTableIndex) const;
-	/// Проверяет, является ли данный символ игнорируемым в текущей дефолтной таблице сортировки
+	// Checks if the given character is ignored in the current default sort table
 	Int8 IsZeroSymbol(UInt16 aChar) const;
 
-	/// Проверяет, является ли данный символ разделителем в заданной таблице сортировки
+	// Checks if the given character is a delimiter in the given sort table
 	Int8 IsDelimiter(UInt16 aChar, UInt32 aTableIndex) const;
-	/// Проверяет, является ли данный символ разделителем в текущей дефолтной таблице сортировки
+	// Checks if the given character is a delimiter in the current default sort table
 	Int8 IsDelimiter(UInt16 aChar) const;
 
-	/// Проверяет, является ли данный символ частичным разделителем в заданной таблице сортировки
+	// Checks if the given character is a partial delimiter in the given sort table
 	Int8 IsHalfDelimiter(UInt16 aChar, UInt32 aTableIndex) const;
-	/// Проверяет, является ли данный символ частичным разделителем в текущей дефолтной таблице сортировки
+	// Checks if the given character is a partial delimiter in the current default sort table
 	Int8 IsHalfDelimiter(UInt16 aChar) const;
 
-	/// Проверяет, является ли данный символ Emoji-символом
+	// Checks if the given character is an Emoji character
 	static Int8 IsEmoji(const UInt16 aChar, const EEmojiTypes aType = eSlovoedEmoji);
 
-	/// Проверяет, является ли данный символ пробельным
+	// Checks if the given character is whitespace
 	static Int8 IsWhitespace(const UInt16 aChar);
 
-	/// Проверяет, является ли данный символ значимым хотя бы в одной из таблиц
+	// Checks if the given character is significant in at least one of the tables
 	Int8 IsMarginalSymbol(const UInt16 aChar) const;
 
-	/// Проверяет целостность скобок
+	// Checks the integrity of parentheses
 	Int8 CheckBracket(const UInt16 *aText) const;
 
 	UInt32 GetTableVersion() const { return m_CMPTable[0].Header->Version; }
 
-	/// "Возвращает" строку разделителей в таблице сортировки заданного языка
+	// "Returns" the delimiter string in the sort table for the specified language
 	ESldError GetDelimiters(ESldLanguage aLangCode, const UInt16 **aDelimitersStr, UInt32 *aDelimitersCount) const;
-	/// "Возвращает" строку разделителей в текущей дефолтной таблице сортировки
+	// "Returns" the delimiter string in the current default sort table
 	ESldError GetDelimiters(const UInt16 **aDelimitersStr, UInt32 *aDelimitersCount) const;
 
-	/// Добавляет выбранный селектор после всех Emoji-символов в строке
+	// Adds the selected selector after all emoji characters in the string
 	static ESldError AddEmojiSelector(SldU16String & aString, const EEmojiTypes aType = eSlovoedEmoji, const UInt16 aSelector = SLD_DEFAULT_EMOJI_SELECTOR);
 
-	/// Удаляет селекторы после всех Emoji-символов в строке
+	// Removes selectors after all emoji characters in a string
 	static ESldError ClearEmojiSelector(SldU16String & aString, const EEmojiTypes aType = eSlovoedEmoji);
 
-	/// Конвертирует 4-х символьную строчку в 4-х байтное число (например код языка, ID базы)
+	// Converts a 4-character string to a 4-byte number (e.g. language code, base ID)
 	static UInt32 UInt16StrToUInt32Code(const SldU16StringRef aString);
 
-	/// Возвращает следующий по массе простой символ
+	// Returns the next largest simple character
 	UInt16 GetNextMassSymbol(const UInt16 aSymbol) const;
 
-	/// Возвращает слово по позиции во фразе
+	// Returns a word by position in a phrase
 	SldU16StringRef GetWordByPosition(const SldU16StringRef aPhrase, const UInt32 aPos) const;
 
-	/// Заменяет выбранное слово во фразе
+	// Replaces the selected word in a phrase
 	void ReplaceWordInPhraseByIndex(SldU16String& aPhrase, const SldU16StringRef aNewWord, const UInt32 aWordIndex) const;
 
   SldU16WordsArray ExpandBrackets(SldU16StringRef aText) const;
 
 private:
 
-	/// Очистка объекта
+	// Object cleaning
 	void Clear(void);
 
-	/// Возвращает массу символа
+	// Returns the mass of a character
 	UInt16 GetMass(UInt16 aChr, const UInt16 *aSimpleTable, UInt16 aNotFound) const;
 
-	/// Возвращает массу для сложного символа
+	// Returns the mass for a complex symbol
 	UInt32 GetComplex(const UInt16 *str, UInt16 index, UInt16 *mass, const CMPComplexType *complex) const;
-	
-	/// Метод сравнения шаблона и слова на соответствие
+
+	// Method of comparing pattern and word for matching
 	Int8 DoWildCompare(const UInt16* aTemplate, const UInt16* aText) const;
 
-	/// Получает число из его текстового представления, основная функция
+	// Gets a number from its textual representation, main function
 	static ESldError StrToInt32Base(const UInt16* aStr, UInt32 aRadix, Int32* aNumber);
 
 private:
-	
-	/// Таблицы сравнения
+
+	// Comparison tables
 	sld2::DynArray<TCompareTableSplit> m_CMPTable;
 
-	/// Информация о таблицах сравнения
+	// Comparison table information
 	sld2::DynArray<TCMPTableElement> m_CMPTableInfo;
 
-	/// Таблица сравнения по умолчанию.
+	// Default comparison table.
 	UInt32				m_DefaultTable;
-	
-	/// Дополнительная таблица сравнения по умолчанию (если есть).
+
+	// Optional default comparison table (if any).
 	UInt32				m_DefaultAddTable;
-	
-	/// Массив указателей на таблицы символов языков (таблицы для каждого языка + общая таблица символов-разделителей для всех языков)
+
+	// Array of pointers to language character tables (tables for each
+	// language + common table of separator characters for all languages)
 	sld2::DynArray<CSldSymbolsTable>	m_LanguageSymbolsTable;
 
-	/// Массив указателей на таблицы символов-разделителей для конкретных языков
+	// Array of pointers to language-specific delimiter tables
 	sld2::DynArray<CSldSymbolsTable>	m_LanguageDelimiterSymbolsTable;
 };
 

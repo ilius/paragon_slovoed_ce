@@ -2,193 +2,193 @@
 #define _SLD_DEFINES_H_
 
 /************************************************************************/
-/* Описания ресурсов                                                    */
+/* Resource descriptions                                                */
 /************************************************************************/
 
-/// Тип ресурса заголовка - HEAD
+// Header resource type - HEAD
 /** 
-	Ресурс заголовка словаря - индекс: 0
-	Ресурс заголовка списка слов - индекс: 1
+	Dictionary Header Resource - Index: 0
+	Wordlist Header Resource - Index: 1
 */
 #define SLD_RESOURCE_HEADER			'DAEH'
 
-/// Тип ресурса с информацией о версии словарной базы
+// Resource type with information about the dictionary base version
 #define SLD_RESOURCE_DICTIONARY_VERSION_INFO	'IREV'
 
-/// Тип ресурса строчки с названиями словаря в целом - STRW
+// The resource type of the line with the names of the dictionary as a whole is STRW
 #define SLD_RESOURCE_STRINGS		'WRTS'
 
-/// Тип ресурса строчки с названиями для списка слов - STRL
+// Namestring resource type for wordlist - STRL
 #define SLD_RESOURCE_LIST_STRINGS	'LRTS'
 
-/// Тип ресурса таблицы сравнения - UCMP
+// Comparison table resource type - UCMP
 #define SLD_RESOURCE_COMPARE_TABLE	'PMCU'
 
-/// Тип ресурса заголовка таблиц сравнения - HCMP
+// Comparison Table Header Resource Type - HCMP
 #define SLD_RESOURCE_COMPARE_TABLE_HEADER	'PMCH'
 
-/// Тип ресурса базы морфологии - UMRP
+// Morphology base resource type - UMRP
 #define RESOURCE_TYPE_MORPHOLOGY_DATA	'PRMU'
 
-/// Тип ресурса заголовка таблиц сравнения - HMRP
+// Comparison Table Header Resource Type - HMRP
 #define RESOURCE_TYPE_MORPHOLOGY_DATA_HEADER	'PRMH'
 
-/// Тип ресурса для сжатых данных(базовый).
+// The resource type for the compressed data (basic).
 /** 
-	Для первого списка слов будет ADAT
-	Для второго списка слов будет BDAT
+	For the first wordlist, it will be ADAT
+	For the second wordlist, it will be BDAT
 */
 #define SLD_RESOURCE_COMPRESSED		'TADA'
-/// Тип ресурса для иерархии(базовый).
+// The resource type for the hierarchy (basic).
 /** 
-	Для первого списка слов будет ACAT
-	Для второго списка слов будет BCAT
+	For the first wordlist, it will be ACAT
+	For the second wordlist, it will be BCAT
 */
 #define SLD_RESOURCE_HIERARCHY		'TACA'
-/// Тип ресурса для таблицы быстрого доступа(базовый).
+// The resource type for the quick access table (basic).
 /** 
-	Для первого списка слов будет AQAT
-	Для второго списка слов будет BQAT
+	For the first wordlist it will be AQAT
+	For the second wordlist, it will be BQAT
 */
 #define SLD_RESOURCE_QA				'TAQA'
 
-/// Тип ресурса для дерева сжатия(базовый).
+// The resource type for the compression tree (basic).
 /** 
-	Для первого списка слов будет ATRE
-	Для второго списка слов будет BTRE
+	For the first wordlist, it will be ATRE
+	For the second wordlist would be BTRE
 */
 #define SLD_RESOURCE_TREE			'ERTA'
 
-/// Тип ресурса для бинарных данных картинок IMGA
+// Resource type for binary data of IMGA images
 #define RESOURCE_TYPE_IMAGE			'AGMI'
 
-/// Тип ресурса для бинарных данных видео VIDO
+// Resource type for VIDO video binary data
 #define RESOURCE_TYPE_VIDEO			'OEDV'
 
-/// Тип ресурса для бинарных данных озвучек SOND
+// Resource type for SOND binary audio data
 #define RESOURCE_TYPE_SOUND			'DNOS'
 
-/// Тип ресурса для бинарных данных сцен SL3D
+// Resource type for binary data of SL3D scenes
 #define RESOURCE_TYPE_SCENE			'D3LS'
 
-/// Тип ресурса для бинарных данных моделей MESH
+// Resource type for binary data of MESH models
 #define RESOURCE_TYPE_MESH			'HSEM'
 
-/// Тип ресурса для бинарных данных Материалов MTRL
+// Resource type for binary data MTRL Materials
 #define RESOURCE_TYPE_MATERIAL		'LRTM'
 
-/// Тип ресурса для бинарных данных Материалов ABST
+// Resource type for binary data of ABST Materials
 #define RESOURCE_TYPE_ABSTRACT			'TSBA'
 
-/// Тип ресурса для хранения описания к учебнику 'INFO'
+// Resource type for storing tutorial description 'INFO'
 #define SLD_RESOURCE_INFO			'OFNI'
 
-/// Тип ресурса для хранения списка элементарных объектов AOAT
+// Resource type for storing a list of atomic AOAT objects
 #define SLD_AO_ARTICLE_TABLE		'TAOA'
 
-/// Тип ресурса для хранения информации о связи базы с внешними 'EXTI'
+// Resource type for storing information about the connection of the base with external 'EXTI'
 #define SLD_EXTERN_CONTENT_INFO			'ITXE'
 
-/// Тип ресурса для таблиц символов (символов языков и общей для всех языков таблицы символов-разделителей) SYMT
+// Resource type for character tables (language characters and a common delimiter table for all languages) SYMT
 #define SLD_RESOURCE_SYMBOLS_TABLE	'TMYS'
 
-/// Тип ресурса для таблиц символов-разделителей для конкретных языков SYDT
+// Resource type for language-specific delimiter tables SYDT
 #define RESOURCE_TYPE_SYMBOLS_DELIMITERS_TABLE	'TDYS'
 
-/// Тип ресурса для таблицы свойств вариантов написания списка слов VARP (см. #TListVariantProperty)
+// Resource type for the VARP wordlist variation properties table (see #TListVariantProperty)
 #define SLD_RESOURCE_VARIANTS_PROPERTY_TABLE	'PRAV'
 
-/// Тип ресурса для тематик блоков switch THEM
+// Resource type for topics of switch blocks THEM
 #define RESOURCE_TYPE_THEMATIC					'MEHT'
 
-/// Тип ресурса для массива смещений каждого слова в списке
+// Resource type for array of offsets of each word in the list
 /**
-Для первого списка слов будет ASDT
-Для второго списка слов будет BSDT
+For the first wordlist, it will be ASDT
+For the second wordlist, it will be BSDT
 */
 #define RESOURCE_TYPE_DIRECT_SHIFT	'TDSA'
 
-/// Тип ресурса для описания стиля страницы
+// Тип ресурса для описания стиля страницы
 #define RESOURCE_TYPE_PAGE_STYLE		'SEGP'
 
-/// Тип ресурса для дополнительной информации о ресурсах RINF
+// Тип ресурса для дополнительной информации о ресурсах RINF
 #define RESOURCE_TYPE_RESOURCE_INFO	'FNIR'
 
-/// Тип ресурса для имён других ресурсов (названия файлов, etc) NAME
+// Тип ресурса для имён других ресурсов (названия файлов, etc) NAME
 #define RESOURCE_TYPE_RESOURCE_NAMES	'EMAN'
 
-/// Тип ресурса для путей других ресурсов (названия файлов, etc) PATH
+// Тип ресурса для путей других ресурсов (названия файлов, etc) PATH
 #define RESOURCE_TYPE_RESOURCE_PATHS	'HTAP'
 
-/// Тип ресурса для хранения параметров метаданных в бинарном виде - "головной" ресурс MTDH
+// Тип ресурса для хранения параметров метаданных в бинарном виде - "головной" ресурс MTDH
 #define SLD_RESOURCE_STRUCTURED_METADATA_HEADER		'HDTM'
-/// Тип ресурса для хранения параметров метаданных в бинарном виде - ресурс с данными MTDD
+// Тип ресурса для хранения параметров метаданных в бинарном виде - ресурс с данными MTDD
 #define SLD_RESOURCE_STRUCTURED_METADATA_DATA		'DDTM'
-/// Тип ресурса для хранения параметров метаданных в бинарном виде - ресурс со строками MTDS
+// Тип ресурса для хранения параметров метаданных в бинарном виде - ресурс со строками MTDS
 #define SLD_RESOURCE_STRUCTURED_METADATA_STRINGS	'SDTM'
 
-/// Тип ресурса для хранения css "метаданных" - "головной" ресурс CSSH
+// Тип ресурса для хранения css "метаданных" - "головной" ресурс CSSH
 #define SLD_RESOURCE_CSS_DATA_HEADER		'HSSC'
-/// Тип ресурса для хранения css "метаданных" - ресурс с блоками параметров CSSB
+// Тип ресурса для хранения css "метаданных" - ресурс с блоками параметров CSSB
 #define SLD_RESOURCE_CSS_DATA_BLOCKS		'BSSC'
-/// Тип ресурса для хранения css "метаданных" - ресурс с параметрами CSSP
+// Тип ресурса для хранения css "метаданных" - ресурс с параметрами CSSP
 #define SLD_RESOURCE_CSS_DATA_PROPERTIES	'PSSC'
-/// Тип ресурса для хранения css "метаданных" - ресурс со строками CSSS
+// Тип ресурса для хранения css "метаданных" - ресурс со строками CSSS
 #define SLD_RESOURCE_CSS_DATA_STRINGS		'SSSC'
 
-/// Тип ресурса для хранения строки java script'а для статей 'AJSS'
+// Тип ресурса для хранения строки java script'а для статей 'AJSS'
 #define SLD_RESOURCE_ARTICLES_JAVA_SCRIPT	'SSJA'
 
 
-/// Тип ресурса, содержащего бинарные данные или файлы, которые могут понадобиться оболочке, при работе со словарем
-/// Получить информацию об этих ресурсах можно через список типа eWordListType_BinaryResource
+// Тип ресурса, содержащего бинарные данные или файлы, которые могут понадобиться оболочке, при работе со словарем
+// Получить информацию об этих ресурсах можно через список типа eWordListType_BinaryResource
 #define RESOURCE_TYPE_BINARY			'TNIB'
 
 /************************************************************************/
 /* Версии ядра, при которых произошли изменения в ресурсах              */
 /************************************************************************/
 
-/// Версия ядра, в которой размер заголовка, описывающего уровень иерархии, был изменен (с 16 до 32 байт)
+// Версия ядра, в которой размер заголовка, описывающего уровень иерархии, был изменен (с 16 до 32 байт)
 #define ENGINE_VERSION_HIERARCHY_LEVEL_HEADER		112
 
 /************************************************************************/
 /* Константы для класса сравнения строк                                 */
 /************************************************************************/
 
-/// Длина цепочки символов
+// Длина цепочки символов
 #define CMP_CHAIN_LEN				(4)
 
-/// Диапазон часто используемых символов
+// Диапазон часто используемых символов
 #define CMP_MOST_USAGE_SYMBOL_RANGE	(0x512)
 
-/// Маска для флага - определяет что это - вес символа или индекс таблицы сложных символов.
+// Маска для флага - определяет что это - вес символа или индекс таблицы сложных символов.
 #define CMP_MASK_OF_INDEX_FLAG		(0x8000)
-/// Маска для индекса - в случае, если это индекс, убирает флаг, оставляя чистый индекс.
+// Маска для индекса - в случае, если это индекс, убирает флаг, оставляя чистый индекс.
 #define CMP_MASK_OF_INDEX			(0x7fff)
-/// Идентификатор символа игнорирования.
+// Идентификатор символа игнорирования.
 #define CMP_IGNORE_SYMBOL			(0)
-/// Идентификатор символа который не найден.
+// Идентификатор символа который не найден.
 #define CMP_NOT_FOUND_SYMBOL		(0xffff)
 
-/// Версия таблицы сравнения занимающая небольшое место.
+// Версия таблицы сравнения занимающая небольшое место.
 #define CMP_VERSION_1		1
-/// Версия таблицы сравнения имеющая прямое отображение символов в их веса.
+// Версия таблицы сравнения имеющая прямое отображение символов в их веса.
 #define CMP_VERSION_2		2
 
-/// Восстанавливает смещение по смещению из таблицы быстрого
+// Восстанавливает смещение по смещению из таблицы быстрого
 #define  SLD_QA_SHIFT_RESTORE(aShiftBit, aHASH)		((((aShiftBit^aHASH) & 022222222222)>>1) |	\
 													 (((aShiftBit^aHASH) & 011111111111)<<1) |	\
 													   (aShiftBit & 04444444444))
-/// Максимальное значение для UInt32
+// Максимальное значение для UInt32
 #define MAX_UINT_VALUE					((UInt32)~0)
 
-/// Максимальное значение для UInt16
+// Максимальное значение для UInt16
 #define MAX_UINT16_VALUE				((UInt16)~0)
 
 /************************************************************************/
 /* Варианты сжатия данных                                               */
 /************************************************************************/
-/// Без сжатия
+// Без сжатия
 /** ********************************************************************
 *	Без сжатия, текст представлен в явном виде, бинарные данные представлены 
 *	в бинарном виде, из-за этого может происходить сдвиг текстовых данных.
@@ -198,131 +198,131 @@
 /************************************************************************/
 /* Номера типов данных для управления декодированием.                   */
 /************************************************************************/
-/// Номер типа данных для получения количества одинаковых символов у текущего и предыдущего слов.
+// Номер типа данных для получения количества одинаковых символов у текущего и предыдущего слов.
 #define SLD_DECORER_TYPE_SHIFT	(0)
-/// Номер типа данных для декодирования списка стилей в статьях
+// Номер типа данных для декодирования списка стилей в статьях
 #define SLD_DECORER_TYPE_STYLES	(0)
-/// Номер типа данных для декодирования в списке слов собственно текста
+// Номер типа данных для декодирования в списке слов собственно текста
 #define SLD_DECORER_TYPE_TEXT	(1)
 
-/// Номер таблицы сравнения по умолчанию.
+// Номер таблицы сравнения по умолчанию.
 #define SLD_DEFAULT_CMP			(0)
 
-/// Размер приращения буфера для хранения пути в каталоге(в элементах).
+// Размер приращения буфера для хранения пути в каталоге(в элементах).
 #define SLD_PATH_INCREASE		(8)
 
 
-/// Количество слов между точками быстрого доступа по умолчанию
+// Количество слов между точками быстрого доступа по умолчанию
 #define SLD_DEFAULT_QA_INTERLEAVE			(128)
 
-/// Количество бит которые закодированы в индексе по умолчанию
+// Количество бит которые закодированы в индексе по умолчанию
 #define SLD_DEFAULT_QA_INTERLEAVE_SIZE		(1024)
 
-/// Количество бит которые закодированы в индексе по умолчанию
+// Количество бит которые закодированы в индексе по умолчанию
 #define SLD_DEFAULT_DIRECT_ACCESS_POINT_COUNT_IN_RESOURCE		(0x2000)
 
-/// Максимальный размер ресурса с сжатыми данными, если данных больше чем на 1 ресурс, тогда остатки переносятся в следующий ресурс.
+// Максимальный размер ресурса с сжатыми данными, если данных больше чем на 1 ресурс, тогда остатки переносятся в следующий ресурс.
 #define MAX_COMPRESSED_DATA_RESOURCE_SIZE	(0x8000)
 
-/// Количество слов в пользовательском списке, для которых будет выделена память по умолчанию
+// Количество слов в пользовательском списке, для которых будет выделена память по умолчанию
 #define SLD_DEFAULT_WORDS_COUNT_IN_CUSTOM_LIST					(0x10)
 
 
-/// Макрос для изменения порядка байт в машинном слове. На x86,ARM,MIPS,SH3 и т.д.(кроме PowerPC/DragonBall/Motorolla68000) ничего делаться не должно.
+// Макрос для изменения порядка байт в машинном слове. На x86,ARM,MIPS,SH3 и т.д.(кроме PowerPC/DragonBall/Motorolla68000) ничего делаться не должно.
 #define MORPHO_SWAP_16(x)    REVERSE_INT16(x)
-/// Макрос для изменения порядка байт в машинном слове. На x86,ARM,MIPS,SH3 и т.д.(кроме PowerPC/DragonBall/Motorolla68000) ничего делаться не должно.
+// Макрос для изменения порядка байт в машинном слове. На x86,ARM,MIPS,SH3 и т.д.(кроме PowerPC/DragonBall/Motorolla68000) ничего делаться не должно.
 #define MORPHO_SWAP_32(x)    REVERSE_INT32(x)
 
-/// Макрос для поворота байт
+// Macro for rotating bytes
 #define EnsureNativeByteOrder_32(x)	((((x)&0xFF)<<24)|(((x)&0xFF00)<<8)|(((x)&0xFF0000)>>8)|(((x)&0xFF000000)>>24))
 #define EnsureNativeByteOrder_16(x) ((((x)& 0xFF) << 8) | (((x)& 0xFF00) >> 8))
 
-/// Макрос приведения 4-х символьной строки к 4-х байтовому коду языка
+// Macro for converting a 4-character string to a 4-byte language code
 #define SLD_LANGUAGE_CODE(ch) (EnsureNativeByteOrder_32(ch))
 
-/// Макрос приведения 4-х символьной строки к 4-х байтовому ID словаря
+// Macro for converting a 4-character string to a 4-byte dictionary ID
 #define SLD_DICT_ID(ch) (EnsureNativeByteOrder_32(ch))
 
 //////////////////////////////////////////////////////////////////////////
 // Флаги свойств индексов
 //////////////////////////////////////////////////////////////////////////
 
-/// Флаг того, что индексы имеют в своем составе количество статей (иначе количество = 1)
+// Флаг того, что индексы имеют в своем составе количество статей (иначе количество = 1)
 #define SLD_INDEXES_IS_COUNT	(0x00000001UL)
 
-/// Флаг того, что индексы имеют в своем составе номера статей
+// Флаг того, что индексы имеют в своем составе номера статей
 #define SLD_INDEXES_IS_ARTICLE_INDEX	(0x00000002UL)
 
-/// Флаг того, что индексы имеют в своем составе номера списков слов (иначе номер списка по умолчанию нужно брать из заголовка индексов)
+// Флаг того, что индексы имеют в своем составе номера списков слов (иначе номер списка по умолчанию нужно брать из заголовка индексов)
 #define SLD_INDEXES_IS_LIST_INDEX	(0x00000004UL)
 
-/// Флаг того, что индексы имеют в своем составе номера переводов (иначе номер перевода по умолчанию нужно брать из заголовка индексов)
+// Флаг того, что индексы имеют в своем составе номера переводов (иначе номер перевода по умолчанию нужно брать из заголовка индексов)
 #define SLD_INDEXES_IS_TRANSLATION_INDEX	(0x00000008UL)
 
-/// Флаг того, что индексы имеют в своем составе смещения в статье (иначе смещение == 0)
+// Флаг того, что индексы имеют в своем составе смещения в статье (иначе смещение == 0)
 #define SLD_INDEXES_IS_SHIFT_INDEX	(0x00000010UL)
 
-/// Перечисление разновидностей полноты перевода
+// Перечисление разновидностей полноты перевода
 enum ESldTranslationFullnesType
 {
-	/// Полный перевод
+	// Полный перевод
 	eTranslationFull = 0,
-	/// Компактный перевод(без примеров и пояснений - только переводы слов)
+	// Компактный перевод(без примеров и пояснений - только переводы слов)
 	eTranslationCompact,
-	/// Декодировать статью, но перевод не производить.
+	// Декодировать статью, но перевод не производить.
 	eTranslationWithoutTranslation
 };
 
-/// Режимы работы движка перевода - начало/окончание
+// Режимы работы движка перевода - начало/окончание
 enum ESldTranslationModeType
 {
-	/// Начинаем сборку перевода статьи
+	// Начинаем сборку перевода статьи
 	eTranslationStart = 0,
-	/// Начинаем декодировать остатки статьи после предыдущего останова
+	// Начинаем декодировать остатки статьи после предыдущего останова
 	eTranslationContinue = 0xFFFE,
-	/// Заканчиваем сборку перевода статьи
+	// Заканчиваем сборку перевода статьи
 	eTranslationStop = 0xFFFF
 };
 
-/// Типы данных таблиц быстрого поиска
+// Типы данных таблиц быстрого поиска
 enum ESldQAType
 {
-	/// Таблица быстрого поиска для списка слов
+	// Таблица быстрого поиска для списка слов
 	eQATypeList = 0,
-	/// Таблица быстрого поиска для переводов
+	// Таблица быстрого поиска для переводов
 	eQATypeArticles
 
 };
 
-/// Уровни на которых пишется текст
+// Уровни на которых пишется текст
 enum ESldStyleLevelEnum
 {
-	/// Стандартное расположение текста
+	// Стандартное расположение текста
 	eLevelNormal = 0,
-	/// Нижнее расположение текста
+	// Нижнее расположение текста
 	eLevelSub,
-	/// Верхнее распложение текста
+	// Верхнее распложение текста
 	eLevelSup
 };
 
-/// Размер шрифта текста
+// Размер шрифта текста
 enum ESldStyleSizeEnum
 {
-	/// Обычный текст, размер заглавных букв примерно совпадает со строчными буквами eSizeLarge
+	// Обычный текст, размер заглавных букв примерно совпадает со строчными буквами eSizeLarge
 	eSizeNormal = 0,
-	/// размер, промежуточный между eSizeExtraSmall и eSizeSmallCaps, заглавные буквы должны примерно совпадать со строчными буквами eSizeSmallCaps шрифта
+	// размер, промежуточный между eSizeExtraSmall и eSizeSmallCaps, заглавные буквы должны примерно совпадать со строчными буквами eSizeSmallCaps шрифта
 	eSizeSmall,
-	/// Крупный шрифт
+	// Крупный шрифт
 	eSizeLarge,
-	/// размер, промежуточный между Normal и Small
-	/// заглавные буквы должны примерно совпадать с размером строчных букв Normal шрифта
+	// размер, промежуточный между Normal и Small
+	// заглавные буквы должны примерно совпадать с размером строчных букв Normal шрифта
 	eSizeSmallCaps,
-	/// Мелкий шрифт, размер заглавных букв примерно совпадает со строчными буквами eSizeSmall
+	// Мелкий шрифт, размер заглавных букв примерно совпадает со строчными буквами eSizeSmall
 	eSizeExtraSmall
 };
 
 
-/// Разновидности использования текста. Нужно для автоматического установления стилистики
+// Разновидности использования текста. Нужно для автоматического установления стилистики
 enum ESldStyleUsageEnum
 {
 	/*
@@ -336,71 +336,71 @@ enum ESldStyleUsageEnum
 		TODO: не хватает content и phrase
 	*/
 	
-	/// Предназначение не известно
+	// Предназначение не известно
 	eStyleUsage_Unknown = 0,
-	/// Заголовок
+	// Заголовок
 	eStyleUsage_ThisHeadword,
 	eStyleUsage_PairHeadword,
-	/// Альтернативный заголовок
+	// Альтернативный заголовок
 	eStyleUsage_ThisHeadwordAlternative,
 	eStyleUsage_PairHeadwordAlternative,
-	/// Перевод
+	// Перевод
 	eStyleUsage_ThisTranslation,
 	eStyleUsage_PairTranslation,
-	/// Фонетика
+	// Фонетика
 	eStyleUsage_ThisPhonetic,
 	eStyleUsage_PairPhonetic,
-	/// Грамматическая информация (часть речи, число и т.д.)
+	// Грамматическая информация (часть речи, число и т.д.)
 	eStyleUsage_ThisGrammatic,
 	eStyleUsage_PairGrammatic,
-	/// Пример
+	// Пример
 	eStyleUsage_ThisExample,
 	eStyleUsage_PairExample,
-	/// Определение
+	// Определение
 	eStyleUsage_ThisDefinition,
 	eStyleUsage_PairDefinition,
-	/// Комментарий
+	// Комментарий
 	eStyleUsage_ThisComment,
 	eStyleUsage_PairComment,
-	/// Пояснение к слову/фразе (обычно проясняющее, какое из значений слова/фразы имеется ввиду)
+	// Пояснение к слову/фразе (обычно проясняющее, какое из значений слова/фразы имеется ввиду)
 	eStyleUsage_ThisClarification,
 	eStyleUsage_PairClarification,
-	/// Нумерация
+	// Нумерация
 	eStyleUsage_ThisNumeration,
 	eStyleUsage_PairNumeration,
-	/// Нумерация заголовочных слов (омонимы)
+	// Нумерация заголовочных слов (омонимы)
 	eStyleUsage_ThisNumerationHeadword,
 	eStyleUsage_PairNumerationHeadword,
-	/// Нумерация значений
+	// Нумерация значений
 	eStyleUsage_ThisNumerationMeaning,
 	eStyleUsage_PairNumerationMeaning,
-	/// Ударение
+	// Ударение
 	eStyleUsage_ThisStress,
 	eStyleUsage_PairStress,
-	/// Синоним
+	// Синоним
 	eStyleUsage_ThisSynonym,
 	eStyleUsage_PairSynonym,
-	/// Аббревиатура
+	// Аббревиатура
 	eStyleUsage_ThisAbbreviation,
 	eStyleUsage_PairAbbreviation,
-	/// Этимология
+	// Этимология
 	eStyleUsage_ThisEtymology,
 	eStyleUsage_PairEtymology,
-	/// Фразеологизм (идиома)
+	// Фразеологизм (идиома)
 	eStyleUsage_ThisIdiom,
 	eStyleUsage_PairIdiom,
-	/// Разделитель (пробелы, скобки, пунктуация, переводы строки и т.д.)
+	// Разделитель (пробелы, скобки, пунктуация, переводы строки и т.д.)
 	eStyleUsage_ThisSeparator,
 	eStyleUsage_PairSeparator,
-	/// Стилистическая помета (помета, означающая неправильный глагол, фразеологизм, приближенный перевод и т.д.)
+	// Стилистическая помета (помета, означающая неправильный глагол, фразеологизм, приближенный перевод и т.д.)
 	eStyleUsage_ThisStylisticLitter,
 	eStyleUsage_PairStylisticLitter,
-	/// Ссылка на слово, статью
+	// Ссылка на слово, статью
 	eStyleUsage_ThisReference,
 	eStyleUsage_PairReference,
-	/// Метаданные
+	// Метаданные
 	eStyleUsage_BothMetadata,
-	/// Фразы
+	// Фразы
 	eStyleUsage_ThisPhrase,
 	eStyleUsage_PairPhrase,
 };
@@ -539,38 +539,38 @@ enum ESldStyleUsageEnum
 	DEF(eMetaFootnoteBrief)       \
 	DEF(eMetaFootnoteTotal)
 
-/// Разновидность текста
+// Разновидность текста
 enum ESldStyleMetaTypeEnum
 {
-	/// Текст
+	// Текст
 	eMetaText = 0,
-	/// Транскрипция
+	// Транскрипция
 	eMetaPhonetics,
 
 #define ENUM(enum_) enum_,
 	SLD_FOREACH_METADATA_TYPE(ENUM)
 #undef ENUM
 
-	/// Общее количество определенных enum'ов
+	// Общее количество определенных enum'ов
 	eMeta_Last,
 
 	// NOTE: deprecated alias
 	eMetaItemTimeLine = eMetaTimeLineItem,
 
-	/// Неизвестный тип
+	// Unknown type
 	eMetaUnknown = 0xFFFF
 };
 
-/// типы управления блоком switch
+// типы управления блоком switch
 enum ESldMetaSwitchManageTypeEnum
 {
-	/// блок switch управляется блоком switch-control 
+	// блок switch управляется блоком switch-control 
 	eSwitchManagedBySwitchControl,
-	/// блок switch управляется настройками приложения
+	// блок switch управляется настройками приложения
 	eSwitchManagedByApplicationSettings
 };
 
-/// типы тематик блоков switch
+// типы тематик блоков switch
 enum ESldMetaSwitchThematicTypeEnum
 {
 	eSwitchThematicDefault = 0,
@@ -600,705 +600,705 @@ enum ESldMetaSwitchThematicTypeEnum
 
 	eSwitchThematicTestHint,
 
-	/// Общее количество тематик, последний элемент enum-а
+	// Общее количество тематик, последний элемент enum-а
 	eSwitchThematicsNumber
 };
 
-/// Типы семейства шрифтов
+// Типы семейства шрифтов
 enum ESldStyleFontFamilyEnum
 {
-	/// Рубленные шрифты (шрифты без засечек или гротески)
+	// Рубленные шрифты (шрифты без засечек или гротески)
 	eFontFamily_SansSerif = 0,
-	/// Шрифты с засечками
+	// Шрифты с засечками
 	eFontFamily_Serif,
-	/// Декоративные шрифты
+	// Декоративные шрифты
 	eFontFamily_Fantasy,
-	/// Моноширинные шрифты
+	// Моноширинные шрифты
 	eFontFamily_Monospace,
-	/// Неизвестный тип
+	// Unknown type
 	eFontFamily_Unknown = 0xFFFF
 };
 
-/// Возможные названия шрифтов
+// Возможные названия шрифтов
 enum ESldStyleFontNameEnum
 {
-	/// DejaVu Sans
+	// DejaVu Sans
 	eFontName_DejaVu_Sans = 0,
-	/// Lucida Sans
+	// Lucida Sans
 	eFontName_Lucida_Sans,
-	/// Verdana
+	// Verdana
 	eFontName_Verdana,
-	/// Georgia
+	// Georgia
 	eFontName_Georgia,
-	/// HelveticaNeueLT Std
+	// HelveticaNeueLT Std
 	eFontName_HelveticaNeueLT_Std,
-	/// DejaVu Serif
+	// DejaVu Serif
 	eFontName_DejaVu_Serif,
-	/// Helvetica
+	// Helvetica
 	eFontName_Helvetica,
-	/// Source Sans Pro
+	// Source Sans Pro
 	eFontName_Source_Sans_Pro,
-	/// Gentium
+	// Gentium
 	eFontName_Gentium,
-	/// Merriweather
+	// Merriweather
 	eFontName_Merriweather,
-	/// Merriweather Sans
+	// Merriweather Sans
 	eFontName_Merriweather_Sans,
-	/// Noto Sans
+	// Noto Sans
 	eFontName_Noto_Sans,
-	/// Noto Serif
+	// Noto Serif
 	eFontName_Noto_Serif,
-	/// Trajectum
+	// Trajectum
 	eFontName_Trajectum,
-	/// Combi Numerals
+	// Combi Numerals
 	eFontName_Combi_Numerals,
-	/// Charis SIL
+	// Charis SIL
 	eFontName_Charis_SIL,
-	/// Helvetica Neue
+	// Helvetica Neue
 	eFontName_HelveticaNeue,
-	/// Times New Roman
+	// Times New Roman
 	eFontName_TimesNewRoman,
-	/// Lyon Text
+	// Lyon Text
 	eFontName_Lyon_Text,
-	/// Atlas Grotesk
+	// Atlas Grotesk
 	eFontName_Atlas_Grotesk,
-	/// 1234 Sans
+	// 1234 Sans
 	eFontName_1234_Sans,
-	/// Наш собственный шрифт, при необходимости может расширяться
+	// Наш собственный шрифт, при необходимости может расширяться
 	eFontName_Augean,
-	/// Courier New
+	// Courier New
 	eFontName_Courier_New,
-	/// Wittenberger
+	// Wittenberger
 	eFontName_Wittenberger,
-	/// Kruti Dev
+	// Kruti Dev
 	eFontName_Kruti_Dev,
-	/// Win Innwa
+	// Win Innwa
 	eFontName_Win_Innwa,
- 	/// Myriad Pro Cond
+ 	// Myriad Pro Cond
   	eFontName_Myriad_Pro_Cond,
     /// Phonetic TM
   	eFontName_Phonetic_TM,	
     /// Symbol
 	eFontName_Symbol,
-	/// Неизвестный шрифт
+	// Неизвестный шрифт
 	eFontName_Unknown = 0xFFFF
 };
 
-/// Способы перехода к определенному слову в словаре
+// Способы перехода к определенному слову в словаре
 enum ESldNavigationTypeEnum
 {
-	/// Переход к самому слову
-	/// Нужно перейти на это слово и отобразить его перевод, если он есть (неважно, статья это или раздел каталога)
+	// Переход к самому слову
+	// Нужно перейти на это слово и отобразить его перевод, если он есть (неважно, статья это или раздел каталога)
 	eGoToWord = 0,
-	/// Переход внутрь раздела каталога
-	/// Нужно перейти внутрь раздела для отображения его элементов (если слово является разделом каталога);
-	/// Если слово не является разделом каталога - тогда работает как eGoToWord
+	// Переход внутрь раздела каталога
+	// Нужно перейти внутрь раздела для отображения его элементов (если слово является разделом каталога);
+	// Если слово не является разделом каталога - тогда работает как eGoToWord
 	eGoToSubSection
 };
 
-/// Типы поиска слова (подмотки к слову) по переданным вариантам написания
+// Типы поиска слова (подмотки к слову) по переданным вариантам написания
 enum ESldWordSearchTypeEnum
 {
-	/// бинарное совпадение всех переданных вариантов
+	// бинарное совпадение всех переданных вариантов
 	eFullBinaryMatch = 0,
-	/// бинарное совпадение Show-варианта
+	// бинарное совпадение Show-варианта
 	eShowVariantBinaryMatch,
-	/// наиболее подходящий по расстоянию редактирования Show-вариант
+	// наиболее подходящий по расстоянию редактирования Show-вариант
 	eShowVariantFuzzyMatch,
-	/// совпадение всех переданных вариантов по массе
+	// совпадение всех переданных вариантов по массе
 	eFullMassMatch,
-	/// ближайшее вхождение Show-варианта на текущем уровне
+	// ближайшее вхождение Show-варианта на текущем уровне
 	eClosestShowOnCurrentLevel
 };
 
-/// Перечисление вариантов предназначения списков слов.
+// Перечисление вариантов предназначения списков слов.
 enum EWordListTypeEnum
 {
-	/// неизвестный - ошибка
+	// неизвестный - ошибка
 	eWordListType_Unknown = 0,
-	/// Словарь
+	// Словарь
 	eWordListType_Dictionary,
-	/// Каталог (разговорник); содержит иерархический список статей
+	// Каталог (разговорник); содержит иерархический список статей
 	eWordListType_Catalog,
-	/// Дополнительные информационные статьи - информация о провайдере, статьи об обозначениях в словаре, различные таблицы
+	// Дополнительные информационные статьи - информация о провайдере, статьи об обозначениях в словаре, различные таблицы
 	eWordListType_AdditionalInfo,
-	/// Cписок с результатами поиска
+	// Cписок с результатами поиска
 	eWordListType_RegularSearch,
-	/// Список слов с озвучкой
+	// Список слов с озвучкой
 	eWordListType_Sound,
-	/// Начало диапазона полнотекстовых поисковых списков
+	// Начало диапазона полнотекстовых поисковых списков
 	eWordListType_FullTextSearchBase = 0x100,
-	/// Список полнотекстового поиска по заголовка
+	// Список полнотекстового поиска по заголовка
 	eWordListType_FullTextSearchHeadword = 0x110,
-	/// Список полнотекстового поиска по всему контенту статьи
+	// Список полнотекстового поиска по всему контенту статьи
 	eWordListType_FullTextSearchContent = 0x120,
-	/// Список полнотекстового поиска по переводам
+	// Список полнотекстового поиска по переводам
 	eWordListType_FullTextSearchTranslation = 0x130,
-	/// Список полнотекстового поиска по примерам
+	// Список полнотекстового поиска по примерам
 	eWordListType_FullTextSearchExample = 0x140,
-	/// Список полнотекстового поиска по определениям
+	// Список полнотекстового поиска по определениям
 	eWordListType_FullTextSearchDefinition = 0x150,
-	/// Список полнотекстового поиска по фразам
+	// Список полнотекстового поиска по фразам
 	eWordListType_FullTextSearchPhrase = 0x160,
-	/// Список полнотекстового поиска по идиомам
+	// Список полнотекстового поиска по идиомам
 	eWordListType_FullTextSearchIdiom = 0x170,
-	/// Конец диапазона полнотекстовых поисковых списков
+	// Конец диапазона полнотекстовых поисковых списков
 	eWordListType_FullTextSearchLast = 0x1FF,
-	/// Скрытый список слов (не отображаемый)
-	/// Обычно содержит статьи с дополнительной информацией, перейти на которые можно по ссылкам из других списков;
-	/// Используется для:
-	/// 1) хранения статьей с отображаемой информацией - биографиями людей, со списком примеров к конкретному слову в словаре;
-	/// ссылки на эти статьи могут встречаться в самом словаре (ссылка на статью в этом списке ничем не отличается от ссылок на статьи в словарных списках)
-	/// 2) как вспомогательный список для полнотекстового поиска (в базах старой генерации - v.104 build 53 и ранее);
-	/// в этом случае он содержит несколько вариантов написания (см. EListVariantTypeEnum) -
-	/// с их помощью кроме самой найденной статьи можно, например, узнать:
-	/// - фразу, в которой встретилось слово
-	/// - метку в статье, на которую нужно перейти
-	/// - часть речи
+	// Скрытый список слов (не отображаемый)
+	// Обычно содержит статьи с дополнительной информацией, перейти на которые можно по ссылкам из других списков;
+	// Используется для:
+	// 1) хранения статьей с отображаемой информацией - биографиями людей, со списком примеров к конкретному слову в словаре;
+	// ссылки на эти статьи могут встречаться в самом словаре (ссылка на статью в этом списке ничем не отличается от ссылок на статьи в словарных списках)
+	// 2) как вспомогательный список для полнотекстового поиска (в базах старой генерации - v.104 build 53 и ранее);
+	// в этом случае он содержит несколько вариантов написания (см. EListVariantTypeEnum) -
+	// с их помощью кроме самой найденной статьи можно, например, узнать:
+	// - фразу, в которой встретилось слово
+	// - метку в статье, на которую нужно перейти
+	// - часть речи
 	eWordListType_Hidden,
-	/// Список пресетов полнотекстового поиска(см. CSldDictionaryHelper::SearchForDictionaryForSearchList())
+	// Список пресетов полнотекстового поиска(см. CSldDictionaryHelper::SearchForDictionaryForSearchList())
 	eWordListType_DictionaryForSearch,
-	/// Морфологический список, который содержит базовые формы слов, ссылающиеся на их возможные словоформы
+	// Морфологический список, который содержит базовые формы слов, ссылающиеся на их возможные словоформы
 	eWordListType_MorphologyBaseForm,
-	/// Морфологический список, который содержит все возможные словоформы (то есть и базовые формы, и производные), которые ссылаются на свои базовые формы
+	// Морфологический список, который содержит все возможные словоформы (то есть и базовые формы, и производные), которые ссылаются на свои базовые формы
 	eWordListType_MorphologyInflectionForm,
-	/// Грамматические тесты
+	// Грамматические тесты
 	eWordListType_GrammaticTest,
-	/// Начало диапазона специальных списков слов с доп. статьями
+	// Начало диапазона специальных списков слов с доп. статьями
 	eWordListType_SpecialAdditionalInfoBase = 0x300,
-	/// Конец диапазона специальных списков слов с доп. статьями
+	// Конец диапазона специальных списков слов с доп. статьями
 	eWordListType_SpecialAdditionalInfoLast = 0x3FF,
-	/// Объединенный словарный список слов (не каталог), в котором есть слова из обоих направлений (прямого и обратного).
-	/// Коды языков направлений хранятся в соответствующих полях заголовка списка слов: LanguageCodeFrom и LanguageCodeTo.
+	// Объединенный словарный список слов (не каталог), в котором есть слова из обоих направлений (прямого и обратного).
+	// Коды языков направлений хранятся в соответствующих полях заголовка списка слов: LanguageCodeFrom и LanguageCodeTo.
 	eWordListType_MergedDictionary,
-	/// Начало диапазона специальных списков слов с интерактивными доп. статьями (которые можно просматривать из различных GUI-элементов)
+	// Начало диапазона специальных списков слов с интерактивными доп. статьями (которые можно просматривать из различных GUI-элементов)
 	eWordListType_SpecialAdditionalInteractiveInfoBase = 0x500,
-	/// Конец диапазона специальных списков слов с интерактивными доп. статьями
+	// Конец диапазона специальных списков слов с интерактивными доп. статьями
 	eWordListType_SpecialAdditionalInteractiveInfoLast = 0x5FF,
-	/// Морфологический список, содержащий статьи с морфологической информацией, например, таблицы словоформ (аналог eWordListType_Dictionary)
+	// Морфологический список, содержащий статьи с морфологической информацией, например, таблицы словоформ (аналог eWordListType_Dictionary)
 	eWordListType_MorphologyArticles,
-	/// Список, содержащий статьи, на примере которых настраивается отображение скрываемых блоков в статьях
+	// Список, содержащий статьи, на примере которых настраивается отображение скрываемых блоков в статьях
 	eWordListType_ArticlesHideInfo,
-	/// Список, содержащий каталог со статьями лингвистических игр
+	// Список, содержащий каталог со статьями лингвистических игр
 	eWordListType_GameArticles,
-	/// Список, содержащий лицевые стороны встроенных в базу флеш-карточек
+	// Список, содержащий лицевые стороны встроенных в базу флеш-карточек
 	eWordListType_FlashCardsFront,
-	/// Список, содержащий обратные стороны встроенных в базу флеш-карточек
+	// Список, содержащий обратные стороны встроенных в базу флеш-карточек
 	eWordListType_FlashCardsBack,
-	/// Список, содержащий избранные статьи InApp базы
+	// Список, содержащий избранные статьи InApp базы
 	eWordListType_InApp,
-	/// Вспомогательный список для полнотекстового поиска
-	/// т.е. список с результатами полнотекстового поиска может ссылаться на этот список
+	// Вспомогательный список для полнотекстового поиска
+	// т.е. список с результатами полнотекстового поиска может ссылаться на этот список
 	eWordListType_FullTextAuxiliary,
-	/// Список, содержащий основной учебный материал в учебнике
+	// Список, содержащий основной учебный материал в учебнике
 	eWordListType_TextBook,
-	/// Список, содержащий тесты к учебному материалу
+	// Список, содержащий тесты к учебному материалу
 	eWordListType_Tests,
-	/// Список, содержащий предметный указатель учебного материала
+	// Список, содержащий предметный указатель учебного материала
 	eWordListType_SubjectIndex,
-	/// Список, содержащий всплывающие статьи
+	// Список, содержащий всплывающие статьи
 	eWordListType_PopupArticles,
-	/// Сортированный по Show варианту вспомогательный список для несортированных списков
+	// Сортированный по Show варианту вспомогательный список для несортированных списков
 	eWordListType_SimpleSearch,
-	/// Список, содержащий информацию о пользовании словарем(help)
+	// Список, содержащий информацию о пользовании словарем(help)
 	eWordListType_DictionaryUsageInfo,
-	/// Пользовательский список
+	// Пользовательский список
 	eWordListType_CustomList,
-	/// Список, содержащий ссылки на слайдшоу
+	// Список, содержащий ссылки на слайдшоу
 	eWordListType_SlideShow,
-	/// Список, содержащий карты
+	// Список, содержащий карты
 	eWordListType_Map,
-	/// Список, содержащий КЭСы
+	// Список, содержащий КЭСы
 	eWordListType_KES,
-	/// Список, содержащий ФП
+	// Список, содержащий ФП
 	eWordListType_FC,
-	/// Список, содержащий AtomicObject-ы
+	// Список, содержащий AtomicObject-ы
 	eWordListType_Atomic,
-	/// Список, содержащий индекс нумерации страниц
+	// Список, содержащий индекс нумерации страниц
 	eWordListType_PageNumerationIndex,
-	/// Список бинарных ресурсов, содержащихся в базе
+	// Список бинарных ресурсов, содержащихся в базе
 	eWordListType_BinaryResource,
-	/// Список, с проиндексированными внешними ресурсами, которые должны загружаться в первую очередь
-	/// Далее идет диапазон списков, соответсвующий приоритету загрузки ресурсов из внешних баз 
+	// Список, с проиндексированными внешними ресурсами, которые должны загружаться в первую очередь
+	// Далее идет диапазон списков, соответсвующий приоритету загрузки ресурсов из внешних баз 
 	eWordListType_ExternResourcePriorityFirst,
-	/// Список, с проиндексированными внешними ресурсами, которые должны загружаться в последнюю очередь
+	// Список, с проиндексированными внешними ресурсами, которые должны загружаться в последнюю очередь
 	eWordListType_ExternResourcePriorityLast = eWordListType_ExternResourcePriorityFirst + 0xF,
-	/// Список имен баз, в которых содержаться внешние ресурсы
+	// Список имен баз, в которых содержаться внешние ресурсы
 	eWordListType_ExternBaseName,
-	/// Список строковых значений в структурированных метаданных
+	// Список строковых значений в структурированных метаданных
 	eWordListType_StructuredMetadataStrings,
-	/// Список строковых значений в css метаданных
+	// Список строковых значений в css метаданных
 	eWordListType_CSSDataStrings,
-	/// Список шаблонов для статей
+	// Список шаблонов для статей
 	eWordListType_ArticleTemplates,
-	/// Вспомогательный поисковый список
+	// Вспомогательный поисковый список
 	eWordListType_AuxiliarySearchList,
-	/// Список, содержащий справочную информацию
+	// Список, содержащий справочную информацию
 	eWordListType_Enchiridion,
-	/// Список для информации страницы Word of the Day (OALD10)
+	// Список для информации страницы Word of the Day (OALD10)
 	eWordlistType_WordOfTheDay,
-	/// Список предустановленного избранного
+	// Список предустановленного избранного
 	eWordlistType_PreloadedFavourites
 };
 
 
-/// Перечисление типов вариантов написания в списке слов
+// Перечисление типов вариантов написания в списке слов
 enum EListVariantTypeEnum
 {
-	/// Основной вариант написания
+	// Основной вариант написания
 	eVariantShow = 0,
-	/// Второй вариант написания (для китайского, японского и т.д.)
+	// Второй вариант написания (для китайского, японского и т.д.)
 	eVariantShowSecondary,
-	/// Вариант написания для сортировки списка (по умолчанию не отображается)
+	// Вариант написания для сортировки списка (по умолчанию не отображается)
 	eVariantSortKey,
-	/// Вариант написания, который используется для отображения части речи в списке слов
+	// Вариант написания, который используется для отображения части речи в списке слов
 	eVariantPartOfSpeech,
-	/// Вариант написания - метка, на которую нужно перейти в статье при переводе слова (по умолчанию не отображается)
+	// Вариант написания - метка, на которую нужно перейти в статье при переводе слова (по умолчанию не отображается)
 	eVariantLabel,
-	/// Вариант написания - содержимое ключа сортировки для слова в исходном списке слов
+	// Вариант написания - содержимое ключа сортировки для слова в исходном списке слов
 	eVariantSourceSortKey,
 	eSourceSortKey = eVariantSourceSortKey,
-	/// Вариант написания - код языка варианта написания eVariantShow
-	/// Используется для списка слов, в котором разные элементы списка слов могут быть на разных языках
+	// Вариант написания - код языка варианта написания eVariantShow
+	// Используется для списка слов, в котором разные элементы списка слов могут быть на разных языках
 	eVariantLanguageCode,
-	/// Вариант написания - флаг, явно указывающий доступен ли элемент списка для просмотра или нет
+	// Вариант написания - флаг, явно указывающий доступен ли элемент списка для просмотра или нет
 	eVariantLockFlag,
-	/// Вариант написания - отступ для слова в списке, соответствующий положению элемента в иерархии
+	// Вариант написания - отступ для слова в списке, соответствующий положению элемента в иерархии
 	eVariantDepth,
-	/// Вариант написания - фраза, в которой встретилось слово (используется при полнотекстовом поиске)
+	// Вариант написания - фраза, в которой встретилось слово (используется при полнотекстовом поиске)
 	eVariantPhrase,
-	/// Вариант написания - настройки стилизации других вариантов написания текущей записи списка слов
+	// Вариант написания - настройки стилизации других вариантов написания текущей записи списка слов
 	eVariantStylePreferences,
-	/// Вариант написания - нумерация в списке статей; это отображаемый вариант
+	// Вариант написания - нумерация в списке статей; это отображаемый вариант
 	eVariantNumeration,
-	/// Вариант написания - настройки локализации (по умолчанию не отображается)
+	// Вариант написания - настройки локализации (по умолчанию не отображается)
 	eVariantLocalizationPreferences,
-	/// Вариант написания - тип элемента структуры учебника
+	// Вариант написания - тип элемента структуры учебника
 	eVariantTextBookLevelType,
-	/// Вариант написания - номер элемента в структуре учебника
+	// Вариант написания - номер элемента в структуре учебника
 	eVariantTextBookLevelNumber,
-	/// Вариант написания - описание элемента структуры учебника
+	// Вариант написания - описание элемента структуры учебника
 	eVariantTextBookLevelDescription,
-	/// Вариант написания - индекс слова в несортированном списке (см eWordListType_SimpleSearch)
+	// Вариант написания - индекс слова в несортированном списке (см eWordListType_SimpleSearch)
 	eVariantNotSortedRealGlobalIndex,
-	/// Начало диапазона дополнительной информации о слове
+	// Начало диапазона дополнительной информации о слове
 	eVariantGrammarInfoBegin,
-	/// Конец диапазона дополнительной информации о слове
+	// Конец диапазона дополнительной информации о слове
 	eVariantGrammarInfoEnd = eVariantGrammarInfoBegin + 0x8,
-	/// Вариант написания - тип контента 
-	/// Необходимо для отображения иконок напротив элементов списка по типу контента на конечных платформах
+	// Вариант написания - тип контента 
+	// Необходимо для отображения иконок напротив элементов списка по типу контента на конечных платформах
 	eVariantTypeOfContent,
-	/// Ссылка на внешнюю статью
+	// Ссылка на внешнюю статью
 	eVariantExternArticleLink,
-	/// Вариант написания, содержащий в себе текст, по которому мы можем поискать контент во внешней базе
+	// Вариант написания, содержащий в себе текст, по которому мы можем поискать контент во внешней базе
 	eVariantExternalKey,
-	/// Вариант написания, содержащий в себе текст, по которому внешняя база  может найти данную запись
+	// Вариант написания, содержащий в себе текст, по которому внешняя база  может найти данную запись
 	eVariantInternalKey,
-	/// Вариант написания, содержащий в себе имя внешнего html-файла, который должен быть отображен вместо перевода статьи
+	// Вариант написания, содержащий в себе имя внешнего html-файла, который должен быть отображен вместо перевода статьи
 	eVariantHtmlSourceName,
-	/// Вариант написания, содержащий в себе автора, для хрестоматий учебника
+	// Вариант написания, содержащий в себе автора, для хрестоматий учебника
 	eVariantAuthorName,
-	/// Вариант написания, содержащий уникальный ID Kes-а
+	// Вариант написания, содержащий уникальный ID Kes-а
 	eVariantKesID,
-	/// Последний значащий вариант, нужен для определения размера енама
+	// Последний значащий вариант, нужен для определения размера енама
 	eVariantEnd,
-	/// Неизвестный тип - ошибка
+	// Неизвестный тип - ошибка
 	eVariantUnknown = 0xFFFF
 };
 
-/// Разновидность типа содержимого контейнера
+// Разновидность типа содержимого контейнера
 enum ESlovoEdContainerDatabaseTypeEnum
 {
-	/// Разговорник
+	// Разговорник
 	eDatabaseType_Phrasebook = 0,
-	/// Словарная база
+	// Словарная база
 	eDatabaseType_Dictionary,
-	/// Звуковая база
+	// Звуковая база
 	eDatabaseType_Sound,
-	/// Морфологическая база
+	// Морфологическая база
 	eDatabaseType_Morphology,
-	/// Бандл
+	// Бандл
 	eDatabaseType_Bundle,
-	/// База лингвистических игр
+	// База лингвистических игр
 	eDatabaseType_Games,
-	/// База, загружаемая через механизм встроенных покупок
+	// База, загружаемая через механизм встроенных покупок
 	eDatabaseType_InApp,
-	/// База, содержащая контент учебника
+	// База, содержащая контент учебника
 	eDatabaseType_TextBook,
-	/// База с изображениями
+	// База с изображениями
 	eDatabaseType_Images,
-	/// Книга
+	// Книга
 	eDatabaseType_Book,
-	/// Визуальный словарь
+	// Визуальный словарь
 	eDatabaseType_PictureDictionary,
-	/// Отображаемые морфо таблицы
+	// Отображаемые морфо таблицы
 	eDatabaseType_DisplayMorphology,
-	/// Морфология, содержащая только базовые и производные формы
+	// Морфология, содержащая только базовые и производные формы
 	eDatabaseType_InflectionMorphology,
-	/// Неизвестный тип - ошибка
+	// Неизвестный тип - ошибка
 	eDatabaseType_Unknown = 0xFFFF
 };
 
-/// Разновидность типа источника медиаданных: озвучки, картинок и т.д.
+// Разновидность типа источника медиаданных: озвучки, картинок и т.д.
 enum EMediaSourceTypeEnum
 {
-	/// Медиаданные находятся непосредственно в базе SDC
+	// Медиаданные находятся непосредственно в базе SDC
 	eMediaSourceType_Database = 0,
-	/// Медиаданные находятся на сервере в интернете
+	// Медиаданные находятся на сервере в интернете
 	eMediaSourceType_InternetServer,
-	/// Неизвестный тип источника - ошибка
+	// Неизвестный тип источника - ошибка
 	eMediaSourceType_Unknown = 0xFFFF
 };
 
-/// Перечисление, описывающее возможные типы вариантов стиля
+// Перечисление, описывающее возможные типы вариантов стиля
 enum EStyleVariantType
 {
 	eStyleVariant_Default = 0
 };
 
-/// Перечисление, описывающее возможные типы алфавитов
+// Перечисление, описывающее возможные типы алфавитов
 enum EAlphabetType
 {
-	/// Для языков, представленных одним алфавитом
+	// Для языков, представленных одним алфавитом
 	EAlphabet_Standard = 0,
-	/// Китайский - иероглифы
+	// Китайский - иероглифы
 	EAlphabet_Chin_Hierogliph,
-	/// Китайский - pinjin
+	// Китайский - pinjin
 	EAlphabet_Chin_Pinyin,
-	/// Японский - kana
+	// Японский - kana
 	EAlphabet_Japa_Kana,
-	/// Японский - kanji
+	// Японский - kanji
 	EAlphabet_Japa_Kanji,
-	/// Японский - romanji
+	// Японский - romanji
 	EAlphabet_Japa_Romanji,
-	/// Корейский - иероглифы
+	// Корейский - иероглифы
 	EAlphabet_Kore_Hangul,
-	/// Корейский - pinjin
+	// Корейский - pinjin
 	EAlphabet_Kore_Pinyin,
-	/// Ничего нельзя сказать об алфавите
+	// Ничего нельзя сказать об алфавите
 	EAlphabet_Unknown
 };
 
-/// Максимальная длина текста при поиске похожих слов
+// Максимальная длина текста при поиске похожих слов
 #define ARRAY_DIM	(128)
 
-/// Максимальная длина текста при поиске похожих слов
+// Максимальная длина текста при поиске похожих слов
 #define MAX_FUZZY_WORD	ARRAY_DIM
 
 
-/// Количество итераций поиска, через которое происходит взаимодействие с оболочкой
+// Количество итераций поиска, через которое происходит взаимодействие с оболочкой
 #define SLD_SEARCH_CALLBACK_INTERLEAVE	(1000)
 
-/// Количество деревьев необходимых для декодирования списка слов.
+// Количество деревьев необходимых для декодирования списка слов.
 #define SLD_NUMBER_OF_TREES_FOR_LIST	(2)
 
 
 
-/// Количество бит отведенных для хранения контрольной суммы серийного номера.
+// Количество бит отведенных для хранения контрольной суммы серийного номера.
 #define SLD_SN_CRC_SIZE		(9)
-/// Маска для контрольной суммы серийного номера.
+// Маска для контрольной суммы серийного номера.
 #define SLD_SN_CRC_MASK		((1<<(SLD_SN_CRC_SIZE)) -1)
 
-/// Количество бит отведенных для флага того, что это серийный номер бандла
+// Количество бит отведенных для флага того, что это серийный номер бандла
 #define SLD_SN_BUNDLE_FLAG_SIZE	(1)
-/// Маска для флага того, что этот серийный номер для бандла.
+// Маска для флага того, что этот серийный номер для бандла.
 #define SLD_SN_BUNDLE_FLAG_MASK	(1)
 
-/// Количество бит для хранения срока действия серийного номера.
+// Количество бит для хранения срока действия серийного номера.
 #define SLD_SN_DATE_SIZE		(3)
 
-/// Количество бит для хранения HASH
+// Количество бит для хранения HASH
 #define SLD_SN_HASH_SIZE		(16)
 
-/// Количество бит для хранения порядкового номера серийного номера.
+// Количество бит для хранения порядкового номера серийного номера.
 #define SLD_SN_NUMBER_SIZE		(20)
 
-/// Версия сохраненных данных.
+// Версия сохраненных данных.
 #define SLD_SN_SAVE_VERSION_1	(1)
 
-/// Количество сохраняемых данных для версии 1
+// Количество сохраняемых данных для версии 1
 #define SLD_SN_ELEMENT_COUNT_VERSION_1	(8)
 
 
-/// Расположение версии в сохраняемых данных.
+// Расположение версии в сохраняемых данных.
 #define SLD_SN_DATA_VERSION		(0)
-/// Случайное число необходимое для восстановления остальных данных
+// Случайное число необходимое для восстановления остальных данных
 #define SLD_SN_DATA_V1_RANDOM	(1)
-/// HASH 
+// HASH 
 #define SLD_SN_DATA_V1_HASH		(2)
-/// Срок действия серийного номера
+// Срок действия серийного номера
 #define SLD_SN_DATA_V1_DATE		(3)
-/// Порядковый номер серийного номера
+// Порядковый номер серийного номера
 #define SLD_SN_DATA_V1_NUMBER	(4)
-/// Количество просмотренных статей
+// Количество просмотренных статей
 #define SLD_SN_DATA_V1_CLICKS	(5)
-/// Идентификатор словаря для которого сохранен данный серийный номер.
+// Идентификатор словаря для которого сохранен данный серийный номер.
 #define SLD_SN_DATA_V1_DICTID	(6)
-/// Контрольная сумма сохраняемого серийного номера.
+// Контрольная сумма сохраняемого серийного номера.
 #define SLD_SN_DATA_V1_CRC		(7)
 
-/// Максимальное количество показов(2^5=32) статьи пока не начнет показывать только сообщение о незарегистрированной версии
+// Максимальное количество показов(2^5=32) статьи пока не начнет показывать только сообщение о незарегистрированной версии
 #define SLD_SN_CLICKS_MAX		(5)
-/// Количество показов которые гарантированно не будут иметь сообщений о незарегистрированной версии.(2^2 = 4)
+// Количество показов которые гарантированно не будут иметь сообщений о незарегистрированной версии.(2^2 = 4)
 #define SLD_SN_CLICKS_MIN		(2)
 
-/// Смещение до значащих битов в Number которые означают, что словарь не зарегестрирован(если эти биты не равны 0) или
-/// что зарегестрирован если биты = 0
+// Смещение до значащих битов в Number которые означают, что словарь не зарегестрирован(если эти биты не равны 0) или
+// что зарегестрирован если биты = 0
 #define SLD_SN_REGISTRATION_FLAG_SHIFT	(24)
 
 
-/// максимальная длина слова которое может быть в списке слов озвучки.
+// максимальная длина слова которое может быть в списке слов озвучки.
 #define SLD_SOUND_MAX_WORD_LEN				(64)
 
-/// Флаг означает, что начато декодирование, никаких реальных данных не передается.
+// Флаг означает, что начато декодирование, никаких реальных данных не передается.
 #define SLD_SOUND_FLAG_START				(0)
-/// Флаг означает, что продолжается декодирование.
+// Флаг означает, что продолжается декодирование.
 #define SLD_SOUND_FLAG_CONTINUE				(1)
-/// Флаг означает, что декодирование закончено, никаких реальных данных не передается.
+// Флаг означает, что декодирование закончено, никаких реальных данных не передается.
 #define SLD_SOUND_FLAG_FINISH				(2)
 
-/// Звуковые данные в формате spx
+// Звуковые данные в формате spx
 #define SLD_SOUND_FORMAT_SPX				(1)
-/// Звуковые данные в формате wav
+// Звуковые данные в формате wav
 #define SLD_SOUND_FORMAT_WAV				(2)
-/// Звуковые данные в формате amr
+// Звуковые данные в формате amr
 #define SLD_SOUND_FORMAT_AMR				(3)
-/// Звуковые данные в формате mp3
+// Звуковые данные в формате mp3
 #define SLD_SOUND_FORMAT_MP3				(4)
-/// Звуковые данные в формате ogg
+// Звуковые данные в формате ogg
 #define SLD_SOUND_FORMAT_OGG				(5)
 
-/// Макрос для изменения порядка байт в машинном слове.
+// Макрос для изменения порядка байт в машинном слове.
 //#define REVERSE_INT16(x)				((((x)&0xFF)<<8)|(((x)&0xFF00)>>8))
 #define REVERSE_INT16(x)				(x)
 
-/// Макрос для изменения порядка байт в двойном машинном слове.
+// Макрос для изменения порядка байт в двойном машинном слове.
 #define REVERSE_INT32(x)	(x)
 //#define REVERSE_INT32(x)				((((x)&0xFF)<<24)|(((x)&0xFF00)<<8)|(((x)&0xFF0000)>>8)|(((x)&0xFF000000)>>24))
 
-/// Максимальный размер блока со сжатыми данными(списка слов)
+// Максимальный размер блока со сжатыми данными(списка слов)
 #define SLD_SOUND_DECODER_MAX_BLOCK_SIZE		(0x00008000)
-/// Битовая маска для номера бита в пределах блока данных
+// Битовая маска для номера бита в пределах блока данных
 #define SLD_SOUND_DECODER_BLOCK_BIT_MASK		(0x0003ffff)
-/// Смещение которое делает из номера бита номер ресурса.
+// Смещение которое делает из номера бита номер ресурса.
 #define SLD_SOUND_DECODER_BLOCK_SHIFT			(15+3)
 
 
-/// Индекс картинки, обозначающий, что картинки нет
+// Индекс картинки, обозначающий, что картинки нет
 #define	SLD_INDEX_PICTURE_NO			(-1)
 
 
-/// Индекс видео, обозначающий, что видео нет
+// Индекс видео, обозначающий, что видео нет
 #define	SLD_INDEX_VIDEO_NO				(-1)
 
-/// Индекс 3d сцены, обозначающий, что 3d сцены нет
+// Индекс 3d сцены, обозначающий, что 3d сцены нет
 #define	SLD_INDEX_SCENE_NO				(-1)
 
 
-/// Индекс озвучки, обозначающий, что озвучки нет
+// Индекс озвучки, обозначающий, что озвучки нет
 #define	SLD_INDEX_SOUND_NO				(-1)
 
-/// Индекс стилизованного варианта написания, обозначающий, что стилизованного варианта написания нет
+// Индекс стилизованного варианта написания, обозначающий, что стилизованного варианта написания нет
 #define	SLD_INDEX_STYLIZED_VARIANT_NO	(-1)
 
 
-/// Максимальная глубина поиска при разборе китайского слова.
+// Максимальная глубина поиска при разборе китайского слова.
 #define MAX_SEARCH_DEPTH		(32)
-/// Максимальное количество символов в слоге в китайском слове.
+// Максимальное количество символов в слоге в китайском слове.
 #define MAX_SEARCH_CHAR		(6)
 
-/// Проверяет является ли символ согласным(т.е. в китайском языке слог с него начинаться не может).
+// Проверяет является ли символ согласным(т.е. в китайском языке слог с него начинаться не может).
 #define isConsonant(ch)	(ch == 'q' || ch == 'w' || ch == 'r' || ch == 't' || ch == 'p' || ch == 's' || ch == 'd' || ch == 'f' || ch == 'g' || ch == 'h' || ch == 'k' || ch == 'l' || ch == 'z' || ch == 'x' || ch == 'c' || ch == 'v' || ch == 'b' || ch == 'n' || ch == 'm')
-/// Является ли символ в слове подходящим для поиска китайской озвучки.
+// Является ли символ в слове подходящим для поиска китайской озвучки.
 #define isChinSoundCh(ch)	(ch < 0x2000) 
 
-/// Макрос проверки выравнивания указателя на данные морфологии, считанные из ресурсов
+// Макрос проверки выравнивания указателя на данные морфологии, считанные из ресурсов
 //#define MorphoTestPtr( p ) CheckPtrAlignment( p )
 #define MorphoTestPtr( p )
 
-/// Константа определяющая расстояние между точками входа в таблице быстрого доступа.
-/// Нужна для оценки расстояния между началом декодирования если поиск начнется с начала
+// Константа определяющая расстояние между точками входа в таблице быстрого доступа.
+// Нужна для оценки расстояния между началом декодирования если поиск начнется с начала
 #define SLD_MERGE_QA_INTERLEAVE	(50)
 
-/// Количество бит в одной единице битового поля
+// Количество бит в одной единице битового поля
 #define SLD_SEARCH_RESULT_BUFFER_SIZE		(32)
 
-/// Количество бит необходимых для кодирования смещения бита в одной единице битового поля
+// Количество бит необходимых для кодирования смещения бита в одной единице битового поля
 #define SLD_SEARCH_RESULT_BUFFER_SHIFT		(5)
 
-/// Максимальный размер префикса для стиля в символах (UInt16)
+// Максимальный размер префикса для стиля в символах (UInt16)
 #define SLD_MAX_STYLE_PREFIX_SIZE			(16)
-/// Максимальный размер постфикса для стиля в символах (UInt16)
+// Максимальный размер постфикса для стиля в символах (UInt16)
 #define SLD_MAX_STYLE_POSTFIX_SIZE			(16)
 
-/// Индекс варианта стиля для запроса варианта по умолчанию
+// Индекс варианта стиля для запроса варианта по умолчанию
 #define SLD_DEFAULT_STYLE_VARIANT_INDEX		(-1)
 
-/// Неопределенный текущий индекс списка слов (до начала декодирования)
+// Неопределенный текущий индекс списка слов (до начала декодирования)
 #define SLD_DEFAULT_LIST_INDEX		(-1)
 
-/// Неопределенный текущий индекс слова в списке
+// Неопределенный текущий индекс слова в списке
 #define	SLD_DEFAULT_WORD_INDEX		(-1)
 
-/// Неопределенный индекс варианта написания
+// Неопределенный индекс варианта написания
 #define	SLD_DEFAULT_VARIANT_INDEX	(-1)
 
-/// Неопределенный индекс словаря
+// Неопределенный индекс словаря
 #define	SLD_DEFAULT_DICTIONARY_INDEX (-1)
 
-/// Маска, которая отвечает за признак наличия в таблице сравнения таблицы пар соответствий символов верхнего и нижнего регистров
+// Маска, которая отвечает за признак наличия в таблице сравнения таблицы пар соответствий символов верхнего и нижнего регистров
 #define SLD_CMP_TABLE_FEATURE_SYMBOL_PAIR_TABLE	(0x1)
 
-/// Максимальная длина строки со значением параметра
+// Максимальная длина строки со значением параметра
 #define SLD_META_PARAM_MAX_VAL_SIZE (255)
 
-/// Минимальное количество слов, необходимое для добавления дерева быстрого поиска
+// Минимальное количество слов, необходимое для добавления дерева быстрого поиска
 #define SLD_MIN_WORDS_COUNT_FOR_QUICK_SEARCH	(512)
 
-/// Типы таблиц пар соответствий символов верхнего и нижнего регистров в таблице сравнения
+// Типы таблиц пар соответствий символов верхнего и нижнего регистров в таблице сравнения
 enum ESymbolPairTableTypeEnum
 {
-	/// Таблица пар соответствий символов верхнего и нижнего регистров алфавита конкретного языка
+	// Таблица пар соответствий символов верхнего и нижнего регистров алфавита конкретного языка
 	eSymbolPairTableType_Native = 0,
-	/// Таблица всех возможных пар соответствий символов верхнего и нижнего регистров
+	// Таблица всех возможных пар соответствий символов верхнего и нижнего регистров
 	eSymbolPairTableType_Common,
-	/// Таблица пар соответствий символов верхнего и нижнего регистров для символов, встречающихся в списках слов словаря
+	// Таблица пар соответствий символов верхнего и нижнего регистров для символов, встречающихся в списках слов словаря
 	eSymbolPairTableType_Dictionary
 };
 
-/// Перечисление, описывающее возможные виды выравнивания текста по горизонтали
+// Перечисление, описывающее возможные виды выравнивания текста по горизонтали
 enum ESldTextAlignEnum
 {
-	/// Выравнивание по левому краю (по умолчанию)
+	// Выравнивание по левому краю (по умолчанию)
 	eTextAlign_Left = 0,
-	/// Выравнивание по центру
+	// Выравнивание по центру
 	eTextAlign_Center,
-	/// Выравнивание по правому краю
+	// Выравнивание по правому краю
 	eTextAlign_Right,
-	/// Выравнивание по ширине
+	// Выравнивание по ширине
 	eTextAlign_Justify,
-	/// Неизвестный вид выравнивания
+	// Неизвестный вид выравнивания
 	eTextAlign_Unknown = 0xFFFF
 };
 
-/// Перечисление, описывающее возможные виды выравнивания текста по вертикали
+// Перечисление, описывающее возможные виды выравнивания текста по вертикали
 enum ESldVerticalTextAlignEnum
 {
-	/// Выравнивание по центру (по умолчанию)
+	// Выравнивание по центру (по умолчанию)
 	eVerticalTextAlign_Center = 0,
-	/// Выравнивание по верхней границе
+	// Выравнивание по верхней границе
 	eVerticalTextAlign_Top,
-	/// Выравнивание по нижней границе
+	// Выравнивание по нижней границе
 	eVerticalTextAlign_Bottom,
-	/// Неизвестный вид выравнивания
+	// Неизвестный вид выравнивания
 	eVerticalTextAlign_Unknown = 0xFFFF
 };
 
-/// Перечисление, описывающее возможные направления написания текста по горизонтали
+// Перечисление, описывающее возможные направления написания текста по горизонтали
 enum ESldTextDirectionEnum
 {
-	/// Направление написания текста слева направо (по умолчанию)
+	// Направление написания текста слева направо (по умолчанию)
 	eTextDirection_LTR = 0,
-	/// Направление написания текста справа налево (арабский язык и иврит)
+	// Направление написания текста справа налево (арабский язык и иврит)
 	eTextDirection_RTL,
-	/// Неизвестный вид направления написания текста
+	// Неизвестный вид направления написания текста
 	eTextDirection_Unknown = 0xFFFF
 };
 
-/// Перечисление, описывающее возможные типы поиска похожих слов
+// Перечисление, описывающее возможные типы поиска похожих слов
 enum EFuzzySearchMode
 {
-	/// Обычный поиск без всяких оптимизаций:
-	/// не проводится предварительная проверка наличия одних и тех же символов в сравниваемых словах, используется точное сравнение символов
+	// Обычный поиск без всяких оптимизаций:
+	// не проводится предварительная проверка наличия одних и тех же символов в сравниваемых словах, используется точное сравнение символов
 	eFuzzy_WithoutOptimization = 0,
-	/// Поиск с оптимизацией, используется точное сравнение символов
+	// Поиск с оптимизацией, используется точное сравнение символов
 	eFuzzy_CompareDirect,
-	/// Поиск с оптимизацией, используется сравнение символов на основе таблицы сортировки
+	// Поиск с оптимизацией, используется сравнение символов на основе таблицы сортировки
 	eFuzzy_CompareSortTable
 };
 
-/// Перечисление, описывающее возможные типы грамматических тестов
+// Перечисление, описывающее возможные типы грамматических тестов
 enum ESldTestTypeEnum
 {
-	/// Тест, в котором нужно напечатать ответ (в свободной форме)
+	// Тест, в котором нужно напечатать ответ (в свободной форме)
 	eTestType_FreeAnswer = 0,
-	/// Тест, в котором нужно выбрать один или несколько вариантов ответов
+	// Тест, в котором нужно выбрать один или несколько вариантов ответов
 	eTestType_MultipleChoice,
-	/// Тест, в котором нужно заполнить пропущенные слова из предложенных вариантов или самостоятельно вписать ответ
+	// Тест, в котором нужно заполнить пропущенные слова из предложенных вариантов или самостоятельно вписать ответ
 	eTestType_CloseDeletion,
-	/// Тест, в котором нужно расположить слова в правильном порядке
+	// Тест, в котором нужно расположить слова в правильном порядке
 	eTestType_Reordering,
-	/// Тест, в котором нужно сопоставить элементы в правильном порядке
+	// Тест, в котором нужно сопоставить элементы в правильном порядке
 	eTestType_Mapping,
-	/// Тест, в котором необходимо выделить часть текста
+	// Тест, в котором необходимо выделить часть текста
 	eTestType_Highlighting,
-	/// Тест, в котором ведется распознавание рукописного ввода
+	// Тест, в котором ведется распознавание рукописного ввода
 	eTestType_Handwriting,
-	/// Кроссворд
+	// Кроссворд
 	eTestType_Crossword,
-	/// тест с выбором области на изображении в качестве ответа
+	// тест с выбором области на изображении в качестве ответа
 	eTestType_Area,
-	/// тест с выбором нескольких областей на изображении в качестве ответа
+	// тест с выбором нескольких областей на изображении в качестве ответа
 	eTestType_MultipleArea,
-	/// тест на рисование
+	// тест на рисование
 	eTestType_Drawing,
-	/// Неизвестный тип теста
+	// Неизвестный тип теста
 	eTestType_Unknown = 0xFFFF
 };
 
-/// Перечисление, описывающее возможные типы ответа пользователя в грамматических тестах
+// Перечисление, описывающее возможные типы ответа пользователя в грамматических тестах
 enum ESldTestInputTypeEnum
 {
-	/// Написать свой вариант ответа
+	// Написать свой вариант ответа
 	eTestInputType_Text = 0,
-	/// Выбрать один или несколько правильных ответов из предложенных
+	// Выбрать один или несколько правильных ответов из предложенных
 	eTestInputType_Checkbox,
-	/// Выбрать только один правильный ответ из предложенных
+	// Выбрать только один правильный ответ из предложенных
 	eTestInputType_Radio,
-	/// Указать файл для загрузки
+	// Указать файл для загрузки
 	eTestInputType_File,
-	/// Указать ссылку
+	// Указать ссылку
 	eTestInputType_Link,
-	/// Указать число
+	// Указать число
 	eTestInputType_Numeric,
-	/// Написать одно слово
+	// Написать одно слово
 	eTestInputType_OneWord,
-	/// Выбрать ответ слайдером
+	// Выбрать ответ слайдером
 	eTestInputType_Slider
 };
 
-/// Перечисление форматов картинок
+// Перечисление форматов картинок
 enum EPictureFormatType
 {
-	/// PNG
+	// PNG
 	ePictureFormatType_PNG = 0,
-	/// JPG
+	// JPG
 	ePictureFormatType_JPG,
-	/// SVG
+	// SVG
 	ePictureFormatType_SVG,
-	/// GIF
+	// GIF
 	ePictureFormatType_GIF,
-	/// Unknown
+	// Unknown
 	ePictureFormatType_UNKNOWN = 0xFFFF
 };
 
-/// Перечисление единиц измерения размеров
+// Перечисление единиц измерения размеров
 enum EMetadataUnitType
 {
-	/// Pixels
+	// Pixels
 	eMetadataUnitType_px = 0,
-	/// Pt
+	// Pt
 	eMetadataUnitType_pt,
-	/// Em
+	// Em
 	eMetadataUnitType_em,
-	/// Mm
+	// Mm
 	eMetadataUnitType_mm,
-	/// Проценты
+	// Проценты
 	eMetadataUnitType_percent,
-	/// Последнее значащее значение, нужно для определения размера енама 
+	// Последнее значащее значение, нужно для определения размера енама 
 	eMetadataUnitType_end,
 
-	/// Default
+	// Default
 	eMetadataUnitType_UNKNOWN = 0xFFFF
 };
 
@@ -1306,212 +1306,212 @@ enum EMetadataUnitType
 // Константы сортировки результатов полнотекстового поиска
 /////////////////////////////////////////////////////////////////////////////////////
 
-/// Количество совпадающих слов равных искомым
+// Количество совпадающих слов равных искомым
 #define SLD_FTS_GRADE_EQUAL		(50*1000000)
-/// Минимальное расстояние между словами
+// Минимальное расстояние между словами
 #define SLD_FTS_GRADE_DISTANCE	(1000000)
-/// Количество базовых форм равных искомым
+// Количество базовых форм равных искомым
 #define SLD_FTS_GRADE_EQUAL_MORPHO_BASE		(1000000)
-/// Количество словоформ равных искомым
+// Количество словоформ равных искомым
 #define SLD_FTS_GRADE_EQUAL_MORPHO_FORM		(1200000)
-/// Расстояние до ближайшего к началу слову
+// Расстояние до ближайшего к началу слову
 #define SLD_FTS_GRADE_START		(10000)
-/// Насколько большое различие по количеству слов
+// Насколько большое различие по количеству слов
 #define SLD_FTS_GRADE_DIFFERENCE_WORDS	(100)
-/// Насколько большое различие по длине
+// Насколько большое различие по длине
 #define SLD_FTS_GRADE_DIFFERENCE_LENGTH	(1)
 
 ///
 #define  SLD_FTS_NUMBER_OF_WORDS_FOR_FULL_MODE	(256)
 
-/// Максимальное число слов в запросе в TExpressionBox
+// Максимальное число слов в запросе в TExpressionBox
 #define		SLD_DEFAULT_NUMBER_OF_REQUEST_WORD	(512)
 
-/// У слова в словарном списке есть точное соответсвие
+// У слова в словарном списке есть точное соответсвие
 #define		SLD_SIMPLE_SORTED_NORMAL_WORD		(1)		
-/// У слова в словарном списке нет точного соответсвия
+// У слова в словарном списке нет точного соответсвия
 #define		SLD_SIMPLE_SORTED_VIRTUAL_WORD		(-1)		
 
-/// Перечисление, описывающее возможные типы сортировки результатов полнотекстового поиска.
+// Перечисление, описывающее возможные типы сортировки результатов полнотекстового поиска.
 enum ESldFTSSortingTypeEnum
 {
-	/// Упрощенный метод сортировки - работает быстро
+	// Упрощенный метод сортировки - работает быстро
 	eFTSSortingType_Simple = 0,
-	/// Разбивает на группы по числу параметров большему, чем в Simple, и меньшему, чем в Full, а также сортирует внутри группы по алфавиту
+	// Разбивает на группы по числу параметров большему, чем в Simple, и меньшему, чем в Full, а также сортирует внутри группы по алфавиту
 	eFTSSortingType_AlphabeticalSortedGroups,
-	/// Полный метод сортировки - работает медленнее
+	// Полный метод сортировки - работает медленнее
 	eFTSSortingType_Full,
-	/// Умный - сам выбирает какой метод использовать в зависимости от количества найденых результатов (eFTSSortingType_Simple или eFTSSortingType_Full)
+	// Умный - сам выбирает какой метод использовать в зависимости от количества найденых результатов (eFTSSortingType_Simple или eFTSSortingType_Full)
 	eFTSSortingType_Smart,
-	/// сортировка по алфавиту
+	// сортировка по алфавиту
 	eFTSSortingType_Alphabetical
 };
 
-/// Перечисление, описывающее типы слов, получаемых из морфологии
+// Перечисление, описывающее типы слов, получаемых из морфологии
 enum ESldMorphologyWordTypeEnum
 {
-	/// Базовая форма слова
+	// Базовая форма слова
 	eMorphologyWordTypeBase = 0,
-	/// Одна из словоформ
+	// Одна из словоформ
 	eMorphologyWordTypeWordform,
 };
 
-/// Перечисление, описывающее типы видеоконтента
+// Перечисление, описывающее типы видеоконтента
 enum ESldVideoType
 {
-	/// Видео, закодированное кодеком h.264
+	// Видео, закодированное кодеком h.264
 	eVideoType_H264 = 0,
-	/// Видео, закодированное кодеком VP8
+	// Видео, закодированное кодеком VP8
 	eVideoType_WEBM,
-	/// Неизвестный формат видео
+	// Неизвестный формат видео
 	eVideoType_Unknown = 0xFFFF,
 };
 
-/// Перечисление, описывающее тип действия, с которым ассоциирована выделенная на изображении область
+// Перечисление, описывающее тип действия, с которым ассоциирована выделенная на изображении область
 enum ESldImageAreaType
 {
-	/// Ссылка на другой материал
+	// Ссылка на другой материал
 	eImageAreaType_Link = 0,
-	/// Вызывается при перетаскивания другого объекта на эту область
+	// Вызывается при перетаскивания другого объекта на эту область
 	eImageAreaType_Drop,
-	/// Используется для переключения в рамках слайдшоу
+	// Используется для переключения в рамках слайдшоу
 	eImageAreaType_Slide,
-	/// Используется для ввода
+	// Используется для ввода
 	eImageAreaType_Text,
-	/// Используется для ответа на тест
+	// Используется для ответа на тест
 	eImageAreaType_Test,
-	/// Внешняя ссылка
+	// Внешняя ссылка
 	eImageAreaType_Url,
-	/// Popup контент
+	// Popup контент
 	eImageAreaType_Popup,
-	/// Неизвестный тип действия
+	// Неизвестный тип действия
 	eImageAreaType_Unknown = 0xFFFF,
 };
 
-/// Перечисление, описывающее возможные формы области
+// Перечисление, описывающее возможные формы области
 typedef enum ESldAreaShape
 {
-	/// Прямоугольник
+	// Прямоугольник
 	eAreaShapeRect = 0,
-	/// Многоугольник
+	// Многоугольник
 	eAreaShapePoly,
 
 	eShapeTypeUnknown = 0xFFFF
 } ESldAreaShape;
 
-/// Cпособ обтекания текстом
+// Cпособ обтекания текстом
 enum ESldFlow
 {
-	/// В тексте
+	// В тексте
 	eFlow_InText = 0,
-	/// Вокруг рамки
+	// Вокруг рамки
 	eFlow_Square,
-	/// По контуру
+	// По контуру
 	eFlow_Tight,
-	/// Сквозное
+	// Сквозное
 	eFlow_Through,
-	/// Сверху и снизу
+	// Сверху и снизу
 	eFlow_TopBottom,
-	/// Перед текстом
+	// Перед текстом
 	eFlow_FrontText,
-	/// За текстом
+	// За текстом
 	eFlow_BehindText,
-	/// Справа
+	// Справа
 	eFlow_Right,
-	/// Слева
+	// Слева
 	eFlow_Left,
-	/// Неизвестный тип
+	// Unknown type
 	eFlow_Unknown = 0xFFFF
 };
 
-/// Способ отображения объекта
+// Способ отображения объекта
 enum ESldDisplay
 {
-	/// Объект отображается как встроенный (без переноса текста)
+	// Объект отображается как встроенный (без переноса текста)
 	eDisplay_Inline = 0,
-	/// Объект показывается как блочный (происходит перенос строк в начале и в конце содержимого)
+	// Объект показывается как блочный (происходит перенос строк в начале и в конце содержимого)
 	eDisplay_Block,
-	/// Объект отображается поверх остального контента без вмешательства в его верстку
+	// Объект отображается поверх остального контента без вмешательства в его верстку
 	eDisplay_Front,
-	/// Объект отображается позади остального контента без вмешательства в его верстку
+	// Объект отображается позади остального контента без вмешательства в его верстку
 	eDisplay_Behind,
-	/// Неизвестный тип
+	// Unknown type
 	eDisplay_Unknown = 0xFFFF,
 };
 
-/// Способ выравнивания объекта
+// Способ выравнивания объекта
 enum ESldFloat
 {
-	/// Выравнивания нет
+	// Выравнивания нет
 	eFloat_None = 0,
-	/// Выравнивание по левому краю
+	// Выравнивание по левому краю
 	eFloat_Left,
-	/// Выравнивание по правому краю
+	// Выравнивание по правому краю
 	eFloat_Right,
-	/// Неизвестный тип выравнивания
+	// Неизвестный тип выравнивания
 	eFloat_Unknown = 0xFFFF,
 };
 
-/// Cпособ отмены выравнивания объекта
+// Cпособ отмены выравнивания объекта
 enum ESldClearType
 {
-	/// Отменяет действие свойства clear, при этом обтекание элемента происходит, как задано с помощью свойства float или других настроек.
+	// Отменяет действие свойства clear, при этом обтекание элемента происходит, как задано с помощью свойства float или других настроек.
 	eClearType_None = 0,
-	/// Отменяет обтекание с левой стороны элемента. 
+	// Отменяет обтекание с левой стороны элемента. 
 	eClearType_Left,
-	/// Отменяет обтекание с правой стороны элемента. 
+	// Отменяет обтекание с правой стороны элемента. 
 	eClearType_Right,
-	/// Отменяет обтекание элемента одновременно с правого и левого края.
-	/// Это значение рекомендуется устанавливать, когда требуется снять обтекание элемента, но неизвестно точно с какой стороны.
+	// Отменяет обтекание элемента одновременно с правого и левого края.
+	// Это значение рекомендуется устанавливать, когда требуется снять обтекание элемента, но неизвестно точно с какой стороны.
 	eClearType_Both,
-	/// Неизвестный тип
+	// Unknown type
 	eClearType_Unknown = 0xFFFF,
 };
 
-/// Cпособ расположения на странице
+// Cпособ расположения на странице
 enum ESldPlace
 {
-	/// В тексте
+	// В тексте
 	ePlace_InText = 0,
-	/// Левый верхний угол
+	// Левый верхний угол
 	ePlace_UpLeft,
-	/// Вверху по центру
+	// Вверху по центру
 	ePlace_UpMiddle,
-	/// Правый верхний угол
+	// Правый верхний угол
 	ePlace_UpRight,
-	/// Посередине слева
+	// Посередине слева
 	ePlace_MiddleLeft,
-	/// По центру
+	// По центру
 	ePlace_Centre,
-	/// Посередине справа
+	// Посередине справа
 	ePlace_MiddleRight,
-	/// Левый нижний угол
+	// Левый нижний угол
 	ePlace_DownLeft,
-	/// Снизу по центру
+	// Снизу по центру
 	ePlace_DownMiddle,
-	/// Правый нижний угол
+	// Правый нижний угол
 	ePlace_DownRight,
-	/// Неизвестный тип
+	// Unknown type
 	ePlace_Unknown = 0xFFFF
 };
 
-/// Эффект отображения на странице
+// Эффект отображения на странице
 enum ESldShowEffect
 {
 	eShowEffect_Base = 0,
-	/// Неизвестный тип
+	// Unknown type
 	eShowEffect_Unknown = 0xFFFF
 };
 
-/// Эффект переключения между кадрами
+// Эффект переключения между кадрами
 enum ESldMoveEffect
 {
 	eMoveEffect_Base = 0,
-	/// Неизвестный тип
+	// Unknown type
 	eMoveEffect_Unknown = 0xFFFF
 };
 
-/// Битовый набор свойств словаря
+// Битовый набор свойств словаря
 enum ESldFeatures
 {
 	eFeature_SkeletalMode = 0,
@@ -1520,16 +1520,16 @@ enum ESldFeatures
     eFeature_DarkTheme,
 };
 
-/// Типы содержимого учебника
+// Типы содержимого учебника
 enum ESldContentType
 {
-	/// теория
+	// теория
 	eDataBaseContentType_Theory = 1 << 0,
-	/// практика
+	// практика
 	eDataBaseContentType_Practice = 1 << 1,
-	/// методическое пособие
+	// методическое пособие
 	eDataBaseContentType_MethodBook = 1 << 2,
-	/// задачник
+	// задачник
 	eDataBaseContentType_ProblemBook = 1 << 3,
 
 	eDataBaseContentType_Corps = 1 << 4,
@@ -1545,56 +1545,56 @@ enum ESldContentType
 	eDataBaseContentType_Scenario = 1 << 14,
 	eDataBaseContentType_Fiction = 1 << 15,
 
-	/// База, содержащая бинарные ресурсы для баз
+	// База, содержащая бинарные ресурсы для баз
 	eDataBaseContentType_ExternalResource = 1 << 16,
 
 	eDataBaseContentType_Other = 1 << 20, // мелкие типы база, пока здесь только определитель
-	/// неизвестный тип
+	// неизвестный тип
 	eDataBaseContentType_Wrong = 0xFFFF - 0xFFFF/2
 };
 
-/// Тим медиа данных в контейнере
+// Тим медиа данных в контейнере
 enum ESldMediaType
 {
-	/// текст
+	// текст
 	eMedia_Text = 0,
-	/// изображение
+	// изображение
 	eMedia_Image,
-	/// озвучка
+	// озвучка
 	eMedia_Audio,
-	/// таблица
+	// таблица
 	eMedia_Table,
-	/// видео
+	// видео
 	eMedia_Video,
-	/// трехмерная сцена
+	// трехмерная сцена
 	eMedia_3d,
-	/// слайдшоу
+	// слайдшоу
 	eMedia_SlideShow,
-	/// горизонтальная линия
+	// горизонтальная линия
 	eMedia_Line,
-	/// сноски на полях
+	// сноски на полях
 	eMedia_Marginal,
-	/// карта
+	// карта
 	eMedia_Map,
-	/// дано/найти/решение
+	// дано/найти/решение
 	eMedia_TaskBlock,
-	/// конструктор
+	// конструктор
 	eMedia_Creator,
-	/// зона для рисования
+	// зона для рисования
 	eMedia_Paint,
-	/// область с интерактивными объектами
+	// область с интерактивными объектами
 	eMedia_InteractiveArea,
-	/// сноски
+	// сноски
 	eMedia_Footnote,
-	/// поля учебника
+	// поля учебника
 	eMedia_Overlay,
-	/// для блочной верстки контента (подразумевается различный тип содержимого: картинки, видео итд итп)
+	// для блочной верстки контента (подразумевается различный тип содержимого: картинки, видео итд итп)
 	eMedia_Block,
-	/// Последнее значащее значение, нужно для определения размера енама 
+	// Последнее значащее значение, нужно для определения размера енама 
 	eMedia_Last
 };
 
-/// Тип тайлинга в медиаконтейнере
+// Тип тайлинга в медиаконтейнере
 enum ESldTiling
 {
 	eTilingNone = 0,
@@ -1604,7 +1604,7 @@ enum ESldTiling
 	eTilingSpread,
 };
 
-/// Тип вертикального выравнивания
+// Тип вертикального выравнивания
 enum ESldAlignVertical
 {
 	eAlignVNone = 0,
@@ -1613,7 +1613,7 @@ enum ESldAlignVertical
 	eAlignVBottom,
 };
 
-/// Тип горизонтального выравнивания
+// Тип горизонтального выравнивания
 enum ESldAlignHorizont
 {
 	eAlignHNone = 0,
@@ -1641,8 +1641,8 @@ enum ESldSymbolType
 	eCmpNativeCharType
 };
 
-/// Типы токенов логического выражения
-/// Также описывают приоритет операций
+// Типы токенов логического выражения
+// Также описывают приоритет операций
 enum ELogicalExpressionTokenTypes
 {
 	eTokenType_Operand = 0,
@@ -1661,13 +1661,13 @@ enum EExpressionBoxPreparedType
 	eExpressionBoxOnlyZeroSymbol
 };
 
-/// Базовая версия листа с точками быстрого доступа
+// Базовая версия листа с точками быстрого доступа
 #define VERSION_LIST_BASE					(1)
 
-/// Версия листа с прямым доступом к словам
+// Версия листа с прямым доступом к словам
 #define VERSION_LIST_DIRECT_ACCESS			(2)
 
-/// Определяет, на каких уровнях каталога будет производиться поиск
+// Определяет, на каких уровнях каталога будет производиться поиск
 enum ESldSearchRange
 {
 	// Уровни определяются автоматически(на случай, если выведем данную функцию в интерфейс)
@@ -1682,16 +1682,16 @@ enum ESldSearchRange
 	eSearchRangeCurrentLevelRecursive,
 };
 
-/// Насыщенность
+// Насыщенность
 enum ESldBoldValue
 {
-	/// соответствует html-евскому font-weight: normal
+	// соответствует html-евскому font-weight: normal
 	eBoldValueNormal = 0,
-	/// html bold
+	// html bold
 	eBoldValueBold,
-	/// html bolder
+	// html bolder
 	eBoldValueBolder,
-	/// html lighter
+	// html lighter
 	eBoldValueLighter
 };
 
@@ -1727,152 +1727,152 @@ enum ESldInfoResourceIndex
 	eInfoIndex_Annotation,
 };
 
-/// Тип карты
+// Тип карты
 enum ESldMapType
 {
-	/// слайдшоу
+	// слайдшоу
 	eMap_Slide = 0,
-	/// слой
+	// слой
 	eMap_Layer,
 };
 
 
-/// Тип контента элементарного объекта
+// Тип контента элементарного объекта
 enum ESldAtomicObjectContentType
 {
-	/// Текст
+	// Текст
 	eContentType_Text = 0,
-	/// Изображение
+	// Изображение
 	eContentType_Image,
-	/// Видео
+	// Видео
 	eContentType_Video,
-	/// Звук
+	// Звук
 	eContentType_Sound,
-	/// Текст
+	// Текст
 	eContentType_3D,
-	/// Слайдшоу
+	// Слайдшоу
 	eContentType_Slideshow,
-	/// Таблица
+	// Таблица
 	eContentType_Table,
-	/// Тест
+	// Тест
 	eContentType_Test,
-	/// Объект для рисования
+	// Объект для рисования
 	eContentType_DrawingObject,
-	/// Заметка на полях
+	// Заметка на полях
 	eContentType_Sidenote,
-	/// Диаграма
+	// Диаграма
 	eContentType_Diagram,
 
-	/// Неизвестный тип
+	// Unknown type
 	eContentType_Unknown = 0xFFFF
 };
 
-/// Логический тип элементарного объекта
+// Логический тип элементарного объекта
 enum ESldLogicalType
 {
-	/// Задача
+	// Задача
 	eLogicalType_Problem = 0,
-	/// Задание
+	// Задание
 	eLogicalType_Task,
-	/// Пример
+	// Пример
 	eLogicalType_Example,
-	/// Объяснение
+	// Объяснение
 	eLogicalType_Explanation,
-	/// Фактологический материал
+	// Фактологический материал
 	eLogicalType_Fact,
-	/// Дополнительный материал
+	// Дополнительный материал
 	eLogicalType_Additional,
 
-	/// Неизвестный тип
+	// Unknown type
 	eLogicalType_Unknown = 0xFFFF
 };
 
 
-/// Тип деятельности для элементарного объекта
+// Тип деятельности для элементарного объекта
 enum ESldActivityType
 {
-	/// Знать
+	// Знать
 	eActivityType_Know = 0,
-	/// Называть
+	// Называть
 	eActivityType_Name,
-	/// Составлять
+	// Составлять
 	eActivityType_DrawUp,
-	/// Объяснять
+	// Объяснять
 	eActivityType_Explain,
-	/// Характеризовать
+	// Характеризовать
 	eActivityType_Characterise,
-	/// Определять
+	// Определять
 	eActivityType_Determine,
-	/// Классифицировать
+	// Классифицировать
 	eActivityType_Classify,
-	/// Отображать
+	// Отображать
 	eActivityType_Display,
-	/// Проводить эксперимент
+	// Проводить эксперимент
 	eActivityType_ConductExperiment,
-	/// Вычислять
+	// Вычислять
 	eActivityType_Calculate,
-	/// Понимать
+	// Понимать
 	eActivityType_Understand,
-	/// Моделировать
+	// Моделировать
 	eActivityType_Simulate,
-	/// Анализировать
+	// Анализировать
 	eActivityType_Analyze,
-	/// Сравнивать и различать
+	// Сравнивать и различать
 	eActivityType_CompareDiffer,
-	/// Описывать
+	// Описывать
 	eActivityType_Describe,
-	/// Планировать
+	// Планировать
 	eActivityType_Plan,
-	/// Сопоставлять
+	// Сопоставлять
 	eActivityType_Collate,
-	/// Доказывать
+	// Доказывать
 	eActivityType_Prove,
-	/// Искать информацию
+	// Искать информацию
 	eActivityType_SearchInformation,
-	/// Делать устные и письменные сообщения
+	// Делать устные и письменные сообщения
 	eActivityType_Report,
-	/// Обобщать
+	// Обобщать
 	eActivityType_Generalize,
-	/// Переводить
+	// Переводить
 	eActivityType_Translate,
-	/// Применять знания
+	// Применять знания
 	eActivityType_ApplyKnowledge,
-	/// Решать задачи
+	// Решать задачи
 	eActivityType_Solve,
-	/// Создавать тексты
+	// Создавать тексты
 	eActivityType_Compose,
-	/// Вести диалог
+	// Вести диалог
 	eActivityType_Dialog,
-	/// Читать
+	// Читать
 	eActivityType_Read,
-	/// Писать
+	// Писать
 	eActivityType_Write,
-	/// Говорение
+	// Говорение
 	eActivityType_Talk,
-	/// Аудировать
+	// Аудировать
 	eActivityType_Listen,
-	/// Интерпретировать
+	// Интерпретировать
 	eActivityType_Interpret,
-	/// Оценивать
+	// Оценивать
 	eActivityType_Evaluate,
-	/// Определять тип
+	// Определять тип
 	eActivityType_DefineType,
-	/// Формулировать
+	// Формулировать
 	eActivityType_Formulate,
-	/// Аргументировать и обосновывать
+	// Аргументировать и обосновывать
 	eActivityType_ArgueJustify,
-	/// Исследовать
+	// Исследовать
 	eActivityType_Explore,
-	/// Измерять
+	// Измерять
 	eActivityType_Measure,
-	/// Выполнять учебные и творческие задачи
+	// Выполнять учебные и творческие задачи
 	eActivityType_PerfromTasks,
-	/// Проектировать
+	// Проектировать
 	eActivityType_Design,
-	/// Показывать на карте
+	// Показывать на карте
 	eActivityType_ShowOnMap,
 
-	/// неизвестный тип
+	// неизвестный тип
 	eActivityType_Unknown = 0xFFFF
 };
 
@@ -1891,82 +1891,82 @@ enum ESldContainerExtansion
 	eExtansionRight,
 };
 
-/// Перечисление, описывающее возможные типы грамматических тестов
+// Перечисление, описывающее возможные типы грамматических тестов
 enum ESldTestModeEnum
 {
-	/// Тест, экзаменационный
+	// Тест, экзаменационный
 	eTestModeExam = 0,
-	/// Тест, проверочная
+	// Тест, проверочная
 	eTestModeTesting,
-	/// Лабораторная работа
+	// Лабораторная работа
 	eTestModePractical,
 };
 
-/// Перечисление, описывающее возможные типы вывода вариантов ответов
+// Перечисление, описывающее возможные типы вывода вариантов ответов
 enum ESldTestOrderEnum
 {
-	/// Значение по умолчанию
+	// Значение по умолчанию
 	eTestOrderDefault = 0,
-	/// Фиксированный порядок
+	// Фиксированный порядок
 	eTestOrderFixed = eTestOrderDefault,
-	/// Случайный порядок
+	// Случайный порядок
 	eTestOrderRandom,
 };
 
-/// Перечисление, описывающее варианты отображения в демо-версии
+// Перечисление, описывающее варианты отображения в демо-версии
 enum ESldTestDemoEnum
 {
-	/// Значение по умолчанию
+	// Значение по умолчанию
 	eTestDemoDefault = 0,
-	/// Показывать в демо-версии
+	// Показывать в демо-версии
 	eTestDemoShow,
-	/// Не показывать в демо-версии
+	// Не показывать в демо-версии
 	eTestDemoHide,
 };
 
-/// Перечисление, описывающее возможную сложность теста
+// Перечисление, описывающее возможную сложность теста
 enum ESldTestDifficultyEnum
 {
-	/// Значение по умолчанию
+	// Значение по умолчанию
 	ESldTestDifficultyDefault = 0,
 
-	/// Базовый тест
+	// Базовый тест
 	ESldTestDifficulty1,
-	/// Профильный тест
+	// Профильный тест
 	ESldTestDifficulty2,
-	/// Тест повышенной сложности
+	// Тест повышенной сложности
 	ESldTestDifficulty3,
 };
 
-/// тесты с выделением текста
+// тесты с выделением текста
 enum ESldTextControl
 {
-	/// свободное выделение
+	// свободное выделение
 	eTextControlFree = 0,
-	/// выделение слова
+	// выделение слова
 	eTextControlWord,
-	/// выделение предложения
+	// выделение предложения
 	eTextControlSentence,
-	/// последний
+	// последний
 	eTextControlLast = eTextControlSentence,
 };
 
-/// варианты в блоке дано/найти/решение
+// варианты в блоке дано/найти/решение
 enum ESldTaskBlockType
 {
-	/// Дано
+	// Дано
 	eTaskBlockGiven = 0,
-	/// Найти
+	// Найти
 	eTaskBlockFind,
-	/// Решение
+	// Решение
 	eTaskBlockSolvation,
-	/// Доказать
+	// Доказать
 	eTaskBlockProve,
-	/// Доказательство
+	// Доказательство
 	eTaskBlockProof,
-	/// Анализ
+	// Анализ
 	eTaskBlockAnalysis,
-	/// Дополнительно
+	// Дополнительно
 	eTaskBlockAdditional
 };
 
@@ -1992,373 +1992,373 @@ enum ESldContentTypeVariant
 	eContentTypeVariantPhoto
 };
 
-/// элементы легенды
+// элементы легенды
 enum ESldLegendItemType
 {
 	eLegendItemTypeDefault = 0,
-	/// Легенда для заливки
+	// Легенда для заливки
 	eLegendItemTypeFill,
-	/// Легенда для линий (стрелок)
+	// Легенда для линий (стрелок)
 	eLegendItemTypeLine,
-	/// Легенда иконок
+	// Легенда иконок
 	eLegendItemTypeIcon,
 };
 
-/// Тип подписи (под изображением)
+// Тип подписи (под изображением)
 enum ESldCaptionType
 {
-	/// Собственно подпись
+	// Собственно подпись
 	eCaptionTypeCaption = 0,
-	/// Индекс изображения (например, 13.1)
+	// Индекс изображения (например, 13.1)
 	eCaptionTypeIndex,
-	/// Пояснитeльный текст
+	// Пояснитeльный текст
 	eCaptionTypeExplanation,
 
 	eCaptionTypeUnknown = 0xFFFF
 };
 
-/// Тип контента, который может содержаться во внешних базах
+// Тип контента, который может содержаться во внешних базах
 enum ESldExternContentType
 {
-	/// Изображения
+	// Изображения
 	eExternContentTypeImage = 0,
-	/// Видео
+	// Видео
 	eExternContentTypeVideo,
-	/// Звук
+	// Звук
 	eExternContentTypeSound,
-	/// 3D
+	// 3D
 	eExternContentTypeScene,
-	/// Контент, на который ведет ссылка
+	// Контент, на который ведет ссылка
 	eExternContentTypeLink,
-	/// Контент, который вставляется через extern_article
+	// Контент, который вставляется через extern_article
 	eExternContentTypeExternArticle,
 	
 	// Добавляем выше
 	eExternContentTypeMax
 };
 
-/// Форма интерактивного объекта
+// Форма интерактивного объекта
 enum ESldInteractiveObjectShapeEnum
 {
-	/// Прямоугольник
+	// Прямоугольник
 	eInteractiveObjectShape_Rect = 0,
-	/// Круг
+	// Круг
 	eInteractiveObjectShape_Circle,
 };
 
-/// Расположение ленты в ленте времени
+// Расположение ленты в ленте времени
 enum ESldTimeLinePosition
 {
-	/// Над виджетом
+	// Над виджетом
 	eTimeLineAbove = 0,
-	/// Под
+	// Под
 	eTimeLineBelow,
-	/// Слева
+	// Слева
 	eTimeLineLeft,
-	/// Справа
+	// Справа
 	eTimeLineRight
 };
 
-/// Тип метки (label)
+// Тип метки (label)
 enum ESldLabelType
 {
-	/// Обычная метка
+	// Обычная метка
 	eLabelNormal = 0,
-	/// Метка страницы
+	// Метка страницы
 	eLabelPage,
-	/// Метка ПП
+	// Метка ПП
 	eLabelFullTextSearch,
 };
 
-/// Форматы формул
+// Форматы формул
 enum ESldFormulaType
 {
 	eFormulaMathMl = 0,
 	eFormulaAsciiMathMl
 };
 
-/// Типы Callback-ов, передаваемых в функцию WordFound()
+// Типы Callback-ов, передаваемых в функцию WordFound()
 enum ESldWordFoundCallbackType
 {
-	/// Начало поиска
+	// Начало поиска
 	eWordFoundCallbackStartSearch = 0,
-	/// Callback, возвращаемый через каждые SLD_SEARCH_CALLBACK_INTERLEAVE слов
+	// Callback, возвращаемый через каждые SLD_SEARCH_CALLBACK_INTERLEAVE слов
 	eWordFoundCallbackInterleave,
-	/// Слово найдено
+	// Слово найдено
 	eWordFoundCallbackFound,
-	/// Мы превысили требуемое количество результатов поиска
+	// Мы превысили требуемое количество результатов поиска
 	eWordFoundCallbackOverflow,
-	/// Конец поиска
+	// Конец поиска
 	eWordFoundCallbackStopSearch,
-	/// Начало мультипоиска поиска (в процессе может вызываться несколько поисковых функций)
+	// Начало мультипоиска поиска (в процессе может вызываться несколько поисковых функций)
 	eWordFoundCallbackStartMultiSearch,
-	/// Конец мультипоиска поиска
+	// Конец мультипоиска поиска
 	eWordFoundCallbackStopMultiSearch
 };
 
-/// Значение по умолчанию, для максимального раскрытия всех подуровней иерархии
+// Значение по умолчанию, для максимального раскрытия всех подуровней иерархии
 #define SLD_UNCOVER_HIERARHCHY_MAXIMUM_DEPTH (MAX_UINT_VALUE)
 
-/// Состояние записи в пользовательском списке слов
+// Состояние записи в пользовательском списке слов
 enum ESubwordsState
 {
-	/// Запись не имеет связанных с ней слов
+	// Запись не имеет связанных с ней слов
 	eSubwordsStateHasNotSubwords = 0,
-	/// Связанные слова не отображаются в списке
+	// Связанные слова не отображаются в списке
 	eSubwordsStateCollapsed,
-	/// Связанные слова отображаются в списке
+	// Связанные слова отображаются в списке
 	eSubwordsStateUncovered
 };
 
-/// Тип уровня иерархии
+// Тип уровня иерархии
 enum EHierarchyLevelType
 {
-	/// Обычная папка, при инициализации списка закрыта, при переходе отображает отдельный список с ее содержимым
+	// Обычная папка, при инициализации списка закрыта, при переходе отображает отдельный список с ее содержимым
 	eLevelTypeNormal = 0,
-	/// Закрытая при инициализации папка, при переходе содержимое папки добавляется в основной список
+	// Закрытая при инициализации папка, при переходе содержимое папки добавляется в основной список
 	eLevelTypeCovered,
-	/// Открытая при инициализации папка, при переходе содержимое папки удаляется из основного списка
+	// Открытая при инициализации папка, при переходе содержимое папки удаляется из основного списка
 	eLevelTypeUncovered,
-	/// Открытая при инициализации папка, никаких действий с папкой не предусмотрено
+	// Открытая при инициализации папка, никаких действий с папкой не предусмотрено
 	eLevelTypeStaticUncovered
 };
 
-/// Стиль границы вокруг элемента
+// Стиль границы вокруг элемента
 enum EBorderStyle
 {
-	/// None
+	// None
 	eBorderStyleNone = 0,
-	/// Hidden
+	// Hidden
 	eBorderStyleHidden,
-	/// Dotted
+	// Dotted
 	eBorderStyleDotted,
-	/// Dashed
+	// Dashed
 	eBorderStyleDashed,
-	/// Solid
+	// Solid
 	eBorderStyleSolid,
-	/// Double
+	// Double
 	eBorderStyleDouble,
-	/// Groove
+	// Groove
 	eBorderStyleGroove,
-	/// Ridge
+	// Ridge
 	eBorderStyleRidge,
-	/// Inset
+	// Inset
 	eBorderStyleInset,
-	/// Outset
+	// Outset
 	eBorderStyleOutset,
-	/// Unknown
+	// Unknown
 	eBorderStyleUnknown = 0xFFFF
 };
 
-/// Уровни образования
+// Уровни образования
 enum EEducationalLevel
 {
-	/// дошкольное образование
+	// дошкольное образование
 	eEducationalLevelPreschoolEducation = (1 << 0),
-	/// начальное общее образование
+	// начальное общее образование
 	eEducationalLevelPrimaryEducation = (1 << 1),
-	/// основное общее
+	// основное общее
 	eEducationalLevelBasicEducation = (1 << 2),
-	/// среднее (полное) общее
+	// среднее (полное) общее
 	eEducationalLevelSecondaryEducation = (1 << 3),
-	/// начальное профессиональное
+	// начальное профессиональное
 	eEducationalLevelTechnicalSchoolFirstCycle = (1 << 4),
-	/// среднее профессиональное
+	// среднее профессиональное
 	eEducationalLevelTechnicalSchoolSecondCycle = (1 << 5),
-	/// высшее профессиональное
+	// высшее профессиональное
 	eEducationalLevelHigherEducation = (1 << 6),
-	/// послевузовское профессиональное
+	// послевузовское профессиональное
 	eEducationalLevelUniversityPostgraduate = (1 << 7),
-	/// профессиональная подготовка
+	// профессиональная подготовка
 	eEducationalLevelVocationalTraining = (1 << 8),
-	/// дополнительное образование
+	// дополнительное образование
 	eEducationalLevelAdditionalEducation = (1 << 9),
 
-	/// Unknown
+	// Unknown
 	eEducationalLevelUnknown = 0
 };
 
-/// Перечисление, описывающее возможные бренды словарной базы
+// Перечисление, описывающее возможные бренды словарной базы
 enum EDictionaryBrandName
 {
-	/// Slovoed
+	// Slovoed
 	eBrand_SlovoEd = 0,
-	/// Merriam-Webster
+	// Merriam-Webster
 	eBrand_Merriam_Webster,
-	/// Oxford
+	// Oxford
 	eBrand_Oxford,
-	/// Duden
+	// Duden
 	eBrand_Duden,
-	/// PONS
+	// PONS
 	eBrand_PONS,
-	/// VOX
+	// VOX
 	eBrand_VOX,
-	/// Van Dale
+	// Van Dale
 	eBrand_Van_Dale,
-	/// AL-MAWRID
+	// AL-MAWRID
 	eBrand_AL_MAWRID,
-	/// Harrap
+	// Harrap
 	eBrand_Harrap,
-	/// AKADEMIAI KIADO
+	// AKADEMIAI KIADO
 	eBrand_AKADEMIAI_KIADO,
-	/// MultiLex
+	// MultiLex
 	eBrand_MultiLex,
-	/// Berlitz
+	// Berlitz
 	eBrand_Berlitz,
-	/// Langenscheidt
+	// Langenscheidt
 	eBrand_Langenscheidt,
-	/// Britannica
+	// Britannica
 	eBrand_Britannica,
-	/// Mondadori
+	// Mondadori
 	eBrand_Mondadori,
-	/// Slovari XXI veka
+	// Slovari XXI veka
 	eBrand_Slovari_XXI_veka,
-	/// Enciclopedia Catalana
+	// Enciclopedia Catalana
 	eBrand_Enciclopedia_Catalana,
-	/// Collins
+	// Collins
 	eBrand_Collins,
-	/// WAHRIG
+	// WAHRIG
 	eBrand_WAHRIG,
-	/// Wat&Hoe
+	// Wat&Hoe
 	eBrand_Wat_N_Hoe,
-	/// Le Robert
+	// Le Robert
 	eBrand_Le_Robert,
-	/// AUP PONS
+	// AUP PONS
 	eBrand_AUP_PONS,
-	/// Independent Publishing
+	// Independent Publishing
 	eBrand_Independent_Publishing,
-	/// Chambers (Hodder)
+	// Chambers (Hodder)
 	eBrand_Chambers,
-	/// Barron's
+	// Barron's
 	eBrand_Barrons,
-	/// Cambridge
+	// Cambridge
 	eBrand_Cambridge,
-	/// Librairie Orientale
+	// Librairie Orientale
 	eBrand_Librairie_Orientale,
-	/// Hoepli
+	// Hoepli
 	eBrand_Hoepli,
-	/// Drofa
+	// Drofa
 	eBrand_Drofa,
-	/// RedHouse
+	// RedHouse
 	eBrand_Red_House,
-	/// Living Language
+	// Living Language
 	eBrand_Living_Language,
-	/// PASSWORD
+	// PASSWORD
 	eBrand_PASSWORD,
-	/// Richmond
+	// Richmond
 	eBrand_Richmond,
-	/// Magnus
+	// Magnus
 	eBrand_Magnus,
-	/// Ecovit Kiado
+	// Ecovit Kiado
 	eBrand_Ecovit_Kiado,
-	/// Priroda
+	// Priroda
 	eBrand_Priroda,
-	/// Operator's Dictionary
+	// Operator's Dictionary
 	eBrand_Operators_Dictionary,
-	/// Lexikon 2K (Peter Bondesson)
+	// Lexikon 2K (Peter Bondesson)
 	eBrand_Lexikon_2K,
-	/// Lexicology Centre (G. BABINIOTIS)
+	// Lexicology Centre (G. BABINIOTIS)
 	eBrand_Lexicology_Centre,
-	/// Туровер
+	// Туровер
 	eBrand_Turover,
-	/// Международные отношения
+	// Международные отношения
 	eBrand_International_Relations,
-	/// MYJMK
+	// MYJMK
 	eBrand_MYJMK,
-	/// TransLegal
+	// TransLegal
 	eBrand_TransLegal,
-	/// Focalbeo
+	// Focalbeo
 	eBrand_Focalbeo,
-	/// Insight Guides
+	// Insight Guides
 	eBrand_Insight_Guides,
-	/// Editura Litera
+	// Editura Litera
 	eBrand_Editura_Litera,
-	/// ЛЭУ
+	// ЛЭУ
 	eBrand_EtbLab,
-	/// ЭЛОКОНТ
+	// ЭЛОКОНТ
 	eBrand_ELOKONT,
-	/// Просвещение
+	// Просвещение
 	eBrand_Prosveschenie,
-	/// Городской Методический Центр
+	// Городской Методический Центр
 	eBrand_Gorodskoy_Metodologicheskiy_Centr,
-	/// Вентана - Граф
+	// Вентана - Граф
 	eBrand_Ventana_Graf,
-	/// Астрель
+	// Астрель
 	eBrand_Astrel,
-	/// Кузнецов(словенский)
+	// Кузнецов(словенский)
 	eBrand_Kuznetsov,
-	/// The Kosciuszko Foundation
+	// The Kosciuszko Foundation
 	eBrand_The_Kosciuszko_Foundation,
-	/// Druid Multimedia
+	// Druid Multimedia
 	eBrand_Druid,
-	/// Academia International
+	// Academia International
 	eBrand_AcademiaInternational,
-	/// Zanichelli Editore
+	// Zanichelli Editore
 	eBrand_Zanichelli_Editore,
 
 	// общее количество брендов и последний "значащий"
 	eBrandName_Count,
 	eBrandName_Last = eBrandName_Count - 1,
 
-	/// Неизвестный тип
+	// Unknown type
 	eBrand_Unknown = 0xFFFF
 };
 
-/// Перечисление, описывающее, каким образом вычислялось смещение до начала слова внутри статьи в списке слов полнотекстового поиска
+// Перечисление, описывающее, каким образом вычислялось смещение до начала слова внутри статьи в списке слов полнотекстового поиска
 enum EFullTextSearchShiftType
 {
-	/// Смещение не вычислялось
+	// Смещение не вычислялось
 	eShiftType_None = 0,
-	/// Смещение является количеством символов от начала статьи до начала слова
+	// Смещение является количеством символов от начала статьи до начала слова
 	eShiftType_SymbolsFromArticleBegin,
-	/// Неизвестный тип
+	// Unknown type
 	eShiftType_Unknown = 0xFFFF
 };
 
 enum ESldAbstractResourceType
 {
-	/// Лаборатория алгебры
+	// Лаборатория алгебры
 	eAbstractResourceAlgebraLab = 0,
-	/// Лаборатория геометрии
+	// Лаборатория геометрии
 	eAbstractResourceGeometryLab,
-	/// Карты
+	// Карты
 	eAbstractResourceMapLab,
 
-	/// ???
+	// ???
 	eAbstractResourceHtmlSite,
-	/// ???
+	// ???
 	eAbstractResourceFlash,
 
-	/// Лаборатория стереометрии
+	// Лаборатория стереометрии
 	eAbstractResourceStereometryLab,
-	/// Лаборатория физики
+	// Лаборатория физики
 	eAbstractResourcePhysicsLab
 };
 
-/// Направления кроссворда
+// Направления кроссворда
 enum ESldCrosswordItemDirection
 {
-	/// По горизонтали
+	// По горизонтали
 	eCrosswordItemDirectionHorizontal = 0,
-	/// По вертикали
+	// По вертикали
 	eCrosswordItemDirectionVertical,
 
 	eCrosswordItemDirectionUnknown = -1
 };
 
 
-/// Тип списка
+// Тип списка
 enum ESldListType
 {
-	/// Неупорядоченный
+	// Неупорядоченный
 	eListTypeUnordered = 0,
-	/// Упорядоченный
+	// Упорядоченный
 	eListTypeOrdered,
-	/// Упорядоченный в обратном порядке
+	// Упорядоченный в обратном порядке
 	eListTypeOrderedReversed
 };
 
-/// Перечисление, описывающее возможные подтипы тестов на сопоставление
+// Перечисление, описывающее возможные подтипы тестов на сопоставление
 enum ESldMappingTestTypeEnum
 {
 	// Тип по умолчанию (деревья)
@@ -2368,40 +2368,40 @@ enum ESldMappingTestTypeEnum
 	// Связывание
 	eMappingTestTypeConnection,
 
-	/// Неизвестный тип теста
+	// Неизвестный тип теста
 	eTestMappingTypeUnknown = 0xFFFF,
 };
 
-/// Тип получаемых морфоформ
+// Тип получаемых морфоформ
 enum EMorphoFormsType
 {
-	/// Все морфоформы
+	// Все морфоформы
 	eMorphoAll = 0,
-	/// Только базовые формы
+	// Только базовые формы
 	eMorphoBase,
-	/// Только производные формы
+	// Только производные формы
 	eMorphoDerivative
 };
 
-/// Версия speex-контейнера, в заголовок которого зашивается условное качество звука
+// Версия speex-контейнера, в заголовок которого зашивается условное качество звука
 #define SPEEX_FORMAT_VERSION_QUALITY					(1)
-/// Версия speex-контейнера, в заголовок которого зашивается размер пакета декодированных данных
+// Версия speex-контейнера, в заголовок которого зашивается размер пакета декодированных данных
 #define SPEEX_FORMAT_VERSION_PACKET_SIZE				(2)
-/// В период с 10.11.10 по 20.04.11 вместо версии зашивалась версия ядра, по функционалу не отличается от SPEEX_FORMAT_VERSION_QUALITY
+// В период с 10.11.10 по 20.04.11 вместо версии зашивалась версия ядра, по функционалу не отличается от SPEEX_FORMAT_VERSION_QUALITY
 #define SPEEX_FORMAT_VERSION_OLD						(100)
 
-/// Сигнатура элемента истории (для точного определения границ элемента, вне зависимости от разрядности системы)
+// Сигнатура элемента истории (для точного определения границ элемента, вне зависимости от разрядности системы)
 #define HISTORY_ELEMENT_SIGNATURE						('TSIH')
 
-/// Селектор для Emoji-символов по умолчанию (для отображения стандартного юникодного символа)
+// Селектор для Emoji-символов по умолчанию (для отображения стандартного юникодного символа)
 #define SLD_DEFAULT_EMOJI_SELECTOR						(0xFE0E)
 
-/// Тип Emoji-символов
+// Тип Emoji-символов
 enum EEmojiTypes
 {
-	/// Символы, которые мы считаем Emoji
+	// Символы, которые мы считаем Emoji
 	eSlovoedEmoji = 0,
-	/// Стандартные Emoji-символы
+	// Стандартные Emoji-символы
 	eFullEmoji,
 };
 
@@ -2415,24 +2415,24 @@ enum EHereditaryListType
 
 enum EDictionaryForSearchResultType
 {
-	/// Список с результатами поиска
+	// Список с результатами поиска
 	eDictionaryForSearchResultNormal = 0,
-	/// Список исправленных (опечатки, поиск по шаблону) запросов
+	// Список исправленных (опечатки, поиск по шаблону) запросов
 	eDictionaryForSearchResultRequest,
-	/// Пустой список
+	// Пустой список
 	eDictionaryForSearchResultNone
 };
 
-/// Режимы свайпа
+// Режимы свайпа
 enum ESwipingMode
 {
-	/// Свайп на любой элемент в пределах данного уровня вложенности
+	// Свайп на любой элемент в пределах данного уровня вложенности
 	ePassingAnySwipe = 0,
-	/// Свайп на элемент статейного типа (пропуская элементы нестатейного типа) в пределах данного уровня вложенности
+	// Свайп на элемент статейного типа (пропуская элементы нестатейного типа) в пределах данного уровня вложенности
 	eSkipingCatalogSwipe,
-	/// Сквозной свайп на элемент статейного типа (пропуская элементы нестатейного типа)
+	// Сквозной свайп на элемент статейного типа (пропуская элементы нестатейного типа)
 	eAcrossingCatalogSwipe,
-	/// Свайп на элемент статейного типа (блокируясь на элементах нестатейного типа) в пределах данного уровня вложенности
+	// Свайп на элемент статейного типа (блокируясь на элементах нестатейного типа) в пределах данного уровня вложенности
 	eInterruptingOnCatalogSwipe,
 };
 

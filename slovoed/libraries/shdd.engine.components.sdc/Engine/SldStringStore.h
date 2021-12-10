@@ -8,7 +8,7 @@
 #include "SldTypeDefs.h"
 #include "SldSDCReadMy.h"
 
-/// Класс отвечает за работу с упаковаными строками, по большому счету - "легкими" листами
+// Класс отвечает за работу с упаковаными строками, по большому счету - "легкими" листами
 class CSldStringStore
 {
 public:
@@ -17,10 +17,10 @@ public:
 	CSldStringStore(const CSldStringStore&) = delete;
 	CSldStringStore& operator=(const CSldStringStore&) = delete;
 
-	/// Возвращает строку по глобальному индексу
+	// Возвращает строку по глобальному индексу
 	ESldError GetString(UInt32 aIndex, SldU16StringRef &aString);
 
-	/// Возвращает строку по индексу ресурса и смещению
+	// Возвращает строку по индексу ресурса и смещению
 	ESldError GetStringDirect(UInt32 aResourceIndex, UInt32 aOffset, SldU16StringRef &aString);
 
 	// *private*
@@ -62,7 +62,7 @@ private:
 	CurrentResource m_currentResource;
 };
 
-/// Класс отвечает за работу с ресурсами содержащими 1 упакованную строчку
+// Класс отвечает за работу с ресурсами содержащими 1 упакованную строчку
 class CSldSingleStringStore
 {
 public:
@@ -71,13 +71,13 @@ public:
 	CSldSingleStringStore(const CSldSingleStringStore&) = delete;
 	CSldSingleStringStore& operator=(const CSldSingleStringStore&) = delete;
 
-	/// Загружает ресурс с по заданному типу и индексу
+	// Загружает ресурс с по заданному типу и индексу
 	ESldError Load(UInt32 aType, UInt32 aIndex = 0);
 
-	/// Возвращает размер хранимой строки включая nul-терминатор
+	// Возвращает размер хранимой строки включая nul-терминатор
 	UInt32 Size() const;
 
-	/// Декодирует строку в предоставленый буфер
+	// Декодирует строку в предоставленый буфер
 	ESldError Decode(UInt16 *aString, UInt32 *aLength) const;
 
 private:

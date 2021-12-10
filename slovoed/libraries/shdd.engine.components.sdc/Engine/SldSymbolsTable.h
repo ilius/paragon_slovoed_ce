@@ -11,7 +11,7 @@ namespace sld2
 {
 	namespace symbolsTable
 	{
-		/// Возвращает сортированный массив Emoji-символов
+		// Возвращает сортированный массив Emoji-символов
 		inline Span<const UInt16> GetFullEmojiTable()
 		{
 			static const UInt16 fullEmojiTable[]
@@ -123,7 +123,7 @@ namespace sld2
 			return sld2::make_span(fullEmojiTable);
 		}
 
-		/// Возвращает сортированный массив словоедовских Emoji-символов
+		// Возвращает сортированный массив словоедовских Emoji-символов
 		inline Span<const UInt16> GetSldEmojiTable()
 		{
 			static const UInt16 sldEmojiTable[]
@@ -135,7 +135,7 @@ namespace sld2
 			return sld2::make_span(sldEmojiTable);
 		}
 
-		/// Возвращает сортированный массив пробельных символов
+		// Возвращает сортированный массив пробельных символов
 		inline Span<const UInt16> GetSpaceTable()
 		{
 			static const UInt16 spaceTable[]
@@ -176,34 +176,34 @@ namespace sld2
 	} //symbolsTable
 } // sld2
 
-/// Класс, представляющий таблицу символов для определенного языка либо таблицу символов-разделителей
+// Класс, представляющий таблицу символов для определенного языка либо таблицу символов-разделителей
 class CSldSymbolsTable
 {
 public:
 	
-	/// Конструктор
+	// Constructor
 	CSldSymbolsTable(void);
 
 public:
 
-	/// Инициализация
+	// Initialization
 	ESldError Init(CSDCReadMy &aData, UInt32 aResourceType, UInt32 aResourceIndex);
 	
-	/// Получает код языка таблицы
+	// Получает код языка таблицы
 	ESldLanguage GetLanguageCode() const;
 	
-	/// Проверяет, принадлежит ли символ языку
+	// Проверяет, принадлежит ли символ языку
 	bool IsSymbolBelongToLanguage(UInt16 aCode) const;
 
-	/// Объединяет таблицы символов
+	// Объединяет таблицы символов
 	ESldError MergeTables(const CSldSymbolsTable* aTable);
 
 private:
 
-	/// Заголовок таблицы
+	// Заголовок таблицы
 	TLanguageSymbolsTableHeader m_Header;
 	
-	/// Таблица
+	// Таблица
 	sld2::DynArray<UInt8> m_Table;
 	
 };
